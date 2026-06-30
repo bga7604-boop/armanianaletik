@@ -1,3 +1,0 @@
-npx create-next-app@latest armani-site
-cd armani-site
-npm run dev
