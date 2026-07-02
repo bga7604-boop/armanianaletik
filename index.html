@@ -138,3 +138,94 @@
 </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armani Analetik.kz - Спорт аналитикасы</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #121212; color: #ffffff; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+        header { background-color: #1e1e1e; width: 100%; text-align: center; padding: 25px 0; border-bottom: 2px solid #ffcc00; }
+        header h1 { margin: 0; color: #ffcc00; font-size: 28px; }
+        .container { max-width: 600px; width: 92%; margin: 20px 0; }
+        .card { background-color: #1e1e1e; padding: 20px; margin-bottom: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        h2 { color: #ffcc00; font-size: 20px; margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .btn { display: block; background-color: #24a1de; color: white; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: bold; text-align: center; margin-top: 15px; transition: 0.3s; }
+        .tariff { border: 1px solid #333; padding: 15px; border-radius: 8px; margin-bottom: 15px; background: #252525; }
+        .vote-btn { background: #2b2b2b; color: white; border: 1px solid #444; padding: 15px; border-radius: 8px; cursor: pointer; width: 100%; margin-bottom: 10px; position: relative; overflow: hidden; text-align: left; font-size: 16px; }
+        .vote-bar { position: absolute; top: 0; left: 0; bottom: 0; background: rgba(255, 204, 0, 0.25); width: 0%; transition: width 0.8s ease; }
+        .vote-percent { position: absolute; right: 15px; font-weight: bold; color: #ffcc00; }
+        footer { text-align: center; padding: 20px; color: #666; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>⚽ Armani Analetik.kz</h1>
+    <p>Спорт аналитикасы және конкурстар</p>
+</header>
+
+<div class="container">
+    <!-- 1. Дауыс беру -->
+    <div class="card">
+        <h2>📊 Көрерменнің ойы</h2>
+        <p>Алдағы матчта кім жеңеді?</p>
+        <h3 style="text-align: center; color: #fff; margin: 15px 0;">Реал Мадрид – Бавария</h3>
+        <button onclick="vote('team1')" class="vote-btn"><span class="vote-text">⚽ Реал Мадрид</span><div id="bar-team1" class="vote-bar"></div><span id="percent-team1" class="vote-percent"></span></button>
+        <button onclick="vote('draw')" class="vote-btn"><span class="vote-text">🤝 Тең ойын</span><div id="bar-draw" class="vote-bar"></div><span id="percent-draw" class="vote-percent"></span></button>
+        <button onclick="vote('team2')" class="vote-btn"><span class="vote-text">⚽ Бавария</span><div id="bar-team2" class="vote-bar"></div><span id="percent-team2" class="vote-percent"></span></button>
+    </div>
+
+    <!-- 2. Аналитика -->
+    <div class="card">
+        <h2>📊 Бүгінгі аналитика</h2>
+        <p>Дәл талдаулар мен инсайдтарды көру үшін:</p>
+        <a href="https://t.me/analetik_1" class="btn">Бүгінгі болжамды көру</a>
+    </div>
+
+    <!-- 3. VIP Тарифтер -->
+    <div class="card">
+        <h2>🔥 VIP Жазылу</h2>
+        <div class="tariff">
+            <div style="color: #ffcc00; font-weight: bold;">📅 1 Апталық VIP</div>
+            <ul style="font-size: 14px; color: #ccc;"><li>Күнделікті 2-3 матч</li><li>Коэффициент 1.80-2.50</li></ul>
+        </div>
+        <div class="tariff">
+            <div style="color: #ffcc00; font-weight: bold;">📆 1 Айлық VIP</div>
+            <ul style="font-size: 14px; color: #ccc;"><li>Барлық болжамдар</li><li>Жеке менеджмент</li></ul>
+        </div>
+        <a href="https://t.me/analetik_1" class="btn" style="background: #e6b800; color: #000;">VIP-ке жазылу</a>
+    </div>
+
+    <!-- 4. Статистика -->
+    <div class="card">
+        <h2>📈 Соңғы нәтижелер</h2>
+        <div style="display:flex; justify-content:space-between; padding: 8px 0; border-bottom: 1px solid #333;"><span>Реал - Барса</span><span style="color:#4caf50">✅ Өтті</span></div>
+        <div style="display:flex; justify-content:space-between; padding: 8px 0; border-bottom: 1px solid #333;"><span>Ливерпуль - Челси</span><span style="color:#4caf50">✅ Өтті</span></div>
+    </div>
+</div>
+
+<footer>© 2026 Armani Analetik | @top_bol 🔥</footer>
+
+<script>
+    let votes = JSON.parse(localStorage.getItem('armani_votes')) || { team1: 45, draw: 15, team2: 40 };
+    function updateUI() {
+        let total = votes.team1 + votes.draw + votes.team2;
+        ['team1', 'draw', 'team2'].forEach(id => {
+            let p = Math.round((votes[id] / total) * 100);
+            document.getElementById('percent-' + id).innerText = p + '%';
+            document.getElementById('bar-' + id).style.width = p + '%';
+        });
+    }
+    function vote(option) {
+        if(localStorage.getItem('voted')) { alert('Сіз дауыс беріп қойдыңыз!'); return; }
+        votes[option]++;
+        localStorage.setItem('armani_votes', JSON.stringify(votes));
+        localStorage.setItem('voted', 'true');
+        updateUI();
+    }
+    updateUI();
+</script>
+</body>
+</html>
