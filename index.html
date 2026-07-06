@@ -8,11 +8,11 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0c0c0c; color: #ffffff; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
         
-        /* Жүгірмелі жолақ */
+        /* 🔵 ЖҮГІРМЕЛІ ЖОЛАҚ (Қанық көк фон, ақ мәтін) */
         .running-text-container {
             width: 100%;
-            background: #ffcc00;
-            color: #000000;
+            background: #0052cc;
+            color: #ffffff;
             white-space: nowrap;
             overflow: hidden;
             padding: 10px 0;
@@ -28,33 +28,36 @@
         .running-text { display: inline-block; padding-left: 100%; animation: marquee 20s linear infinite; }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
-        /* «AV» ЭМБЛЕМАСЫ БАР ХЕДЕР СТИЛІ */
-        header { background-color: #161616; width: 100%; text-align: center; padding: 25px 0; border-bottom: 2px solid #ffcc00; }
+        /* ХЕДЕР СТИЛІ (Ақ жиекпен бөлінген) */
+        header { background-color: #161616; width: 100%; text-align: center; padding: 25px 0; border-bottom: 2px solid #ffffff; }
         .logo-wrapper { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 5px; }
-        header h1 { margin: 0; color: #ffcc00; font-size: 26px; font-weight: 800; letter-spacing: 0.5px; }
+        header h1 { margin: 0; color: #ffffff; font-size: 26px; font-weight: 800; letter-spacing: 0.5px; }
         header p { margin: 4px 0 0 0; color: #aaaaaa; font-size: 14px; }
         
-        /* Кәсіби монограммаға арналған стильдер */
-        .logo-svg-av { width: 38px; height: 38px; filter: drop-shadow(0 0 6px rgba(255, 204, 0, 0.6)); }
+        /* 🔵 «AV» ЭМБЛЕМАСЫ (Қанық көк пен ақ жарық) */
+        .logo-svg-av { width: 38px; height: 38px; filter: drop-shadow(0 0 6px rgba(0, 82, 204, 0.8)); }
         
         .container { max-width: 550px; width: 94%; margin: 15px 0; }
         .card { background-color: #161616; padding: 18px; margin-bottom: 15px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
-        h2 { color: #ffcc00; font-size: 18px; margin-top: 0; border-bottom: 1px solid #262626; padding-bottom: 8px; font-weight: 700; }
+        h2 { color: #ffffff; font-size: 18px; margin-top: 0; border-bottom: 1px solid #262626; padding-bottom: 8px; font-weight: 700; }
         p { font-size: 14px; color: #cccccc; line-height: 1.5; }
 
+        /* Батырмалар */
         .btn { display: block; background-color: #24a1de; color: white; padding: 16px; text-decoration: none; border-radius: 12px; font-weight: bold; text-align: center; margin-top: 15px; font-size: 16px; transition: transform 0.1s, background-color: 0.2s; border: none; width: 100%; }
         .btn:active { transform: scale(0.98); background-color: #1d82b5; }
         
         .tariff { border: 1px solid #262626; padding: 14px; border-radius: 10px; margin-bottom: 12px; background: #1e1e1e; }
         
+        /* Дауыс беру тақтасы */
         .vote-btn { background: #222222; color: white; border: 1px solid #333; padding: 16px; border-radius: 12px; cursor: pointer; width: 100%; margin-bottom: 10px; position: relative; overflow: hidden; text-align: left; font-size: 15px; transition: transform 0.1s; display: flex; justify-content: space-between; align-items: center; }
-        .vote-btn:active { transform: scale(0.98); border-color: #ffcc00; }
-        .vote-bar { position: absolute; top: 0; left: 0; bottom: 0; background: rgba(255, 204, 0, 0.2); width: 0%; transition: width 0.8s ease; }
+        .vote-btn:active { transform: scale(0.98); border-color: #0052cc; }
+        .vote-bar { position: absolute; top: 0; left: 0; bottom: 0; background: rgba(0, 82, 204, 0.25); width: 0%; transition: width 0.8s ease; }
         .vote-text { position: relative; z-index: 2; font-weight: 600; }
-        .vote-percent { font-weight: bold; color: #ffcc00; z-index: 2; }
+        .vote-percent { font-weight: bold; color: #0052cc; z-index: 2; }
         
-        .vip-lock-box { background: linear-gradient(135deg, #251e0a 0%, #1a1a1a 100%); border: 1px dashed #ffcc00; padding: 18px; border-radius: 10px; text-align: center; margin-top: 10px; }
-        .vip-badge { background: #ffcc00; color: #000; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; position: absolute; top: 18px; right: 18px; }
+        /* 🔵 VIP ЗОНА (Қанық көк жиек және стиль) */
+        .vip-lock-box { background: linear-gradient(135deg, #09172e 0%, #1a1a1a 100%); border: 1px dashed #0052cc; padding: 18px; border-radius: 10px; text-align: center; margin-top: 10px; }
+        .vip-badge { background: #0052cc; color: #ffffff; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; position: absolute; top: 18px; right: 18px; }
         
         /* Конкурс блоктары */
         .contest-prize { background: #1a251a; border: 1px solid #4caf50; padding: 12px; border-radius: 10px; text-align: center; font-weight: bold; color: #4caf50; font-size: 16px; margin-bottom: 15px; }
@@ -66,15 +69,15 @@
         .streak-container { display: flex; gap: 8px; justify-content: center; margin: 12px 0; font-size: 18px; }
         .streak-badge { background: #222222; padding: 6px 12px; border-radius: 8px; border: 1px solid #333; }
 
-        /* Жаңа бөлімдердің стильдері (FAQ және Отзывы) */
+        /* Сұрақтар мен пікірлер */
         .faq-item { border-bottom: 1px solid #222; padding: 12px 0; }
-        .faq-question { font-weight: bold; color: #ffcc00; font-size: 14px; margin-bottom: 4px; }
+        .faq-question { font-weight: bold; color: #ffffff; font-size: 14px; margin-bottom: 4px; }
         .faq-answer { font-size: 13px; color: #bbb; line-height: 1.4; }
         
         .review-item { background: #1c1c1c; padding: 12px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #2c2c2c; }
         .review-header { display: flex; justify-content: space-between; font-size: 13px; color: #888; margin-bottom: 6px; }
         .review-user { color: #24a1de; font-weight: bold; }
-        .review-text { font-size: 13px; color: #ddd; italic; }
+        .review-text { font-size: 13px; color: #ddd; }
         
         footer { text-align: center; padding: 25px; color: #555; font-size: 12px; }
     </style>
@@ -89,12 +92,14 @@
 
 <header>
     <div class="logo-wrapper">
-        <!-- ГЕОМЕТРИЯЛЫҚ АЛТЫН ТҮСТІ «AV» ЭМБЛЕМАСЫ -->
+        <!-- 🔵 ЖАҢАРҒАН «AV» ҚАНЫҚ КӨК ЖӘНЕ АҚ ЭМБЛЕМАСЫ -->
         <svg class="logo-svg-av" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="45" fill="none" stroke="#ffcc00" stroke-width="4" opacity="0.4"/>
-            <path d="M25 70 L45 25 L53 25" fill="none" stroke="#ffcc00" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M47 25 L65 70 L75 25" fill="none" stroke="#ffcc00" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M34 52 L48 52" fill="none" stroke="#ffcc00" stroke-width="5" stroke-linecap="round"/>
+            <!-- Тұрақты көк шеңбер -->
+            <circle cx="50" cy="50" r="45" fill="none" stroke="#0052cc" stroke-width="4" opacity="0.5"/>
+            <!-- Ақ түсті нақты AV әріптері -->
+            <path d="M25 70 L45 25 L53 25" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M47 25 L65 70 L75 25" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M34 52 L48 52" fill="none" stroke="#0052cc" stroke-width="5" stroke-linecap="round"/>
         </svg>
         <h1>Armani Analetik.kz</h1>
     </div>
@@ -109,7 +114,7 @@
         <p>Armani Analetik жобасы өз қолданушылары арасында тұрақты түрде ірі ақшалай конкурстар ұйымдастырады. Төмендегі шарттарды мұқият оқып, толық орындаңыз!</p>
         
         <div class="contest-prize">
-            💰 КОНКУРС ЖҮЛДЕ САНДЫҒЫ: 5000 ТЕҢГЕ
+            💰 КОНКУРС ЖҮЛДЕ САНДЫҒЫ: 50,000 ТЕҢГЕ
         </div>
 
         <div class="contest-step">
@@ -124,16 +129,16 @@
 
         <div class="contest-step">
             <strong>3-ҚАДАМ: Есепті жазу</strong>
-            Телеграм каналымыздағы ең жоғарғы жағында бекітіліп тұрған (закрепленный) жазбаның астыне осы матчтың нақты біту есебін (мысалы: 2:1 немесе 1:1) коммент ретінде қалдырыңыз.
+            Телеграм каналымыздағы ең жоғарғы жағында бекітіліп тұрған (закрепленный) жазбаның астына осы матчтың нақты біту есебін (мысалы: 2:1 немесе 1:1) коммент ретінде қалдырыңыз.
         </div>
 
-        <h3 style="font-size: 14px; color: #ffcc00; margin: 15px 0 5px 0;">📜 Конкурстың толық ережелері:</h3>
+        <h3 style="font-size: 14px; color: #ffffff; margin: 15px 0 5px 0; border-bottom: 1px solid #222; padding-bottom: 3px;">📜 Конкурстың толық ережелері:</h3>
         
         <div class="rules-scroll-box">
-            <p><strong>§ 1. Жалпы ережелер:</strong> 1.1. Осы конкурс Armani Analetik платформасының барлық белсенді қолданушылары үшін толықтай тегін және ашық түрде өткізіледі. 1.2. Конкурсқа қатысу үшін ешқандай жарна немесе ақшалай төлем талап етілмейді.</p>
-            <p><strong>§ 2. Қатысушыларға қойылатын талаптар:</strong> 2.1. Конкурсқа тіркелу үшін тек қана 18 жасқа толған Қазақстан Республикасының және ТМД елдерінің азаматтары қатыса алады. 2.2. Бір қолданушы тек бір профиль арқылы ғана қатыса алады. Мультиаккаунт қолданған адамдар анықталған жағдайда қара тізімге (бан) енгізіледі.</p>
-            <p><strong>§ 3. Есептерді қабылдау тәртібі:</strong> 3.1. Матчтың нақты есебі жазылған пікірлер ойын басталғанға дейін дәл 5 минут бұрын автоматты түрде тоқтатылады. Ойын басталғаннан кейін қалдырылған немесе өңделген пікірлер жарамсыз деп танылады. 3.2. Нақты есеп негізгі уақыттың (90 минут) қорытындысы бойынша есептеледі.</p>
-            <p><strong>§ 4. Жеңімпаздарды анықтау және жүлде бөлісу:</strong> 4.1. Егер матчтың нақты есебін бірнеше қатысушы дәл тапса, онда бас жүлде (50,000 теңге) барлық жеңімпаздар арасында теңдей бөлінеді. 4.2. Жеңімпаздар матч аяқталғаннан кейін 24 сағат ішінде жарияланады. Жүлделер Kaspi картасына тікелей аударылады.</p>
+            <p><strong>§ 1. Жалпы ережелер:</strong> 1.1. Осы конкурс Armani Analetik платформасының барлық белсенді қолданушылары үшін толықтай тегін және ашық түрде өткізіледі.</p>
+            <p><strong>§ 2. Қатысушыларға қойылатын талаптар:</strong> 2.1. Конкурсқа тіркелу үшін тек қана 18 жасқа толған Қазақстан Республикасының және ТМД елдерінің азаматтары қатыса алады. 2.2. Бір қолданушы тек бір профиль арқылы ғана қатыса алады.</p>
+            <p><strong>§ 3. Есептерді қабылдау тәртібі:</strong> 3.1. Матчтың нақты есебі жазылған пікірлер ойын басталғанға дейін дәл 5 минут бұрын автоматты түрде тоқтатылады. 3.2. Нақты есеп негізгі уақыттың (90 минут) қорытындысы бойынша есептеледі.</p>
+            <p><strong>§ 4. Жеңімпаздарды анықтау және жүлде бөлісу:</strong> 4.1. Егер матчтың нақты есебін бірнеше қатысушы дәл тапса, онда бас жүлде (50,000 теңге) барлық жеңімпаздар арасында теңдей бөлінеді. 4.2. Жеңімпаздар матч аяқталғаннан кейін 24 сағат ішінде жарияланады.</p>
         </div>
 
         <a href="https://t.me/analetik_1" class="btn" style="background: #4caf50;">Конкурсқа қатысу (Telegram-ға өту)</a>
@@ -149,15 +154,15 @@
         <button onclick="vote('team2')" class="vote-btn"><span class="vote-text">🇦🇹 Аустрия жеңісі</span><div id="bar-team2" class="vote-bar"></div><span id="percent-team2" class="vote-percent"></span></button>
     </div>
 
-    <!-- VIP ЗОНА -->
-    <div class="card" style="border: 1px solid #ffcc00;">
+    <!-- 🔵 VIP ЗОНА (Жаңа қанық көк стильде) -->
+    <div class="card" style="border: 1px solid #0052cc;">
         <h2>👑 VIP Зона (Жабық Инсайдтар)</h2>
         <span class="vip-badge">🔒 VIP ИНСАЙД</span>
         <p>Бүгінгі таңдаулы халықаралық матчтарға арналған жабық талдау:</p>
         <div class="vip-lock-box">
-            <p style="margin: 5px 0; font-size: 14px; color: #aaa;">Коэффициент: <strong style="color: #ffcc00; font-size: 16px;">2.15+</strong> • Сенімділік: <strong style="color: #4caf50; font-size: 16px;">90%</strong></p>
+            <p style="margin: 5px 0; font-size: 14px; color: #aaa;">Коэффициент: <strong style="color: #ffffff; font-size: 16px;">2.15+</strong> • Сенімділік: <strong style="color: #4caf50; font-size: 16px;">90%</strong></p>
             <p style="font-size: 12px; color: #888; margin: 5px 0;">Бұл болжамды тек VIP жазылушылар көре алады.</p>
-            <a href="https://t.me/analetik_1" class="btn" style="background: #e6b800; color: #000; margin-top: 10px;">Рұқсат алу (Telegram)</a>
+            <a href="https://t.me/analetik_1" class="btn" style="background: #0052cc; color: #ffffff; margin-top: 10px;">Рұқсат алу (Telegram)</a>
         </div>
     </div>
 
@@ -165,17 +170,17 @@
     <div class="card">
         <h2>🔥 VIP Жазылу Тарифтері</h2>
         <div class="tariff">
-            <div style="color: #ffcc00; font-weight: bold; font-size: 15px;">📅 1 Апталық VIP</div>
+            <div style="color: #ffffff; font-weight: bold; font-size: 15px; border-left: 3px solid #0052cc; padding-left: 6px;">📅 1 Апталық VIP</div>
             <ul style="font-size: 13px; color: #ccc; margin: 5px 0 0 0; padding-left: 15px;"><li>Күнделікті 2-3 таңдаулы матч</li><li>Коэффициент 1.80-2.50</li></ul>
         </div>
         <div class="tariff">
-            <div style="color: #ffcc00; font-weight: bold; font-size: 15px;">📆 1 Айлық VIP</div>
+            <div style="color: #ffffff; font-weight: bold; font-size: 15px; border-left: 3px solid #0052cc; padding-left: 6px;">📆 1 Айлық VIP</div>
             <ul style="font-size: 13px; color: #ccc; margin: 5px 0 0 0; padding-left: 15px;"><li>Барлық инсайдтарға толық рұқсат</li><li>Жеке банк менеджменті</li></ul>
         </div>
         <a href="https://t.me/analetik_1" class="btn" style="background: #24a1de; color: #fff;">VIP-ке жазылу</a>
     </div>
 
-    <!-- КЛИЕНТТЕР ПІКІРІ (ЖАҢА) -->
+    <!-- Пайдаланушылар пікірі -->
     <div class="card">
         <h2>💬 Пайдаланушылар пікірі</h2>
         <div class="review-item">
@@ -188,7 +193,7 @@
         </div>
     </div>
 
-    <!-- ЖИІ ҚОЙЫЛАТЫН СҰРАҚТАР (ЖАҢА) -->
+    <!-- Жиі қойылатын сұрақтар -->
     <div class="card">
         <h2>❓ Жиі қойылатын сұрақтар (FAQ)</h2>
         <div class="faq-item">
@@ -208,14 +213,14 @@
             <span class="streak-badge">✅</span><span class="streak-badge">✅</span><span class="streak-badge">✅</span><span class="streak-badge">❌</span><span class="streak-badge">✅</span>
         </div>
         <div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px solid #222; font-size: 14px;"><span>🇰🇿 Қазақстан - 🇳🇴 Норвегия</span><span style="color:#4caf50; font-weight:bold;">✅ Өтті (1.95)</span></div>
-        <div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px solid #222; font-size: 14px;"><span>🇸Ⅰ Словения - 🇰🇿 Қазақстан</span><span style="color:#4caf50; font-weight:bold;">✅ Өтті (1.80)</span></div>
+        <div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px solid #222; font-size: 14px;"><span>🇸🇮 Словения - 🇰🇿 Қазақстан</span><span style="color:#4caf50; font-weight:bold;">✅ Өтті (1.80)</span></div>
     </div>
 </div>
 
 <footer>© 2026 Armani Analetik | @top_bol 🔥</footer>
 
 <script>
-    let votes = JSON.parse(localStorage.getItem('armani_v9_votes')) || { team1: 98, draw: 32, team2: 55 };
+    let votes = JSON.parse(localStorage.getItem('armani_v10_votes')) || { team1: 104, draw: 35, team2: 58 };
     function updateUI() {
         let total = votes.team1 + votes.draw + votes.team2;
         ['team1', 'draw', 'team2'].forEach(id => {
@@ -225,10 +230,10 @@
         });
     }
     function vote(option) {
-        if(localStorage.getItem('voted_v9')) { alert('Сіз дауыс беріп қойдыңыз!'); return; }
+        if(localStorage.getItem('voted_v10')) { alert('Сіз дауыс беріп қойдыңыз!'); return; }
         votes[option]++;
-        localStorage.setItem('armani_v9_votes', JSON.stringify(votes));
-        localStorage.setItem('voted_v9', 'true');
+        localStorage.setItem('armani_v10_votes', JSON.stringify(votes));
+        localStorage.setItem('voted_v10', 'true');
         updateUI();
     }
     updateUI();
