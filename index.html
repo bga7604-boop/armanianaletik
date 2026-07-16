@@ -6,7 +6,16 @@
     <title>Armani Analetik.kz - Кәсіби спорт аналитикасы</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0c0c0c; color: #ffffff; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: #0c0c0c; 
+            color: #ffffff; 
+            margin: 0; 
+            padding: 0 0 75px 0; /* Төменгі мәзір сыйып тұруы үшін астынан бос орын қалдырдық */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
         
         /* 🔵 ЖҮГІРМЕЛІ ЖОЛАҚ */
         .running-text-container {
@@ -141,13 +150,71 @@
             gap: 12px;
             transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .live-notif.show { bottom: 20px; }
+        .live-notif.show { bottom: 85px; } /* Bottom Nav-тан жоғары тұруы үшін өзгерттік */
         .live-notif-icon { background: rgba(0, 82, 204, 0.1); color: #0052cc; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
         .live-notif-text { font-size: 12px; color: #ccc; line-height: 1.3; }
         .live-notif-text strong { color: #fff; }
 
         @media (min-width: 550px) {
             .live-notif { left: auto; right: 20px; }
+        }
+
+        /* 👤 ЖЕКЕ ПРОФИЛЬ СТИЛЬДЕРІ */
+        .profile-info { display: flex; align-items: center; gap: 15px; background: #222; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .profile-avatar { width: 55px; height: 55px; background: #0052cc; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; text-transform: uppercase; }
+        .profile-details { flex-grow: 1; }
+        .profile-name { font-size: 16px; font-weight: bold; color: white; margin-bottom: 4px; }
+        .profile-status { display: inline-block; background: rgba(255, 188, 0, 0.15); border: 1px solid #ffbc00; color: #ffbc00; font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: bold; }
+        
+        .profile-stat-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .profile-stat-item { background: #1a1a1a; padding: 12px; border-radius: 8px; border: 1px solid #2c2c2c; text-align: center; }
+        .profile-stat-val { font-size: 18px; font-weight: bold; color: #24a1de; margin-bottom: 4px; }
+        .profile-stat-lbl { font-size: 11px; color: #888; text-transform: uppercase; }
+
+        /* 📱 ТӨМЕНГІ НАВИГАЦИЯЛЫҚ МӘЗІР (BOTTOM NAVIGATION BAR) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 65px;
+            background-color: #111111;
+            border-top: 1px solid #222222;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 999;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #888888;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 500;
+            width: 20%;
+            height: 100%;
+            transition: color 0.2s;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            margin-bottom: 4px;
+            fill: currentColor;
+            transition: transform 0.2s;
+        }
+        .nav-item:active svg {
+            transform: scale(0.9);
+        }
+        /* Белсенді болғанда жанатын стиль (Көк түс) */
+        .nav-item.active {
+            color: #24a1de;
         }
 
         footer { text-align: center; padding: 25px; color: #555; font-size: 12px; }
@@ -182,44 +249,385 @@
 
 <div class="container">
 
-    <!-- Конкурс бөлімі -->
-    <div class="card" style="border: 1px solid #4caf50;">
-        <h2>🎁 Ақшалай конкурс: Нақты есепті тап!</h2>
-        <p>Armani Analetik жобасы өз қолданушылары арасында тұрақты түрде ірі ақшалай конкурстар ұйымдастырады. Төмендегі шарттарды мұқият оқып, толық орындаңыз!</p>
-        
-        <div class="contest-prize">
-            💰 КОНКУРС ЖҮЛДЕ САНДЫҒЫ: 5,000 ТЕҢГЕ
+    <!-- 1. БАСТЫ БЕТ (КОНКУРС ЖӘНЕ ДАУЫС БЕРУ БӨЛІМІ) -->
+    <div id="home-section">
+        <!-- Конкурс бөлімі -->
+        <div class="card" style="border: 1px solid #4caf50;">
+            <h2>🎁 Ақшалай конкурс: Нақты есепті тап!</h2>
+            <p>Armani Analetik жобасы өз қолданушылары арасында тұрақты түрде ірі ақшалай конкурстар ұйымдастырады. Төмендегі шарттарды мұқият оқып, толық орындаңыз!</p>
+            
+            <div class="contest-prize">
+                💰 КОНКУРС ЖҮЛДЕ САНДЫҒЫ: 5,000 ТЕҢГЕ
+            </div>
+
+            <div class="contest-step">
+                <strong>1-ҚАДАМ: Дауыс беру</strong>
+                Төменде орналасқан интерактивті тақтада «Қазақстан – Аустрия» матчында қай команда жеңіске жетеді деп ойлайтыныңызды таңдап, ресми дауысыңызды қалдырыңыз.
+            </div>
+
+            <div class="contest-step">
+                <strong>2-ҚАДАМ: Telegram каналға тіркелу</strong>
+                Төмендегі арнайы батырма арқылы біздің негізгі Telegram каналымызға өтіп, міндетті түрде жазылыңыз. Конкурс нәтижелері мен жеңімпаздар зерттеліп сол жерде жарияланады.
+            </div>
+
+            <div class="contest-step">
+                <strong>3-ҚАДАМ: Есепті жазу</strong>
+                Телеграм каналымыздағы ең жоғарғы жағында бекітіліп тұрған (закрепленный) жазбаның астына осы матчтың нақты біту есебін (мысалы: 2:1 немесе 1:1) коммент ретінде қалдырыңыз.
+            </div>
+
+            <!-- 🎫 БИЛЕТ ГЕНЕРАТОРЫ (ИНТЕРАКТИВТІ БЛОК) -->
+            <div class="ticket-box">
+                <div class="ticket-title">Сіздің конкурсқа қатысу билетіңіз:</div>
+                <div id="ticket-area">
+                    <button onclick="generateTicket()" class="btn" style="background: #4caf50; margin-top: 5px; padding: 12px;">🎟️ Билетті алу</button>
+                </div>
+            </div>
+
+            <h3 style="font-size: 14px; color: #ffffff; margin: 15px 0 5px 0; border-bottom: 1px solid #222; padding-bottom: 3px;">📜 Конкурстың толық ережелері:</h3>
+            
+            <div class="rules-scroll-box">
+                <p><strong>§ 1. Жалпы ережелер:</strong> 1.1. Осы конкурс Armani Analetik платформасының барлық белсенді қолданушылары үшін толықтай тегін және ашық түрде өткізіледі.</p>
+                <p><strong>§ 2. Қатысушыларға қойылатын талаптар:</strong> 2.1. Конкурсқа тіркелу үшін тек қана 18 жасқа толған Қазақстан Республикасының және ТМД елдерінің азаматтары қатыса алады. 2.2. Бір қолданушы тек бір профиль арқылы ғана қатыса алады.</p>
+                <p><strong>§ 3. Есептерді қабылдау тәртібі:</strong> 3.1. Матчтың нақты есебі жазылған пікірлер ойын басталғанға дейін дәл 5 минут бұрын автоматты түрде тоқтатылады. 3.2. Нақты есеп негізгі уақыттың (90 минут) қорытындысы бойынша есептеледі.</p>
+                <p><strong>§ 4. Жеңімпаздарды анықтау және жүлде бөлісу:</strong> 4.1. Егер матчтың нақты есебін бірнеше қатысушы дәл тапса, онда бас жүлде (5,000 теңге) барлық жеңімпаздар арасында теңдей бөлінеді. 4.2. Жеңімпаздар матч аяқталғаннан кейін 24 сағат ішінде жарияланады.</p>
+            </div>
+
+            <a href="https://t.me/analetik_1" class="btn" style="background: #4caf50;">Конкурсқа қатысу (Telegram-ға өту)</a>
         </div>
 
-        <div class="contest-step">
-            <strong>1-ҚАДАМ: Дауыс беру</strong>
-            Төменде орналасқан интерактивті тақтада «Қазақстан – Аустрия» матчында қай команда жеңіске жетеді деп ойлайтыныңызды таңдап, ресми дауысыңызды қалдырыңыз.
+        <!-- Дауыс беру -->
+        <div class="card">
+            <h2>📊 Көрерменнің ойы</h2>
+            <p>Алдағы матчта қай құрама жеңеді деп ойлайсыз?</p>
+            <h3 style="text-align: center; color: #fff; margin: 12px 0; font-size: 20px;">🇰🇿 Қазақстан – 🇦🇹 Аустрия</h3>
+            <button onclick="vote('team1')" class="vote-btn"><span class="vote-text">🇰🇿 Қазақстан жеңісі</span><div id="bar-team1" class="vote-bar"></div><span id="percent-team1" class="vote-percent"></span></button>
+            <button onclick="vote('draw')" class="vote-btn"><span class="vote-text">🤝 Тең ойын</span><div id="bar-draw" class="vote-bar"></div><span id="percent-draw" class="vote-percent"></span></button>
+            <button onclick="vote('team2')" class="vote-btn"><span class="vote-text">🇦🇹 Аустрия жеңісі</span><div id="bar-team2" class="vote-bar"></div><span id="percent-team2" class="vote-percent"></span></button>
         </div>
+    </div>
 
-        <div class="contest-step">
-            <strong>2-ҚАДАМ: Telegram каналға тіркелу</strong>
-            Төмендегі арнайы батырма арқылы біздің негізгі Telegram каналымызға өтіп, міндетті түрде жазылыңыз. Конкурс нәтижелері мен жеңімпаздар зерттеліп сол жерде жарияланады.
+
+    <!-- 2. ТЕГІН БОЛЖАМДАР БӨЛІМІ -->
+    <div id="free-section">
+        <!-- 🎁 ТЕГІН БОЛЖАМ БЛОГЫ -->
+        <div class="card" style="border: 1px solid #ffbc00;">
+            <h2>🎯 Бүгінгі тегін болжам</h2>
+            <p>Күнделікті сенімді ординар болжам. Ойын басталғанша тігіп үлгеріңіз!</p>
+            <div class="free-forecast-box">
+                <div class="free-forecast-header">
+                    <span>Ординар (Тегін)</span>
+                    <span id="forecast-date">16.07.2026</span>
+                </div>
+                <div class="free-forecast-match">⚽ Футбол. УЕФА Ұлттар Лигасы</div>
+                <div class="free-forecast-tip">
+                    <span>Болжам: <strong>Жалпы тотал (2) жоғары</strong></span>
+                    <span style="color: #ffbc00; font-weight: bold;">Кэф: 1.65 ✅</span>
+                </div>
+            </div>
+            <p style="font-size: 11px; color: #888; margin-top: 10px; text-align: center;">Аса жоғары кэфтер мен инсайдтар тек VIP арнада болады.</p>
         </div>
+    </div>
 
-        <div class="contest-step">
-            <strong>3-ҚАДАМ: Есепті жазу</strong>
-            Телеграм каналымыздағы ең жоғарғы жағында бекітіліп тұрған (закрепленный) жазбаның астына осы матчтың нақты біту есебін (мысалы: 2:1 немесе 1:1) коммент ретінде қалдырыңыз.
-        </div>
 
-        <!-- 🎫 БИЛЕТ ГЕНЕРАТОРЫ (ИНТЕРАКТИВТІ БЛОК) -->
-        <div class="ticket-box">
-            <div class="ticket-title">Сіздің конкурсқа қатысу билетіңіз:</div>
-            <div id="ticket-area">
-                <button onclick="generateTicket()" class="btn" style="background: #4caf50; margin-top: 5px; padding: 12px;">🎟️ Билетті алу</button>
+    <!-- 3. VIP ЗОНА БӨЛІМІ -->
+    <div id="vip-section">
+        <!-- VIP ЗОНА -->
+        <div class="card" style="border: 1px solid #0052cc;">
+            <h2>👑 VIP Зона (Жабық Инсайдтар)</h2>
+            <span class="vip-badge">🔒 VIP ИНСАЙД</span>
+            <p>Бүгінгі таңдаулы халықаралық матчтарға арналған жабық талдау:</p>
+            <div class="vip-lock-box">
+                <p style="margin: 5px 0; font-size: 14px; color: #aaa;">Коэффициент: <strong style="color: #ffffff; font-size: 16px;">2.15+</strong> • Сенімділік: <strong style="color: #4caf50; font-size: 16px;">90%</strong></p>
+                <p style="font-size: 12px; color: #888; margin: 5px 0;">Бұл болжамды тек VIP жазылушылар көре алады.</p>
+                <a href="https://t.me/analetik_1" class="btn" style="background: #0052cc; color: #ffffff; margin-top: 10px;">Рұқсат алу (Telegram)</a>
             </div>
         </div>
 
-        <h3 style="font-size: 14px; color: #ffffff; margin: 15px 0 5px 0; border-bottom: 1px solid #222; padding-bottom: 3px;">📜 Конкурстың толық ережелері:</h3>
-        
-        <div class="rules-scroll-box">
-            <p><strong>§ 1. Жалпы ережелер:</strong> 1.1. Осы конкурс Armani Analetik платформасының барлық белсенді қолданушылары үшін толықтай тегін және ашық түрде өткізіледі.</p>
-            <p><strong>§ 2. Қатысушыларға қойылатын талаптар:</strong> 2.1. Конкурсқа тіркелу үшін тек қана 18 жасқа толған Қазақстан Республикасының және ТМД елдерінің азаматтары қатыса алады. 2.2. Бір қолданушы тек бір профиль арқылы ғана қатыса алады.</p>
-            <p><strong>§ 3. Есептерді қабылдау тәртібі:</strong> 3.1. Матчтың нақты есебі жазылған пікірлер ойын басталғанға дейін дәл 5 минут бұрын автоматты түрде тоқтатылады. 3.2. Нақты есеп негізгі уақыттың (90 минут) қорытындысы бойынша есептеледі.</p>
-            <p><strong>§ 4. Жеңімпаздарды анықтау және жүлде бөлісу:</strong> 4.1. Егер матчтың нақты есебін бірнеше қатысушы дәл тапса, онда бас жүлде (5,000 теңге) барлық жеңімпаздар арасында теңдей бөлінеді. 4.2. Жеңімпаздар матч аяқталғаннан кейіrgin: 12px 0; font-size: 20px;">🇰🇿 Қазақстан – 🇦🇹 Аустрия</h3>
-        <button onclick="vote('team1')" class="vote-btn"><span class="vote-text">🇰🇿 Қазақстан жеңісі</span><div id="bar-team1" class="vote-bar"></div><span id="percent-team1" class="vote-percent"></span></button>
-        <button onclick="vote('draw')" class="vote-btn">
+        <!-- VIP Тарифтер -->
+        <div class="card">
+            <h2>🔥 VIP Жазылу Тарифтері</h2>
+            <div class="tariff">
+                <div style="color: #ffffff; font-weight: bold; font-size: 15px; border-left: 3px solid #0052cc; padding-left: 6px;">📅 1 Апталық VIP</div>
+                <ul style="font-size: 13px; color: #ccc; margin: 5px 0 0 0; padding-left: 15px;"><li>Күнделікті 2-3 таңдаулы матч</li><li>Коэффициент 1.80-2.50</li></ul>
+            </div>
+            <div class="tariff">
+                <div style="color: #ffffff; font-weight: bold; font-size: 15px; border-left: 3px solid #0052cc; padding-left: 6px;">📆 1 Айлық VIP</div>
+                <ul style="font-size: 13px; color: #ccc; margin: 5px 0 0 0; padding-left: 15px;"><li>Барлық инсайдтарға толық рұқсат</li><li>Жеке банк менеджменті</li></ul>
+            </div>
+            <a href="https://t.me/analetik_1" class="btn" style="background: #24a1de; color: #fff;">VIP-ке жазылу</a>
+        </div>
+    </div>
+
+
+    <!-- 4. ПІКІРЛЕР БӨЛІМІ -->
+    <div id="reviews-section">
+        <!-- 💬 ПАЙДАЛАНУШЫЛАР ПІКІРІ -->
+        <div class="card">
+            <h2>💬 Пайдаланушылар пікірі</h2>
+            
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="review-user-box">
+                        <span class="review-user">Асхат К.</span>
+                        <span class="verified-badge">✓ Тексерілді</span>
+                    </div>
+                    <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                </div>
+                <div class="review-text">"Айлық VIP алғаныма 2 апта болды. Банкті сауатты басқарудың арқасында жақсы плюсқа шықтым. Рахмет, Armani!"</div>
+                <div style="text-align: right; margin-top: 5px;"><span class="review-status">💎 1 Айлық VIP</span></div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="review-user-box">
+                        <span class="review-user">Мадияр Б.</span>
+                        <span class="verified-badge">✓ Тексерілді</span>
+                    </div>
+                    <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                </div>
+                <div class="review-text">"Өткен аптада нақты есепті дәл тауып, ұтып алдым. 5000 теңгені картама бірден аударып берді. Бәрі адал екен!"</div>
+                <div style="text-align: right; margin-top: 5px;"><span class="review-status">🎁 Конкурс жеңімпазы</span></div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="review-user-box">
+                        <span class="review-user">Нұрсұлтан Ә.</span>
+                        <span class="verified-badge">✓ Тексерілді</span>
+                    </div>
+                    <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                </div>
+                <div class="review-text">"Басында сенбей, 1 апталығын алып көргем. 7 матчтың 6-ы өтті! Өтімділігі шынымен де өте жоғары. Енді айлық VIP-ке ауысамын."</div>
+                <div style="text-align: right; margin-top: 5px;"><span class="review-status">📅 1 Апталық VIP</span></div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="review-user-box">
+                        <span class="review-user">Дәурен С.</span>
+                        <span class="verified-badge">✓ Тексерілді</span>
+                    </div>
+                    <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                </div>
+                <div class="review-text">"Аналитикасы өте мықты. Тек қана құрғақ статистика емес, командалардың ішкі жағдайын да есепке алатыны көрініп тұр. Сәттілік, Armani!"</div>
+                <div style="text-align: right; margin-top: 5px;"><span class="review-status">💎 1 Айлық VIP</span></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 5. 👤 ЖЕКЕ ПРОФИЛЬ БӨЛІМІ (ЖАҢАДАН ҚОСЫЛДЫ) -->
+    <div id="profile-section">
+        <div class="card">
+            <h2>👤 Қолданушы кабинеті</h2>
+            <div class="profile-info">
+                <div class="profile-avatar">U</div>
+                <div class="profile-details">
+                    <div class="profile-name" id="user-display-name">Қатысушы (Қонақ)</div>
+                    <div class="profile-status">Status: Тегін қолданушы</div>
+                </div>
+            </div>
+
+            <div class="profile-stat-box">
+                <div class="profile-stat-item">
+                    <div class="profile-stat-val" id="profile-ticket-display">—</div>
+                    <div class="profile-stat-lbl">Конкурс Билеті</div>
+                </div>
+                <div class="profile-stat-item">
+                    <div class="profile-stat-val">100%</div>
+                    <div class="profile-stat-lbl">Адалдық рейтингі</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <h3 style="font-size: 14px; margin-bottom: 8px;">Сіздің белсенділігіңіз:</h3>
+                <div style="background: #111; padding: 12px; border-radius: 8px; font-size: 13px; color: #aaa;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom: 8px;">
+                        <span>Телеграм каналға жазылу:</span>
+                        <span style="color: #4caf50; font-weight: bold;">Тексерілуде...</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between;">
+                        <span>Бүгінгі дауыс беру:</span>
+                        <span id="profile-vote-status" style="color: #ffbc00; font-weight: bold;">Қатыспаған</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Жиі қойылатын сұрақтар -->
+    <div class="card">
+        <h2>❓ Жиі қойылатын сұрақтар (FAQ)</h2>
+        <div class="faq-item">
+            <div class="faq-question">Болжамдардың өтімділігі (проходимость) қандай?</div>
+            <div class="faq-answer">Орташа есеппен біздің VIP инсайдтар мен талдаулардың өтімділігі 80% құрайды. 100% кепілдікті тек алаяқтар береді, ал біз таза аналитикамен жұмыс істейміз.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">Төлемнен кейін VIP-ке қалай кіремін?</div>
+            <div class="faq-answer">Сілтеме арқылы Telegram менеджерге жазасыз, ол Kaspi деректерін жібереді. Төлем жасалған соң сіз жабық VIP каналға бірден қосыласыз.</div>
+        </div>
+    </div>
+
+    <!-- Статистика -->
+    <div class="card">
+        <h2>📈 Соңғы нәтижелер</h2>
+        <div class="streak-container">
+            <span class="streak-badge">✅</span><span class="streak-badge">✅</span><span class="streak-badge">✅</span><span class="streak-badge">❌</span><span class="streak-badge">✅</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px solid #222; font-size: 14px;"><span>🇰🇿 Қазақстан - 🇳🇴 Норвегия</span><span style="color:#4caf50; font-weight:bold;">✅ Өтті (1.95)</span></div>
+        <div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px solid #222; font-size: 14px;"><span>🇸🇮 Словения - 🇰🇿 Қазақстан</span><span style="color:#4caf50; font-weight:bold;">✅ Өтті (1.80)</span></div>
+    </div>
+</div>
+
+<!-- 🔊 ЖАНДЫ ХАБАРЛАНДЫРУЛАР ТЕРЕЗЕСІ -->
+<div id="live-notif-box" class="live-notif">
+    <div class="live-notif-icon">🔔</div>
+    <div class="live-notif-text" id="live-notif-msg"></div>
+</div>
+
+<!-- 📱 ТӨМЕНГІ НАВИГАЦИЯЛЫҚ МӘЗІР (BOTTOM BAR) -->
+<nav class="bottom-nav">
+    <button class="nav-item active" onclick="scrollToSection('home-section', this)">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>Басты бет</span>
+    </button>
+    <button class="nav-item" onclick="scrollToSection('free-section', this)">
+        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <span>Тегін</span>
+    </button>
+    <button class="nav-item" onclick="scrollToSection('vip-section', this)">
+        <svg viewBox="0 0 24 24"><path d="M2 22h20V2z" opacity=".3"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 12.29l-4.24-2.5-4.24 2.5 1.02-4.83-3.69-3.21 4.93-.42L12 3.75l2.02 4.08 4.93.42-3.69 3.21 1.02 4.83z"/></svg>
+        <span>VIP Зона</span>
+    </button>
+    <button class="nav-item" onclick="scrollToSection('reviews-section', this)">
+        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+        <span>Пікірлер</span>
+    </button>
+    <button class="nav-item" onclick="scrollToSection('profile-section', this)">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span>Профиль</span>
+    </button>
+</nav>
+
+<footer>© 2026 Armani Analetik | @top_bol 🔥</footer>
+
+<script>
+    // 📱 СЕКЦИЯЛАРҒА ӨТУ ЖӘНЕ АКТИВ СТИЛЬ ЖАСАУ
+    function scrollToSection(sectionId, element) {
+        const target = document.getElementById(sectionId);
+        if (target) {
+            const offset = 80; // Жүгірмелі жолақ пен хэдердің астына дұрыс тұруы үшін
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = target.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+
+            // Мәзірдің активті түсін ауыстыру
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+    }
+
+    // 📈 ДАУЫС БЕРУ ЖҮЙЕСІ
+    let votes = JSON.parse(localStorage.getItem('armani_v11_votes')) || { team1: 108, draw: 36, team2: 61 };
+    function updateUI() {
+        let total = votes.team1 + votes.draw + votes.team2;
+        ['team1', 'draw', 'team2'].forEach(id => {
+            let p = Math.round((votes[id] / total) * 100) || 0;
+            document.getElementById('percent-' + id).innerText = p + '%';
+            document.getElementById('bar-' + id).style.width = p + '%';
+        });
+
+        // Профильдегі дауыс беру статусын жаңарту
+        if(localStorage.getItem('voted_v11')) {
+            const voteStatus = document.getElementById('profile-vote-status');
+            if (voteStatus) {
+                voteStatus.innerText = "Қатысты (Дауыс берілді)";
+                voteStatus.style.color = "#4caf50";
+            }
+        }
+    }
+    function vote(option) {
+        if(localStorage.getItem('voted_v11')) { alert('Сіз дауыс беріп қойдыңыз!'); return; }
+        votes[option]++;
+        localStorage.setItem('armani_v11_votes', JSON.stringify(votes));
+        localStorage.setItem('voted_v11', 'true');
+        updateUI();
+    }
+    updateUI();
+
+    // 🎫 БИЛЕТ ГЕНЕРАТОРЫ
+    function checkTicket() {
+        let ticket = localStorage.getItem('armani_contest_ticket');
+        if (ticket) {
+            document.getElementById('ticket-area').innerHTML = `
+                <div class="ticket-title">Сіздің белсенді билетіңіз:</div>
+                <div class="ticket-number">${ticket}</div>
+                <p style="font-size: 12px; color: #4caf50; margin: 0;">Скриншот жасап, Телеграмда қалдырыңыз!</p>
+            `;
+            // Профильде билет нөмірін және қолданушының жаңа атын көрсету
+            document.getElementById('profile-ticket-display').innerText = ticket;
+            
+            let userRandNum = ticket.split('-')[1];
+            document.getElementById('user-display-name').innerText = `User #${userRandNum}`;
+        }
+    }
+    function generateTicket() {
+        let randNum = Math.floor(1000 + Math.random() * 9000);
+        let ticketCode = `#ARMANI-${randNum}`;
+        localStorage.setItem('armani_contest_ticket', ticketCode);
+        checkTicket();
+    }
+    checkTicket();
+
+    // 👥 ОНЛАЙН СТАТИСТИКА (Жанды сандар)
+    setInterval(() => {
+        let currentOnline = parseInt(document.getElementById('online-count').innerText);
+        let diff = Math.floor(Math.random() * 7) - 3;
+        let newOnline = currentOnline + diff;
+        if (newOnline < 120) newOnline = 125;
+        if (newOnline > 180) newOnline = 175;
+        document.getElementById('online-count').innerText = newOnline;
+    }, 4000);
+
+    // 🎁 КҮНДІ АВТОМАТТЫ ТҮРДЕ АЛУ (Тегін болжам үшін)
+    const today = new Date();
+    const formattedDate = String(today.getDate()).padStart(2, '0') + '.' + String(today.getMonth() + 1).padStart(2, '0') + '.' + today.getFullYear();
+    document.getElementById('forecast-date').innerText = formattedDate;
+
+    // 🔊 ЖАНДЫ ХАБАРЛАНДЫРУЛАР СЦЕНАРИЙІ
+    const notifications = [
+        "<strong>Бағдат (Тараз)</strong> жаңа ғана 📅 1 Апталық VIP алды.",
+        "<strong>Марлен (Орал)</strong> конкурста 5,000 тг ұтып алды! 🎁",
+        "<strong>Әділет (Қарағанды)</strong> жаңа ғана 📆 1 Айлық VIP алды. 💎",
+        "<strong>Нұрасыл (Семей)</strong> тегін ординарды сәтті тікті. ✅",
+        "<strong>Санжар (Шымкент)</strong> жаңа ғана 📅 1 Апталық VIP алды.",
+        "<strong>Руслан (Атырау)</strong> конкурста нақты есепті тауып, ұтыс алды! 💰"
+    ];
+
+    function showLiveNotification() {
+        const randomIndex = Math.floor(Math.random() * notifications.length);
+        document.getElementById('live-notif-msg').innerHTML = notifications[randomIndex];
+        const box = document.getElementById('live-notif-box');
+        box.classList.add('show');
+
+        setTimeout(() => {
+            box.classList.remove('show');
+        }, 4000);
+    }
+
+    setTimeout(() => {
+        showLiveNotification();
+        setInterval(showLiveNotification, 12000);
+    }, 5000);
+</script>
+</body>
+</html>
