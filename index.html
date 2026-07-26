@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Armani Analetik.kz - Кәсіби спорт аналитикасы</title>
+    
+    <!-- 🌟 БРАУЗЕРДЕГІ ВЛАДКАҒА АРНАЛҒАН ЛОГОТИП (FAVICON) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230052cc'/><path d='M25 70 L45 25 L53 25 M47 25 L65 70 L75 25' fill='none' stroke='%23ffffff' stroke-width='7' stroke-linecap='round'/></svg>">
+
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { 
@@ -86,7 +90,7 @@
         .ticket-title { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
         .ticket-number { font-size: 22px; font-weight: 800; color: #4caf50; letter-spacing: 2px; text-shadow: 0 0 8px rgba(76,175,80,0.4); margin: 10px 0; }
 
-        /* 🎁 ТЕЛЕГРАМ СТИЛІ (ЖАҢАРТЫЛДЫ) */
+        /* 🎁 ТЕЛЕГРАМ СТИЛІ */
         .tg-redirect-box { background: linear-gradient(135deg, #11253c 0%, #161616 100%); border-left: 4px solid #24a1de; padding: 16px; border-radius: 12px; margin-top: 10px; text-align: center; }
         .tg-redirect-title { font-size: 16px; font-weight: bold; color: #24a1de; margin-bottom: 6px; }
 
@@ -99,6 +103,54 @@
         .match-team.right { justify-content: flex-end; text-align: right; }
         .match-vs { font-size: 12px; color: #24a1de; font-weight: bold; background: rgba(36,161,222,0.1); padding: 4px 10px; border-radius: 20px; }
         .match-footer { font-size: 12px; color: #ffbc00; text-align: center; margin-top: 8px; font-weight: bold; background: rgba(255,188,0,0.05); padding: 4px; border-radius: 6px; }
+
+        /* 🎡 РУЛЕТКА СТИЛЬДЕРІ */
+        .wheel-wrapper {
+            position: relative;
+            width: 260px;
+            height: 260px;
+            margin: 0 auto;
+            border-radius: 50%;
+            border: 5px solid #222;
+            box-shadow: 0 0 20px rgba(255, 188, 0, 0.3);
+            overflow: hidden;
+        }
+        .wheel-pointer {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: #ffbc00;
+            z-index: 10;
+            text-shadow: 0 2px 5px #000;
+        }
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            transition: transform 4s cubic-bezier(0.15, 0.9, 0.15, 1);
+        }
+        .wheel-sec {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wheel-sec span {
+            position: absolute;
+            left: 20px;
+            bottom: 30px;
+            font-size: 11px;
+            font-weight: 800;
+            transform: rotate(45deg);
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
 
         .faq-item { border-bottom: 1px solid #222; padding: 12px 0; }
         .faq-question { font-weight: bold; color: #ffffff; font-size: 14px; margin-bottom: 4px; }
@@ -253,29 +305,58 @@
             <h2>📅 Алдағы негізгі матчтар кестесі</h2>
             <p style="font-size: 12px; color: #aaa; margin-bottom: 12px;">Конкурсқа және талқылауға арналған басты футбол бәсекелері:</p>
             
-            <div class="match-card"> 
-                <div class="match-header"><span>25.07.2026/ 19:00</span><span>Қазақстан Премерь лигасы</span></div>
+            <div class="match-card">
+                <div class="match-header"><span>Бүгін / 21:00</span><span>УЕФА Ұлттар Лигасы</span></div>
                 <div class="match-teams">
-                    <div class="match-team left"Қайрат</div>
+                    <div class="match-team left">🇰🇿 Ордабасы</div>
                     <div class="match-vs">VS</div>
-                    <div class="match-team right"> Ордабасы</div>
+                    <div class="match-team right">🇹🇷 Алтай</div>
                 </div>
                 <div class="match-footer">🔥 Осы матчқа ТГ каналда конкурс жүріп жатыр!</div>
             </div>
 
             <div class="match-card">
-                <div class="match-header"><span>25.07.2026 / 19:00 </span><span>Қазақстан Премерь лигасы</span></div>
+                <div class="match-header"><span>Ертең / 19:30</span><span>Еуропа Лигасы</span></div>
                 <div class="match-teams">
-                    <div class="match-team left"> Астана</div>
+                    <div class="match-team left">🇲🇪 Сутьеска</div>
                     <div class="match-vs">VS</div>
-                    <div class="match-team right"> Алтай </div>
+                    <div class="match-team right">🇰🇿 Қайрат</div>
                 </div>
                 <div class="match-footer" style="color: #24a1de; background: rgba(36,161,222,0.05);">📊 Талдау және инсайдтар дайындалуда</div>
             </div>
         </div>
+
+        <!-- 🎡 СӘТТІЛІК РУЛЕТКАСЫ БӨЛІМІ -->
+        <div class="card" style="border: 1px solid #ffbc00; text-align: center;">
+            <h2>🎡 Сәттілік Рулеткасы</h2>
+            <p style="font-size: 13px; color: #aaa; margin-bottom: 15px;">Рулетканы айналдырып, Armani Analetik-тен VIP жеңілдіктер мен бонустар ұтып алыңыз!</p>
+
+            <div class="wheel-wrapper">
+                <div class="wheel-pointer">▼</div>
+                <div class="wheel" id="wheel">
+                    <div class="wheel-sec" style="transform: rotate(0deg) skewY(-30deg); background: #ffbc00; color: #000;"><span>VIP -20%</span></div>
+                    <div class="wheel-sec" style="transform: rotate(60deg) skewY(-30deg); background: #0052cc; color: #fff;"><span>Билет 🎫</span></div>
+                    <div class="wheel-sec" style="transform: rotate(120deg) skewY(-30deg); background: #24a1de; color: #fff;"><span>Инсайд 🎯</span></div>
+                    <div class="wheel-sec" style="transform: rotate(180deg) skewY(-30deg); background: #4caf50; color: #fff;"><span>+1 Билет</span></div>
+                    <div class="wheel-sec" style="transform: rotate(240deg) skewY(-30deg); background: #ffbc00; color: #000;"><span>Промокод</span></div>
+                    <div class="wheel-sec" style="transform: rotate(300deg) skewY(-30deg); background: #e53935; color: #fff;"><span>Қайта бақ</span></div>
+                </div>
+            </div>
+
+            <button id="spin-btn" onclick="spinWheel()" class="btn" style="background: linear-gradient(45deg, #ffbc00, #ff8c00); color: #000; font-weight: 800; margin-top: 20px;">
+                🎰 Рулетканы айналдыру
+            </button>
+
+            <!-- Утуис шығатын блок -->
+            <div id="win-result-box" style="display: none; margin-top: 15px; background: rgba(76,175,80,0.15); border: 1px solid #4caf50; padding: 15px; border-radius: 12px;">
+                <div style="font-size: 14px; color: #aaa;">Құттықтаймыз! Сіздің жүлдеңіз:</div>
+                <div id="win-prize-text" style="font-size: 20px; font-weight: 800; color: #4caf50; margin: 8px 0;">—</div>
+                <a href="https://t.me/analetik_1" class="btn" style="background: #24a1de; color: #fff; margin-top: 10px;">🎁 Жүлдені Телеграмнан алу</a>
+            </div>
+        </div>
     </div>
 
-    <!-- 2. ТЕГІН БОЛЖАМДАР БӨЛІМІ (ТЕЛЕГРАМҒА БАҒЫТТАУ ЕТІП ӨЗГЕРТІЛДІ) -->
+    <!-- 2. ТЕГІН БОЛЖАМДАР БӨЛІМІ -->
     <div id="free-section">
         <div class="card" style="border: 1px solid #ffbc00;">
             <h2>🎯 Бүгінгі тегін болжамдар</h2>
@@ -320,7 +401,7 @@
             </div>
         </div>
 
-        <!-- 💬 ЖАНДЫ LIVE ЧАТ -->
+        <!-- 💬 LIVE ЧАТ -->
         <div class="card" style="border: 1px solid #24a1de;">
             <h2>💬 LIVE Чат («Қонақтар бөлмесі»)</h2>
             <p style="font-size: 12px; color: #aaa; margin-bottom: 5px;">Басқа қатысушылармен алдағы матчтар мен конкурстарды онлайн талқылаңыз!</p>
@@ -448,6 +529,54 @@
     }
     checkTicket();
 
+    // 🎡 РУЛЕТКА СКРИПТІ
+    let isSpinning = false;
+    function spinWheel() {
+        if (isSpinning) return;
+        
+        if (localStorage.getItem('armani_wheel_spun')) {
+            alert('Сіз бүгінгі айналдыру мүмкіндігін пайдаландыңыз! Келесі мүмкіндік ертең болады.');
+            return;
+        }
+
+        isSpinning = true;
+        const btn = document.getElementById('spin-btn');
+        btn.style.opacity = '0.5';
+        btn.innerText = 'Айналуда... 🎰';
+
+        const prizes = [
+            { text: "VIP Зонаға 20% Жеңілдік 💎", deg: 30 },
+            { text: "Конкурсқа +1 Билет 🎫", deg: 90 },
+            { text: "Бүгінгі Экспресс Инсайд 🎯", deg: 150 },
+            { text: "VIP Конкурс Билеті 🎟️", deg: 210 },
+            { text: "Эксклюзивті Промокод 🎁", deg: 270 },
+            { text: "VIP Зонаға 20% Жеңілдік 💎", deg: 330 }
+        ];
+
+        const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
+        const totalDeg = 360 * 5 + randomPrize.deg;
+
+        const wheel = document.getElementById('wheel');
+        wheel.style.transform = `rotate(${totalDeg}deg)`;
+
+        setTimeout(() => {
+            isSpinning = false;
+            btn.style.display = 'none';
+            document.getElementById('win-prize-text').innerText = randomPrize.text;
+            document.getElementById('win-result-box').style.display = 'block';
+            
+            localStorage.setItem('armani_wheel_spun', 'true');
+        }, 4000);
+    }
+
+    if (localStorage.getItem('armani_wheel_spun')) {
+        const btn = document.getElementById('spin-btn');
+        if (btn) {
+            btn.innerText = 'Бүгін айналдырылды ✅';
+            btn.style.opacity = '0.5';
+        }
+    }
+
     // 💬 LIVE ЧАТ СКРИПТІ
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     function playChatSound() {
@@ -497,7 +626,6 @@
         return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
     }
 
-    // Роботтар хабарламасы
     const botNames = ["Нұрбол_Астана", "Марат_Семей", "Данияр_Орал", "Айбек_Тараз", "⚽Форевер", "Қайрат_Фан"];
     const botTexts = [
         "Бүгін Ордабасы нақты ұтады ма? Кім қалай ойлайды? 🇰🇿",
@@ -555,144 +683,5 @@
     }
     setTimeout(() => { showLiveNotification(); setInterval(showLiveNotification, 14000); }, 5000);
 </script>
-</body><head> <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Armani Analetik.kz - Кәсіби спорт аналитикасы</title>
-    
-    <!-- 🌟 МЫНА ЖОЛДЫ СТУТ ЖЕРГЕ ҚОСАСЫЗ (БРАУЗЕРГЕ ЛОГОТИП ШЫҒАРУ): -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230052cc'/><path d='M25 70 L45 25 L53 25 M47 25 L65 70 L75 25' fill='none' stroke='%23ffffff' stroke-width='7' stroke-linecap='round'/></svg>">
-
-    <style>
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    <!-- 🎡 СӘТТІЛІК РУЛЕТКАСЫ БӨЛІМІ -->
-<div class="card" style="border: 1px solid #ffbc00; text-align: center;">
-    <h2>🎡 Сәттілік Рулеткасы</h2>
-    <p style="font-size: 13px; color: #aaa; margin-bottom: 15px;">Рулетканы айналдырып, Armani Analetik-тен VIP жеңілдіктер мен бонустар ұтып алыңыз!</p>
-
-    <div class="wheel-wrapper">
-        <div class="wheel-pointer">▼</div>
-        <div class="wheel" id="wheel">
-            <div class="wheel-sec" style="transform: rotate(0deg) skewY(-30deg); background: #ffbc00; color: #000;"><span>VIP -20%</span></div>
-            <div class="wheel-sec" style="transform: rotate(60deg) skewY(-30deg); background: #0052cc; color: #fff;"><span>Билет 🎫</span></div>
-            <div class="wheel-sec" style="transform: rotate(120deg) skewY(-30deg); background: #24a1de; color: #fff;"><span>Инсайд 🎯</span></div>
-            <div class="wheel-sec" style="transform: rotate(180deg) skewY(-30deg); background: #4caf50; color: #fff;"><span>+1 Билет</span></div>
-            <div class="wheel-sec" style="transform: rotate(240deg) skewY(-30deg); background: #ffbc00; color: #000;"><span>Промокод</span></div>
-            <div class="wheel-sec" style="transform: rotate(300deg) skewY(-30deg); background: #e53935; color: #fff;"><span>Қайта бақ</span></div>
-        </div>
-    </div>
-
-    <button id="spin-btn" onclick="spinWheel()" class="btn" style="background: linear-gradient(45deg, #ffbc00, #ff8c00); color: #000; font-weight: 800; margin-top: 20px;">
-        🎰 Рулетканы айналдыру
-    </button>
-
-    <!-- Утус шығатын блок -->
-    <div id="win-result-box" style="display: none; margin-top: 15px; background: rgba(76,175,80,0.15); border: 1px solid #4caf50; padding: 15px; border-radius: 12px;">
-        <div style="font-size: 14px; color: #aaa;">Құттықтаймыз! Сіздің жүлдеңіз:</div>
-        <div id="win-prize-text" style="font-size: 20px; font-weight: 800; color: #4caf50; margin: 8px 0;">—</div>
-        <a href="https://t.me/analetik_1" class="btn" style="background: #24a1de; color: #fff; margin-top: 10px;">🎁 Жүлдені Телеграмнан алу</a>
-    </div>
-</div>
-
-<style>
-    /* 🎡 Рулетка Стильдері */
-    .wheel-wrapper {
-        position: relative;
-        width: 260px;
-        height: 260px;
-        margin: 0 auto;
-        border-radius: 50%;
-        border: 5px solid #222;
-        box-shadow: 0 0 20px rgba(255, 188, 0, 0.3);
-        overflow: hidden;
-    }
-    .wheel-pointer {
-        position: absolute;
-        top: -5px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 24px;
-        color: #ffbc00;
-        z-index: 10;
-        text-shadow: 0 2px 5px #000;
-    }
-    .wheel {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        position: relative;
-        transition: transform 4s cubic-bezier(0.15, 0.9, 0.15, 1);
-    }
-    .wheel-sec {
-        position: absolute;
-        width: 50%;
-        height: 50%;
-        transform-origin: 100% 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .wheel-sec span {
-        position: absolute;
-        left: 20px;
-        bottom: 30px;
-        font-size: 11px;
-        font-weight: 800;
-        transform: rotate(45deg);
-        text-transform: uppercase;
-        white-space: nowrap;
-    }
-</style>
-
-<script>
-    // 🎡 Рулетка Скрипті
-    let isSpinning = false;
-
-    function spinWheel() {
-        if (isSpinning) return;
-        
-        // Күніне 1 рет кана айналдыру шектеуі (localStorage)
-        if (localStorage.getItem('armani_wheel_spun')) {
-            alert('Сіз бүгінгі айналдыру мүмкіндігін пайдаландыңыз! Келесі мүмкіндік ертең болады.');
-            return;
-        }
-
-        isSpinning = true;
-        const btn = document.getElementById('spin-btn');
-        btn.style.opacity = '0.5';
-        btn.innerText = 'Айналуда... 🎰';
-
-        // Кездейсоқ градус (кез келген секторға түсу үшін)
-        const prizes = [
-            { text: "VIP Зонаға 20% Жеңілдік 💎", deg: 30 },
-            { text: "Конкурсқа +1 Билет 🎫", deg: 90 },
-            { text: "Бүгінгі Экспресс Инсайд 🎯", deg: 150 },
-            { text: "VIP Конкурс Билеті 🎟️", deg: 210 },
-            { text: "Эксклюзивті Промокод 🎁", deg: 270 },
-            { text: "VIP Зонаға 20% Жеңілдік 💎", deg: 330 }
-        ];
-
-        const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
-        const totalDeg = 360 * 5 + randomPrize.deg; // 5 айналым жасап тоқтайды
-
-        const wheel = document.getElementById('wheel');
-        wheel.style.transform = `rotate(${totalDeg}deg)`;
-
-        setTimeout(() => {
-            isSpinning = false;
-            btn.style.display = 'none';
-            document.getElementById('win-prize-text').innerText = randomPrize.text;
-            document.getElementById('win-result-box').style.display = 'block';
-            
-            // Сақтап қою (қайта айналдырмас үшін)
-            localStorage.setItem('armani_wheel_spun', 'true');
-        }, 4000);
-    }
-
-    // Парақша жүктелгенде тексеру
-    if (localStorage.getItem('armani_wheel_spun')) {
-        document.getElementById('spin-btn').innerText = 'Бүгін айналдырылды ✅';
-        document.getElementById('spin-btn').style.opacity = '0.5';
-    }
-</script>
-
-
+</body>
+</html>
