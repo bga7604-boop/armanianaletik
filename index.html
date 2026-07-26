@@ -555,9 +555,7 @@
     }
     setTimeout(() => { showLiveNotification(); setInterval(showLiveNotification, 14000); }, 5000);
 </script>
-</body>
-</html>
-<head> <meta charset="UTF-8">
+</body><head> <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Armani Analetik.kz - Кәсіби спорт аналитикасы</title>
     
@@ -566,5 +564,135 @@
 
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { 
+    <!-- 🎡 СӘТТІЛІК РУЛЕТКАСЫ БӨЛІМІ -->
+<div class="card" style="border: 1px solid #ffbc00; text-align: center;">
+    <h2>🎡 Сәттілік Рулеткасы</h2>
+    <p style="font-size: 13px; color: #aaa; margin-bottom: 15px;">Рулетканы айналдырып, Armani Analetik-тен VIP жеңілдіктер мен бонустар ұтып алыңыз!</p>
+
+    <div class="wheel-wrapper">
+        <div class="wheel-pointer">▼</div>
+        <div class="wheel" id="wheel">
+            <div class="wheel-sec" style="transform: rotate(0deg) skewY(-30deg); background: #ffbc00; color: #000;"><span>VIP -20%</span></div>
+            <div class="wheel-sec" style="transform: rotate(60deg) skewY(-30deg); background: #0052cc; color: #fff;"><span>Билет 🎫</span></div>
+            <div class="wheel-sec" style="transform: rotate(120deg) skewY(-30deg); background: #24a1de; color: #fff;"><span>Инсайд 🎯</span></div>
+            <div class="wheel-sec" style="transform: rotate(180deg) skewY(-30deg); background: #4caf50; color: #fff;"><span>+1 Билет</span></div>
+            <div class="wheel-sec" style="transform: rotate(240deg) skewY(-30deg); background: #ffbc00; color: #000;"><span>Промокод</span></div>
+            <div class="wheel-sec" style="transform: rotate(300deg) skewY(-30deg); background: #e53935; color: #fff;"><span>Қайта бақ</span></div>
+        </div>
+    </div>
+
+    <button id="spin-btn" onclick="spinWheel()" class="btn" style="background: linear-gradient(45deg, #ffbc00, #ff8c00); color: #000; font-weight: 800; margin-top: 20px;">
+        🎰 Рулетканы айналдыру
+    </button>
+
+    <!-- Утус шығатын блок -->
+    <div id="win-result-box" style="display: none; margin-top: 15px; background: rgba(76,175,80,0.15); border: 1px solid #4caf50; padding: 15px; border-radius: 12px;">
+        <div style="font-size: 14px; color: #aaa;">Құттықтаймыз! Сіздің жүлдеңіз:</div>
+        <div id="win-prize-text" style="font-size: 20px; font-weight: 800; color: #4caf50; margin: 8px 0;">—</div>
+        <a href="https://t.me/analetik_1" class="btn" style="background: #24a1de; color: #fff; margin-top: 10px;">🎁 Жүлдені Телеграмнан алу</a>
+    </div>
+</div>
+
+<style>
+    /* 🎡 Рулетка Стильдері */
+    .wheel-wrapper {
+        position: relative;
+        width: 260px;
+        height: 260px;
+        margin: 0 auto;
+        border-radius: 50%;
+        border: 5px solid #222;
+        box-shadow: 0 0 20px rgba(255, 188, 0, 0.3);
+        overflow: hidden;
+    }
+    .wheel-pointer {
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 24px;
+        color: #ffbc00;
+        z-index: 10;
+        text-shadow: 0 2px 5px #000;
+    }
+    .wheel {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        position: relative;
+        transition: transform 4s cubic-bezier(0.15, 0.9, 0.15, 1);
+    }
+    .wheel-sec {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        transform-origin: 100% 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .wheel-sec span {
+        position: absolute;
+        left: 20px;
+        bottom: 30px;
+        font-size: 11px;
+        font-weight: 800;
+        transform: rotate(45deg);
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+</style>
+
+<script>
+    // 🎡 Рулетка Скрипті
+    let isSpinning = false;
+
+    function spinWheel() {
+        if (isSpinning) return;
+        
+        // Күніне 1 рет кана айналдыру шектеуі (localStorage)
+        if (localStorage.getItem('armani_wheel_spun')) {
+            alert('Сіз бүгінгі айналдыру мүмкіндігін пайдаландыңыз! Келесі мүмкіндік ертең болады.');
+            return;
+        }
+
+        isSpinning = true;
+        const btn = document.getElementById('spin-btn');
+        btn.style.opacity = '0.5';
+        btn.innerText = 'Айналуда... 🎰';
+
+        // Кездейсоқ градус (кез келген секторға түсу үшін)
+        const prizes = [
+            { text: "VIP Зонаға 20% Жеңілдік 💎", deg: 30 },
+            { text: "Конкурсқа +1 Билет 🎫", deg: 90 },
+            { text: "Бүгінгі Экспресс Инсайд 🎯", deg: 150 },
+            { text: "VIP Конкурс Билеті 🎟️", deg: 210 },
+            { text: "Эксклюзивті Промокод 🎁", deg: 270 },
+            { text: "VIP Зонаға 20% Жеңілдік 💎", deg: 330 }
+        ];
+
+        const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
+        const totalDeg = 360 * 5 + randomPrize.deg; // 5 айналым жасап тоқтайды
+
+        const wheel = document.getElementById('wheel');
+        wheel.style.transform = `rotate(${totalDeg}deg)`;
+
+        setTimeout(() => {
+            isSpinning = false;
+            btn.style.display = 'none';
+            document.getElementById('win-prize-text').innerText = randomPrize.text;
+            document.getElementById('win-result-box').style.display = 'block';
+            
+            // Сақтап қою (қайта айналдырмас үшін)
+            localStorage.setItem('armani_wheel_spun', 'true');
+        }, 4000);
+    }
+
+    // Парақша жүктелгенде тексеру
+    if (localStorage.getItem('armani_wheel_spun')) {
+        document.getElementById('spin-btn').innerText = 'Бүгін айналдырылды ✅';
+        document.getElementById('spin-btn').style.opacity = '0.5';
+    }
+</script>
+
 
