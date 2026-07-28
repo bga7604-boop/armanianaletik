@@ -274,7 +274,7 @@
             <a href="https://t.me/analetik_1" class="btn" style="background: #4caf50;">Конкурсқа қатысу (Telegram-ға өту)</a>
         </div>
 
-        <!-- ⚽ МАТЧТАР КЕСТЕСІ (ЖАҢАРТЫЛДЫ) -->
+        <!-- ⚽ МАТЧТАР КЕСТЕСІ -->
         <div class="card">
             <h2>📅 Алдағы негізгі матчтар кестесі</h2>
             <p style="font-size: 12px; color: #aaa; margin-bottom: 12px;">Конкурсқа және талқылауға арналған басты футбол бәсекелері:</p>
@@ -290,7 +290,7 @@
             </div>
 
             <div class="match-card">
-                <div class="match-header"><span>Ертең / 23:30 </span><span>🤝 Жолдастық кездесу</span></div>
+                <div class="match-header"><span>Ертең / 19:30</span><span>🤝 Жолдастық кездесу</span></div>
                 <div class="match-teams">
                     <div class="match-team left">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Астон Вилла</div>
                     <div class="match-vs">VS</div>
@@ -424,7 +424,7 @@
         </div>
 
         <button id="spin-btn" onclick="spinWheel()" class="btn" style="background: linear-gradient(45deg, #ffbc00, #ff8c00); color: #000; font-weight: 800; font-size: 18px; margin-top: 20px;">
-            🎰 Рулетканы айналдыру
+            🎰 Айналдыру
         </button>
 
         <!-- Ұтыс шығатын блок -->
@@ -442,7 +442,7 @@
     <div class="live-notif-text" id="live-notif-msg"></div>
 </div>
 
-<!-- 📱 ТӨМЕНГІ НАВИГАЦИЯЛЫҚ МӘЗІР (РУЛЕТКА ПАЙДА БОЛДЫ) -->
+<!-- 📱 ТӨМЕНГІ НАВИГАЦИЯЛЫҚ МӘЗІР -->
 <nav class="bottom-nav">
     <button class="nav-item active" onclick="scrollToSection('home-section', this)">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -505,14 +505,65 @@
     }
     checkTicket();
 
-    // 🎡 ДӘУ РУЛЕТКА СКРИПТІ
+    // 🎡 24-САҒАТТЫҚ ТАЙМЕРІ БАР РУЛЕТКА СКРИПТІ
     let isSpinning = false;
+    let timerInterval = null;
+
+    function formatTime(seconds) {
+        let h = Math.floor(seconds / 3600);
+        let m = Math.floor((seconds % 3600) / 60);
+        let s = seconds % 60;
+        return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function startWheelTimer(remainingSeconds) {
+        const btn = document.getElementById('spin-btn');
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+        btn.style.cursor = 'not-allowed';
+
+        if (timerInterval) clearInterval(timerInterval);
+
+        timerInterval = setInterval(() => {
+            remainingSeconds--;
+            if (remainingSeconds <= 0) {
+                clearInterval(timerInterval);
+                localStorage.removeItem('armani_wheel_spin_time');
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+                btn.innerText = '🎰 Айналдыру';
+            } else {
+                btn.innerText = `⏳ Айналдыру [${formatTime(remainingSeconds)}]`;
+            }
+        }, 1000);
+    }
+
+    function checkWheelStatus() {
+        const lastSpin = localStorage.getItem('armani_wheel_spin_time');
+        if (lastSpin) {
+            const now = Date.now();
+            const elapsedSeconds = Math.floor((now - parseInt(lastSpin)) / 1000);
+            const total24Hours = 24 * 60 * 60;
+
+            if (elapsedSeconds < total24Hours) {
+                startWheelTimer(total24Hours - elapsedSeconds);
+            } else {
+                localStorage.removeItem('armani_wheel_spin_time');
+            }
+        }
+    }
+
     function spinWheel() {
         if (isSpinning) return;
-        
-        if (localStorage.getItem('armani_wheel_spun')) {
-            alert('Сіз бүгінгі айналдыру мүмкіндігін пайдаландыңыз! Келесі мүмкіндік ертең болады.');
-            return;
+
+        const lastSpin = localStorage.getItem('armani_wheel_spin_time');
+        if (lastSpin) {
+            const elapsed = Math.floor((Date.now() - parseInt(lastSpin)) / 1000);
+            if (elapsed < 24 * 60 * 60) {
+                alert('Рулетканы 24 сағатта 1 рет қана айналдыруға болады!');
+                return;
+            }
         }
 
         isSpinning = true;
@@ -537,21 +588,16 @@
 
         setTimeout(() => {
             isSpinning = false;
-            btn.style.display = 'none';
             document.getElementById('win-prize-text').innerText = randomPrize.text;
             document.getElementById('win-result-box').style.display = 'block';
             
-            localStorage.setItem('armani_wheel_spun', 'true');
+            // 24 сағаттық уақытты белгілеу
+            localStorage.setItem('armani_wheel_spin_time', Date.now().toString());
+            startWheelTimer(24 * 60 * 60);
         }, 4000);
     }
 
-    if (localStorage.getItem('armani_wheel_spun')) {
-        const btn = document.getElementById('spin-btn');
-        if (btn) {
-            btn.innerText = 'Бүгін айналдырылды ✅';
-            btn.style.opacity = '0.5';
-        }
-    }
+    checkWheelStatus();
 
     // 💬 LIVE ЧАТ СКРИПТІ
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
