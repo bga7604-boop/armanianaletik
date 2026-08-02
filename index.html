@@ -148,26 +148,28 @@
         .match-vs { font-size: 12px; color: #2ecc71; font-weight: bold; background: rgba(46,204,113,0.1); padding: 4px 10px; border-radius: 20px; }
         .match-footer { font-size: 12px; color: #f1c40f; text-align: center; margin-top: 8px; font-weight: bold; background: rgba(241,196,15,0.05); padding: 4px; border-radius: 6px; }
 
-        /* 🎡 5-СЕКТОРЛЫ РУЛЕТКА СТИЛІ */
+        /* 🎡 ҮЛКЕЙТІЛГЕН АНЫҚ РУЛЕТКА СТИЛЬДЕРІ */
         .wheel-wrapper {
             position: relative;
-            width: 320px;
-            height: 320px;
+            width: 360px;
+            height: 360px;
+            max-width: 95vw;
+            max-height: 95vw;
             margin: 20px auto;
             border-radius: 50%;
             border: 10px solid #121814;
-            box-shadow: 0 0 25px rgba(46, 204, 113, 0.4);
+            box-shadow: 0 0 30px rgba(46, 204, 113, 0.5);
             overflow: hidden;
         }
         .wheel-pointer {
             position: absolute;
-            top: -5px;
+            top: -2px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 40px;
+            font-size: 45px;
             color: #f1c40f;
             z-index: 10;
-            text-shadow: 0 4px 10px #000;
+            filter: drop-shadow(0 4px 8px #000);
         }
         .wheel {
             width: 100%;
@@ -187,13 +189,15 @@
         }
         .wheel-sec span {
             position: absolute;
-            left: 10px;
-            bottom: 35px;
-            font-size: 11px;
-            font-weight: 800;
+            left: 15px;
+            bottom: 40px;
+            font-size: 14px;
+            font-weight: 900;
             transform: rotate(36deg);
             text-transform: uppercase;
             white-space: nowrap;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            letter-spacing: 0.5px;
         }
 
         .faq-item { border-bottom: 1px solid #222e25; padding: 12px 0; }
@@ -465,7 +469,7 @@
         </div>
     </div>
 
-    <!-- 🎡 ЕҢ АСТЫНДАҒЫ ҮЛКЕН РУЛЕТКА БӨЛІМІ (ЖАҢА 5 СЫЙЛЫҚ) -->
+    <!-- 🎡 ЕҢ АСТЫНДАҒЫ ҮЛКЕН ӘРІ АНЫҚ РУЛЕТКА БӨЛІМІ -->
     <div id="wheel-section" class="card" style="border: 2px solid #f1c40f; text-align: center;">
         <h2 style="color: #f1c40f; font-size: 22px;">🎡 Сәттілік Рулеткасы</h2>
         <p style="font-size: 13px; color: #8fa896; margin-bottom: 15px;">Рулетканы айналдырып, Armani Analetik-тен VIP жеңілдіктер мен бонустар ұтып алыңыз!</p>
@@ -610,7 +614,6 @@
 
         document.getElementById('win-result-box').style.display = 'none';
 
-        // 🎯 ЖАҢА 5 СЫЙЛЫҚТАР СЕКТОРЫ
         const prizes = [
             { text: "Вип 20% 💎", deg: 36 },
             { text: "Қайта бақ 🔄", deg: 108 },
