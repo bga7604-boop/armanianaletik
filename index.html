@@ -3,173 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Armani Analetik.kz - Кәсіби спорт аналитикасы</title>
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230052cc'/><path d='M25 70 L45 25 L53 25 M47 25 L65 70 L75 25' fill='none' stroke='%23ffffff' stroke-width='7' stroke-linecap='round'/></svg>">
-
+    <title>Armani Analetik.kz</title>
     <style>
+        :root {
+            --bg: #0a0c0a;
+            --card: #121613;
+            --accent: #2ecc71;
+            --text: #ffffff;
+            --subtext: #8a9a8e;
+            --border: #1e2620;
+        }
+
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #0b0f0c; 
-            color: #ffffff; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text); 
             margin: 0; 
-            padding: 0 0 75px 0; 
+            padding: 0 0 80px 0; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
         }
 
-        header { background-color: #121814; width: 100%; text-align: center; padding: 25px 0; border-bottom: 2px solid #1e2b20; position: relative; }
-        .logo-wrapper { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 5px; }
-        header h1 { margin: 0; color: #ffffff; font-size: 26px; font-weight: 800; letter-spacing: 0.5px; }
-        header p { margin: 4px 0 0 0; color: #8fa896; font-size: 14px; }
-        
-        .online-counter {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(76, 175, 80, 0.1);
-            border: 1px solid rgba(76, 175, 80, 0.3);
-            color: #4caf50;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-top: 10px;
+        header { 
+            background: var(--card); 
+            width: 100%; 
+            text-align: center; 
+            padding: 20px 0; 
+            border-bottom: 1px solid var(--border); 
         }
-        .online-dot { width: 8px; height: 8px; background-color: #4caf50; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(0.9); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.5; } 100% { transform: scale(0.9); opacity: 1; } }
+        header h1 { margin: 0; font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: 1px; }
+        header p { margin: 4px 0 0; color: var(--subtext); font-size: 13px; }
 
-        .logo-svg-av { width: 38px; height: 38px; filter: drop-shadow(0 0 6px rgba(76, 175, 80, 0.6)); }
-        
-        .container { max-width: 550px; width: 94%; margin: 15px 0; }
-        .card { background-color: #161d17; padding: 18px; margin-bottom: 15px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); position: relative; overflow: hidden; border: 1px solid #222e25; }
-        h2 { color: #ffffff; font-size: 18px; margin-top: 0; border-bottom: 1px solid #222e25; padding-bottom: 8px; font-weight: 700; }
-        p { font-size: 14px; color: #b8c7bc; line-height: 1.5; }
+        .container { max-width: 500px; width: 92%; margin: 15px 0; }
+        .card { 
+            background: var(--card); 
+            padding: 20px; 
+            border-radius: 14px; 
+            margin-bottom: 15px; 
+            border: 1px solid var(--border); 
+        }
+
+        /* ⏱️ Таймер */
+        .timer-box {
+            background: rgba(46, 204, 113, 0.05);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .timer-title { font-size: 12px; color: var(--subtext); text-transform: uppercase; letter-spacing: 1px; }
+        .timer-clock { font-size: 24px; font-weight: 800; color: var(--accent); margin-top: 4px; font-family: monospace; }
 
         .btn { 
             display: block; 
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); 
-            color: #ffffff; 
-            padding: 16px; 
+            background: var(--accent); 
+            color: #000000; 
+            padding: 15px; 
             text-decoration: none; 
-            border-radius: 12px; 
-            font-weight: bold; 
+            border-radius: 10px; 
+            font-weight: 800; 
             text-align: center; 
-            margin-top: 15px; 
-            font-size: 16px; 
-            transition: all 0.2s ease; 
+            margin-top: 10px; 
+            font-size: 15px; 
             border: none; 
             width: 100%; 
             cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
         }
-        .btn:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(46, 204, 113, 0.2); }
-        
-        .btn-blue {
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-        }
-        .btn-blue:active { box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2); }
+        .btn:active { opacity: 0.8; }
 
-        .btn-gold {
-            background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
-            color: #111;
-            box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
-        }
-
-        /* VIP БӨЛІМІ (АҚ ЖӘНЕ ЖАСЫЛ ТҮСТЕ БӨЛЕК) */
-        .vip-container-box {
-            background: linear-gradient(145deg, #ffffff 0%, #e8f5e9 100%);
-            color: #112618;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.2);
-            border: 2px solid #a5d6a7;
-            position: relative;
-        }
-        .vip-container-box h2 {
-            color: #1b5e20;
-            border-bottom: 1px solid #c8e6c9;
-        }
-        .vip-container-box p {
-            color: #2e5c38;
-        }
-        .vip-badge-new {
-            background: #2e7d32;
-            color: #ffffff;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: bold;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            letter-spacing: 1px;
-        }
-        .vip-lock-box-new { 
-            background: #ffffff; 
-            border: 2px dashed #81c784; 
-            padding: 16px; 
-            border-radius: 12px; 
-            text-align: center; 
-            margin-top: 12px; 
-        }
-        .tariff-new { 
-            background: #ffffff; 
-            border: 1px solid #c8e6c9; 
-            padding: 14px; 
-            border-radius: 10px; 
-            margin-bottom: 10px; 
-            color: #1b5e20;
-            font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-        }
-
-        .contest-prize { background: #1a291e; border: 1px solid #2ecc71; padding: 12px; border-radius: 10px; text-align: center; font-weight: bold; color: #2ecc71; font-size: 16px; margin-bottom: 15px; }
-        .contest-step { background: #121814; padding: 12px; border-radius: 10px; margin-bottom: 10px; border-left: 4px solid #2ecc71; }
-        .contest-step strong { color: #2ecc71; display: block; margin-bottom: 4px; }
-
-        .ticket-box { background: #121814; border: 2px dashed #2ecc71; padding: 15px; border-radius: 12px; text-align: center; margin-top: 15px; }
-        .ticket-title { font-size: 13px; color: #8fa896; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-        .ticket-number { font-size: 22px; font-weight: 800; color: #2ecc71; letter-spacing: 2px; text-shadow: 0 0 8px rgba(46,204,113,0.4); margin: 10px 0; }
-
-        .tg-redirect-box { background: linear-gradient(135deg, #132219 0%, #161d17 100%); border-left: 4px solid #2ecc71; padding: 16px; border-radius: 12px; margin-top: 10px; text-align: center; }
-        .tg-redirect-title { font-size: 16px; font-weight: bold; color: #2ecc71; margin-bottom: 6px; }
-
-        .match-card { background: #121814; border-radius: 12px; padding: 12px; margin-bottom: 10px; border: 1px solid #222e25; }
-        .match-header { display: flex; justify-content: space-between; font-size: 11px; color: #8fa896; margin-bottom: 8px; text-transform: uppercase; }
-        .match-teams { display: flex; align-items: center; justify-content: space-between; }
-        .match-team { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold; width: 42%; }
-        .match-team.left { justify-content: flex-start; }
-        .match-team.right { justify-content: flex-end; text-align: right; }
-        .match-vs { font-size: 12px; color: #2ecc71; font-weight: bold; background: rgba(46,204,113,0.1); padding: 4px 10px; border-radius: 20px; }
-        .match-footer { font-size: 12px; color: #f1c40f; text-align: center; margin-top: 8px; font-weight: bold; background: rgba(241,196,15,0.05); padding: 4px; border-radius: 6px; }
-
-        /* 🎡 ҮЛКЕЙТІЛГЕН АНЫҚ РУЛЕТКА СТИЛЬДЕРІ */
+        /* 🎡 7 Секторлы Рулетка */
         .wheel-wrapper {
             position: relative;
-            width: 360px;
-            height: 360px;
-            max-width: 95vw;
-            max-height: 95vw;
-            margin: 20px auto;
+            width: 320px;
+            height: 320px;
+            margin: 15px auto;
             border-radius: 50%;
-            border: 10px solid #121814;
-            box-shadow: 0 0 30px rgba(46, 204, 113, 0.5);
+            border: 6px solid var(--accent);
+            box-shadow: 0 0 25px rgba(46, 204, 113, 0.25);
             overflow: hidden;
+            background: #000;
         }
         .wheel-pointer {
             position: absolute;
-            top: -2px;
+            top: 0px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 45px;
-            color: #f1c40f;
+            font-size: 32px;
+            color: var(--accent);
             z-index: 10;
-            filter: drop-shadow(0 4px 8px #000);
         }
         .wheel {
             width: 100%;
@@ -186,565 +110,144 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border: 1px solid rgba(0, 0, 0, 0.3);
         }
         .wheel-sec span {
             position: absolute;
-            left: 15px;
-            bottom: 40px;
-            font-size: 14px;
-            font-weight: 900;
-            transform: rotate(36deg);
-            text-transform: uppercase;
+            left: 10px;
+            bottom: 30px;
+            font-size: 11px;
+            font-weight: 800;
+            transform: rotate(25deg);
             white-space: nowrap;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
-
-        .faq-item { border-bottom: 1px solid #222e25; padding: 12px 0; }
-        .faq-question { font-weight: bold; color: #ffffff; font-size: 14px; margin-bottom: 4px; }
-        .faq-answer { font-size: 13px; color: #a3b3a7; line-height: 1.4; }
-        
-        .review-item { background: #121814; padding: 14px; border-radius: 12px; margin-bottom: 12px; border: 1px solid #222e25; }
-        .review-header { display: flex; justify-content: space-between; align-items: center; font-size: 13px; margin-bottom: 8px; }
-        .review-stars { color: #f1c40f; font-size: 12px; }
-        .review-text { font-size: 13px; color: #d0dcd3; line-height: 1.4; }
-        
-        .chat-container { border: 1px solid #222e25; background: #111612; border-radius: 14px; display: flex; flex-direction: column; overflow: hidden; height: 320px; margin-top: 15px; }
-        .chat-messages { flex-grow: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
-        .chat-msg { display: flex; flex-direction: column; background: #18221a; border-radius: 12px; padding: 10px; max-width: 85%; align-self: flex-start; border: 1px solid #253328; animation: fadeIn 0.3s ease; }
-        .chat-msg.my-msg { align-self: flex-end; background: #172a1e; border-color: #2ecc71; }
-        .chat-msg-user { font-size: 12px; font-weight: bold; color: #2ecc71; margin-bottom: 3px; }
-        .chat-msg.my-msg .chat-msg-user { color: #f1c40f; }
-        .chat-msg-text { font-size: 13px; color: #eee; line-height: 1.4; word-break: break-word; }
-        .chat-msg-time { font-size: 10px; color: #6b8270; text-align: right; margin-top: 4px; }
-        
-        .chat-input-area { display: flex; gap: 8px; background: #121814; border-top: 1px solid #222e25; padding: 10px; }
-        .chat-input { flex-grow: 1; background: #1a221c; border: 1px solid #2c3b2f; color: white; padding: 12px; border-radius: 8px; font-size: 14px; outline: none; }
-        .chat-input:focus { border-color: #2ecc71; }
-        .chat-send-btn { background: #2ecc71; border: none; color: #111; padding: 0 16px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .live-notif {
-            position: fixed;
-            bottom: -100px;
-            left: 20px;
-            right: 20px;
-            max-width: 350px;
-            background: #161d17;
-            border-left: 4px solid #2ecc71;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            padding: 12px 16px;
-            border-radius: 8px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid #222e25;
-        }
-        .live-notif.show { bottom: 85px; }
-        .live-notif-icon { background: rgba(46, 204, 113, 0.1); color: #2ecc71; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-        .live-notif-text { font-size: 12px; color: #b8c7bc; line-height: 1.3; }
-        .live-notif-text strong { color: #fff; }
-
-        .profile-info { display: flex; align-items: center; gap: 15px; background: #121814; padding: 15px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #222e25; }
-        .profile-avatar { width: 55px; height: 55px; background: #2ecc71; color: #111; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; }
-        .profile-details { flex-grow: 1; }
-        .profile-name { font-size: 16px; font-weight: bold; color: white; margin-bottom: 4px; }
-        .profile-status { display: inline-block; background: rgba(46, 204, 113, 0.15); border: 1px solid #2ecc71; color: #2ecc71; font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: bold; }
-        
-        .profile-stat-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .profile-stat-item { background: #121814; padding: 12px; border-radius: 8px; border: 1px solid #222e25; text-align: center; }
-        .profile-stat-val { font-size: 18px; font-weight: bold; color: #2ecc71; margin-bottom: 4px; }
-        .profile-stat-lbl { font-size: 11px; color: #8fa896; text-transform: uppercase; }
 
         .bottom-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 65px;
-            background-color: #0f1411;
-            border-top: 1px solid #1e2b20;
+            bottom: 0; left: 0; right: 0;
+            height: 60px;
+            background: var(--card);
+            border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-around;
             align-items: center;
-            z-index: 999;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
         }
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #728c78;
-            text-decoration: none;
-            font-size: 11px;
-            font-weight: 500;
-            width: 20%;
-            height: 100%;
-            transition: color 0.2s;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-        }
-        .nav-item svg { width: 20px; height: 20px; margin-bottom: 4px; fill: currentColor; }
-        .nav-item.active { color: #2ecc71; }
-
-        footer { text-align: center; padding: 25px; color: #506655; font-size: 12px; }
+        .nav-item { color: var(--subtext); text-decoration: none; font-size: 12px; font-weight: 600; background: none; border: none; }
+        .nav-item.active { color: var(--accent); }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-wrapper">
-        <svg class="logo-svg-av" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="45" fill="none" stroke="#2ecc71" stroke-width="4" opacity="0.5"/>
-            <path d="M25 70 L45 25 L53 25" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M47 25 L65 70 L75 25" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M34 52 L48 52" fill="none" stroke="#2ecc71" stroke-width="5" stroke-linecap="round"/>
-        </svg>
-        <h1>Armani Analetik.kz</h1>
-    </div>
-    <p>Спорт аналитикасы және конкурстар</p>
-    
-    <div class="online-counter">
-        <span class="online-dot"></span>
-        <span>Қазір сайтта: <span id="online-count">145</span> адам</span>
-    </div>
+    <h1>ARMANI ANALETIK</h1>
+    <p>Минимализм & Аналитика</p>
 </header>
 
 <div class="container">
 
-    <!-- 1. БАСТЫ БЕТ -->
-    <div id="home-section">
-        <div class="card" style="border: 1px solid #2ecc71;">
-            <h2>🎁 Ақшалай конкурс: Нақты есепті тап!</h2>
-            <p>Armani Analetik жобасы өз қолданушылары арасында тұрақты түрде ірі ақшалай конкурстар ұйымдастырады.</p>
-            
-            <div class="contest-prize">💰 КОНКУРС ЖҮЛДЕ САНДЫҒЫ: 5,000 ТЕҢГЕ</div>
-
-            <div class="contest-step"><strong>1-ҚАДАМ: Telegram каналға тіркелу</strong> Каналға міндетті түрде жазылыңыз.</div>
-            <div class="contest-step"><strong>2-ҚАДАМ: Есепті жазу</strong> Закрепленканың астына есепті комментке қалдырыңыз.</div>
-
-            <div class="ticket-box">
-                <div class="ticket-title">Сіздің конкурсқа қатысу билетіңіз:</div>
-                <div id="ticket-area">
-                    <button onclick="generateTicket()" class="btn" style="margin-top: 5px; padding: 12px;">🎟️ Билетті алу</button>
-                </div>
-            </div>
-
-            <a href="https://t.me/analetik_1" class="btn" style="margin-top: 15px;">Конкурсқа қатысу (Telegram-ға өту)</a>
-        </div>
-
-        <div class="card">
-            <h2>📅 Алдағы негізгі матчтар кестесі</h2>
-            <p style="font-size: 12px; color: #8fa896; margin-bottom: 12px;">Конкурсқа және талқылауға арналған басты футбол бәсекелері:</p>
-            
-            <div class="match-card">
-                <div class="match-header"><span>Бүгін / 21:00</span><span>🤝 Жолдастық кездесу</span></div>
-                <div class="match-teams">
-                    <div class="match-team left">🇪🇸 Реал Мадрид</div>
-                    <div class="match-vs">VS</div>
-                    <div class="match-team right">🇪🇸 Леганес</div>
-                </div>
-                <div class="match-footer">🔥 Осы матчқа ТГ каналда конкурс жүріп жатыр!</div>
-            </div>
-
-            <div class="match-card">
-                <div class="match-header"><span>Ертең / 19:30</span><span>🤝 Жолдастық кездесу</span></div>
-                <div class="match-teams">
-                    <div class="match-team left">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Астон Вилла</div>
-                    <div class="match-vs">VS</div>
-                    <div class="match-team right">🇪🇸 Реал Сосьедад</div>
-                </div>
-                <div class="match-footer" style="color: #3498db; background: rgba(52,152,219,0.05);">📊 Талдау және инсайдтар дайындалуда</div>
-            </div>
-        </div>
+    <div class="timer-box">
+        <div class="timer-title">⏱️ Келесі айналдыруға дейін:</div>
+        <div class="timer-clock" id="countdown-timer">23:59:59</div>
     </div>
 
-    <!-- 2. ТЕГІН БОЛЖАМДАР БӨЛІМІ -->
-    <div id="free-section">
-        <div class="card" style="border: 1px solid #f1c40f;">
-            <h2>🎯 Бүгінгі тегін болжамдар</h2>
-            <div class="tg-redirect-box">
-                <div class="tg-redirect-title">📊 Барлық тегін болжамдар Телеграмда!</div>
-                <p style="font-size: 13px; color: #b8c7bc; margin: 5px 0 12px 0;">Күнделікті жоғары коэффициентті тегін ординарлар мен экспрестерді жіберіп алмау үшін ресми каналға қосылыңыз.</p>
-                <a href="https://t.me/analetik_1" class="btn btn-gold" style="margin-top: 5px;">🎯 Болжамдарды көру (Telegram)</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. VIP ЗОНА БӨЛІМІ (АҚ ЖӘНЕ ЖАСЫЛ ТҮСТЕМЕН БӨЛЕК) -->
-    <div id="vip-section">
-        <div class="vip-container-box">
-            <span class="vip-badge-new">🔒 VIP ИНСАЙД</span>
-            <h2 style="margin-top:0;">👑 VIP Зона (Жабық Инсайдтар)</h2>
-            <p>Эксклюзивті жоғары коэффициентті матчтар мен сенімді инсайдтар топтамасы.</p>
-            <div class="vip-lock-box-new">
-                <p style="margin: 5px 0; font-size: 14px; color: #333;">Коэффициент: <strong style="color: #1b5e20; font-size: 16px;">2.15+</strong> • Сенімділік: <strong style="color: #2e7d32; font-size: 16px;">90%</strong></p>
-                <a href="https://t.me/analetik_1" class="btn" style="margin-top: 10px;">Рұқсат алу (Telegram)</a>
-            </div>
-        </div>
-
-        <div class="vip-container-box">
-            <h2 style="margin-top:0;">🔥 VIP Жазылу Тарифтері</h2>
-            <div class="tariff-new"><strong>📅 1 Апталық VIP</strong> - Күнделікті 2-3 таңдаулы матч (Кэф 1.80-2.50)</div>
-            <div class="tariff-new"><strong>📆 1 Айлық VIP</strong> - Барлық инсайдтарға толық рұқсат + Менеджерлік қолдау</div>
-            <a href="https://t.me/analetik_1" class="btn btn-blue" style="margin-top: 15px;">VIP-ке жазылу</a>
-        </div>
-    </div>
-
-    <!-- 4. ПІКІРЛЕР МЕН ЖАНДЫ LIVE ЧАТ БӨЛІМІ -->
-    <div id="reviews-section">
-        <div class="card">
-            <h2>💬 Жазылушылар пікірі</h2>
-            <div class="review-item">
-                <div class="review-header"><strong>Асхат К.</strong><span class="review-stars">⭐⭐⭐⭐⭐</span></div>
-                <div class="review-text">"Айлық VIP алғаныма 2 апта болды. Банкті сауатты басқарудың арқасында жақсы плюсқа шықтым."</div>
-            </div>
-            <div class="review-item">
-                <div class="review-header"><strong>Мадияр B.</strong><span class="review-stars">⭐⭐⭐⭐⭐</span></div>
-                <div class="review-text">"Өткен аптада нақты есепті дәл тауып, ұтып алдым. 5000 теңгені бірден аударып берді."</div>
-            </div>
-        </div>
-
-        <div class="card" style="border: 1px solid #3498db;">
-            <h2>💬 LIVE Чат («Қонақтар бөлмесі»)</h2>
-            <p style="font-size: 12px; color: #8fa896; margin-bottom: 5px;">Басқа қатысушылармен алдағы матчтар мен конкурстарды онлайн талқылаңыз!</p>
-            
-            <div class="chat-container">
-                <div id="chat-messages-box" class="chat-messages">
-                    <div class="chat-msg">
-                        <div class="chat-msg-user">Бауыржан_Кз</div>
-                        <div class="chat-msg-text">Бүгін Реал Мадрид матчына есеп қалдырдым, өтеді деп сенемін! ⚽🔥</div>
-                        <div class="chat-msg-time">17:02</div>
-                    </div>
-                    <div class="chat-msg">
-                        <div class="chat-msg-user">Алихан_Алматы</div>
-                        <div class="chat-msg-text">Бүгінгі Ойындарға кім не тікті? ТГ каналдағы талдаулар күшті екен 🤔</div>
-                        <div class="chat-msg-time">17:05</div>
-                    </div>
-                </div>
-                
-                <div class="chat-input-area">
-                    <input type="text" id="chat-user-input" class="chat-input" placeholder="Хабарлама жазыңыз..." maxlength="150" onkeypress="handleChatKey(event)">
-                    <button onclick="sendChatMessage()" class="chat-send-btn">Жіберу</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 5. ПРОФИЛЬ БӨЛІМІ -->
-    <div id="profile-section">
-        <div class="card">
-            <h2>👤 Қолданушы кабинеті</h2>
-            <div class="profile-info">
-                <div class="profile-avatar">U</div>
-                <div class="profile-details">
-                    <div class="profile-name" id="user-display-name">Қатысушы (Қонақ)</div>
-                    <div class="profile-status">Status: Тегін қолданушы</div>
-                </div>
-            </div>
-
-            <div class="profile-stat-box">
-                <div class="profile-stat-item">
-                    <div class="profile-stat-val" id="profile-ticket-display">—</div>
-                    <div class="profile-stat-lbl">Конкурс Билеті</div>
-                </div>
-                <div class="profile-stat-item">
-                    <div class="profile-stat-val">100%</div>
-                    <div class="profile-stat-lbl">Адалдық рейтингі</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <h2>❓ Жиі қойылатын сұрақтар (FAQ)</h2>
-        <div class="faq-item">
-            <div class="faq-question">Болжамдардың өтімділігі (проходимость) қандай?</div>
-            <div class="faq-answer">Орташа есеппен біздің VIP инсайдтар мен талдаулардың өтімділігі 80% құрайды.</div>
-        </div>
-    </div>
-
-    <!-- 🎡 ЕҢ АСТЫНДАҒЫ ҮЛКЕН ӘРІ АНЫҚ РУЛЕТКА БӨЛІМІ -->
-    <div id="wheel-section" class="card" style="border: 2px solid #f1c40f; text-align: center;">
-        <h2 style="color: #f1c40f; font-size: 22px;">🎡 Сәттілік Рулеткасы</h2>
-        <p style="font-size: 13px; color: #8fa896; margin-bottom: 15px;">Рулетканы айналдырып, Armani Analetik-тен VIP жеңілдіктер мен бонустар ұтып алыңыз!</p>
+    <div class="card" style="text-align: center;">
+        <h2 style="font-size: 18px; margin: 0 0 10px 0; color: var(--accent);">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
 
         <div class="wheel-wrapper">
             <div class="wheel-pointer">▼</div>
             <div class="wheel" id="wheel">
-                <div class="wheel-sec" style="transform: rotate(0deg) skewY(-18deg); background: #f1c40f; color: #000;"><span>Вип 20% 💎</span></div>
-                <div class="wheel-sec" style="transform: rotate(72deg) skewY(-18deg); background: #c0392b; color: #fff;"><span>Қайта бақ 🔄</span></div>
-                <div class="wheel-sec" style="transform: rotate(144deg) skewY(-18deg); background: #2ecc71; color: #fff;"><span>Құпия прома 🎁</span></div>
-                <div class="wheel-sec" style="transform: rotate(216deg) skewY(-18deg); background: #8e44ad; color: #fff;"><span>Випке +1 күн 👑</span></div>
-                <div class="wheel-sec" style="transform: rotate(288deg) skewY(-18deg); background: #2980b9; color: #fff;"><span>Тегін инсайд 🎯</span></div>
+                <!-- 7 ЖАҢА ЖҮЛДЕ СЕКТОРЫ -->
+                <div class="wheel-sec" style="transform: rotate(0deg) skewY(-38.57deg); background: #ffffff; color: #000;"><span>VIP Экспресс -10% 🔥</span></div>
+                <div class="wheel-sec" style="transform: rotate(51.43deg) skewY(-38.57deg); background: #121613; color: #fff;"><span>VIP Канал +1 Күн 👑</span></div>
+                <div class="wheel-sec" style="transform: rotate(102.86deg) skewY(-38.57deg); background: #2ecc71; color: #000;"><span>VIP 15% Жеңілдік 💎</span></div>
+                <div class="wheel-sec" style="transform: rotate(154.29deg) skewY(-38.57deg); background: #ffffff; color: #000;"><span>Қайта Айналдыру 🔄</span></div>
+                <div class="wheel-sec" style="transform: rotate(205.71deg) skewY(-38.57deg); background: #121613; color: #fff;"><span>VIP 25% Жеңілдік 🚀</span></div>
+                <div class="wheel-sec" style="transform: rotate(257.14deg) skewY(-38.57deg); background: #2ecc71; color: #000;"><span>VIP +3 Күн 🎉</span></div>
+                <div class="wheel-sec" style="transform: rotate(308.57deg) skewY(-38.57deg); background: #ffffff; color: #000;"><span>VIP Айлық +15 Күн 🏆</span></div>
             </div>
         </div>
 
-        <button id="spin-btn" onclick="spinWheel()" class="btn btn-gold" style="font-weight: 800; font-size: 18px; margin-top: 20px;">
-            🎰 АЙНАЛДЫРУ
-        </button>
+        <button id="spin-btn" onclick="spinWheel()" class="btn">🎰 АЙНАЛДЫРУ</button>
 
-        <div id="win-result-box" style="display: none; margin-top: 15px; background: rgba(46,204,113,0.15); border: 1px solid #2ecc71; padding: 15px; border-radius: 12px; animation: fadeIn 0.5s ease;">
-            <div style="font-size: 14px; color: #8fa896;">🎉 Құттықтаймыз! Сіздің жүлдеңіз:</div>
-            <div id="win-prize-text" style="font-size: 20px; font-weight: 800; color: #2ecc71; margin: 8px 0;">—</div>
-            <a href="https://t.me/analetik_1" class="btn btn-blue" style="margin-top: 10px;">🎁 Жүлдені Телеграмнан алу</a>
+        <div id="win-result-box" style="display: none; margin-top: 15px; background: rgba(46,204,113,0.1); border: 1px solid var(--accent); padding: 12px; border-radius: 8px;">
+            <div style="font-size: 12px; color: var(--subtext);">Сіздің жүлдеңіз:</div>
+            <div id="win-prize-text" style="font-size: 18px; font-weight: 800; color: var(--accent); margin: 5px 0;">—</div>
+            <a href="https://t.me/analetik_1" class="btn" style="background: #ffffff; color: #000;">ЖҮЛДЕНІ АЛУ (TELEGRAM)</a>
         </div>
     </div>
 
 </div>
 
-<div id="live-notif-box" class="live-notif">
-    <div class="live-notif-icon">🔔</div>
-    <div class="live-notif-text" id="live-notif-msg"></div>
-</div>
-
 <nav class="bottom-nav">
-    <button class="nav-item active" onclick="scrollToSection('home-section', this)">
-        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        <span>Басты бет</span>
-    </button>
-    <button class="nav-item" onclick="scrollToSection('vip-section', this)">
-        <svg viewBox="0 0 24 24"><path d="M2 22h20V2z" opacity=".3"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 12.29l-4.24-2.5-4.24 2.5 1.02-4.83-3.69-3.21 4.93-.42L12 3.75l2.02 4.08 4.93.42-3.69 3.21 1.02 4.83z"/></svg>
-        <span>VIP Зона</span>
-    </button>
-    <button class="nav-item" onclick="scrollToSection('wheel-section', this)">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"/></svg>
-        <span>Рулетка</span>
-    </button>
-    <button class="nav-item" onclick="scrollToSection('reviews-section', this)">
-        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
-        <span>Пікірлер</span>
-    </button>
-    <button class="nav-item" onclick="scrollToSection('profile-section', this)">
-        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        <span>Профиль</span>
-    </button>
+    <button class="nav-item active">Басты бет</button>
+    <button class="nav-item">VIP Зона</button>
+    <button class="nav-item">Рулетка</button>
 </nav>
 
-<footer>© 2026 Armani Analetik | @top_bol 🔥</footer>
-
 <script>
-    function scrollToSection(sectionId, element) {
-        const target = document.getElementById(sectionId);
-        if (target) {
-            const offset = 80;
-            const bodyRect = document.body.getBoundingClientRect().top;
-            const elementRect = target.getBoundingClientRect().top;
-            const elementPosition = elementRect - bodyRect;
-            const offsetPosition = elementPosition - offset;
+    function startTimer() {
+        let totalSeconds = 24 * 3600 - 1;
+        const timerElement = document.getElementById('countdown-timer');
 
-            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
-        }
-    }
+        setInterval(() => {
+            let hours = Math.floor(totalSeconds / 3600);
+            let minutes = Math.floor((totalSeconds % 3600) / 60);
+            let seconds = totalSeconds % 60;
 
-    function checkTicket() {
-        let ticket = localStorage.getItem('armani_contest_ticket');
-        if (ticket) {
-            document.getElementById('ticket-area').innerHTML = `
-                <div class="ticket-title">Сіздің белсенді билетіңіз:</div>
-                <div class="ticket-number">${ticket}</div>
-            `;
-            document.getElementById('profile-ticket-display').innerText = ticket;
-            let userRandNum = ticket.split('-')[1];
-            document.getElementById('user-display-name').innerText = `User #${userRandNum}`;
-        }
-    }
-    function generateTicket() {
-        let randNum = Math.floor(1000 + Math.random() * 9000);
-        let ticketCode = `#ARMANI-${randNum}`;
-        localStorage.setItem('armani_contest_ticket', ticketCode);
-        checkTicket();
-    }
-    checkTicket();
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
 
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            timerElement.innerText = `${hours}:${minutes}:${seconds}`;
 
-    function playTickSound() {
-        try {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(300, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.05);
-        } catch(e){}
+            if (totalSeconds > 0) {
+                totalSeconds--;
+            } else {
+                totalSeconds = 24 * 3600;
+            }
+        }, 1000);
     }
-
-    function playWinSound() {
-        try {
-            const notes = [261.63, 329.63, 392.00, 523.25];
-            notes.forEach((freq, index) => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime + index * 0.1);
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime + index * 0.1);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + index * 0.1 + 0.3);
-                osc.start(audioCtx.currentTime + index * 0.1);
-                osc.stop(audioCtx.currentTime + index * 0.1 + 0.3);
-            });
-        } catch(e){}
-    }
+    startTimer();
 
     let isSpinning = false;
     let currentRotation = 0;
 
     function spinWheel() {
         if (isSpinning) return;
-        if (audioCtx.state === 'suspended') { audioCtx.resume(); }
 
         isSpinning = true;
         const btn = document.getElementById('spin-btn');
         btn.disabled = true;
-        btn.style.opacity = '0.6';
-        btn.innerText = 'Айналуда... 🎰';
+        btn.style.opacity = '0.5';
 
         document.getElementById('win-result-box').style.display = 'none';
 
+        // 7 ЖҮЛДЕНІҢ ОРТА СЕРЕДИНАСЫНА СӘЙКЕС ГРАДУСТАР
         const prizes = [
-            { text: "Вип 20% 💎", deg: 36 },
-            { text: "Қайта бақ 🔄", deg: 108 },
-            { text: "Құпия прома 🎁", deg: 180 },
-            { text: "Випке +1 күн 👑", deg: 252 },
-            { text: "Тегін инсайд 🎯", deg: 324 }
+            { text: "VIP Экспресс -10% 🔥", deg: 25.7 },
+            { text: "VIP Канал +1 Күн 👑", deg: 77.1 },
+            { text: "VIP 15% Жеңілдік 💎", deg: 128.5 },
+            { text: "Қайта Айналдыру 🔄", deg: 180.0 },
+            { text: "VIP 25% Жеңілдік 🚀", deg: 231.4 },
+            { text: "VIP +3 Күн 🎉", deg: 282.8 },
+            { text: "VIP Айлық +15 Күн 🏆", deg: 334.2 }
         ];
 
         const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
-        const spinRounds = 360 * 5;
-        currentRotation += spinRounds + (360 - (currentRotation % 360)) + randomPrize.deg;
+        currentRotation += (360 * 5) + (360 - (currentRotation % 360)) + randomPrize.deg;
 
-        const wheel = document.getElementById('wheel');
-        wheel.style.transform = `rotate(${currentRotation}deg)`;
-
-        let tickInterval = setInterval(() => { playTickSound(); }, 150);
+        document.getElementById('wheel').style.transform = `rotate(${currentRotation}deg)`;
 
         setTimeout(() => {
-            clearInterval(tickInterval);
             isSpinning = false;
             btn.disabled = false;
             btn.style.opacity = '1';
-            btn.innerText = '🎰 АЙНАЛДЫРУ';
-
             document.getElementById('win-prize-text').innerText = randomPrize.text;
             document.getElementById('win-result-box').style.display = 'block';
-            playWinSound();
         }, 4000);
     }
-
-    function playChatSound() {
-        try {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.1);
-        } catch(e){}
-    }
-
-    function handleChatKey(e) { if (e.key === 'Enter') sendChatMessage(); }
-
-    function sendChatMessage() {
-        const input = document.getElementById('chat-user-input');
-        const text = input.value.trim();
-        if (!text) return;
-
-        let ticket = localStorage.getItem('armani_contest_ticket');
-        let userName = ticket ? `User #${ticket.split('-')[1]}` : "Қонақ";
-
-        const now = new Date();
-        const timeStr = String(now.getHours()).padStart(2, '0') + ":" + String(now.getMinutes()).padStart(2, '0');
-
-        const msgHtml = `
-            <div class="chat-msg my-msg">
-                <div class="chat-msg-user">${userName} (Сіз)</div>
-                <div class="chat-msg-text">${escapeHtml(text)}</div>
-                <div class="chat-msg-time">${timeStr}</div>
-            </div>
-        `;
-
-        const box = document.getElementById('chat-messages-box');
-        box.innerHTML += msgHtml;
-        input.value = '';
-        box.scrollTop = box.scrollHeight;
-        playChatSound();
-    }
-
-    function escapeHtml(text) {
-        return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-    }
-
-    const botNames = ["Нұрбол_Астана", "Марат_Семей", "Данияр_Орал", "Айбек_Тараз", "⚽Форевер", "Реал_Фан"];
-    const botTexts = [
-        "Бүгін Реал Мадрид нақты ұтады ма? Кім қалай ойлайды? 🇪🇸",
-        "ТГ-дағы конкурсқа қатысып үлгеріңіздер, закрепте тұр екен 🔥",
-        "Билет алдым, кешке тікелей эфирді күтеміз 🎟️🏆",
-        "Кешегі Телеграмдағы тегін болжам жақсы өтті, Armani-ге рақмет!",
-        "Астон Вилла мен Сосьедад матчына VIP инсайд шыға ма екен? 🤔",
-        "Бүгін чат тамаша болып тұр, бәріне сәттілік! 🚀👍"
-    ];
-
-    setInterval(() => {
-        if (Math.random() > 0.4) {
-            const randomBot = botNames[Math.floor(Math.random() * botNames.length)];
-            const randomText = botTexts[Math.floor(Math.random() * botTexts.length)];
-            const now = new Date();
-            const timeStr = String(now.getHours()).padStart(2, '0') + ":" + String(now.getMinutes()).padStart(2, '0');
-
-            const msgHtml = `
-                <div class="chat-msg">
-                    <div class="chat-msg-user">${randomBot}</div>
-                    <div class="chat-msg-text">${randomText}</div>
-                    <div class="chat-msg-time">${timeStr}</div>
-                </div>
-            `;
-            const box = document.getElementById('chat-messages-box');
-            box.innerHTML += msgHtml;
-            box.scrollTop = box.scrollHeight;
-            playChatSound();
-        }
-    }, 8000);
-
-    setInterval(() => {
-        let currentOnline = parseInt(document.getElementById('online-count').innerText);
-        let diff = Math.floor(Math.random() * 7) - 3;
-        let newOnline = currentOnline + diff;
-        if (newOnline < 120) newOnline = 125;
-        if (newOnline > 180) newOnline = 175;
-        document.getElementById('online-count').innerText = newOnline;
-    }, 4000);
-
-    const notifications = [
-        "<strong>Бағдат (Тараз)</strong> рулеткадан 💎 Вип 20% ұтып алды!",
-        "<strong>Марлен (Орал)</strong> рулеткадан 🎁 Құпия прома ұтып алды!",
-        "<strong>Әділет (Қарағанды)</strong> рулеткадан 👑 Випке +1 күн ұтып алды.",
-        "<strong>Санжар (Шымкент)</strong> рулеткадан 🎯 Тегін инсайд ұтып алды."
-    ];
-    function showLiveNotification() {
-        const randomIndex = Math.floor(Math.random() * notifications.length);
-        document.getElementById('live-notif-msg').innerHTML = notifications[randomIndex];
-        const box = document.getElementById('live-notif-box');
-        box.classList.add('show');
-        setTimeout(() => box.classList.remove('show'), 4000);
-    }
-    setTimeout(() => { showLiveNotification(); setInterval(showLiveNotification, 14000); }, 5000);
 </script>
 </body>
 </html>
+
