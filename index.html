@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Armani Analetik.kz - Жаңартылған Рулетка</title>
+    <title>Armani Analetik.kz</title>
     <style>
         :root {
             --bg: #0a0c0a;
@@ -12,7 +12,7 @@
             --text: #ffffff;
             --subtext: #8a9a8e;
             --border: #1e2620;
-            --gold: #f1c40f; /* Лента түсі */
+            --gold: #f1c40f;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -76,87 +76,71 @@
         .btn:active { opacity: 0.8; }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* 🎡 Жаңартылған 7 Секторлы Рулетка */
+        /* 🎡 Анық көрінетін SVG Рулетка контейнері */
         .wheel-wrapper {
             position: relative;
             width: 320px;
             height: 320px;
             margin: 15px auto;
             border-radius: 50%;
-            border: 8px solid var(--accent);
-            box-shadow: 0 0 35px rgba(46, 204, 113, 0.3);
-            overflow: hidden;
+            border: 6px solid var(--accent);
+            box-shadow: 0 0 30px rgba(46, 204, 113, 0.3);
             background: #000;
         }
         
-        /* Үстіңгі меңзер */
+        /* Меңзер */
         .wheel-pointer {
             position: absolute;
-            top: -10px;
+            top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 40px;
-            color: #fff; /* Түсі ақ, анық көріну үшін */
-            z-index: 20;
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+            width: 0;
+            height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 24px solid #ffffff;
+            z-index: 30;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
         }
 
-        /* Ортадағы қара кішкентай лента (шеңбер) */
+        /* Ортадағы Ықшам Қара Лента */
         .wheel-center-ribbon {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80px; /* Лентаның ені */
-            height: 80px;
-            background: #000; /* Қара түс */
+            width: 65px;
+            height: 65px;
+            background: #0c0f0d;
             border-radius: 50%;
-            border: 4px solid var(--gold); /* Алтын түсті жиек */
-            z-index: 15;
-            box-shadow: 0 0 15px rgba(241, 196, 15, 0.5);
+            border: 3px solid var(--gold);
+            z-index: 20;
+            box-shadow: 0 0 10px rgba(241, 196, 15, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--gold);
-            font-size: 10px;
-            font-weight: bold;
+            font-size: 9px;
+            font-weight: 900;
             text-align: center;
-            letter-spacing: 1px;
+            line-height: 1.1;
+            pointer-events: none;
         }
 
-        .wheel {
+        .wheel-svg {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            position: relative;
+            transform-origin: center center;
             transition: transform 4s cubic-bezier(0.15, 0.9, 0.15, 1);
-            z-index: 5;
-        }
-        
-        /* 7 Үшбұрышты секторлар */
-        .wheel-sec {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            transform-origin: 100% 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            /* Секторларды нақты үшбұрыш ету */
-            clip-path: polygon(100% 100%, 0% 100%, 0% 0%); 
         }
 
-        .wheel-sec span {
-            position: absolute;
-            left: 10px; /* Сектордың ішіне тереңірек */
-            bottom: 30px;
-            font-size: 11px;
+        /* Мәтін стилі */
+        .sector-text {
+            font-size: 13.5px;
             font-weight: 800;
-            /* Мәтінді сектордың бағытына қарай бұру */
-            transform: rotate(25deg);
-            white-space: nowrap;
-            letter-spacing: 0.3px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            text-anchor: middle;
+            dominant-baseline: central;
         }
 
         .bottom-nav {
@@ -192,33 +176,21 @@
         <h2 style="font-size: 18px; margin: 0 0 10px 0; color: var(--accent);">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
 
         <div class="wheel-wrapper">
-            <div class="wheel-pointer">▼</div>
-            
-            <!-- Ортадағы қара кішкентай лента (шеңбер) -->
-            <div class="wheel-center-ribbon">
-                ARMANI<br>ANALETIK
-            </div>
+            <div class="wheel-pointer"></div>
+            <div class="wheel-center-ribbon">ARMANI<br>ANALETIK</div>
 
-            <div class="wheel" id="wheel">
-                <!-- 7 ЖАҢА ЖҮЛДЕ СЕКТОРЫ (Үшбұрышты етіп реттелген) -->
-                <!-- Түстер реті: Ақ, Жасыл, Қара (кезектесіп) -->
-                <div class="wheel-sec" style="transform: rotate(0deg) skewY(-38.57deg); background: #ffffff; color: #000;"><span>VIP Экспресс -10% 🔥</span></div>
-                <div class="wheel-sec" style="transform: rotate(51.43deg) skewY(-38.57deg); background: #2ecc71; color: #000;"><span>VIP Канал +1 Күн 👑</span></div>
-                <div class="wheel-sec" style="transform: rotate(102.86deg) skewY(-38.57deg); background: #121613; color: #fff;"><span>VIP 15% Жеңілдік 💎</span></div>
-                <div class="wheel-sec" style="transform: rotate(154.29deg) skewY(-38.57deg); background: #ffffff; color: #000;"><span>Қайта Айналдыру 🔄</span></div>
-                <div class="wheel-sec" style="transform: rotate(205.71deg) skewY(-38.57deg); background: #2ecc71; color: #000;"><span>VIP 25% Жеңілдік 🚀</span></div>
-                <div class="wheel-sec" style="transform: rotate(257.14deg) skewY(-38.57deg); background: #121613; color: #fff;"><span>VIP +3 Күн 🎉</span></div>
-                <div class="wheel-sec" style="transform: rotate(308.57deg) skewY(-38.57deg); background: #ffffff; color: #000;"><span>VIP Айлық +15 Күн 🏆</span></div>
-            </div>
+            <!-- SVG арқылы салынған анық 7 сектор -->
+            <svg class="wheel-svg" id="wheel" viewBox="0 0 500 500">
+                <g id="sectors-group"></g>
+            </svg>
         </div>
 
-        <!-- Дыбыстарды қосу үшін аудио тегтері (браузерге жүктеледі) -->
         <audio id="spin-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_2c9d81d6d6.mp3" preload="auto"></audio>
         <audio id="win-sound" src="https://cdn.pixabay.com/audio/2023/10/16/audio_d0b57e4e67.mp3" preload="auto"></audio>
 
         <button id="spin-btn" onclick="spinWheel()" class="btn">🎰 АЙНАЛДЫРУ</button>
 
-        <div id="win-result-box" style="display: none; margin-top: 15px; background: rgba(46,204,113,0.1); border: 1px solid var(--accent); padding: 12px; border-radius: 8px; z-index: 10;">
+        <div id="win-result-box" style="display: none; margin-top: 15px; background: rgba(46,204,113,0.1); border: 1px solid var(--accent); padding: 12px; border-radius: 8px;">
             <div style="font-size: 12px; color: var(--subtext);">Сіздің жүлдеңіз:</div>
             <div id="win-prize-text" style="font-size: 18px; font-weight: 800; color: var(--accent); margin: 5px 0;">—</div>
             <a href="https://t.me/analetik_1" class="btn" style="background: #ffffff; color: #000;">ЖҮЛДЕНІ АЛУ (TELEGRAM)</a>
@@ -234,11 +206,10 @@
 </nav>
 
 <script>
-    // ⏱️ Таймер функциясы (өзгеріссіз)
+    // ⏱️ Таймер
     function startTimer() {
         let totalSeconds = 24 * 3600 - 1;
         const timerElement = document.getElementById('countdown-timer');
-
         setInterval(() => {
             let hours = Math.floor(totalSeconds / 3600);
             let minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -249,17 +220,76 @@
             seconds = seconds < 10 ? '0' + seconds : seconds;
 
             timerElement.innerText = `${hours}:${minutes}:${seconds}`;
-
-            if (totalSeconds > 0) {
-                totalSeconds--;
-            } else {
-                totalSeconds = 24 * 3600;
-            }
+            if (totalSeconds > 0) totalSeconds--;
+            else totalSeconds = 24 * 3600;
         }, 1000);
     }
     startTimer();
 
-    // 🎡 Рулетка логикасы (дыбыспен және жаңа дизайнмен)
+    // 🎡 7 ЖҮЛДЕ ЖӘНЕ ТҮСТЕРІ
+    const prizes = [
+        { text: "VIP Экспресс -10% 🔥", bg: "#ffffff", color: "#000000" },
+        { text: "VIP Канал +1 Күн 👑", bg: "#2ecc71", color: "#000000" },
+        { text: "VIP 15% Жеңілдік 💎", bg: "#121613", color: "#ffffff" },
+        { text: "Қайта Айналдыру 🔄", bg: "#ffffff", color: "#000000" },
+        { text: "VIP 25% Жеңілдік 🚀", bg: "#2ecc71", color: "#000000" },
+        { text: "VIP +3 Күн 🎉", bg: "#121613", color: "#ffffff" },
+        { text: "VIP Айлық +15 Күн 🏆", bg: "#ffffff", color: "#000000" }
+    ];
+
+    // SVG Секторларын генерациялау (Мәтіндер анық әрі ортада болуы үшін)
+    function buildWheel() {
+        const group = document.getElementById('sectors-group');
+        const numSectors = prizes.length;
+        const arc = 360 / numSectors;
+        const radius = 245;
+        const centerX = 250;
+        const centerY = 250;
+
+        prizes.forEach((prize, i) => {
+            const startAngle = i * arc - 90;
+            const endAngle = startAngle + arc;
+
+            const startRad = (startAngle * Math.PI) / 180;
+            const endRad = (endAngle * Math.PI) / 180;
+
+            const x1 = centerX + radius * Math.cos(startRad);
+            const y1 = centerY + radius * Math.sin(startRad);
+            const x2 = centerX + radius * Math.cos(endRad);
+            const y2 = centerY + radius * Math.sin(endRad);
+
+            const pathData = `M ${centerX} ${centerY} L ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2} Z`;
+
+            // Сектор сызу
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttribute("d", pathData);
+            path.setAttribute("fill", prize.bg);
+            path.setAttribute("stroke", "rgba(0,0,0,0.15)");
+            path.setAttribute("stroke-width", "2");
+            group.appendChild(path);
+
+            // Мәтінді ортаға орналастыру және бұру
+            const midAngle = startAngle + arc / 2;
+            const textRad = (midAngle * Math.PI) / 180;
+            const textDist = 145; // Мәтіннің радиустағы орны (анық көрінетін жерде)
+            const textX = centerX + textDist * Math.cos(textRad);
+            const textY = centerY + textDist * Math.sin(textRad);
+
+            const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            text.setAttribute("x", textX);
+            text.setAttribute("y", textY);
+            text.setAttribute("fill", prize.color);
+            text.setAttribute("class", "sector-text");
+            text.setAttribute("transform", `rotate(${midAngle + 90}, ${textX}, ${textY})`);
+            text.textContent = prize.text;
+
+            group.appendChild(text);
+        });
+    }
+
+    buildWheel();
+
+    // 🎡 Айналдыру функциясы
     let isSpinning = false;
     let currentRotation = 0;
 
@@ -271,50 +301,38 @@
         btn.disabled = true;
         document.getElementById('win-result-box').style.display = 'none';
 
-        // Дыбыстық әсерлерді алу
         const spinSound = document.getElementById('spin-sound');
         const winSound = document.getElementById('win-sound');
 
-        // Айналдыру дыбысын қосу (дыбыс басынан басталуы үшін)
         spinSound.currentTime = 0;
-        spinSound.play().catch(error => console.log("Дыбысты қосуға рұқсат берілмеді:", error));
+        spinSound.play().catch(() => {});
 
-        // 7 ЖҮЛДЕНІҢ ОРТА СЕРЕДИНАСЫНА СӘЙКЕС ГРАДУСТАР (Өзгеріссіз)
-        const prizes = [
-            { text: "VIP Экспресс -10% 🔥", deg: 25.7 },
-            { text: "VIP Канал +1 Күн 👑", deg: 77.1 },
-            { text: "VIP 15% Жеңілдік 💎", deg: 128.5 },
-            { text: "Қайта Айналдыру 🔄", deg: 180.0 },
-            { text: "VIP 25% Жеңілдік 🚀", deg: 231.4 },
-            { text: "VIP +3 Күн 🎉", deg: 282.8 },
-            { text: "VIP Айлық +15 Күн 🏆", deg: 334.2 }
-        ];
-
-        const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
+        const numSectors = prizes.length;
+        const arc = 360 / numSectors;
         
-        // Көп айналу үшін градустарды есептеу (кемінде 5 толық айналым)
-        currentRotation += (360 * 5) + (360 - (currentRotation % 360)) + randomPrize.deg;
+        // Кездейсоқ жүлде таңдау
+        const prizeIndex = Math.floor(Math.random() * numSectors);
+        const selectedPrize = prizes[prizeIndex];
 
-        // Рулетканы бұру
+        // Толық 5 айналым + жүлдені меңзерге дәл әкелу
+        const targetSectorAngle = (prizeIndex * arc) + (arc / 2);
+        const targetDegree = 360 - targetSectorAngle;
+
+        currentRotation += (360 * 5) + (targetDegree - (currentRotation % 360));
+
         document.getElementById('wheel').style.transform = `rotate(${currentRotation}deg)`;
 
-        // Айналу аяқталғанда (4 секундтан кейін)
         setTimeout(() => {
             isSpinning = false;
             btn.disabled = false;
 
-            // Айналдыру дыбысын тоқтату
             spinSound.pause();
-            spinSound.currentTime = 0;
-
-            // Жеңіс дыбысын қосу
             winSound.currentTime = 0;
-            winSound.play().catch(error => console.log("Дыбысты қосуға рұқсат берілмеді:", error));
+            winSound.play().catch(() => {});
 
-            // Нәтижені көрсету
-            document.getElementById('win-prize-text').innerText = randomPrize.text;
+            document.getElementById('win-prize-text').innerText = selectedPrize.text;
             document.getElementById('win-result-box').style.display = 'block';
-        }, 4000); // CSS-тегі transition уақытына сәйкес (4с)
+        }, 4000);
     }
 </script>
 </body>
