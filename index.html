@@ -65,12 +65,12 @@
         .btn-login { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
         .btn-register { background: var(--gold); color: #000000; border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
 
-        .user-top-bar { display: flex; align-items: center; gap: 8px; }
+        .user-top-bar { display: flex; align-items: center; gap: 10px; }
         .header-user-name { font-size: 13px; font-weight: 700; color: #ffffff; }
-        .user-avatar-btn { width: 34px; height: 34px; border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid var(--border); }
+        .user-avatar-btn { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; cursor: pointer; border: 2px solid var(--accent); }
         .user-avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* МОДАЛЬДАР (ЖАҢАРТЫЛҒАН СУРЕТТЕГІ ДИЗАЙН) */
+        /* МОДАЛЬДАР */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 15px; }
         .modal-card { background: var(--card-modal); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; width: 100%; max-width: 380px; padding: 24px; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.6); text-align: left; transform: scale(0.9); animation: popUp 0.3s forwards ease-out; }
         @keyframes popUp { to { transform: scale(1); } }
@@ -299,7 +299,6 @@
 <!-- 🔝 HEADER -->
 <header>
     <div class="header-left">
-        <!-- ЛОГОТИП ЖӘНЕ УАҚЫТ БЛОГЫ -->
         <div class="logo-box">
             <svg class="logo-svg" viewBox="0 0 100 100">
                 <rect width="100" height="100" rx="20" fill="#121613" stroke="#2ecc71" stroke-width="4"/>
@@ -324,7 +323,7 @@
     </div>
 </header>
 
-<!-- МОДАЛЬ: АВТОРИЗАЦИЯ (СУРЕТТЕН ӘДЕМІЛЕП КӨШІРІЛГЕН ЖАҢАРТЫЛҒАН ДИЗАЙН) -->
+<!-- МОДАЛЬ: АВТОРИЗАЦИЯ -->
 <div class="modal-overlay" id="modalStep1">
     <div class="modal-card">
         <button class="modal-close" onclick="closeAllModals()">✕</button>
@@ -395,7 +394,6 @@
     <!-- 1. БАСТЫ БЕТ -->
     <div id="page-home" class="page active">
         
-        <!-- БҮГІНГІ КОНКУРС БАННЕРІ -->
         <div class="contest-banner">
             <h3>🎁 БҮГІНГІ КОНКУРС</h3>
             <p>Каналға өтіп, конкурсқа қатысыңыз! 🚀</p>
@@ -434,17 +432,14 @@
 
     </div>
 
-    <!-- 2. VIP ЗОНА (ЖАҢАРТЫЛҒАН БАҒАЛАРМЕН) -->
+    <!-- 2. VIP ЗОНА -->
     <div id="page-vip" class="page">
         
         <div class="card">
             <h2 class="card-title" style="color:var(--gold);">👑 VIP КЛУБҚА ҚОСЫЛУ</h2>
             <p style="color: var(--subtext); font-size: 12px; margin: 4px 0 15px 0;">Ең жоғары коэффициенттер мен эксклюзивті аналитикаға қол жеткізіңіз</p>
             
-            <!-- VIP ТАРИФТЕРІ -->
             <div class="vip-card-grid">
-                
-                <!-- Тариф 1 (1 АЙ) -->
                 <div class="vip-plan-card">
                     <div style="font-size:13px; font-weight:700; color:var(--subtext);">VIP 1 АЙ</div>
                     <div class="vip-price">9 999 ₸</div>
@@ -456,7 +451,6 @@
                     <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip">САТЫП АЛУ 🚀</a>
                 </div>
 
-                <!-- Тариф 2 (3 АЙ) -->
                 <div class="vip-plan-card popular">
                     <span class="badge-popular">ХИТ 🔥</span>
                     <div style="font-size:13px; font-weight:700; color:var(--gold);">VIP 3 АЙ</div>
@@ -469,11 +463,9 @@
                     </ul>
                     <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip" style="background:var(--accent); color:#000;">САТЫП АЛУ 🔥</a>
                 </div>
-
             </div>
         </div>
 
-        <!-- 🔒 ҚҰЛЫПТАУЛЫ VIP КОНТЕНТ -->
         <div class="card" style="margin-top: 12px;">
             <h3 style="margin: 0; font-size: 14px; color: #fff; text-align: left;">🔥 БҮГІНГІ VIP ЭКСПРЕСС</h3>
             
@@ -496,7 +488,6 @@
 </nav>
 
 <script>
-    // --- 🔊 ДЫБЫСТАР СИНТЕЗАТОРЫ ---
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     let audioCtx = null;
 
@@ -557,11 +548,16 @@
         else { btn.classList.remove('active'); btn.disabled = true; }
     }
 
+    /* 🟢 ПОШТАДАН ТЕК АТЫН БӨЛІП АЛУ ЖӘНЕ АВАТАР ОРНАТУ */
     function finishLogin() {
-        const username = document.getElementById('emailInput').value || "Пайдаланушы";
+        const rawInput = document.getElementById('emailInput').value || "Пайдаланушы";
+        
+        // Егер пошта енгізілсе (@gmail.com т.б.), тек @-ке дейінгі бөлігін кесіп аламыз
+        const cleanUsername = rawInput.includes('@') ? rawInput.split('@')[0] : rawInput;
+
         localStorage.setItem('user_logged', 'true');
-        localStorage.setItem('user_name', username);
-        renderLoggedInUser(username);
+        localStorage.setItem('user_name', cleanUsername);
+        renderLoggedInUser(cleanUsername);
         closeAllModals();
     }
 
@@ -572,13 +568,18 @@
     }
 
     function renderLoggedInUser(username) {
-        const avatarImg = "https://api.dicebear.com/7.x/bottts/svg?seed=" + username;
+        // Тағы бір мәрте тексеру: @ белгісі болса, тек алдыңғы бөлігін аламыз
+        const displayName = username.includes('@') ? username.split('@')[0] : username;
+        
+        // Әр қолданушының атына байланысты автоматты дөңгелек аватар суретін жасау
+        const avatarImg = "https://api.dicebear.com/7.x/bottts/svg?seed=" + encodeURIComponent(displayName);
+
         document.getElementById('auth-buttons-container').innerHTML = `
             <div class="user-top-bar">
-                <span class="header-user-name">${username}</span>
-                <div class="user-avatar-btn" onclick="logout()" title="Шығу">
+                <div class="user-avatar-btn" onclick="logout()" title="Шығу үшін басыңыз">
                     <img src="${avatarImg}" alt="Avatar">
                 </div>
+                <span class="header-user-name">${displayName}</span>
             </div>
         `;
     }
@@ -586,6 +587,7 @@
     function logout() {
         if(confirm("Аккаунттан шығасыз ба?")) {
             localStorage.removeItem('user_logged');
+            localStorage.removeItem('user_name');
             location.reload();
         }
     }
