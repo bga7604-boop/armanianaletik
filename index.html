@@ -17,7 +17,8 @@
             --border: #283042;
             --input-bg: #293042;
             --red: #e74c3c;
-            --black: #2c3e50;
+            --purple: #9b59b6;
+            --blue: #3498db;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -34,7 +35,7 @@
 
         /* 🔝 HEADER */
         header { 
-            background: #141822; width: 100%; padding: 12px 16px; 
+            background: #141822; width: 100%; padding: 10px 16px; 
             border-bottom: 1px solid var(--border); display: flex;
             align-items: center; justify-content: space-between;
             position: relative; z-index: 100;
@@ -42,61 +43,79 @@
         
         .header-left { display: flex; align-items: center; gap: 10px; }
         .logo-svg { width: 34px; height: 34px; }
-        .header-title-box h1 { margin: 0; font-size: 14px; font-weight: 800; color: var(--text); }
-        .header-title-box p { margin: 1px 0 0; color: var(--subtext); font-size: 10px; }
+        .header-title-box h1 { margin: 0; font-size: 13px; font-weight: 800; color: var(--text); }
+        .header-sub-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
+        .header-sub-row p { margin: 0; color: var(--subtext); font-size: 10px; }
+        
+        /* ⏰ ХЕДЕРДЕГІ УАҚЫТ */
+        .header-clock { 
+            background: rgba(46, 204, 113, 0.1); 
+            color: var(--accent); 
+            padding: 2px 6px; 
+            border-radius: 4px; 
+            font-size: 10px; 
+            font-weight: 700; 
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
 
         .auth-buttons { display: flex; align-items: center; gap: 8px; }
-        .btn-login { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
-        .btn-register { background: var(--gold); color: #000000; border: 1px solid var(--gold); padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; }
+        .btn-login { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
+        .btn-register { background: var(--gold); color: #000000; border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
 
         /* ПРОФИЛЬ */
-        .user-top-bar { display: flex; align-items: center; gap: 10px; position: relative; }
-        .header-user-name { font-size: 14px; font-weight: 700; color: #ffffff; }
-        .user-avatar-btn { width: 38px; height: 38px; border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid var(--border); }
+        .user-top-bar { display: flex; align-items: center; gap: 8px; position: relative; }
+        .header-user-name { font-size: 13px; font-weight: 700; color: #ffffff; }
+        .user-avatar-btn { width: 34px; height: 34px; border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid var(--border); }
         .user-avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
-        
-        /* МОДАЛЬДАР (АВТОРИЗАЦИЯ) */
+
+        /* МОДАЛЬДАР */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 15px; }
-        .modal-card { background: var(--card-modal); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 360px; padding: 20px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .modal-card { background: var(--card-modal); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 360px; padding: 20px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
         .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--subtext); font-size: 20px; cursor: pointer; }
         .input-group { margin-bottom: 12px; text-align: left; }
-        .input-group label { display: block; font-size: 13px; color: #fff; margin-bottom: 8px; font-weight: 600; }
-        .input-group input { width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; }
-        .btn-submit { width: 100%; background: #333a4d; color: #8892a4; border: none; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 14px; cursor: pointer; margin-top: 10px; }
+        .input-group label { display: block; font-size: 12px; color: #fff; margin-bottom: 6px; font-weight: 600; }
+        .input-group input { width: 100%; padding: 10px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 13px; outline: none; }
+        .btn-submit { width: 100%; background: #333a4d; color: #8892a4; border: none; padding: 12px; border-radius: 10px; font-weight: 800; font-size: 13px; cursor: pointer; margin-top: 10px; }
         .btn-submit.active { background: var(--gold); color: #000; }
 
-        /* НЕГІЗГІ КОНТЕНТ & БЕТТЕР */
-        .container { max-width: 500px; width: 92%; margin: 20px 0; display: flex; flex-direction: column; gap: 15px; }
+        /* НЕГІЗГІ КОНТЕНТ */
+        .container { max-width: 500px; width: 92%; margin: 15px 0; display: flex; flex-direction: column; gap: 12px; }
         .page { display: none; width: 100%; animation: fadeIn 0.3s ease; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card { background: var(--card); padding: 20px; border-radius: 14px; border: 1px solid var(--border); text-align: center; }
-        .card-title { font-size: 18px; margin: 0 0 10px 0; color: var(--accent); display: flex; justify-content: center; align-items: center; gap: 8px; }
-        
-        /* УАҚЫТ ЖӘНЕ СІЛТЕМЕ */
-        .time-display { font-size: 32px; font-weight: 800; color: #fff; margin: 10px 0; letter-spacing: 2px; }
-        .time-label { font-size: 12px; color: var(--subtext); text-transform: uppercase; }
-        
-        .link-box { display: flex; align-items: center; background: var(--input-bg); border-radius: 8px; padding: 5px; border: 1px solid var(--border); margin-top: 15px; }
-        .link-box input { flex: 1; background: transparent; border: none; color: var(--subtext); padding: 8px 10px; font-size: 13px; outline: none; }
-        .btn-copy { background: var(--accent); color: #000; border: none; padding: 8px 15px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; }
+        .card { background: var(--card); padding: 18px; border-radius: 14px; border: 1px solid var(--border); text-align: center; }
+        .card-title { font-size: 16px; margin: 0 0 8px 0; color: var(--accent); display: flex; justify-content: center; align-items: center; gap: 8px; }
 
-        /* РУЛЕТКА */
-        .roulette-wrapper { width: 100%; overflow: hidden; border-radius: 10px; border: 2px solid var(--border); position: relative; background: #000; height: 80px; margin: 20px 0; }
-        .roulette-selector { position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: var(--gold); z-index: 10; transform: translateX(-50%); box-shadow: 0 0 10px var(--gold); }
+        /* 🎰 РУЛЕТКА ЖӘНЕ ПРИЗДАР */
+        .roulette-wrapper { width: 100%; overflow: hidden; border-radius: 10px; border: 2px solid var(--border); position: relative; background: #0a0d14; height: 85px; margin: 15px 0; }
+        .roulette-selector { position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: var(--gold); z-index: 10; transform: translateX(-50%); box-shadow: 0 0 12px var(--gold); }
         .roulette-track { display: flex; height: 100%; transition: transform 4s cubic-bezier(0.1, 0.8, 0.1, 1); }
-        .roulette-item { min-width: 60px; height: 100%; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 18px; color: #fff; border-right: 1px solid rgba(0,0,0,0.5); }
-        .item-red { background: var(--red); }
-        .item-black { background: var(--black); }
-        .item-green { background: var(--accent); }
-        .btn-spin { background: var(--gold); color: #000; border: none; padding: 14px 30px; border-radius: 10px; font-weight: 800; font-size: 16px; cursor: pointer; width: 100%; }
+        
+        .roulette-item { 
+            min-width: 90px; height: 100%; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; font-weight: 800; font-size: 12px; color: #fff; 
+            border-right: 1px solid rgba(255,255,255,0.05); text-align: center; padding: 4px;
+        }
+        .roulette-item span { font-size: 18px; margin-bottom: 2px; }
+
+        .prize-1000 { background: linear-gradient(135deg, #16a085, #2ecc71); }
+        .prize-vip { background: linear-gradient(135deg, #8e44ad, #9b59b6); }
+        .prize-500 { background: linear-gradient(135deg, #2980b9, #3498db); }
+        .prize-promo { background: linear-gradient(135deg, #d35400, #e67e22); }
+        .prize-bonus { background: linear-gradient(135deg, #c0392b, #e74c3c); }
+
+        .btn-spin { background: var(--gold); color: #000; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 800; font-size: 15px; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(255, 183, 3, 0.3); }
+
+        /* 🔗 ШАҚЫРУ СІЛТЕМЕСІ (ТӨМЕНДЕ) */
+        .link-box { display: flex; align-items: center; background: var(--input-bg); border-radius: 8px; padding: 4px; border: 1px solid var(--border); margin-top: 10px; }
+        .link-box input { flex: 1; background: transparent; border: none; color: var(--subtext); padding: 8px 10px; font-size: 12px; outline: none; }
+        .btn-copy { background: var(--accent); color: #000; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 800; font-size: 12px; cursor: pointer; }
 
         /* ТӨМЕНГІ НАВИГАЦИЯ */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #141822; border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }
-        .nav-item { color: var(--subtext); text-decoration: none; font-size: 13px; font-weight: 700; background: none; border: none; cursor: pointer; padding: 10px; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #141822; border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; z-index: 100; }
+        .nav-item { color: var(--subtext); text-decoration: none; font-size: 12px; font-weight: 700; background: none; border: none; cursor: pointer; }
         .nav-item.active { color: var(--accent); }
-
     </style>
 </head>
 <body>
@@ -111,7 +130,11 @@
         </svg>
         <div class="header-title-box">
             <h1>ARMANI ANALETIK</h1>
-            <p>Минимализм & Аналитика</p>
+            <div class="header-sub-row">
+                <p>Минимализм & Аналитика</p>
+                <!-- ⏰ Уақыт осы жерге қойылды -->
+                <div class="header-clock" id="header-clock">00:00:00</div>
+            </div>
         </div>
     </div>
     <div id="auth-buttons-container">
@@ -126,7 +149,7 @@
 <div class="modal-overlay" id="modalStep1">
     <div class="modal-card">
         <button class="modal-close" onclick="closeAllModals()">✕</button>
-        <h2 style="color:#fff; margin-top:0;">Кіру</h2>
+        <h2 style="color:#fff; margin-top:0; font-size:18px;">Кіру</h2>
         <div class="input-group">
             <label>Аккаунт аты</label>
             <input type="text" id="emailInput" placeholder="Атыңызды енгізіңіз" oninput="toggleStep1Btn()">
@@ -135,23 +158,48 @@
     </div>
 </div>
 
+<!-- МОДАЛЬ: УТЫС СЫЙЛЫҒЫ -->
+<div class="modal-overlay" id="modalPrize">
+    <div class="modal-card">
+        <button class="modal-close" onclick="closePrizeModal()">✕</button>
+        <div style="font-size: 40px; margin-bottom: 10px;">🎉</div>
+        <h2 style="color:var(--gold); margin:0 0 10px 0; font-size:20px;">Құттықтаймыз!</h2>
+        <p style="color:#fff; font-size:14px;" id="prizeResultText">Сіз сыйлық ұтып алдыңыз!</p>
+        <button class="btn-submit active" onclick="closePrizeModal()">Рақмет</button>
+    </div>
+</div>
+
 <!-- 📄 НЕГІЗГІ КОНТЕНТ -->
 <div class="container">
     
     <!-- 1. БАСТЫ БЕТ -->
     <div id="page-home" class="page active">
+        <!-- БАСТЫ БЕТ КАРТОЧКАСЫ -->
         <div class="card">
             <h2 class="card-title">🎯 Armani Analetik Басты Беті</h2>
-            <p style="color: var(--subtext); font-size: 13px;">Сайтқа қош келдіңіз!</p>
+            <p style="color: var(--subtext); font-size: 12px; margin:0;">Сайтқа қош келдіңіз!</p>
         </div>
 
-        <div class="card" style="margin-top: 15px;">
-            <div class="time-label">Ағымдағы уақыт (Астана)</div>
-            <div class="time-display" id="live-clock">00:00:00</div>
+        <!-- 🎰 РУЛЕТКА ЖӘНЕ ПРИЗДАР (ОРТАДА) -->
+        <div class="card">
+            <h2 class="card-title" style="color:var(--gold);">🎁 Ұтыс Рулеткасы</h2>
+            <p style="color: var(--subtext); font-size: 11px; margin-top:-5px;">Бағыңызды сынап, бағалы сыйлықтар ұтып алыңыз!</p>
+            
+            <div class="roulette-wrapper">
+                <div class="roulette-selector"></div>
+                <div class="roulette-track" id="rouletteTrack">
+                    <!-- JS арқылы толтырылады -->
+                </div>
+            </div>
+            
+            <button class="btn-spin" onclick="spinRoulette()" id="spinBtn">Айналдыру 🚀</button>
         </div>
 
-        <div class="card" style="margin-top: 15px;">
-            <h3 style="color:#fff; margin:0 0 10px 0; font-size:15px; text-align:left;">🔗 Сіздің шақыру сілтемеңіз</h3>
+        <!-- 🔗 ШАҚЫРУ СІЛТЕМЕСІ (ЕҢ ТӨМЕНДЕ) -->
+        <div class="card">
+            <h3 style="color:#fff; margin:0; font-size:13px; text-align:left; display:flex; align-items:center; gap:6px;">
+                🔗 Сіздің шақыру сілтемеңіз
+            </h3>
             <div class="link-box">
                 <input type="text" id="ref-link" value="https://armanianaletik.kz/ref/777" readonly>
                 <button class="btn-copy" onclick="copyLink()">Көшіру</button>
@@ -163,21 +211,7 @@
     <div id="page-vip" class="page">
         <div class="card">
             <h2 class="card-title">👑 VIP Зона</h2>
-            <p style="color: var(--subtext); font-size: 14px; margin-top:15px;">Бұл бөлім тек VIP жазылымы бар қолданушыларға қолжетімді.</p>
-        </div>
-    </div>
-
-    <!-- 3. РУЛЕТКА -->
-    <div id="page-roulette" class="page">
-        <div class="card">
-            <h2 class="card-title">🎰 Рулетка</h2>
-            <div class="roulette-wrapper">
-                <div class="roulette-selector"></div>
-                <div class="roulette-track" id="rouletteTrack">
-                    <!-- Javascript арқылы толтырылады -->
-                </div>
-            </div>
-            <button class="btn-spin" onclick="spinRoulette()" id="spinBtn">Айналдыру</button>
+            <p style="color: var(--subtext); font-size: 13px; margin-top:10px;">Бұл бөлім тек VIP жазылымы бар қолданушыларға арналған.</p>
         </div>
     </div>
 
@@ -187,7 +221,6 @@
 <nav class="bottom-nav">
     <button class="nav-item active" onclick="switchPage('page-home', this)">Басты бет</button>
     <button class="nav-item" onclick="switchPage('page-vip', this)">VIP Зона</button>
-    <button class="nav-item" onclick="switchPage('page-roulette', this)">Рулетка</button>
 </nav>
 
 <script>
@@ -199,12 +232,15 @@
 
     function openStep1() { document.getElementById('modalStep1').style.display = 'flex'; }
     function closeAllModals() { document.getElementById('modalStep1').style.display = 'none'; }
+    function closePrizeModal() { document.getElementById('modalPrize').style.display = 'none'; }
+
     function toggleStep1Btn() {
         const val = document.getElementById('emailInput').value;
         const btn = document.getElementById('btnNext');
         if(val.length > 2) { btn.classList.add('active'); btn.disabled = false; } 
         else { btn.classList.remove('active'); btn.disabled = true; }
     }
+
     function finishLogin() {
         const username = document.getElementById('emailInput').value || "Пайдаланушы";
         localStorage.setItem('user_logged', 'true');
@@ -212,22 +248,25 @@
         renderLoggedInUser(username);
         closeAllModals();
     }
+
     function checkSavedUser() {
         if(localStorage.getItem('user_logged') === 'true') {
             renderLoggedInUser(localStorage.getItem('user_name'));
         }
     }
+
     function renderLoggedInUser(username) {
         const avatarImg = "https://api.dicebear.com/7.x/bottts/svg?seed=" + username;
         document.getElementById('auth-buttons-container').innerHTML = `
             <div class="user-top-bar">
                 <span class="header-user-name">${username}</span>
-                <div class="user-avatar-btn" onclick="logout()" title="Шығу үшін басыңыз">
+                <div class="user-avatar-btn" onclick="logout()" title="Шығу">
                     <img src="${avatarImg}" alt="Avatar">
                 </div>
             </div>
         `;
     }
+
     function logout() {
         if(confirm("Аккаунттан шығасыз ба?")) {
             localStorage.removeItem('user_logged');
@@ -243,10 +282,10 @@
         btnElement.classList.add('active');
     }
 
-    // --- УАҚЫТТЫ КӨРСЕТУ ---
+    // --- ⏰ УАҚЫТТЫ ХЕДЕРДЕ КӨРСЕТУ ---
     setInterval(() => {
         const now = new Date();
-        document.getElementById('live-clock').innerText = now.toLocaleTimeString('kk-KZ');
+        document.getElementById('header-clock').innerText = now.toLocaleTimeString('kk-KZ');
     }, 1000);
 
     // --- СІЛТЕМЕ КӨШІРУ ---
@@ -257,25 +296,36 @@
         alert("Сілтеме көшірілді: " + copyText.value);
     }
 
-    // --- РУЛЕТКА ОЙЫНЫ ---
+    // --- 🎰 РУЛЕТКА ЖӘНЕ ПРИЗДАР ЛОГИКАСЫ ---
+    const prizes = [
+        { name: "1000 ₸", icon: "💵", class: "prize-1000" },
+        { name: "VIP Мәртебе", icon: "👑", class: "prize-vip" },
+        { name: "500 ₸", icon: "💰", class: "prize-500" },
+        { name: "Промокод", icon: "🎟️", class: "prize-promo" },
+        { name: "Сыйлық Бонус", icon: "🎁", class: "prize-bonus" }
+    ];
+
     const track = document.getElementById('rouletteTrack');
-    const order = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
-    const itemWidth = 60; 
+    const itemWidth = 90; 
     let isSpinning = false;
+    let fullTrackItems = [];
 
     function initRoulette() {
-        // Тректі ұзын етіп толтыру (айналғанда бітпеуі үшін 5 копия)
         let html = '';
-        for(let j=0; j<5; j++) {
-            order.forEach(num => {
-                let colorClass = 'item-black';
-                if(num === 0) colorClass = 'item-green';
-                else if ([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36].includes(num)) colorClass = 'item-red';
-                html += `<div class="roulette-item ${colorClass}">${num}</div>`;
+        fullTrackItems = [];
+        // Лентаны толтыру
+        for(let j=0; j<8; j++) {
+            prizes.forEach(p => {
+                fullTrackItems.push(p);
+                html += `
+                    <div class="roulette-item ${p.class}">
+                        <span>${p.icon}</span>
+                        <div>${p.name}</div>
+                    </div>
+                `;
             });
         }
         track.innerHTML = html;
-        // Бастапқы позиция
         track.style.transform = `translateX(0px)`;
     }
 
@@ -285,13 +335,12 @@
         const btn = document.getElementById('spinBtn');
         btn.style.opacity = '0.5';
         
-        // Кездейсоқ ұзындыққа айналдыру (3-ші немесе 4-ші блокқа дейін)
-        const baseSpins = order.length * 3; // кем дегенде 3 рет толық айналу
-        const randomTarget = Math.floor(Math.random() * order.length);
-        const totalItemsToMove = baseSpins + randomTarget;
+        // Кездейсоқ приз таңдау
+        const targetIndex = Math.floor(Math.random() * prizes.length) + (prizes.length * 5);
+        const winningPrize = fullTrackItems[targetIndex];
         
-        // Экран ортасына түсуі үшін есептеу
-        const trackOffset = (totalItemsToMove * itemWidth) - (track.parentElement.offsetWidth / 2) + (itemWidth / 2);
+        // Экран ортасына есептеу
+        const trackOffset = (targetIndex * itemWidth) - (track.parentElement.offsetWidth / 2) + (itemWidth / 2);
         
         track.style.transition = 'transform 4s cubic-bezier(0.1, 0.8, 0.1, 1)';
         track.style.transform = `translateX(-${trackOffset}px)`;
@@ -299,7 +348,10 @@
         setTimeout(() => {
             isSpinning = false;
             btn.style.opacity = '1';
-            // Анимация біткен соң тректі бастапқы орнына білдіртпей қайтару логикасын қосуға болады, бірақ бұл қарапайым нұсқа.
+            
+            // Ұтыс модалін көрсету
+            document.getElementById('prizeResultText').innerHTML = `Сіздің ұтысыңыз: <b>${winningPrize.icon} ${winningPrize.name}</b>`;
+            document.getElementById('modalPrize').style.display = 'flex';
         }, 4000);
     }
 </script>
