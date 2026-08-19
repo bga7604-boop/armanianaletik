@@ -31,7 +31,7 @@
             align-items: center; 
         }
 
-        /* ⏳ ELEVENLABS СТИЛІНДЕГІ PRELOADER */
+        /* ⏳ PRELOADER */
         #preloader {
             position: fixed;
             top: 0;
@@ -98,23 +98,21 @@
             visibility: hidden;
         }
 
+        /* 🔝 HEADER & КІРУ/ТІРКЕЛУ БАТЫРМАЛАРЫ */
         header { 
             background: var(--card); 
             width: 100%; 
-            text-align: center; 
-            padding: 15px 0; 
+            padding: 12px 20px; 
             border-bottom: 1px solid var(--border); 
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
         }
         
-        .logo-box {
+        .header-left {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 4px;
         }
 
         .logo-svg {
@@ -123,8 +121,114 @@
             filter: drop-shadow(0 0 8px rgba(46, 204, 113, 0.4));
         }
 
-        header h1 { margin: 0; font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: 1px; }
-        header p { margin: 2px 0 0; color: var(--subtext); font-size: 12px; }
+        .header-title-box h1 { margin: 0; font-size: 16px; font-weight: 800; color: var(--text); letter-spacing: 0.5px; }
+        .header-title-box p { margin: 1px 0 0; color: var(--subtext); font-size: 11px; }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-register {
+            background: var(--gold);
+            color: #000000;
+            border: 1px solid var(--gold);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-login:active, .btn-register:active {
+            opacity: 0.8;
+            transform: scale(0.96);
+        }
+
+        /* 📱 МОДАЛЬДІ ТЕРЕЗЕ (КІРУ / ТІРКЕЛУ) */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 380px;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--subtext);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 11px;
+            color: var(--subtext);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent);
+        }
 
         .container { max-width: 500px; width: 92%; margin: 15px 0; }
         .card { 
@@ -135,7 +239,7 @@
             border: 1px solid var(--border); 
         }
 
-        /* 🎁 ЖОҒАРҒЫ КОНКУРС БЛОГЫ */
+        /* 🎁 КОНКУРС БЛОГЫ */
         .contest-box {
             background: rgba(46, 204, 113, 0.05);
             border: 1px solid var(--accent);
@@ -166,7 +270,7 @@
             margin-top: 4px; 
         }
 
-        /* ⏱️ БАТЫРМА ТҮБІНДЕГІ ТАЙМЕР БЛОГЫ */
+        /* ⏱️ ТАЙМЕР БЛОГЫ */
         .btn-timer-container {
             margin-top: 15px;
             display: none;
@@ -304,17 +408,44 @@
     <div class="preloader-text">Жүктелуде...</div>
 </div>
 
+<!-- 🔝 HEADER (Логотип + Кіру / Тіркелу) -->
 <header>
-    <div class="logo-box">
+    <div class="header-left">
         <svg class="logo-svg" viewBox="0 0 100 100">
             <rect width="100" height="100" rx="20" fill="#121613" stroke="#2ecc71" stroke-width="4"/>
             <path d="M25 75 L42 25 L58 25 L40 75 Z" fill="#2ecc71"/>
             <path d="M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z" fill="#f1c40f"/>
         </svg>
-        <h1>ARMANI ANALETIK</h1>
+        <div class="header-title-box">
+            <h1>ARMANI ANALETIK</h1>
+            <p>Минимализм & Аналитика</p>
+        </div>
     </div>
-    <p>Минимализм & Аналитика</p>
+    <div class="auth-buttons">
+        <button class="btn-login" onclick="openModal('login')">Кіру</button>
+        <button class="btn-register" onclick="openModal('register')">Тіркелу</button>
+    </div>
 </header>
+
+<!-- 📱 КІРУ МЕН ТІРКЕЛУ МОДАЛЬДІ ТЕРЕЗЕСІ -->
+<div class="modal-overlay" id="authModal">
+    <div class="modal-card">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal-title" id="modalTitle">КІРУ</div>
+        
+        <form onsubmit="handleAuth(event)">
+            <div class="input-group">
+                <label>Телефон немесе Е-mail</label>
+                <input type="text" placeholder="+7 (700) 000-00-00" required>
+            </div>
+            <div class="input-group">
+                <label>Құпия сөз</label>
+                <input type="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn" style="margin-top: 20px;">РАСТАУ</button>
+        </form>
+    </div>
+</div>
 
 <div class="container">
 
@@ -377,6 +508,24 @@
             preloader.classList.add('preloader-hidden');
         }, 800);
     });
+
+    // 📱 МОДАЛЬДІ ТЕРЕЗЕ БАСҚАРУ
+    function openModal(type) {
+        const modal = document.getElementById('authModal');
+        const title = document.getElementById('modalTitle');
+        title.innerText = type === 'login' ? 'САЙТҚА КІРУ' : 'ТІРКЕЛУ';
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('authModal').style.display = 'none';
+    }
+
+    function handleAuth(e) {
+        e.preventDefault();
+        alert("Сәтті орындалды!");
+        closeModal();
+    }
 
     // ⏱️ Кері санақ таймері
     let timerInterval = null;
@@ -502,7 +651,6 @@
             document.getElementById('win-prize-text').innerText = selectedPrize.text;
             document.getElementById('win-result-box').style.display = 'block';
 
-            // ⏳ Айналдырып болған соң батырманы бұғаттап, таймерді көрсету
             btn.innerText = "КЕЗЕКТІ АЙНАЛДЫРУ ШЕКТЕЛДІ 🔒";
             document.getElementById('timer-container').style.display = 'block';
             startTimer();
