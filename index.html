@@ -31,7 +31,7 @@
             align-items: center; 
         }
 
-        /* ⏳ ELEVENLABS СТИЛІНДЕГІ ЖҮКТЕЛУ ЭКРАНЫ (PRELOADER) */
+        /* ⏳ ELEVENLABS СТИЛІНДЕГІ PRELOADER */
         #preloader {
             position: fixed;
             top: 0;
@@ -56,7 +56,6 @@
             align-items: center;
         }
 
-        /* Айналатын неоны бар шеңбер */
         .preloader-spinner {
             position: absolute;
             width: 100%;
@@ -68,7 +67,6 @@
             animation: spin 1.2s linear infinite;
         }
 
-        /* Ортасындағы пульсация жасайтын AV логотипі */
         .preloader-logo {
             width: 45px;
             height: 45px;
@@ -95,7 +93,6 @@
             100% { transform: scale(1.08); opacity: 1; }
         }
 
-        /* Preloader жоғалу класы */
         .preloader-hidden {
             opacity: 0;
             visibility: hidden;
@@ -138,17 +135,49 @@
             border: 1px solid var(--border); 
         }
 
-        /* ⏱️ Таймер */
-        .timer-box {
+        /* 🎁 ЖОҒАРҒЫ КОНКУРС БЛОГЫ */
+        .contest-box {
             background: rgba(46, 204, 113, 0.05);
             border: 1px solid var(--accent);
-            border-radius: 10px;
-            padding: 12px;
+            border-radius: 12px;
+            padding: 14px;
             text-align: center;
             margin-bottom: 15px;
+            text-decoration: none;
+            display: block;
+            transition: transform 0.2s, background 0.2s;
         }
-        .timer-title { font-size: 12px; color: var(--subtext); text-transform: uppercase; letter-spacing: 1px; }
-        .timer-clock { font-size: 24px; font-weight: 800; color: var(--accent); margin-top: 4px; font-family: monospace; }
+        .contest-box:active {
+            transform: scale(0.98);
+            background: rgba(46, 204, 113, 0.12);
+        }
+        .contest-title { 
+            font-size: 16px; 
+            font-weight: 800; 
+            color: var(--accent); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .contest-sub { 
+            font-size: 12px; 
+            color: var(--subtext); 
+            margin-top: 4px; 
+        }
+
+        /* ⏱️ БАТЫРМА ТҮБІНДЕГІ ТАЙМЕР БЛОГЫ */
+        .btn-timer-container {
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px stroke var(--border);
+            padding: 12px;
+            border-radius: 10px;
+        }
+        .btn-timer-title { font-size: 11px; color: var(--subtext); text-transform: uppercase; letter-spacing: 1px; }
+        .btn-timer-clock { font-size: 22px; font-weight: 800; color: var(--accent); margin-top: 3px; font-family: monospace; }
 
         .btn { 
             display: block; 
@@ -166,9 +195,14 @@
             cursor: pointer; 
         }
         .btn:active { opacity: 0.8; }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn:disabled { 
+            background: #2a352c; 
+            color: #617365; 
+            cursor: not-allowed; 
+            opacity: 1; 
+        }
 
-        /* 🎡 Анық көрінетін SVG Рулетка контейнері */
+        /* 🎡 SVG РУЛЕТКА */
         .wheel-wrapper {
             position: relative;
             width: 320px;
@@ -180,7 +214,6 @@
             background: #000;
         }
         
-        /* Меңзер */
         .wheel-pointer {
             position: absolute;
             top: -12px;
@@ -195,7 +228,6 @@
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
         }
 
-        /* Ортадағы AV Логотипі бар Шеңбер */
         .wheel-center-ribbon {
             position: absolute;
             top: 50%;
@@ -235,7 +267,6 @@
             transition: transform 4s cubic-bezier(0.15, 0.9, 0.15, 1);
         }
 
-        /* Мәтін стилі */
         .sector-text {
             font-size: 13.5px;
             font-weight: 800;
@@ -261,7 +292,7 @@
 </head>
 <body>
 
-<!-- ⏳ СҮЗГІ / ЖҮКТЕЛУ ЭКРАНЫ (PRELOADER) -->
+<!-- ⏳ PRELOADER -->
 <div id="preloader">
     <div class="preloader-logo-wrapper">
         <div class="preloader-spinner"></div>
@@ -287,10 +318,11 @@
 
 <div class="container">
 
-    <div class="timer-box">
-        <div class="timer-title">⏱️ Келесі айналдыруға дейін:</div>
-        <div class="timer-clock" id="countdown-timer">23:59:59</div>
-    </div>
+    <!-- 🎁 БҮГІН КОНКУРС СІЛТЕМЕСІ -->
+    <a href="https://t.me/analetik_1" class="contest-box" target="_blank">
+        <div class="contest-title">🎁 БҮГІНГІ КОНКУРС</div>
+        <div class="contest-sub">Каналға өтіп, конкурсқа қатысыңыз! 🚀</div>
+    </a>
 
     <div class="card" style="text-align: center;">
         <h2 style="font-size: 18px; margin: 0 0 10px 0; color: var(--accent);">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
@@ -314,6 +346,12 @@
         <audio id="spin-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_2c9d81d6d6.mp3" preload="auto"></audio>
         <audio id="win-sound" src="https://cdn.pixabay.com/audio/2023/10/16/audio_d0b57e4e67.mp3" preload="auto"></audio>
 
+        <!-- ⏱️ БАТЫРМА ҮСТІНДЕГІ КЕРІ САНАҚ -->
+        <div class="btn-timer-container" id="timer-container">
+            <div class="btn-timer-title">⏱️ Келесі айналдыруға дейін:</div>
+            <div class="btn-timer-clock" id="countdown-timer">23:59:59</div>
+        </div>
+
         <button id="spin-btn" onclick="spinWheel()" class="btn">🎰 АЙНАЛДЫРУ</button>
 
         <div id="win-result-box" style="display: none; margin-top: 15px; background: rgba(46,204,113,0.1); border: 1px solid var(--accent); padding: 12px; border-radius: 8px;">
@@ -332,19 +370,23 @@
 </nav>
 
 <script>
-    // ⏳ PRELOADER-ДІ ЖОҒАЛТУ (Сайт толық жүктелген соң)
+    // PRELOADER
     window.addEventListener('load', () => {
         const preloader = document.getElementById('preloader');
         setTimeout(() => {
             preloader.classList.add('preloader-hidden');
-        }, 800); // 0.8 секунд көрсетіп, жұмсақ түрде жоғалады
+        }, 800);
     });
 
-    // ⏱️ Таймер
+    // ⏱️ Кері санақ таймері
+    let timerInterval = null;
     function startTimer() {
         let totalSeconds = 24 * 3600 - 1;
         const timerElement = document.getElementById('countdown-timer');
-        setInterval(() => {
+        
+        if (timerInterval) clearInterval(timerInterval);
+        
+        timerInterval = setInterval(() => {
             let hours = Math.floor(totalSeconds / 3600);
             let minutes = Math.floor((totalSeconds % 3600) / 60);
             let seconds = totalSeconds % 60;
@@ -358,9 +400,8 @@
             else totalSeconds = 24 * 3600;
         }, 1000);
     }
-    startTimer();
 
-    // 🎡 7 ЖҮЛДЕ ЖӘНЕ ТҮСТЕРІ
+    // 🎡 ЖҮЛДЕЛЕР
     const prizes = [
         { text: "VIP Экспресс -10% 🔥", bg: "#ffffff", color: "#000000" },
         { text: "VIP Канал +1 Күн 👑", bg: "#2ecc71", color: "#000000" },
@@ -420,7 +461,7 @@
 
     buildWheel();
 
-    // 🎡 Айналдыру функциясы
+    // 🎡 Айналдыру
     let isSpinning = false;
     let currentRotation = 0;
 
@@ -453,7 +494,6 @@
 
         setTimeout(() => {
             isSpinning = false;
-            btn.disabled = false;
 
             spinSound.pause();
             winSound.currentTime = 0;
@@ -461,6 +501,12 @@
 
             document.getElementById('win-prize-text').innerText = selectedPrize.text;
             document.getElementById('win-result-box').style.display = 'block';
+
+            // ⏳ Айналдырып болған соң батырманы бұғаттап, таймерді көрсету
+            btn.innerText = "КЕЗЕКТІ АЙНАЛДЫРУ ШЕКТЕЛДІ 🔒";
+            document.getElementById('timer-container').style.display = 'block';
+            startTimer();
+
         }, 4000);
     }
 </script>
