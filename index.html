@@ -42,7 +42,11 @@
         }
         
         .header-left { display: flex; align-items: center; gap: 10px; }
+        
+        /* Логотип пен сағат блогы */
+        .logo-box { display: flex; flex-direction: column; align-items: center; gap: 3px; }
         .logo-svg { width: 34px; height: 34px; }
+        
         .header-title-box h1 { margin: 0; font-size: 13px; font-weight: 800; color: var(--text); }
         .header-sub-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
         .header-sub-row p { margin: 0; color: var(--subtext); font-size: 10px; }
@@ -50,11 +54,12 @@
         .header-clock { 
             background: rgba(46, 204, 113, 0.1); 
             color: var(--accent); 
-            padding: 2px 6px; 
+            padding: 1px 5px; 
             border-radius: 4px; 
-            font-size: 10px; 
+            font-size: 9px; 
             font-weight: 700; 
             border: 1px solid rgba(46, 204, 113, 0.3);
+            white-space: nowrap;
         }
 
         .auth-buttons { display: flex; align-items: center; gap: 8px; }
@@ -263,16 +268,20 @@
 <!-- 🔝 HEADER -->
 <header>
     <div class="header-left">
-        <svg class="logo-svg" viewBox="0 0 100 100">
-            <rect width="100" height="100" rx="20" fill="#121613" stroke="#2ecc71" stroke-width="4"/>
-            <path d="M25 75 L42 25 L58 25 L40 75 Z" fill="#2ecc71"/>
-            <path d="M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z" fill="#f1c40f"/>
-        </svg>
+        <!-- ЛОГОТИП ЖӘНЕ УАҚЫТ БЛОГЫ -->
+        <div class="logo-box">
+            <svg class="logo-svg" viewBox="0 0 100 100">
+                <rect width="100" height="100" rx="20" fill="#121613" stroke="#2ecc71" stroke-width="4"/>
+                <path d="M25 75 L42 25 L58 25 L40 75 Z" fill="#2ecc71"/>
+                <path d="M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z" fill="#f1c40f"/>
+            </svg>
+            <div class="header-clock" id="header-clock">00:00:00</div>
+        </div>
+        
         <div class="header-title-box">
             <h1>ARMANI ANALETIK</h1>
             <div class="header-sub-row">
                 <p>Минимализм & Аналитика</p>
-                <div class="header-clock" id="header-clock">00:00:00</div>
             </div>
         </div>
     </div>
@@ -410,8 +419,8 @@
 
 <!-- 🧭 ТӨМЕНГІ НАВИГАЦИЯ -->
 <nav class="bottom-nav">
-    <button class="nav-item active" onclick="switchPage('page-home', this)">Басты бет</button>
-    <button class="nav-item" onclick="switchPage('page-vip', this)">VIP Зона</button>
+    <button class="nav-item active" onclick="switchPage('page-home', this)">🏠 Басты бет</button>
+    <button class="nav-item" onclick="switchPage('page-vip', this)">👑 VIP Зона</button>
 </nav>
 
 <script>
