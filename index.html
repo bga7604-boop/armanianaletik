@@ -66,7 +66,9 @@
 
         /* МОДАЛЬДАР */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 15px; }
-        .modal-card { background: var(--card-modal); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 360px; padding: 20px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
+        .modal-card { background: var(--card-modal); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 360px; padding: 24px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; transform: scale(0.9); animation: popUp 0.3s forwards ease-out; }
+        @keyframes popUp { to { transform: scale(1); } }
+        
         .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--subtext); font-size: 20px; cursor: pointer; }
         .input-group { margin-bottom: 12px; text-align: left; }
         .input-group label { display: block; font-size: 12px; color: #fff; margin-bottom: 6px; font-weight: 600; }
@@ -94,38 +96,53 @@
         .contest-banner h3 { margin: 0; font-size: 15px; color: var(--accent); }
         .contest-banner p { margin: 4px 0 0; font-size: 12px; color: var(--subtext); }
 
-        /* 🎡 ДӨҢГЕЛЕК РУЛЕТКА ДИЗАЙНЫ */
+        /* 🎡 HD ДӨҢГЕЛЕК РУЛЕТКА */
         .wheel-box {
             position: relative;
-            width: 280px;
-            height: 280px;
-            margin: 20px auto;
+            width: 300px;
+            height: 300px;
+            margin: 15px auto;
         }
+
+        /* 📐 СТРЕЛКА ЖӘНЕ АНИМАЦИЯСЫ */
         .wheel-pointer {
             position: absolute;
-            top: -12px;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
             width: 0; height: 0;
-            border-left: 12px solid transparent;
-            border-right: 12px solid transparent;
-            border-top: 22px solid #ffffff;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 24px solid #ffffff;
             z-index: 20;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+            transition: transform 0.05s ease-in-out;
         }
-        .wheel-canvas {
+        .wheel-pointer.bounce {
+            transform: translateX(-50%) translateY(-3px) scaleY(0.9);
+        }
+
+        .wheel-canvas-container {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             border: 5px solid var(--accent);
-            box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
-            transition: transform 4s cubic-bezier(0.15, 0.85, 0.15, 1);
+            box-shadow: 0 0 25px rgba(46, 204, 113, 0.4), inset 0 0 15px rgba(0,0,0,0.5);
+            overflow: hidden;
+            position: relative;
         }
+
+        #wheelCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
         .wheel-center-logo {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 50px; height: 50px;
+            width: 52px; height: 52px;
             background: #121613;
             border: 3px solid var(--gold);
             border-radius: 50%;
@@ -133,20 +150,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
 
         .btn-spin-green { 
             background: var(--accent); 
             color: #000; 
             border: none; 
-            padding: 12px 25px; 
-            border-radius: 10px; 
+            padding: 14px 25px; 
+            border-radius: 12px; 
             font-weight: 800; 
             font-size: 15px; 
             cursor: pointer; 
             width: 100%; 
             box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); 
+            transition: transform 0.1s, opacity 0.2s;
         }
+        .btn-spin-green:active { transform: scale(0.98); }
 
         /* 🔗 ШАҚЫРУ СІЛТЕМЕСІ */
         .link-box { display: flex; align-items: center; background: var(--input-bg); border-radius: 8px; padding: 4px; border: 1px solid var(--border); margin-top: 10px; }
@@ -198,14 +218,14 @@
     </div>
 </div>
 
-<!-- МОДАЛЬ: ТҮСКЕН НӘТИЖЕ -->
+<!-- МОДАЛЬ: ТҮСКЕН НӘТИЖЕ (ИНТРИГА) -->
 <div class="modal-overlay" id="modalResult">
     <div class="modal-card">
         <button class="modal-close" onclick="closeResultModal()">✕</button>
-        <div style="font-size: 40px; margin-bottom: 10px;">🎉</div>
-        <h2 style="color:var(--gold); margin:0 0 10px 0; font-size:20px;">Құттықтаймыз!</h2>
-        <p style="color:#fff; font-size:15px;" id="resultText">Сіздің ұтысыңыз!</p>
-        <button class="btn-submit active" onclick="closeResultModal()">Жабу</button>
+        <div style="font-size: 46px; margin-bottom: 10px;">🎉</div>
+        <h2 style="color:var(--gold); margin:0 0 10px 0; font-size:22px; font-weight:800;">ҚҰТТЫҚТАЙМЫЗ!</h2>
+        <p style="color:#fff; font-size:16px; line-height: 1.4;" id="resultText">Сіздің ұтысыңыз!</p>
+        <button class="btn-submit active" onclick="closeResultModal()" style="font-size: 14px; padding: 14px;">ҰТЫСТЫ АЛУ 🚀</button>
     </div>
 </div>
 
@@ -226,10 +246,13 @@
             <h2 class="card-title" style="color:var(--accent);">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
             
             <div class="wheel-box">
-                <div class="wheel-pointer"></div>
-                <canvas class="wheel-canvas" id="wheelCanvas" width="300" height="300"></canvas>
+                <div class="wheel-pointer" id="wheelPointer"></div>
+                <div class="wheel-canvas-container">
+                    <!-- HD сапа үшін Canvas өлшемі 600x600 px -->
+                    <canvas id="wheelCanvas" width="600" height="600"></canvas>
+                </div>
                 <div class="wheel-center-logo">
-                    <svg width="24" height="24" viewBox="0 0 100 100">
+                    <svg width="26" height="26" viewBox="0 0 100 100">
                         <path d="M25 75 L42 25 L58 25 L40 75 Z" fill="#2ecc71"/>
                         <path d="M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z" fill="#f1c40f"/>
                     </svg>
@@ -269,7 +292,63 @@
 </nav>
 
 <script>
-    // --- АВТОРИЗАЦИЯ ---
+    // --- 🔊 ДЫБЫСТАР СИНТЕЗАТОРЫ (Audio API - Файлдарсыз шынайы дыбыс генерациясы) ---
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new AudioContext();
+        }
+    }
+
+    // 1. Шытырлақ / Тықыл дыбысы (Рулетка айналғанда)
+    function playClickSound() {
+        try {
+            if (!audioCtx) initAudio();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.04);
+            
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.04);
+        } catch(e){}
+    }
+
+    // 2. Жеңіс дыбысы (Интрига аяқталғанда)
+    function playWinSound() {
+        try {
+            if (!audioCtx) initAudio();
+            const notes = [261.63, 329.63, 392.00, 523.25]; // C-E-G-C аккорды
+            notes.forEach((freq, index) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime + index * 0.08);
+                
+                gain.gain.setValueAtTime(0.4, audioCtx.currentTime + index * 0.08);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + index * 0.08 + 0.4);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start(audioCtx.currentTime + index * 0.08);
+                osc.stop(audioCtx.currentTime + index * 0.08 + 0.4);
+            });
+        } catch(e){}
+    }
+
+    // --- АВТОРИЗАЦИЯ ЛОГИКАСЫ ---
     window.addEventListener('load', () => {
         checkSavedUser();
         drawWheel();
@@ -339,7 +418,7 @@
         alert("Сілтеме көшірілді: " + copyText.value);
     }
 
-    // --- 🎡 СУРЕТТЕГІ РУЛЕТКА ПРИЗДАРЫ ЖӘНЕ САЛУ ---
+    // --- 🎡 HD РУЛЕТКА ДИЗАЙНЫ МЕН АНИМАЦИЯСЫ ---
     const prizes = [
         { text: "🏆 VIP Экспресс -10% 🔥", color: "#ffffff", textColor: "#000000" },
         { text: "👑 VIP Канал +1 Күн 👑", color: "#2ecc71", textColor: "#ffffff" },
@@ -354,9 +433,11 @@
     const ctx = canvas.getContext("2d");
     const numPrizes = prizes.length;
     const arcSize = (2 * Math.PI) / numPrizes;
-    let currentRotation = 0;
+    
+    let currentAngle = 0; // Радиан арқылы есептеу
     let isSpinning = false;
 
+    // HD Рулетканы салу (600x600 пиксельдік айқындық)
     function drawWheel() {
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
@@ -365,9 +446,9 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         for (let i = 0; i < numPrizes; i++) {
-            const angle = i * arcSize;
+            const angle = currentAngle + (i * arcSize);
             
-            // Сектор салу
+            // Сектор сызу
             ctx.beginPath();
             ctx.fillStyle = prizes[i].color;
             ctx.moveTo(centerX, centerY);
@@ -375,44 +456,91 @@
             ctx.lineTo(centerX, centerY);
             ctx.fill();
 
-            // Текст жазу
+            // Секторлардың бөлініс сызығы
+            ctx.strokeStyle = "rgba(0,0,0,0.15)";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Мәтінді жазу (Анық HD сапада)
             ctx.save();
             ctx.translate(centerX, centerY);
             ctx.rotate(angle + arcSize / 2);
             ctx.textAlign = "right";
             ctx.fillStyle = prizes[i].textColor;
-            ctx.font = "bold 11px -apple-system, Roboto, sans-serif";
-            ctx.fillText(prizes[i].text, radius - 15, 4);
+            ctx.font = "bold 22px -apple-system, BlinkMacSystemFont, Roboto, sans-serif";
+            ctx.fillText(prizes[i].text, radius - 30, 8);
             ctx.restore();
         }
     }
 
+    // 🚀 ИНТРИГАМЕН АЙНАЛДЫРУ ЛОГИКАСЫ
     function spinWheel() {
         if (isSpinning) return;
+        initAudio(); // Дыбыс жүйесін белсендіру
         isSpinning = true;
 
         const btn = document.getElementById('spinBtn');
+        const pointer = document.getElementById('wheelPointer');
         btn.style.opacity = '0.5';
 
         // Кездейсоқ ұтыс
-        const randomIndex = Math.floor(Math.random() * numPrizes);
+        const winIndex = Math.floor(Math.random() * numPrizes);
         
-        // Градустарды есептеу
-        const degreesPerSegment = 360 / numPrizes;
-        const targetDegree = 360 - (randomIndex * degreesPerSegment) - (degreesPerSegment / 2) - 90;
-        const totalSpin = currentRotation + (360 * 5) + targetDegree;
+        // 🎯 Стрелка дәл ұтыс сектор ортасына тоқтауы үшін есептеу (-PI/2 өйткені стрелка жоғарыда)
+        const targetSectorAngle = (2 * Math.PI) - (winIndex * arcSize) - (arcSize / 2) - (Math.PI / 2);
+        const extraRotations = 5 * (2 * Math.PI); // 5 толық айналым (интрига)
+        
+        const startAngle = currentAngle;
+        const totalRotation = startAngle + extraRotations + (targetSectorAngle - (startAngle % (2 * Math.PI)));
+        
+        const duration = 5000; // 5 секундтық физикалық анимация
+        const startTime = performance.now();
+        
+        let lastSectorIndex = -1;
 
-        canvas.style.transform = `rotate(${totalSpin}deg)`;
-        currentRotation = totalSpin;
-
-        setTimeout(() => {
-            isSpinning = false;
-            btn.style.opacity = '1';
+        function animateWheel(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
             
-            // Ұтысты көрсету
-            document.getElementById('resultText').innerHTML = `Ұтысыңыз: <br><b style="color:var(--accent); font-size:18px;">${prizes[randomIndex].text}</b>`;
-            document.getElementById('modalResult').style.display = 'flex';
-        }, 4000);
+            // Ease-Out Cubic (Басында жылдам, соңында өте баяу тоқтайды - физикалық интрига)
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            
+            currentAngle = startAngle + (totalRotation - startAngle) * easeOut;
+            drawWheel();
+
+            // ДЫБЫС МЕН СТРЕЛКА АНИМАЦИЯСЫН ТЕСКЕРУ
+            // Қазір стрелка астындағы сектор индексін табу
+            const normalizedAngle = (Math.PI * 2.5 - currentAngle) % (Math.PI * 2);
+            const positiveAngle = normalizedAngle < 0 ? normalizedAngle + Math.PI * 2 : normalizedAngle;
+            const currentSectorIndex = Math.floor(positiveAngle / arcSize) % numPrizes;
+
+            if (currentSectorIndex !== lastSectorIndex) {
+                lastSectorIndex = currentSectorIndex;
+                playClickSound(); // Шытырлақ дыбысы
+                
+                // Стрелканы соққы сезімімен дірілдету
+                pointer.classList.add('bounce');
+                setTimeout(() => pointer.classList.remove('bounce'), 40);
+            }
+
+            if (progress < 1) {
+                requestAnimationFrame(animateWheel);
+            } else {
+                // 🎉 ТАМША! ТОҚТАДЫ!
+                isSpinning = false;
+                btn.style.opacity = '1';
+                
+                playWinSound(); // Жеңіс музыкасы
+                
+                // Нәтижені модаль терезеде ашу
+                setTimeout(() => {
+                    document.getElementById('resultText').innerHTML = `Сіздің ұтысыңыз: <br><br><b style="color:var(--accent); font-size:20px; background: rgba(46,204,113,0.1); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--accent); display: inline-block;">${prizes[winIndex].text}</b>`;
+                    document.getElementById('modalResult').style.display = 'flex';
+                }, 300);
+            }
+        }
+
+        requestAnimationFrame(animateWheel);
     }
 </script>
 </body>
