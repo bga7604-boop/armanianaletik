@@ -17,8 +17,7 @@
             --border: #283042;
             --input-bg: #293042;
             --red: #e74c3c;
-            --purple: #9b59b6;
-            --blue: #3498db;
+            --black: #2c3e50;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -87,27 +86,22 @@
         .card { background: var(--card); padding: 18px; border-radius: 14px; border: 1px solid var(--border); text-align: center; }
         .card-title { font-size: 16px; margin: 0 0 8px 0; color: var(--accent); display: flex; justify-content: center; align-items: center; gap: 8px; }
 
-        /* 🎰 РУЛЕТКА ЖӘНЕ ПРИЗДАР */
-        .roulette-wrapper { width: 100%; overflow: hidden; border-radius: 10px; border: 2px solid var(--border); position: relative; background: #0a0d14; height: 85px; margin: 15px 0; }
+        /* 🎰 ЕСКІ ЕСКІ КЛАССИКАЛЫҚ РУЛЕТКА */
+        .roulette-wrapper { width: 100%; overflow: hidden; border-radius: 10px; border: 2px solid var(--border); position: relative; background: #000; height: 75px; margin: 15px 0; }
         .roulette-selector { position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: var(--gold); z-index: 10; transform: translateX(-50%); box-shadow: 0 0 12px var(--gold); }
         .roulette-track { display: flex; height: 100%; transition: transform 4s cubic-bezier(0.1, 0.8, 0.1, 1); }
         
         .roulette-item { 
-            min-width: 90px; height: 100%; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; font-weight: 800; font-size: 12px; color: #fff; 
-            border-right: 1px solid rgba(255,255,255,0.05); text-align: center; padding: 4px;
+            min-width: 60px; height: 100%; display: flex; justify-content: center; align-items: center; 
+            font-weight: 800; font-size: 18px; color: #fff; border-right: 1px solid rgba(0,0,0,0.4); 
         }
-        .roulette-item span { font-size: 18px; margin-bottom: 2px; }
-
-        .prize-1000 { background: linear-gradient(135deg, #16a085, #2ecc71); }
-        .prize-vip { background: linear-gradient(135deg, #8e44ad, #9b59b6); }
-        .prize-500 { background: linear-gradient(135deg, #2980b9, #3498db); }
-        .prize-promo { background: linear-gradient(135deg, #d35400, #e67e22); }
-        .prize-bonus { background: linear-gradient(135deg, #c0392b, #e74c3c); }
+        .item-red { background: var(--red); }
+        .item-black { background: var(--black); }
+        .item-green { background: var(--accent); }
 
         .btn-spin { background: var(--gold); color: #000; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 800; font-size: 15px; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(255, 183, 3, 0.3); }
 
-        /* 🔗 ШАҚЫРУ СІЛТЕМЕСІ (ТӨМЕНДЕ) */
+        /* 🔗 ШАҚЫРУ СІЛТЕМЕСІ */
         .link-box { display: flex; align-items: center; background: var(--input-bg); border-radius: 8px; padding: 4px; border: 1px solid var(--border); margin-top: 10px; }
         .link-box input { flex: 1; background: transparent; border: none; color: var(--subtext); padding: 8px 10px; font-size: 12px; outline: none; }
         .btn-copy { background: var(--accent); color: #000; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 800; font-size: 12px; cursor: pointer; }
@@ -132,7 +126,7 @@
             <h1>ARMANI ANALETIK</h1>
             <div class="header-sub-row">
                 <p>Минимализм & Аналитика</p>
-                <!-- ⏰ Уақыт осы жерге қойылды -->
+                <!-- ⏰ Уақыт осы жерде -->
                 <div class="header-clock" id="header-clock">00:00:00</div>
             </div>
         </div>
@@ -158,14 +152,14 @@
     </div>
 </div>
 
-<!-- МОДАЛЬ: УТЫС СЫЙЛЫҒЫ -->
-<div class="modal-overlay" id="modalPrize">
+<!-- МОДАЛЬ: ТҮСКЕН НӘТИЖЕ -->
+<div class="modal-overlay" id="modalResult">
     <div class="modal-card">
-        <button class="modal-close" onclick="closePrizeModal()">✕</button>
-        <div style="font-size: 40px; margin-bottom: 10px;">🎉</div>
-        <h2 style="color:var(--gold); margin:0 0 10px 0; font-size:20px;">Құттықтаймыз!</h2>
-        <p style="color:#fff; font-size:14px;" id="prizeResultText">Сіз сыйлық ұтып алдыңыз!</p>
-        <button class="btn-submit active" onclick="closePrizeModal()">Рақмет</button>
+        <button class="modal-close" onclick="closeResultModal()">✕</button>
+        <div style="font-size: 40px; margin-bottom: 10px;">🎰</div>
+        <h2 style="color:var(--gold); margin:0 0 10px 0; font-size:20px;">Нәтиже</h2>
+        <p style="color:#fff; font-size:16px;" id="resultText">Түскен сан: 0</p>
+        <button class="btn-submit active" onclick="closeResultModal()">Жабу</button>
     </div>
 </div>
 
@@ -180,15 +174,14 @@
             <p style="color: var(--subtext); font-size: 12px; margin:0;">Сайтқа қош келдіңіз!</p>
         </div>
 
-        <!-- 🎰 РУЛЕТКА ЖӘНЕ ПРИЗДАР (ОРТАДА) -->
+        <!-- 🎰 ЕСКІ РУЛЕТКА -->
         <div class="card">
-            <h2 class="card-title" style="color:var(--gold);">🎁 Ұтыс Рулеткасы</h2>
-            <p style="color: var(--subtext); font-size: 11px; margin-top:-5px;">Бағыңызды сынап, бағалы сыйлықтар ұтып алыңыз!</p>
+            <h2 class="card-title" style="color:var(--gold);">🎰 Рулетка</h2>
             
             <div class="roulette-wrapper">
                 <div class="roulette-selector"></div>
                 <div class="roulette-track" id="rouletteTrack">
-                    <!-- JS арқылы толтырылады -->
+                    <!-- JS арқылы ескі рулетка толтырылады -->
                 </div>
             </div>
             
@@ -232,7 +225,7 @@
 
     function openStep1() { document.getElementById('modalStep1').style.display = 'flex'; }
     function closeAllModals() { document.getElementById('modalStep1').style.display = 'none'; }
-    function closePrizeModal() { document.getElementById('modalPrize').style.display = 'none'; }
+    function closeResultModal() { document.getElementById('modalResult').style.display = 'none'; }
 
     function toggleStep1Btn() {
         const val = document.getElementById('emailInput').value;
@@ -282,7 +275,7 @@
         btnElement.classList.add('active');
     }
 
-    // --- ⏰ УАҚЫТТЫ ХЕДЕРДЕ КӨРСЕТУ ---
+    // --- ⏰ УАҚЫТТЫ КӨРСЕТУ ---
     setInterval(() => {
         const now = new Date();
         document.getElementById('header-clock').innerText = now.toLocaleTimeString('kk-KZ');
@@ -296,33 +289,25 @@
         alert("Сілтеме көшірілді: " + copyText.value);
     }
 
-    // --- 🎰 РУЛЕТКА ЖӘНЕ ПРИЗДАР ЛОГИКАСЫ ---
-    const prizes = [
-        { name: "1000 ₸", icon: "💵", class: "prize-1000" },
-        { name: "VIP Мәртебе", icon: "👑", class: "prize-vip" },
-        { name: "500 ₸", icon: "💰", class: "prize-500" },
-        { name: "Промокод", icon: "🎟️", class: "prize-promo" },
-        { name: "Сыйлық Бонус", icon: "🎁", class: "prize-bonus" }
-    ];
-
+    // --- 🎰 ЕСКІ КЛАССИКАЛЫҚ РУЛЕТКА ЛОГИКАСЫ ---
+    const order = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
     const track = document.getElementById('rouletteTrack');
-    const itemWidth = 90; 
+    const itemWidth = 60; 
     let isSpinning = false;
-    let fullTrackItems = [];
+    let fullList = [];
 
     function initRoulette() {
         let html = '';
-        fullTrackItems = [];
-        // Лентаны толтыру
-        for(let j=0; j<8; j++) {
-            prizes.forEach(p => {
-                fullTrackItems.push(p);
-                html += `
-                    <div class="roulette-item ${p.class}">
-                        <span>${p.icon}</span>
-                        <div>${p.name}</div>
-                    </div>
-                `;
+        fullList = [];
+        // Лентаны 5 рет қайталап толтыру
+        for(let j=0; j<5; j++) {
+            order.forEach(num => {
+                let colorClass = 'item-black';
+                if(num === 0) colorClass = 'item-green';
+                else if ([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36].includes(num)) colorClass = 'item-red';
+                
+                fullList.push({ num: num, color: colorClass });
+                html += `<div class="roulette-item ${colorClass}">${num}</div>`;
             });
         }
         track.innerHTML = html;
@@ -335,12 +320,14 @@
         const btn = document.getElementById('spinBtn');
         btn.style.opacity = '0.5';
         
-        // Кездейсоқ приз таңдау
-        const targetIndex = Math.floor(Math.random() * prizes.length) + (prizes.length * 5);
-        const winningPrize = fullTrackItems[targetIndex];
+        // 3-ші айналымдағы кездейсоқ санға тоқтату
+        const baseSpins = order.length * 3;
+        const randomTarget = Math.floor(Math.random() * order.length);
+        const totalIndex = baseSpins + randomTarget;
+        const wonNumber = fullList[totalIndex].num;
         
         // Экран ортасына есептеу
-        const trackOffset = (targetIndex * itemWidth) - (track.parentElement.offsetWidth / 2) + (itemWidth / 2);
+        const trackOffset = (totalIndex * itemWidth) - (track.parentElement.offsetWidth / 2) + (itemWidth / 2);
         
         track.style.transition = 'transform 4s cubic-bezier(0.1, 0.8, 0.1, 1)';
         track.style.transform = `translateX(-${trackOffset}px)`;
@@ -349,9 +336,9 @@
             isSpinning = false;
             btn.style.opacity = '1';
             
-            // Ұтыс модалін көрсету
-            document.getElementById('prizeResultText').innerHTML = `Сіздің ұтысыңыз: <b>${winningPrize.icon} ${winningPrize.name}</b>`;
-            document.getElementById('modalPrize').style.display = 'flex';
+            // Нәтижені модаль терезеде көрсету
+            document.getElementById('resultText').innerHTML = `Түскен сан: <b style="font-size:22px; color:var(--gold);">${wonNumber}</b>`;
+            document.getElementById('modalResult').style.display = 'flex';
         }, 4000);
     }
 </script>
