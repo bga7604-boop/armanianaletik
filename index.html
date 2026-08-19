@@ -16,8 +16,6 @@
             --subtext: #8b98a5;
             --border: #283042;
             --input-bg: #293042;
-            --red: #e74c3c;
-            --black: #2c3e50;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -61,8 +59,7 @@
         .btn-login { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
         .btn-register { background: var(--gold); color: #000000; border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
 
-        /* ПРОФИЛЬ */
-        .user-top-bar { display: flex; align-items: center; gap: 8px; position: relative; }
+        .user-top-bar { display: flex; align-items: center; gap: 8px; }
         .header-user-name { font-size: 13px; font-weight: 700; color: #ffffff; }
         .user-avatar-btn { width: 34px; height: 34px; border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid var(--border); }
         .user-avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
@@ -77,7 +74,7 @@
         .btn-submit { width: 100%; background: #333a4d; color: #8892a4; border: none; padding: 12px; border-radius: 10px; font-weight: 800; font-size: 13px; cursor: pointer; margin-top: 10px; }
         .btn-submit.active { background: var(--gold); color: #000; }
 
-        /* НЕГІЗГІ КОНТЕНТ */
+        /* КОНТЕНТ */
         .container { max-width: 500px; width: 92%; margin: 15px 0; display: flex; flex-direction: column; gap: 12px; }
         .page { display: none; width: 100%; animation: fadeIn 0.3s ease; }
         .page.active { display: block; }
@@ -86,27 +83,77 @@
         .card { background: var(--card); padding: 18px; border-radius: 14px; border: 1px solid var(--border); text-align: center; }
         .card-title { font-size: 16px; margin: 0 0 8px 0; color: var(--accent); display: flex; justify-content: center; align-items: center; gap: 8px; }
 
-        /* 🎰 ЕСКІ ЕСКІ КЛАССИКАЛЫҚ РУЛЕТКА */
-        .roulette-wrapper { width: 100%; overflow: hidden; border-radius: 10px; border: 2px solid var(--border); position: relative; background: #000; height: 75px; margin: 15px 0; }
-        .roulette-selector { position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: var(--gold); z-index: 10; transform: translateX(-50%); box-shadow: 0 0 12px var(--gold); }
-        .roulette-track { display: flex; height: 100%; transition: transform 4s cubic-bezier(0.1, 0.8, 0.1, 1); }
-        
-        .roulette-item { 
-            min-width: 60px; height: 100%; display: flex; justify-content: center; align-items: center; 
-            font-weight: 800; font-size: 18px; color: #fff; border-right: 1px solid rgba(0,0,0,0.4); 
+        /* 🎁 БҰҒІНГІ КОНКУРС БАННЕРІ */
+        .contest-banner {
+            background: rgba(46, 204, 113, 0.05);
+            border: 1px solid var(--accent);
+            border-radius: 14px;
+            padding: 12px;
+            text-align: center;
         }
-        .item-red { background: var(--red); }
-        .item-black { background: var(--black); }
-        .item-green { background: var(--accent); }
+        .contest-banner h3 { margin: 0; font-size: 15px; color: var(--accent); }
+        .contest-banner p { margin: 4px 0 0; font-size: 12px; color: var(--subtext); }
 
-        .btn-spin { background: var(--gold); color: #000; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 800; font-size: 15px; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(255, 183, 3, 0.3); }
+        /* 🎡 ДӨҢГЕЛЕК РУЛЕТКА ДИЗАЙНЫ */
+        .wheel-box {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 20px auto;
+        }
+        .wheel-pointer {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 22px solid #ffffff;
+            z-index: 20;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+        }
+        .wheel-canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid var(--accent);
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+            transition: transform 4s cubic-bezier(0.15, 0.85, 0.15, 1);
+        }
+        .wheel-center-logo {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px; height: 50px;
+            background: #121613;
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-spin-green { 
+            background: var(--accent); 
+            color: #000; 
+            border: none; 
+            padding: 12px 25px; 
+            border-radius: 10px; 
+            font-weight: 800; 
+            font-size: 15px; 
+            cursor: pointer; 
+            width: 100%; 
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); 
+        }
 
         /* 🔗 ШАҚЫРУ СІЛТЕМЕСІ */
         .link-box { display: flex; align-items: center; background: var(--input-bg); border-radius: 8px; padding: 4px; border: 1px solid var(--border); margin-top: 10px; }
         .link-box input { flex: 1; background: transparent; border: none; color: var(--subtext); padding: 8px 10px; font-size: 12px; outline: none; }
         .btn-copy { background: var(--accent); color: #000; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 800; font-size: 12px; cursor: pointer; }
 
-        /* ТӨМЕНГІ НАВИГАЦИЯ */
+        /* NAV */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #141822; border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; z-index: 100; }
         .nav-item { color: var(--subtext); text-decoration: none; font-size: 12px; font-weight: 700; background: none; border: none; cursor: pointer; }
         .nav-item.active { color: var(--accent); }
@@ -126,7 +173,6 @@
             <h1>ARMANI ANALETIK</h1>
             <div class="header-sub-row">
                 <p>Минимализм & Аналитика</p>
-                <!-- ⏰ Уақыт осы жерде -->
                 <div class="header-clock" id="header-clock">00:00:00</div>
             </div>
         </div>
@@ -156,39 +202,44 @@
 <div class="modal-overlay" id="modalResult">
     <div class="modal-card">
         <button class="modal-close" onclick="closeResultModal()">✕</button>
-        <div style="font-size: 40px; margin-bottom: 10px;">🎰</div>
-        <h2 style="color:var(--gold); margin:0 0 10px 0; font-size:20px;">Нәтиже</h2>
-        <p style="color:#fff; font-size:16px;" id="resultText">Түскен сан: 0</p>
+        <div style="font-size: 40px; margin-bottom: 10px;">🎉</div>
+        <h2 style="color:var(--gold); margin:0 0 10px 0; font-size:20px;">Құттықтаймыз!</h2>
+        <p style="color:#fff; font-size:15px;" id="resultText">Сіздің ұтысыңыз!</p>
         <button class="btn-submit active" onclick="closeResultModal()">Жабу</button>
     </div>
 </div>
 
-<!-- 📄 НЕГІЗГІ КОНТЕНТ -->
+<!-- 📄 КОНТЕНТ -->
 <div class="container">
     
     <!-- 1. БАСТЫ БЕТ -->
     <div id="page-home" class="page active">
-        <!-- БАСТЫ БЕТ КАРТОЧКАСЫ -->
-        <div class="card">
-            <h2 class="card-title">🎯 Armani Analetik Басты Беті</h2>
-            <p style="color: var(--subtext); font-size: 12px; margin:0;">Сайтқа қош келдіңіз!</p>
+        
+        <!-- БҮГІНГІ КОНКУРС БАННЕРІ -->
+        <div class="contest-banner">
+            <h3>🎁 БҮГІНГІ КОНКУРС</h3>
+            <p>Каналға өтіп, конкурсқа қатысыңыз! 🚀</p>
         </div>
 
-        <!-- 🎰 ЕСКІ РУЛЕТКА -->
+        <!-- 🎡 ДӨҢГЕЛЕК СӘТТІЛІК РУЛЕТКАСЫ -->
         <div class="card">
-            <h2 class="card-title" style="color:var(--gold);">🎰 Рулетка</h2>
+            <h2 class="card-title" style="color:var(--accent);">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
             
-            <div class="roulette-wrapper">
-                <div class="roulette-selector"></div>
-                <div class="roulette-track" id="rouletteTrack">
-                    <!-- JS арқылы ескі рулетка толтырылады -->
+            <div class="wheel-box">
+                <div class="wheel-pointer"></div>
+                <canvas class="wheel-canvas" id="wheelCanvas" width="300" height="300"></canvas>
+                <div class="wheel-center-logo">
+                    <svg width="24" height="24" viewBox="0 0 100 100">
+                        <path d="M25 75 L42 25 L58 25 L40 75 Z" fill="#2ecc71"/>
+                        <path d="M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z" fill="#f1c40f"/>
+                    </svg>
                 </div>
             </div>
             
-            <button class="btn-spin" onclick="spinRoulette()" id="spinBtn">Айналдыру 🚀</button>
+            <button class="btn-spin-green" onclick="spinWheel()" id="spinBtn">🎰 АЙНАЛДЫРУ</button>
         </div>
 
-        <!-- 🔗 ШАҚЫРУ СІЛТЕМЕСІ (ЕҢ ТӨМЕНДЕ) -->
+        <!-- 🔗 ШАҚЫРУ СІЛТЕМЕСІ -->
         <div class="card">
             <h3 style="color:#fff; margin:0; font-size:13px; text-align:left; display:flex; align-items:center; gap:6px;">
                 🔗 Сіздің шақыру сілтемеңіз
@@ -198,6 +249,7 @@
                 <button class="btn-copy" onclick="copyLink()">Көшіру</button>
             </div>
         </div>
+
     </div>
 
     <!-- 2. VIP ЗОНА -->
@@ -217,10 +269,10 @@
 </nav>
 
 <script>
-    // --- АВТОРИЗАЦИЯ ЛОГИКАСЫ ---
+    // --- АВТОРИЗАЦИЯ ---
     window.addEventListener('load', () => {
         checkSavedUser();
-        initRoulette();
+        drawWheel();
     });
 
     function openStep1() { document.getElementById('modalStep1').style.display = 'flex'; }
@@ -267,7 +319,6 @@
         }
     }
 
-    // --- БЕТТЕРДІ АУЫСТЫРУ ---
     function switchPage(pageId, btnElement) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
@@ -275,13 +326,12 @@
         btnElement.classList.add('active');
     }
 
-    // --- ⏰ УАҚЫТТЫ КӨРСЕТУ ---
+    // УАҚЫТ
     setInterval(() => {
         const now = new Date();
         document.getElementById('header-clock').innerText = now.toLocaleTimeString('kk-KZ');
     }, 1000);
 
-    // --- СІЛТЕМЕ КӨШІРУ ---
     function copyLink() {
         const copyText = document.getElementById("ref-link");
         copyText.select();
@@ -289,55 +339,78 @@
         alert("Сілтеме көшірілді: " + copyText.value);
     }
 
-    // --- 🎰 ЕСКІ КЛАССИКАЛЫҚ РУЛЕТКА ЛОГИКАСЫ ---
-    const order = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
-    const track = document.getElementById('rouletteTrack');
-    const itemWidth = 60; 
-    let isSpinning = false;
-    let fullList = [];
+    // --- 🎡 СУРЕТТЕГІ РУЛЕТКА ПРИЗДАРЫ ЖӘНЕ САЛУ ---
+    const prizes = [
+        { text: "🏆 VIP Экспресс -10% 🔥", color: "#ffffff", textColor: "#000000" },
+        { text: "👑 VIP Канал +1 Күн 👑", color: "#2ecc71", textColor: "#ffffff" },
+        { text: "💸 VIP 15% Жеңілдік", color: "#181d28", textColor: "#ffffff" },
+        { text: "🔄 Қайта Айналдыру", color: "#ffffff", textColor: "#000000" },
+        { text: "💸 VIP 25% Жеңілдік", color: "#2ecc71", textColor: "#ffffff" },
+        { text: "🎉 VIP +3 Күн 🌌", color: "#181d28", textColor: "#ffffff" },
+        { text: "🏆 VIP Айлық +15 Күн", color: "#ffffff", textColor: "#000000" }
+    ];
 
-    function initRoulette() {
-        let html = '';
-        fullList = [];
-        // Лентаны 5 рет қайталап толтыру
-        for(let j=0; j<5; j++) {
-            order.forEach(num => {
-                let colorClass = 'item-black';
-                if(num === 0) colorClass = 'item-green';
-                else if ([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36].includes(num)) colorClass = 'item-red';
-                
-                fullList.push({ num: num, color: colorClass });
-                html += `<div class="roulette-item ${colorClass}">${num}</div>`;
-            });
+    const canvas = document.getElementById("wheelCanvas");
+    const ctx = canvas.getContext("2d");
+    const numPrizes = prizes.length;
+    const arcSize = (2 * Math.PI) / numPrizes;
+    let currentRotation = 0;
+    let isSpinning = false;
+
+    function drawWheel() {
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = canvas.width / 2;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < numPrizes; i++) {
+            const angle = i * arcSize;
+            
+            // Сектор салу
+            ctx.beginPath();
+            ctx.fillStyle = prizes[i].color;
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, angle, angle + arcSize);
+            ctx.lineTo(centerX, centerY);
+            ctx.fill();
+
+            // Текст жазу
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.rotate(angle + arcSize / 2);
+            ctx.textAlign = "right";
+            ctx.fillStyle = prizes[i].textColor;
+            ctx.font = "bold 11px -apple-system, Roboto, sans-serif";
+            ctx.fillText(prizes[i].text, radius - 15, 4);
+            ctx.restore();
         }
-        track.innerHTML = html;
-        track.style.transform = `translateX(0px)`;
     }
 
-    function spinRoulette() {
-        if(isSpinning) return;
+    function spinWheel() {
+        if (isSpinning) return;
         isSpinning = true;
+
         const btn = document.getElementById('spinBtn');
         btn.style.opacity = '0.5';
+
+        // Кездейсоқ ұтыс
+        const randomIndex = Math.floor(Math.random() * numPrizes);
         
-        // 3-ші айналымдағы кездейсоқ санға тоқтату
-        const baseSpins = order.length * 3;
-        const randomTarget = Math.floor(Math.random() * order.length);
-        const totalIndex = baseSpins + randomTarget;
-        const wonNumber = fullList[totalIndex].num;
-        
-        // Экран ортасына есептеу
-        const trackOffset = (totalIndex * itemWidth) - (track.parentElement.offsetWidth / 2) + (itemWidth / 2);
-        
-        track.style.transition = 'transform 4s cubic-bezier(0.1, 0.8, 0.1, 1)';
-        track.style.transform = `translateX(-${trackOffset}px)`;
+        // Градустарды есептеу
+        const degreesPerSegment = 360 / numPrizes;
+        const targetDegree = 360 - (randomIndex * degreesPerSegment) - (degreesPerSegment / 2) - 90;
+        const totalSpin = currentRotation + (360 * 5) + targetDegree;
+
+        canvas.style.transform = `rotate(${totalSpin}deg)`;
+        currentRotation = totalSpin;
 
         setTimeout(() => {
             isSpinning = false;
             btn.style.opacity = '1';
             
-            // Нәтижені модаль терезеде көрсету
-            document.getElementById('resultText').innerHTML = `Түскен сан: <b style="font-size:22px; color:var(--gold);">${wonNumber}</b>`;
+            // Ұтысты көрсету
+            document.getElementById('resultText').innerHTML = `Ұтысыңыз: <br><b style="color:var(--accent); font-size:18px;">${prizes[randomIndex].text}</b>`;
             document.getElementById('modalResult').style.display = 'flex';
         }, 4000);
     }
