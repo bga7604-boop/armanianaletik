@@ -12,13 +12,13 @@
         :root {
             --bg: #0d1017;
             --card: #181d28;
-            --card-modal: #1e2433;
+            --card-modal: #1c2230;
             --accent: #2ecc71;
             --gold: #ffb703;
             --text: #ffffff;
             --subtext: #8b98a5;
             --border: #283042;
-            --input-bg: #293042;
+            --input-bg: #283042;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -43,7 +43,6 @@
         
         .header-left { display: flex; align-items: center; gap: 10px; }
         
-        /* Логотип пен сағат блогы */
         .logo-box { display: flex; flex-direction: column; align-items: center; gap: 3px; }
         .logo-svg { width: 34px; height: 34px; }
         
@@ -71,17 +70,49 @@
         .user-avatar-btn { width: 34px; height: 34px; border-radius: 8px; overflow: hidden; cursor: pointer; border: 1px solid var(--border); }
         .user-avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* МОДАЛЬДАР */
+        /* МОДАЛЬДАР (ЖАҢАРТЫЛҒАН СУРЕТТЕГІ ДИЗАЙН) */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 15px; }
-        .modal-card { background: var(--card-modal); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 360px; padding: 24px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; transform: scale(0.9); animation: popUp 0.3s forwards ease-out; }
+        .modal-card { background: var(--card-modal); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; width: 100%; max-width: 380px; padding: 24px; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.6); text-align: left; transform: scale(0.9); animation: popUp 0.3s forwards ease-out; }
         @keyframes popUp { to { transform: scale(1); } }
         
-        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--subtext); font-size: 20px; cursor: pointer; }
-        .input-group { margin-bottom: 12px; text-align: left; }
-        .input-group label { display: block; font-size: 12px; color: #fff; margin-bottom: 6px; font-weight: 600; }
-        .input-group input { width: 100%; padding: 10px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 13px; outline: none; }
-        .btn-submit { width: 100%; background: #333a4d; color: #8892a4; border: none; padding: 12px; border-radius: 10px; font-weight: 800; font-size: 13px; cursor: pointer; margin-top: 10px; }
-        .btn-submit.active { background: var(--gold); color: #000; }
+        .modal-close { position: absolute; top: 18px; right: 18px; background: none; border: none; color: var(--gold); font-size: 18px; font-weight: bold; cursor: pointer; }
+        .modal-title-new { color: #fff; font-size: 20px; font-weight: 800; margin: 0 0 20px 0; text-align: left; }
+        
+        .input-group { margin-bottom: 14px; text-align: left; }
+        .input-group label { display: block; font-size: 14px; color: #fff; margin-bottom: 8px; font-weight: 700; }
+        .input-group input { width: 100%; padding: 14px; background: var(--input-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; color: var(--text); font-size: 14px; outline: none; transition: border-color 0.2s; }
+        .input-group input::placeholder { color: #5a6478; }
+        .input-group input:focus { border-color: var(--gold); }
+
+        .btn-submit { width: 100%; background: #323b4e; color: #6e7a91; border: none; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 15px; cursor: pointer; transition: 0.2s; }
+        .btn-submit.active { background: var(--gold); color: #000; cursor: pointer; }
+
+        /* ИНФО БЛОК */
+        .modal-info-box { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 14px; margin: 18px 0; }
+        .info-title { display: flex; align-items: center; gap: 8px; color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+        .info-icon { background: #22c55e; color: #0d1017; border-radius: 50%; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; }
+        .modal-info-box p { font-size: 12px; color: #94a3b8; margin: 0; line-height: 1.45; }
+
+        /* ДЕЛИ ТЕЛЬ */
+        .modal-divider { display: flex; align-items: center; margin: 20px 0; color: #5a6478; font-size: 12px; font-weight: 600; }
+        .modal-divider::before, .modal-divider::after { content: ""; flex: 1; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .modal-divider span { padding: 0 10px; }
+
+        /* СОЦ СЕТИ */
+        .social-login-row { display: flex; justify-content: center; gap: 14px; margin-bottom: 20px; }
+        .social-btn { width: 52px; height: 52px; border-radius: 12px; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.1s; }
+        .social-btn:active { transform: scale(0.95); }
+        .google-btn { background: #ffffff; }
+        .steam-btn { background: #000000; }
+        .telegram-btn { background: #229ED9; }
+
+        /* ЧЕКБОКС */
+        .modal-checkbox-row { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+        .modal-checkbox-row input { display: none; }
+        .checkmark { width: 20px; height: 20px; background: var(--gold); border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+        .checkmark::after { content: "✓"; color: #000; font-weight: 900; font-size: 14px; }
+        .checkbox-text { font-size: 12px; color: #94a3b8; line-height: 1.4; }
+        .checkbox-text a { color: var(--gold); text-decoration: none; }
 
         /* КОНТЕНТ */
         .container { max-width: 500px; width: 92%; margin: 15px 0; display: flex; flex-direction: column; gap: 12px; }
@@ -293,22 +324,63 @@
     </div>
 </header>
 
-<!-- МОДАЛЬ: АВТОРИЗАЦИЯ -->
+<!-- МОДАЛЬ: АВТОРИЗАЦИЯ (СУРЕТТЕН ӘДЕМІЛЕП КӨШІРІЛГЕН ЖАҢАРТЫЛҒАН ДИЗАЙН) -->
 <div class="modal-overlay" id="modalStep1">
     <div class="modal-card">
         <button class="modal-close" onclick="closeAllModals()">✕</button>
-        <h2 style="color:#fff; margin-top:0; font-size:18px;">Кіру</h2>
+        <h2 class="modal-title-new">Кіру немесе тіркелу</h2>
+        
         <div class="input-group">
-            <label>Аккаунт аты</label>
-            <input type="text" id="emailInput" placeholder="Атыңызды енгізіңіз" oninput="toggleStep1Btn()">
+            <label>Email енгізіңіз</label>
+            <input type="email" id="emailInput" placeholder="Email енгізіңіз" oninput="toggleStep1Btn()">
         </div>
-        <button class="btn-submit" id="btnNext" onclick="finishLogin()" disabled>Кіру</button>
+        
+        <button class="btn-submit" id="btnNext" onclick="finishLogin()" disabled>Әрі қарай</button>
+
+        <div class="modal-info-box">
+            <div class="info-title">
+                <span class="info-icon">i</span>
+                <span>Аккаунтыңыз бар ма?</span>
+            </div>
+            <p>Егер сіз бұрын әлеуметтік желілер арқылы кірген болсаңыз – сол әдісті қолданыңыз. Email арқылы кіру үшін жеке кабинетте байланыстыруды орындау қажет.</p>
+        </div>
+
+        <div class="modal-divider">
+            <span>немесе әлеуметтік желілер арқылы</span>
+        </div>
+
+        <div class="social-login-row">
+            <button class="social-btn google-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+            </button>
+            <button class="social-btn steam-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M12 2a10 10 0 0 0-10 10c0 4.7 3.2 8.6 7.6 9.6l2.1-3a3.5 3.5 0 0 1 1.3-3.2l-2.8-1.2a2.5 2.5 0 0 1-1.7.7 2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.4 1.8l2.9 1.2c.5-.4 1.2-.6 1.9-.6 1.7 0 3 1.3 3 3s-1.3 3-3 3c-.2 0-.4 0-.6-.1l-1.9 2.8c4.3-.5 7.6-4.2 7.6-8.7A10 10 0 0 0 12 2z"/>
+                </svg>
+            </button>
+            <button class="social-btn telegram-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.67-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.05-.48-.82-.27-1.47-.42-1.42-.88.03-.24.38-.49 1.05-.75 4.12-1.8 6.87-2.98 8.25-3.56 3.93-1.64 4.74-1.92 5.27-1.93.12 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.15-.04.22z"/>
+                </svg>
+            </button>
+        </div>
+
+        <label class="modal-checkbox-row">
+            <input type="checkbox" checked id="termsCheck">
+            <span class="checkmark"></span>
+            <span class="checkbox-text">Мен 18 жастан үлкен екенімді растаймын және шарттармен келісемін <a href="#">Келісімдер сайтты пайдалану туралы</a></span>
+        </label>
     </div>
 </div>
 
 <!-- МОДАЛЬ: ТҮСКЕН НӘТИЖЕ -->
 <div class="modal-overlay" id="modalResult">
-    <div class="modal-card">
+    <div class="modal-card" style="text-align: center;">
         <button class="modal-close" onclick="closeResultModal()">✕</button>
         <div style="font-size: 46px; margin-bottom: 10px;">🎉</div>
         <h2 style="color:var(--gold); margin:0 0 10px 0; font-size:22px; font-weight:800;">ҚҰТТЫҚТАЙМЫЗ!</h2>
@@ -707,133 +779,5 @@
         requestAnimationFrame(animateWheel);
     }
 </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="kk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Armani Analetik</title>
-    
-    <style>
-        :root {
-            --bg: #0d1017;
-            --card: #181d28;
-            --card-modal: #1e2433;
-            --accent: #2ecc71;
-            --gold: #ffb703;
-            --text: #ffffff;
-            --subtext: #8b98a5;
-            --border: #283042;
-            --input-bg: #293042;
-        }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0 0 80px 0; display: flex; flex-direction: column; align-items: center; }
-
-        /* 🔝 HEADER */
-        header { background: #141822; width: 100%; padding: 10px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 100; }
-        .logo-box { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-        .header-title-box h1 { margin: 0; font-size: 13px; font-weight: 800; }
-        .header-clock { background: rgba(46, 204, 113, 0.1); color: var(--accent); padding: 1px 5px; border-radius: 4px; font-size: 9px; font-weight: 700; border: 1px solid rgba(46, 204, 113, 0.3); }
-        .btn-login { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
-        .btn-register { background: var(--gold); color: #000000; border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
-
-        /* МОДАЛЬДАР (ЖАҢАРТЫЛҒАН) */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 15px; }
-        .modal-card { background: var(--card-modal); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 380px; padding: 24px; position: relative; text-align: left; }
-        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--subtext); font-size: 20px; cursor: pointer; }
-        
-        .modal-title { color: #fff; font-size: 20px; margin: 0 0 20px 0; font-weight: 700; }
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 14px; color: #fff; margin-bottom: 8px; font-weight: 600; }
-        .input-group input { width: 100%; padding: 12px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; }
-        
-        .btn-submit { width: 100%; background: #283042; color: #8892a4; border: none; padding: 14px; border-radius: 8px; font-weight: 800; font-size: 14px; cursor: pointer; }
-        
-        .info-box { background: rgba(46, 204, 113, 0.1); border: 1px solid rgba(46, 204, 113, 0.2); padding: 12px; border-radius: 8px; margin-bottom: 20px; }
-        .info-box p { font-size: 12px; color: #ccc; margin: 0; line-height: 1.4; }
-        
-        .divider { display: flex; align-items: center; color: var(--subtext); font-size: 12px; margin: 20px 0; }
-        .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--border); margin: 0 10px; }
-        
-        .social-row { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
-        .social-btn { width: 45px; height: 45px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        
-        .checkbox-container { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; color: var(--subtext); margin-top: 10px; }
-        .checkbox-container input { margin-top: 2px; }
-
-        /* ҚАЛҒАН СТИЛЬДЕР (ӨЗГЕРТСІЗ) */
-        .container { max-width: 500px; width: 92%; margin: 15px 0; }
-        .page { display: none; } .page.active { display: block; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #141822; border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; z-index: 100; }
-        .nav-item { color: var(--subtext); text-decoration: none; font-size: 12px; font-weight: 700; background: none; border: none; cursor: pointer; }
-        .nav-item.active { color: var(--accent); }
-    </style>
-</head>
-<body>
-
-<header>
-    <div class="logo-box">
-        <div class="header-clock" id="header-clock">00:00:00</div>
-    </div>
-    <div class="auth-buttons">
-        <button class="btn-login" onclick="openLoginModal()">Кіру</button>
-    </div>
-</header>
-
-<!-- ЖАҢА МОДАЛЬ -->
-<div class="modal-overlay" id="modalLogin">
-    <div class="modal-card">
-        <button class="modal-close" onclick="closeLoginModal()">✕</button>
-        <h2 class="modal-title">Кіру немесе тіркелу</h2>
-        
-        <div class="input-group">
-            <label>Email енгізіңіз</label>
-            <input type="email" placeholder="Email енгізіңіз">
-        </div>
-        
-        <button class="btn-submit">Әрі қарай</button>
-
-        <div class="info-box">
-            <p><strong>💡 Аккаунтыңыз бар ма?</strong><br>Егер сіз бұрын әлеуметтік желілер арқылы кірген болсаңыз - сол әдісті қолданыңыз. Email арқылы кіру үшін жеке кабинетте байланыстыруды орындау қажет.</p>
-        </div>
-
-        <div class="divider">немесе әлеуметтік желілер арқылы</div>
-        
-        <div class="social-row">
-            <div class="social-btn">G</div> <!-- Мұнда иконка қоюға болады -->
-            <div class="social-btn">S</div>
-            <div class="social-btn">T</div>
-        </div>
-
-        <label class="checkbox-container">
-            <input type="checkbox" checked>
-            Мен 18 жастан үлкен екенімді растаймын және шарттармен келісемін. Келісімдер сайтты пайдалану туралы.
-        </label>
-    </div>
-</div>
-
-<div class="container">
-    <div id="page-home" class="page active">
-        <h1>Басты бет</h1>
-    </div>
-</div>
-
-<nav class="bottom-nav">
-    <button class="nav-item active">🏠 Басты бет</button>
-    <button class="nav-item">👑 VIP Зона</button>
-</nav>
-
-<script>
-    function openLoginModal() { document.getElementById('modalLogin').style.display = 'flex'; }
-    function closeLoginModal() { document.getElementById('modalLogin').style.display = 'none'; }
-    
-    setInterval(() => {
-        document.getElementById('header-clock').innerText = new Date().toLocaleTimeString('kk-KZ');
-    }, 1000);
-</script>
-
 </body>
 </html>
