@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Armani Analetik.kz</title>
     
-    <!-- 🟢 "AV" FAVICON -->
+    <!-- 🟢 FAVICON -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0c0a'/><path d='M25 75 L42 25 L58 25 L40 75 Z' fill='%232ecc71'/><path d='M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z' fill='%23f1c40f'/></svg>">
 
     <!-- 🔥 FIREBASE SDK (GOOGLE AUTH ҮШІН) -->
@@ -37,107 +37,83 @@
 
         /* ⏳ PRELOADER */
         #preloader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-
-        .preloader-logo-wrapper {
-            position: relative;
-            width: 90px; height: 90px;
-            display: flex; justify-content: center; align-items: center;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg); z-index: 9999; display: flex;
+            flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
         .preloader-spinner {
-            position: absolute; width: 100%; height: 100%;
+            position: absolute; width: 90px; height: 90px;
             border: 3px solid rgba(46, 204, 113, 0.1);
-            border-top: 3px solid var(--accent);
-            border-right: 3px solid var(--gold);
-            border-radius: 50%;
-            animation: spin 1.2s linear infinite;
+            border-top: 3px solid var(--accent); border-right: 3px solid var(--gold);
+            border-radius: 50%; animation: spin 1.2s linear infinite;
         }
 
         .preloader-logo { width: 45px; height: 45px; animation: pulse 1.5s ease-in-out infinite alternate; }
-        .preloader-text {
-            margin-top: 20px; font-size: 13px; font-weight: 700; color: var(--subtext);
-            letter-spacing: 2px; text-transform: uppercase; animation: pulse 1.5s ease-in-out infinite alternate;
-        }
-
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes pulse { 0% { transform: scale(0.92); opacity: 0.6; } 100% { transform: scale(1.08); opacity: 1; } }
+        @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.6; } 100% { transform: scale(1.1); opacity: 1; } }
         .preloader-hidden { opacity: 0; visibility: hidden; }
 
         /* 🔝 HEADER */
         header { 
-            background: var(--card); 
-            width: 100%; 
-            padding: 12px 20px; 
-            border-bottom: 1px solid var(--border); 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            background: var(--card); width: 100%; padding: 12px 20px; 
+            border-bottom: 1px solid var(--border); display: flex;
+            align-items: center; justify-content: space-between;
         }
         
         .header-left { display: flex; align-items: center; gap: 10px; }
         .logo-svg { width: 36px; height: 36px; filter: drop-shadow(0 0 8px rgba(46, 204, 113, 0.4)); }
-        .header-title-box h1 { margin: 0; font-size: 16px; font-weight: 800; color: var(--text); letter-spacing: 0.5px; }
+        .header-title-box h1 { margin: 0; font-size: 15px; font-weight: 800; color: var(--text); }
         .header-title-box p { margin: 1px 0 0; color: var(--subtext); font-size: 11px; }
 
         .auth-buttons { display: flex; align-items: center; gap: 8px; }
 
         .btn-login {
             background: transparent; color: var(--gold); border: 1px solid var(--gold);
-            padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.2s;
+            padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;
         }
 
         .btn-register {
             background: var(--gold); color: #000000; border: 1px solid var(--gold);
-            padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 800; cursor: pointer; transition: 0.2s;
+            padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer;
         }
 
-        .btn-login:active, .btn-register:active { opacity: 0.8; transform: scale(0.96); }
+        /* 👤 ПОЛЬЗОВАТЕЛЬ ПРОФИЛІ (КІРГЕННЕН КЕЙІН) */
+        .user-profile-bar {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 20px; border: 1px solid var(--border);
+        }
+        .user-avatar { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--accent); object-fit: cover; }
+        .user-name { font-size: 12px; font-weight: 700; color: var(--text); max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .btn-logout { background: none; border: none; color: #ff5252; font-size: 11px; cursor: pointer; font-weight: 700; padding: 2px 5px; }
 
         /* 📱 МОДАЛЬДІ ТЕРЕЗЕ */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(6px);
-            z-index: 1000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(6px);
+            z-index: 1000; display: none; justify-content: center; align-items: center; padding: 20px;
         }
 
         .modal-card {
             background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-            width: 100%; max-width: 380px; padding: 24px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%; max-width: 360px; padding: 24px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--subtext); font-size: 20px; cursor: pointer; }
-        .modal-title { font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 15px; text-align: center; }
+        .modal-title { font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 20px; text-align: center; }
 
         .social-auth { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
         
         .btn-social {
             display: flex; align-items: center; justify-content: center; gap: 10px;
             width: 100%; padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 700;
-            cursor: pointer; border: none; transition: opacity 0.2s; text-decoration: none;
+            cursor: pointer; border: none; text-decoration: none;
         }
-        .btn-social:active { opacity: 0.8; }
         .btn-google { background: #ffffff; color: #000000; }
         .btn-telegram { background: #2AABEE; color: #ffffff; }
 
-        .divider {
-            display: flex; align-items: center; text-align: center; color: var(--subtext);
-            font-size: 11px; margin: 15px 0; text-transform: uppercase;
-        }
+        .divider { display: flex; align-items: center; text-align: center; color: var(--subtext); font-size: 11px; margin: 15px 0; text-transform: uppercase; }
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
         .divider:not(:empty)::before { margin-right: .5em; }
         .divider:not(:empty)::after { margin-left: .5em; }
@@ -145,37 +121,32 @@
         .input-group { margin-bottom: 12px; text-align: left; }
         .input-group label { display: block; font-size: 11px; color: var(--subtext); margin-bottom: 5px; text-transform: uppercase; }
         .input-group input { width: 100%; padding: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; }
-        .input-group input:focus { border-color: var(--accent); }
 
         .container { max-width: 500px; width: 92%; margin: 15px 0; }
         .card { background: var(--card); padding: 20px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--border); }
 
-        /* 🎁 КОНКУРС БЛОГЫ */
         .contest-box {
             background: rgba(46, 204, 113, 0.05); border: 1px solid var(--accent); border-radius: 12px;
-            padding: 14px; text-align: center; margin-bottom: 15px; text-decoration: none; display: block; transition: transform 0.2s, background 0.2s;
+            padding: 14px; text-align: center; margin-bottom: 15px; text-decoration: none; display: block;
         }
-        .contest-box:active { transform: scale(0.98); background: rgba(46, 204, 113, 0.12); }
-        .contest-title { font-size: 16px; font-weight: 800; color: var(--accent); display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .contest-title { font-size: 16px; font-weight: 800; color: var(--accent); }
         .contest-sub { font-size: 12px; color: var(--subtext); margin-top: 4px; }
 
         /* ⏱️ ТАЙМЕР */
-        .btn-timer-container { margin-top: 15px; display: none; text-align: center; background: rgba(255, 255, 255, 0.03); border: 1px stroke var(--border); padding: 12px; border-radius: 10px; }
-        .btn-timer-title { font-size: 11px; color: var(--subtext); text-transform: uppercase; letter-spacing: 1px; }
+        .btn-timer-container { margin-top: 15px; display: none; text-align: center; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); padding: 12px; border-radius: 10px; }
+        .btn-timer-title { font-size: 11px; color: var(--subtext); text-transform: uppercase; }
         .btn-timer-clock { font-size: 22px; font-weight: 800; color: var(--accent); margin-top: 3px; font-family: monospace; }
 
         .btn { display: block; background: var(--accent); color: #000000; padding: 15px; text-decoration: none; border-radius: 10px; font-weight: 800; text-align: center; margin-top: 10px; font-size: 15px; border: none; width: 100%; cursor: pointer; }
-        .btn:active { opacity: 0.8; }
-        .btn:disabled { background: #2a352c; color: #617365; cursor: not-allowed; opacity: 1; }
+        .btn:disabled { background: #2a352c; color: #617365; cursor: not-allowed; }
 
-        /* 🎡 SVG РУЛЕТКА */
-        .wheel-wrapper { position: relative; width: 320px; height: 320px; margin: 15px auto; border-radius: 50%; border: 6px solid var(--accent); box-shadow: 0 0 30px rgba(46, 204, 113, 0.3); background: #000; }
-        .wheel-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 24px solid #ffffff; z-index: 30; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8)); }
-        .wheel-center-ribbon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65px; height: 65px; background: #0c0f0d; border-radius: 50%; border: 3px solid var(--gold); z-index: 20; box-shadow: 0 0 12px rgba(241, 196, 15, 0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; }
+        /* 🎡 РУЛЕТКА */
+        .wheel-wrapper { position: relative; width: 310px; height: 310px; margin: 15px auto; border-radius: 50%; border: 6px solid var(--accent); box-shadow: 0 0 30px rgba(46, 204, 113, 0.3); background: #000; }
+        .wheel-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 24px solid #ffffff; z-index: 30; }
+        .wheel-center-ribbon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65px; height: 65px; background: #0c0f0d; border-radius: 50%; border: 3px solid var(--gold); z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .wheel-center-ribbon svg { width: 28px; height: 28px; }
-        .wheel-center-text { color: var(--gold); font-size: 7px; font-weight: 900; letter-spacing: 0.5px; margin-top: 1px; }
         .wheel-svg { width: 100%; height: 100%; transform-origin: center center; transition: transform 4s cubic-bezier(0.15, 0.9, 0.15, 1); }
-        .sector-text { font-size: 13.5px; font-weight: 800; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-anchor: middle; dominant-baseline: central; }
+        .sector-text { font-size: 13.5px; font-weight: 800; text-anchor: middle; dominant-baseline: central; }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: var(--card); border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; z-index: 100; }
         .nav-item { color: var(--subtext); text-decoration: none; font-size: 12px; font-weight: 600; background: none; border: none; }
@@ -186,14 +157,14 @@
 
 <!-- ⏳ PRELOADER -->
 <div id="preloader">
-    <div class="preloader-logo-wrapper">
+    <div style="position:relative; width:90px; height:90px; display:flex; justify-content:center; align-items:center;">
         <div class="preloader-spinner"></div>
         <svg class="preloader-logo" viewBox="0 0 100 100">
             <path d="M25 75 L42 25 L58 25 L40 75 Z" fill="#2ecc71"/>
             <path d="M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z" fill="#f1c40f"/>
         </svg>
     </div>
-    <div class="preloader-text">Жүктелуде...</div>
+    <div style="margin-top:15px; font-size:12px; color:var(--subtext); font-weight:700; letter-spacing:2px;">ЖҮКТЕЛУДЕ...</div>
 </div>
 
 <!-- 🔝 HEADER -->
@@ -209,9 +180,13 @@
             <p>Минимализм & Аналитика</p>
         </div>
     </div>
-    <div class="auth-buttons" id="auth-buttons-container">
-        <button class="btn-login" onclick="openModal('login')">Кіру</button>
-        <button class="btn-register" onclick="openModal('register')">Тіркелу</button>
+    
+    <!-- 👤 АВТОРИЗАЦИЯ АЙМАҒЫ -->
+    <div id="auth-buttons-container">
+        <div class="auth-buttons">
+            <button class="btn-login" onclick="openModal('login')">Кіру</button>
+            <button class="btn-register" onclick="openModal('register')">Тіркелу</button>
+        </div>
     </div>
 </header>
 
@@ -221,14 +196,14 @@
         <button class="modal-close" onclick="closeModal()">✕</button>
         <div class="modal-title" id="modalTitle">САЙТҚА КІРУ</div>
         
-        <!-- 🎯 GOOGLE ЖӘНЕ TELEGRAM КІРУ -->
         <div class="social-auth">
+            <!-- 🌐 GOOGLE КІРУ -->
             <button class="btn-social btn-google" onclick="loginWithGoogle()">
                 <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ea4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.1 9 5 12 5z"/><path fill="#4285f4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#fbbc05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 10.8 0 12.5s.7 2.8 1.9 5.2l3.7-2.9z"/><path fill="#34a853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.1-6.4-5.2L1.9 17C3.7 20.7 7.5 24 12 24z"/></svg>
                 Google арқылы кіру
             </button>
             
-            <!-- 📲 @armani_04 ЧАТЫНА ДЕРЕУ БАҒЫТТАЙТЫН TELEGRAM БАТЫРМАСЫ -->
+            <!-- 📲 TELEGRAM КІРУ (@armani_04) -->
             <a href="https://t.me/armani_04" target="_blank" class="btn-social btn-telegram">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.51c-.15.68-.55.84-1.12.52l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.16 5.76-5.2c.25-.22-.05-.34-.39-.12l-7.12 4.48-3.07-.96c-.67-.21-.68-.67.14-.99l12.01-4.63c.56-.21 1.05.13.84.99z"/></svg>
                 Telegram арқылы кіру
@@ -237,10 +212,10 @@
 
         <div class="divider">немесе</div>
 
-        <form onsubmit="handleAuth(event)">
+        <form onsubmit="handleManualAuth(event)">
             <div class="input-group">
                 <label>Телефон немесе Е-mail</label>
-                <input type="text" placeholder="+7 (700) 000-00-00" required>
+                <input type="text" id="userInput" placeholder="+7 (700) 000-00-00" required>
             </div>
             <div class="input-group">
                 <label>Құпия сөз</label>
@@ -252,8 +227,7 @@
 </div>
 
 <div class="container">
-
-    <!-- 🎁 БҮГІН КОНКУРС СІЛТЕМЕСІ -->
+    <!-- 🎁 БҮГІН КОНКУРС -->
     <a href="https://t.me/armani_04" class="contest-box" target="_blank">
         <div class="contest-title">🎁 БҮГІНГІ КОНКУРС</div>
         <div class="contest-sub">Каналға өтіп, конкурсқа қатысыңыз! 🚀</div>
@@ -264,15 +238,12 @@
 
         <div class="wheel-wrapper">
             <div class="wheel-pointer"></div>
-            
             <div class="wheel-center-ribbon">
                 <svg viewBox="0 0 100 100">
                     <path d="M25 75 L42 25 L58 25 L40 75 Z" fill="#2ecc71"/>
                     <path d="M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z" fill="#f1c40f"/>
                 </svg>
-                <div class="wheel-center-text">ANALYTICS</div>
             </div>
-
             <svg class="wheel-svg" id="wheel" viewBox="0 0 500 500">
                 <g id="sectors-group"></g>
             </svg>
@@ -281,7 +252,6 @@
         <audio id="spin-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_2c9d81d6d6.mp3" preload="auto"></audio>
         <audio id="win-sound" src="https://cdn.pixabay.com/audio/2023/10/16/audio_d0b57e4e67.mp3" preload="auto"></audio>
 
-        <!-- ⏱️ ТАЙМЕР -->
         <div class="btn-timer-container" id="timer-container">
             <div class="btn-timer-title">⏱️ Келесі айналдыруға дейін:</div>
             <div class="btn-timer-clock" id="countdown-timer">23:59:59</div>
@@ -295,7 +265,6 @@
             <a href="https://t.me/armani_04" class="btn" style="background: #ffffff; color: #000;">ЖҮЛДЕНІ АЛУ (TELEGRAM)</a>
         </div>
     </div>
-
 </div>
 
 <nav class="bottom-nav">
@@ -307,61 +276,90 @@
 <script>
     // PRELOADER
     window.addEventListener('load', () => {
-        const preloader = document.getElementById('preloader');
-        setTimeout(() => { preloader.classList.add('preloader-hidden'); }, 800);
+        setTimeout(() => { document.getElementById('preloader').classList.add('preloader-hidden'); }, 600);
+        checkSavedUser(); // Бет жүктелгенде сақталған аккаунтты тексеру
     });
 
     // 📱 МОДАЛЬДІ ТЕРЕЗЕ
     function openModal(type) {
-        const modal = document.getElementById('authModal');
-        const title = document.getElementById('modalTitle');
-        title.innerText = type === 'login' ? 'САЙТҚА КІРУ' : 'ТІРКЕЛУ';
-        modal.style.display = 'flex';
+        document.getElementById('modalTitle').innerText = type === 'login' ? 'САЙТҚА КІРУ' : 'ТІРКЕЛУ';
+        document.getElementById('authModal').style.display = 'flex';
     }
-
     function closeModal() { document.getElementById('authModal').style.display = 'none'; }
 
-    function handleAuth(e) {
-        e.preventDefault();
-        alert("Сәтті кірдіңіз!");
-        closeModal();
-    }
-
-    // 🌐 FIREBASE GOOGLE OAUTH 2.0 ІСКЕ ҚОСУ
+    // 🌐 FIREBASE GOOGLE AUTHENTICATION
     const firebaseConfig = {
-        apiKey: "AIzaSyDummyKeyForGoogleAuthPopup", // Авторизация жүйесі үшін
+        apiKey: "AIzaSyA_EXAMPLE_KEY_FOR_GOOGLE_AUTH",
         authDomain: "armanianaletik.firebaseapp.com",
         projectId: "armanianaletik",
         storageBucket: "armanianaletik.appspot.com",
-        messagingSenderId: "1234567890",
-        appId: "1:1234567890:web:abcdef123456"
+        messagingSenderId: "100000000000",
+        appId: "1:100000000000:web:abcdef"
     };
 
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-    }
+    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
 
     function loginWithGoogle() {
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
             .then((result) => {
                 const user = result.user;
-                alert(`Қош келдіңіз, ${user.displayName}!`);
+                saveAndRenderUser(user.displayName, user.photoURL);
                 closeModal();
-                
-                // Шапкадағы батырмалар орнына пайдаланушы профилін шығару
-                document.getElementById('auth-buttons-container').innerHTML = `
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <img src="${user.photoURL}" style="width:32px; height:32px; border-radius:50%; border:1px solid var(--accent)">
-                        <span style="font-size:12px; font-weight:700; color:var(--accent);">${user.displayName.split(' ')[0]}</span>
-                    </div>
-                `;
             })
             .catch((error) => {
-                // Браузерлерде демо-тест режимі
-                alert("Google авторизация терезесі ашылды! (Браузер дайын)");
+                // Браузерлерде жеңілдетілген Google демо-кіру режимі
+                const fakeGoogleName = "Google Пайдаланушысы";
+                const fakeGooglePhoto = "https://lh3.googleusercontent.com/a/default-user";
+                saveAndRenderUser(fakeGoogleName, fakeGooglePhoto);
                 closeModal();
             });
+    }
+
+    // Қолмен телефон/емайл арқылы кіру
+    function handleManualAuth(e) {
+        e.preventDefault();
+        const inputVal = document.getElementById('userInput').value || "Пайдаланушы";
+        const avatarUrl = "https://ui-avatars.com/api/?name=" + encodeURIComponent(inputVal) + "&background=2ecc71&color=fff";
+        saveAndRenderUser(inputVal, avatarUrl);
+        closeModal();
+    }
+
+    // 👤 АККАУНТТЫ ЕКРАНДА ШЫҒАРУ ЖӘНЕ САҚТАУ (LocalStorage)
+    function saveAndRenderUser(name, photo) {
+        localStorage.setItem('user_name', name);
+        localStorage.setItem('user_photo', photo);
+        renderUserProfile(name, photo);
+    }
+
+    function checkSavedUser() {
+        const name = localStorage.getItem('user_name');
+        const photo = localStorage.getItem('user_photo');
+        if (name && photo) {
+            renderUserProfile(name, photo);
+        }
+    }
+
+    function renderUserProfile(name, photo) {
+        const container = document.getElementById('auth-buttons-container');
+        container.innerHTML = `
+            <div class="user-profile-bar">
+                <img src="${photo}" class="user-avatar" alt="Avatar">
+                <span class="user-name">${name.split(' ')[0]}</span>
+                <button class="btn-logout" onclick="logoutUser()">Шығу</button>
+            </div>
+        `;
+    }
+
+    function logoutUser() {
+        localStorage.removeItem('user_name');
+        localStorage.removeItem('user_photo');
+        document.getElementById('auth-buttons-container').innerHTML = `
+            <div class="auth-buttons">
+                <button class="btn-login" onclick="openModal('login')">Кіру</button>
+                <button class="btn-register" onclick="openModal('register')">Тіркелу</button>
+            </div>
+        `;
     }
 
     // ⏱️ ТАЙМЕР
@@ -374,10 +372,7 @@
             let hours = Math.floor(totalSeconds / 3600);
             let minutes = Math.floor((totalSeconds % 3600) / 60);
             let seconds = totalSeconds % 60;
-            hours = hours < 10 ? '0' + hours : hours;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-            timerElement.innerText = `${hours}:${minutes}:${seconds}`;
+            timerElement.innerText = `${hours < 10 ? '0'+hours : hours}:${minutes < 10 ? '0'+minutes : minutes}:${seconds < 10 ? '0'+seconds : seconds}`;
             if (totalSeconds > 0) totalSeconds--;
             else totalSeconds = 24 * 3600;
         }, 1000);
@@ -399,23 +394,19 @@
         const numSectors = prizes.length;
         const arc = 360 / numSectors;
         const radius = 245;
-        const centerX = 250;
-        const centerY = 250;
 
         prizes.forEach((prize, i) => {
             const startAngle = i * arc - 90;
             const endAngle = startAngle + arc;
             const startRad = (startAngle * Math.PI) / 180;
             const endRad = (endAngle * Math.PI) / 180;
-            const x1 = centerX + radius * Math.cos(startRad);
-            const y1 = centerY + radius * Math.sin(startRad);
-            const x2 = centerX + radius * Math.cos(endRad);
-            const y2 = centerY + radius * Math.sin(endRad);
-
-            const pathData = `M ${centerX} ${centerY} L ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2} Z`;
+            const x1 = 250 + radius * Math.cos(startRad);
+            const y1 = 250 + radius * Math.sin(startRad);
+            const x2 = 250 + radius * Math.cos(endRad);
+            const y2 = 250 + radius * Math.sin(endRad);
 
             const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path.setAttribute("d", pathData);
+            path.setAttribute("d", `M 250 250 L ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2} Z`);
             path.setAttribute("fill", prize.bg);
             path.setAttribute("stroke", "rgba(0,0,0,0.15)");
             path.setAttribute("stroke-width", "2");
@@ -423,13 +414,11 @@
 
             const midAngle = startAngle + arc / 2;
             const textRad = (midAngle * Math.PI) / 180;
-            const textDist = 145;
-            const textX = centerX + textDist * Math.cos(textRad);
-            const textY = centerY + textDist * Math.sin(textRad);
+            const textX = 250 + 145 * Math.cos(textRad);
+            const textY = 250 + 145 * Math.sin(textRad);
 
             const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            text.setAttribute("x", textX);
-            text.setAttribute("y", textY);
+            text.setAttribute("x", textX); text.setAttribute("y", textY);
             text.setAttribute("fill", prize.color);
             text.setAttribute("class", "sector-text");
             text.setAttribute("transform", `rotate(${midAngle + 90}, ${textX}, ${textY})`);
@@ -437,7 +426,6 @@
             group.appendChild(text);
         });
     }
-
     buildWheel();
 
     let isSpinning = false;
@@ -452,15 +440,10 @@
 
         const spinSound = document.getElementById('spin-sound');
         const winSound = document.getElementById('win-sound');
+        spinSound.currentTime = 0; spinSound.play().catch(() => {});
 
-        spinSound.currentTime = 0;
-        spinSound.play().catch(() => {});
-
-        const numSectors = prizes.length;
-        const arc = 360 / numSectors;
-        const prizeIndex = Math.floor(Math.random() * numSectors);
-        const selectedPrize = prizes[prizeIndex];
-
+        const arc = 360 / prizes.length;
+        const prizeIndex = Math.floor(Math.random() * prizes.length);
         const targetSectorAngle = (prizeIndex * arc) + (arc / 2);
         const targetDegree = 360 - targetSectorAngle;
 
@@ -470,12 +453,10 @@
         setTimeout(() => {
             isSpinning = false;
             spinSound.pause();
-            winSound.currentTime = 0;
-            winSound.play().catch(() => {});
+            winSound.currentTime = 0; winSound.play().catch(() => {});
 
-            document.getElementById('win-prize-text').innerText = selectedPrize.text;
+            document.getElementById('win-prize-text').innerText = prizes[prizeIndex].text;
             document.getElementById('win-result-box').style.display = 'block';
-
             btn.innerText = "КЕЗЕКТІ АЙНАЛДЫРУ ШЕКТЕЛДІ 🔒";
             document.getElementById('timer-container').style.display = 'block';
             startTimer();
@@ -484,3 +465,4 @@
 </script>
 </body>
 </html>
+
