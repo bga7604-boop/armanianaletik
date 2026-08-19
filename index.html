@@ -47,7 +47,6 @@
         .header-sub-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
         .header-sub-row p { margin: 0; color: var(--subtext); font-size: 10px; }
         
-        /* ⏰ ХЕДЕРДЕГІ УАҚЫТ */
         .header-clock { 
             background: rgba(46, 204, 113, 0.1); 
             color: var(--accent); 
@@ -185,6 +184,78 @@
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #141822; border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; z-index: 100; }
         .nav-item { color: var(--subtext); text-decoration: none; font-size: 12px; font-weight: 700; background: none; border: none; cursor: pointer; }
         .nav-item.active { color: var(--accent); }
+
+        /* 👑 VIP БӨЛІМІНІҢ ЖАҢА СТИЛЬДЕРІ */
+        .vip-card-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .vip-plan-card {
+            background: #1e2536;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        .vip-plan-card.popular {
+            border: 1px solid var(--gold);
+            background: linear-gradient(135deg, #1e2536 0%, #292419 100%);
+        }
+        .badge-popular {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: var(--gold);
+            color: #000;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+        .vip-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+            margin: 6px 0;
+        }
+        .vip-features {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 14px 0;
+            font-size: 12px;
+            color: var(--subtext);
+        }
+        .vip-features li {
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-buy-vip {
+            width: 100%;
+            background: var(--gold);
+            color: #000;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+        .locked-content-box {
+            background: #141822;
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -266,7 +337,6 @@
                 </div>
             </div>
             
-            <!-- 🎰 БАТЫРМА (24САҒАТ ТАЙМЕРІ БАР) -->
             <button class="btn-spin-green" onclick="spinWheel()" id="spinBtn">🎰 АЙНАЛДЫРУ</button>
         </div>
 
@@ -283,12 +353,57 @@
 
     </div>
 
-    <!-- 2. VIP ЗОНА -->
+    <!-- 2. VIP ЗОНА (ЖАҢАРТЫЛҒАН ТОЛЫҚ БӨЛІМ) -->
     <div id="page-vip" class="page">
+        
         <div class="card">
-            <h2 class="card-title">👑 VIP Зона</h2>
-            <p style="color: var(--subtext); font-size: 13px; margin-top:10px;">Бұл бөлім тек VIP жазылымы бар қолданушыларға арналған.</p>
+            <h2 class="card-title" style="color:var(--gold);">👑 VIP КЛУБҚА ҚОСЫЛУ</h2>
+            <p style="color: var(--subtext); font-size: 12px; margin: 4px 0 15px 0;">Ең жоғары коэффициенттер мен эксклюзивті аналитикаға қол жеткізіңіз</p>
+            
+            <!-- VIP ТАРИФТЕРІ -->
+            <div class="vip-card-grid">
+                
+                <!-- Тариф 1 -->
+                <div class="vip-plan-card">
+                    <div style="font-size:13px; font-weight:700; color:var(--subtext);">VIP 1 АЙ</div>
+                    <div class="vip-price">4 990 ₸</div>
+                    <ul class="vip-features">
+                        <li>✅ Күнделікті 2+ VIP Прогноз</li>
+                        <li>✅ Өтімділігі: 88%+</li>
+                        <li>✅ Жабық Telegram VIP канал</li>
+                    </ul>
+                    <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip">САТЫП АЛУ 🚀</a>
+                </div>
+
+                <!-- Тариф 2 (Премиум) -->
+                <div class="vip-plan-card popular">
+                    <span class="badge-popular">ХИТ 🔥</span>
+                    <div style="font-size:13px; font-weight:700; color:var(--gold);">VIP 3 АЙ</div>
+                    <div class="vip-price">9 990 ₸</div>
+                    <ul class="vip-features">
+                        <li>✅ Күнделікті VIP Экспресс (Кэф 3.0+)</li>
+                        <li>✅ Өтімділігі: 92%+</li>
+                        <li>✅ Жеке аналитик көмегі</li>
+                        <li>✅ Жабық VIP каналға сілтеме</li>
+                    </ul>
+                    <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip" style="background:var(--accent); color:#000;">САТЫП АЛУ 🔥</a>
+                </div>
+
+            </div>
         </div>
+
+        <!-- 🔒 ҚҰЛЫПТАУЛЫ VIP КОНТЕНТ -->
+        <div class="card" style="margin-top: 12px;">
+            <h3 style="margin: 0; font-size: 14px; color: #fff; text-align: left;">🔥 БҮГІНГІ VIP ЭКСПРЕСС</h3>
+            
+            <div class="locked-content-box">
+                <div style="font-size: 32px; margin-bottom: 8px;">🔒</div>
+                <h4 style="margin: 0; color: var(--gold); font-size: 14px;">Контент жабық</h4>
+                <p style="font-size: 11px; color: var(--subtext); margin: 6px 0 12px 0;">Бұл экспрессті көру үшін VIP жазылымды белсендіріңіз</p>
+                <div style="font-size: 13px; font-weight: 800; color: var(--accent);">Жалпы Коэффициент: 4.85 🚀</div>
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -305,9 +420,7 @@
     let audioCtx = null;
 
     function initAudio() {
-        if (!audioCtx) {
-            audioCtx = new AudioContext();
-        }
+        if (!audioCtx) audioCtx = new AudioContext();
     }
 
     function playClickSound() {
@@ -346,7 +459,6 @@
         } catch(e){}
     }
 
-    // --- БЕТ ЖҮКТЕЛГЕНДЕ ---
     window.addEventListener('load', () => {
         checkSavedUser();
         drawWheel();
@@ -404,7 +516,6 @@
         btnElement.classList.add('active');
     }
 
-    // ХЕДЕРДЕГІ САТ ТАЙМЕРІ
     setInterval(() => {
         const now = new Date();
         document.getElementById('header-clock').innerText = now.toLocaleTimeString('kk-KZ');
@@ -417,7 +528,7 @@
         alert("Сілтеме көшірілді: " + copyText.value);
     }
 
-    // --- ⏳ 24 САҒАТТЫҚ ШЕКТЕУ ТАЙМЕРІ (COOLDOWN) ---
+    // 24 САҒАТТЫҚ ТАЙМЕР
     let cooldownInterval = null;
 
     function checkCooldownTimer() {
@@ -470,7 +581,7 @@
         checkCooldownTimer();
     }
 
-    // --- 🎡 HD РУЛЕТКА ДИЗАЙНЫ МЕН АНИМАЦИЯСЫ ---
+    // РУЛЕТКА
     const prizes = [
         { text: "🏆 VIP Экспресс -10% 🔥", color: "#ffffff", textColor: "#000000" },
         { text: "👑 VIP Канал +1 Күн 👑", color: "#2ecc71", textColor: "#ffffff" },
@@ -524,7 +635,6 @@
     function spinWheel() {
         if (isSpinning) return;
         
-        // 24 сағаттық уақыт тексеру
         const nextSpinTime = localStorage.getItem('nextSpinTime');
         if (nextSpinTime && parseInt(nextSpinTime) > Date.now()) {
             alert("Айналдыру 24 сағатта 1 рет қана қолжетімді!");
@@ -576,7 +686,6 @@
                 isSpinning = false;
                 playWinSound();
                 
-                // 🚀 Айналдыру аяқталған соң 24 сағаттық таймерді іске қосу
                 start24hCooldown();
                 
                 setTimeout(() => {
