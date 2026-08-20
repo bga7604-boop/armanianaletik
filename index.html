@@ -229,7 +229,7 @@
         .btn-copy { background: var(--accent); color: #000; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 800; font-size: 12px; cursor: pointer; }
 
         /* NAV */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #141822; border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; z-index: 100; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #141822; border-top: 1px solid var(--border); display: flex; justify-space-around; align-items: center; z-index: 100; }
         .nav-item { color: var(--subtext); text-decoration: none; font-size: 12px; font-weight: 700; background: none; border: none; cursor: pointer; }
         .nav-item.active { color: var(--accent); }
 
@@ -496,10 +496,9 @@
     <span class="support-badge">1</span>
 </a>
 
-<!-- 🧭 ТӨМЕНГІ НАВИГАЦИЯ (ЖАҢА СТАТИСТИКА БАЙЛАНЫСЫМЕН) -->
+<!-- 🧭 ТӨМЕНГІ НАВИГАЦИЯ -->
 <nav class="bottom-nav">
     <button class="nav-item active" onclick="switchPage('page-home', this)" data-i18n="nav_home">🏠 Басты бет</button>
-
     <button class="nav-item" onclick="switchPage('page-stats', this)" data-i18n="nav_stats">📊 Статистика</button>
     <button class="nav-item" onclick="switchPage('page-vip', this)" data-i18n="nav_vip">👑 VIP Зона</button>
 </nav>
