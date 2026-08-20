@@ -875,3 +875,59 @@
 </script>
 </body>
 </html>
+<!-- 🧮 ИНТЕРАКТИВТІ КАЛЬКУЛЯТОР -->
+<div class="card" style="margin-top: 12px; text-align: left;">
+    <h3 style="color: var(--gold); margin: 0 0 6px 0; font-size: 15px; display: flex; align-items: center; gap: 6px;">
+        🧮 БОЛЖАМДЫ ТАБЫС КАЛЬКУЛЯТОРЫ
+    </h3>
+    <p style="color: var(--subtext); font-size: 11px; margin: 0 0 15px 0;">
+        VIP аналитикамен 1 айда қанша пайда табуға болатынын есептеңіз:
+    </p>
+
+    <!-- 1. БАСТАПҚЫ БАНК -->
+    <div style="margin-bottom: 14px;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px;">
+            <span>Бастапқы банк:</span>
+            <span id="bankValue" style="color: var(--accent);">50 000 ₸</span>
+        </div>
+        <input type="range" id="bankRange" min="10000" max="500000" step="5000" value="50000" oninput="calculateProfit()" style="width: 100%; accent-color: var(--accent); cursor: pointer;">
+    </div>
+
+    <!-- 2. МЕРЗІМІ -->
+    <div style="margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px;">
+            <span>Мерзімі:</span>
+            <span id="daysValue" style="color: var(--gold);">30 күн</span>
+        </div>
+        <input type="range" id="daysRange" min="7" max="90" step="1" value="30" oninput="calculateProfit()" style="width: 100%; accent-color: var(--gold); cursor: pointer;">
+    </div>
+
+    <!-- НӘТИЖЕ БЛОГЫ -->
+    <div style="background: rgba(46, 204, 113, 0.08); border: 1px dashed var(--accent); border-radius: 10px; padding: 12px; text-align: center; margin-bottom: 12px;">
+        <div style="font-size: 11px; color: var(--subtext);">Болжалды таза пайда:</div>
+        <div id="profitResult" style="font-size: 24px; font-weight: 800; color: var(--accent); margin: 4px 0;">+132 000 ₸</div>
+        <div style="font-size: 10px; color: #8b98a5;" id="totalResult">Жалпы банк: 182 000 ₸</div>
+    </div>
+
+    <button onclick="switchPage('page-vip', document.querySelectorAll('.nav-item')[2])" class="btn-spin-green" style="font-size: 13px; padding: 12px;">
+        🚀 ОСЫ ПАЙДАНЫ ТАБУДЫ БАСТАУ
+    </button>
+</div>
+
+<script>
+    function calculateProfit() {
+        const bank = parseInt(document.getElementById('bankRange').value);
+        const days = parseInt(document.getElementById('daysRange').value);
+
+        document.getElementById('bankValue').innerText = bank.toLocaleString('ru-RU') + ' ₸';
+        document.getElementById('daysValue').innerText = days + ' күн';
+
+        // Күндік орташа ROI ~ 8.8%
+        const dailyRoi = 0.088; 
+        const profit = Math.round(bank * dailyRoi * days);
+        const total = bank + profit;
+
+        document.getElementById('profitResult').innerText = '+' + profit.toLocaleString('ru-RU') + ' ₸';
+        document.getElementById('totalResult').innerText = 'Жалпы банк: ' + total.toLocaleString('ru-RU') + ' ₸';
+    }
+</script>
