@@ -292,6 +292,43 @@
             text-align: center;
             margin-top: 10px;
         }
+
+        /* 💬 ТЕХНИКАЛЫҚ ҚОЛДАУ БАТЫРМАСЫ */
+        .support-float-btn {
+            position: fixed;
+            bottom: 75px;
+            right: 16px;
+            width: 58px;
+            height: 58px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            z-index: 99;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .support-float-btn:active {
+            transform: scale(0.92);
+        }
+        .support-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #ff4757;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--bg);
+        }
     </style>
 </head>
 <body>
@@ -480,6 +517,14 @@
     </div>
 
 </div>
+
+<!-- 💬 ТЕХНИКАЛЫҚ ҚОЛДАУ БАТЫРМАСЫ -->
+<a href="https://t.me/armani_04" target="_blank" class="support-float-btn" title="Техникалық қолдау">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#000000">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+    </svg>
+    <span class="support-badge">1</span>
+</a>
 
 <!-- 🧭 ТӨМЕНГІ НАВИГАЦИЯ -->
 <nav class="bottom-nav">
