@@ -33,7 +33,7 @@
             align-items: center; 
         }
 
-        /* ⏳ PRELOADER (ЖҮКТЕЛУ ЭКРАНЫ) STYLES */
+        /* ⏳ PRELOADER STYLES */
         #preloader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -110,7 +110,22 @@
             white-space: nowrap;
         }
 
-        .auth-buttons { display: flex; align-items: center; gap: 8px; }
+        .header-right { display: flex; align-items: center; gap: 8px; }
+
+        /* 🌐 ТІЛДІ АУЫСТЫРУ МӘЗІРІ */
+        .lang-select {
+            background: #1c2230;
+            color: #fff;
+            border: 1px solid var(--border);
+            padding: 5px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .auth-buttons { display: flex; align-items: center; gap: 6px; }
         .btn-login { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
         .btn-register { background: var(--gold); color: #000000; border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
 
@@ -136,18 +151,15 @@
         .btn-submit { width: 100%; background: #323b4e; color: #6e7a91; border: none; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 15px; cursor: pointer; transition: 0.2s; }
         .btn-submit.active { background: var(--gold); color: #000; cursor: pointer; }
 
-        /* ИНФО БЛОК */
         .modal-info-box { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 14px; margin: 18px 0; }
         .info-title { display: flex; align-items: center; gap: 8px; color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
         .info-icon { background: #22c55e; color: #0d1017; border-radius: 50%; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; }
         .modal-info-box p { font-size: 12px; color: #94a3b8; margin: 0; line-height: 1.45; }
 
-        /* ДЕЛИ ТЕЛЬ */
         .modal-divider { display: flex; align-items: center; margin: 20px 0; color: #5a6478; font-size: 12px; font-weight: 600; }
         .modal-divider::before, .modal-divider::after { content: ""; flex: 1; border-bottom: 1px solid rgba(255,255,255,0.08); }
         .modal-divider span { padding: 0 10px; }
 
-        /* СОЦ СЕТИ */
         .social-login-row { display: flex; justify-content: center; gap: 14px; margin-bottom: 20px; }
         .social-btn { width: 52px; height: 52px; border-radius: 12px; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.1s; }
         .social-btn:active { transform: scale(0.95); }
@@ -155,7 +167,6 @@
         .steam-btn { background: #000000; }
         .telegram-btn { background: #229ED9; }
 
-        /* ЧЕКБОКС */
         .modal-checkbox-row { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
         .modal-checkbox-row input { display: none; }
         .checkmark { width: 20px; height: 20px; background: var(--gold); border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
@@ -172,7 +183,7 @@
         .card { background: var(--card); padding: 18px; border-radius: 14px; border: 1px solid var(--border); text-align: center; }
         .card-title { font-size: 16px; margin: 0 0 8px 0; color: var(--accent); display: flex; justify-content: center; align-items: center; gap: 8px; }
 
-        /* 🎁 БҮГІНГІ КОНКУРС БАННЕРІ */
+        /* БАННЕР */
         .contest-banner {
             background: rgba(46, 204, 113, 0.05);
             border: 1px solid var(--accent);
@@ -183,84 +194,36 @@
         .contest-banner h3 { margin: 0; font-size: 15px; color: var(--accent); }
         .contest-banner p { margin: 4px 0 0; font-size: 12px; color: var(--subtext); }
 
-        /* 🎡 HD ДӨҢГЕЛЕК РУЛЕТКА */
-        .wheel-box {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 15px auto;
-        }
-
+        /* РУЛЕТКА */
+        .wheel-box { position: relative; width: 300px; height: 300px; margin: 15px auto; }
         .wheel-pointer {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0; height: 0;
-            border-left: 14px solid transparent;
-            border-right: 14px solid transparent;
-            border-top: 24px solid #ffffff;
-            z-index: 20;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+            position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent;
+            border-top: 24px solid #ffffff; z-index: 20; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
             transition: transform 0.05s ease-in-out;
         }
-        .wheel-pointer.bounce {
-            transform: translateX(-50%) translateY(-3px) scaleY(0.9);
-        }
-
+        .wheel-pointer.bounce { transform: translateX(-50%) translateY(-3px) scaleY(0.9); }
         .wheel-canvas-container {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 5px solid var(--accent);
+            width: 100%; height: 100%; border-radius: 50%; border: 5px solid var(--accent);
             box-shadow: 0 0 25px rgba(46, 204, 113, 0.4), inset 0 0 15px rgba(0,0,0,0.5);
-            overflow: hidden;
-            position: relative;
+            overflow: hidden; position: relative;
         }
-
-        #wheelCanvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
+        #wheelCanvas { width: 100%; height: 100%; display: block; }
         .wheel-center-logo {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 52px; height: 52px;
-            background: #121613;
-            border: 3px solid var(--gold);
-            border-radius: 50%;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 52px; height: 52px; background: #121613; border: 3px solid var(--gold);
+            border-radius: 50%; z-index: 10; display: flex; align-items: center; justify-content: center;
             box-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
 
         .btn-spin-green { 
-            background: var(--accent); 
-            color: #000; 
-            border: none; 
-            padding: 14px 25px; 
-            border-radius: 12px; 
-            font-weight: 800; 
-            font-size: 15px; 
-            cursor: pointer; 
-            width: 100%; 
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); 
-            transition: transform 0.1s, opacity 0.2s, background-color 0.3s;
+            background: var(--accent); color: #000; border: none; padding: 14px 25px; border-radius: 12px;
+            font-weight: 800; font-size: 15px; cursor: pointer; width: 100%;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); transition: transform 0.1s, opacity 0.2s, background-color 0.3s;
         }
-        .btn-spin-green:disabled {
-            background: #2a3447;
-            color: var(--subtext);
-            box-shadow: none;
-            cursor: not-allowed;
-        }
+        .btn-spin-green:disabled { background: #2a3447; color: var(--subtext); box-shadow: none; cursor: not-allowed; }
         .btn-spin-green:not(:disabled):active { transform: scale(0.98); }
 
-        /* 🔗 ШАҚЫРУ СІЛТЕМЕСІ */
         .link-box { display: flex; align-items: center; background: var(--input-bg); border-radius: 8px; padding: 4px; border: 1px solid var(--border); margin-top: 10px; }
         .link-box input { flex: 1; background: transparent; border: none; color: var(--subtext); padding: 8px 10px; font-size: 12px; outline: none; }
         .btn-copy { background: var(--accent); color: #000; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 800; font-size: 12px; cursor: pointer; }
@@ -270,119 +233,39 @@
         .nav-item { color: var(--subtext); text-decoration: none; font-size: 12px; font-weight: 700; background: none; border: none; cursor: pointer; }
         .nav-item.active { color: var(--accent); }
 
-        /* 👑 VIP БӨЛІМІНІҢ СТИЛЬДЕРІ */
-        .vip-card-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 10px;
-        }
-        .vip-plan-card {
+        /* VIP БӨЛІМІ */
+        .vip-card-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+        .vip-plan-card { background: #1e2536; border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: left; position: relative; overflow: hidden; }
+        .vip-plan-card.popular { border: 1px solid var(--gold); background: linear-gradient(135deg, #1e2536 0%, #292419 100%); }
+        .badge-popular { position: absolute; top: 10px; right: 10px; background: var(--gold); color: #000; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; }
+        .vip-price { font-size: 22px; font-weight: 800; color: #fff; margin: 6px 0; }
+        .vip-features { list-style: none; padding: 0; margin: 10px 0 14px 0; font-size: 12px; color: var(--subtext); }
+        .vip-features li { margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .btn-buy-vip { width: 100%; background: var(--gold); color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: 800; font-size: 13px; cursor: pointer; text-align: center; text-decoration: none; display: block; }
+        .locked-content-box { background: #141822; border: 1px dashed var(--border); border-radius: 12px; padding: 20px; text-align: center; margin-top: 10px; }
+
+        /* 📊 СТАТИСТИКА БӨЛІМІНІҢ СТИЛЬДЕРІ */
+        .stat-item {
             background: #1e2536;
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-        }
-        .vip-plan-card.popular {
-            border: 1px solid var(--gold);
-            background: linear-gradient(135deg, #1e2536 0%, #292419 100%);
-        }
-        .badge-popular {
-            position: absolute;
-            top: 10px; right: 10px;
-            background: var(--gold);
-            color: #000;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 6px;
-        }
-        .vip-price {
-            font-size: 22px;
-            font-weight: 800;
-            color: #fff;
-            margin: 6px 0;
-        }
-        .vip-features {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0 14px 0;
-            font-size: 12px;
-            color: var(--subtext);
-        }
-        .vip-features li {
-            margin-bottom: 6px;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 8px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 6px;
         }
-        .btn-buy-vip {
-            width: 100%;
-            background: var(--gold);
-            color: #000;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: 800;
-            font-size: 13px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            display: block;
-        }
-        .locked-content-box {
-            background: #141822;
-            border: 1px dashed var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            margin-top: 10px;
-        }
+        .stat-badge-win { background: rgba(46, 204, 113, 0.15); color: var(--accent); padding: 4px 8px; border-radius: 6px; font-weight: 800; font-size: 11px; }
 
-        /* 💬 ТЕХНИКАЛЫҚ ҚОЛДАУ БАТЫРМАСЫ */
-        .support-float-btn {
-            position: fixed;
-            bottom: 75px;
-            right: 16px;
-            width: 58px;
-            height: 58px;
-            background: var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-            z-index: 99;
-            text-decoration: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .support-float-btn:active {
-            transform: scale(0.92);
-        }
-        .support-badge {
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            background: #ff4757;
-            color: #ffffff;
-            font-size: 11px;
-            font-weight: 800;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--bg);
-        }
+        /* ТЕХНИКАЛЫҚ ҚОЛДАУ */
+        .support-float-btn { position: fixed; bottom: 75px; right: 16px; width: 58px; height: 58px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); z-index: 99; text-decoration: none; transition: transform 0.2s ease; }
+        .support-float-btn:active { transform: scale(0.92); }
+        .support-badge { position: absolute; top: -2px; right: -2px; background: #ff4757; color: #ffffff; font-size: 11px; font-weight: 800; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--bg); }
     </style>
 </head>
 <body>
 
-<!-- ⏳ PRELOADER (ЖҮКТЕЛУ ЭКРАНЫ) -->
+<!-- PRELOADER -->
 <div id="preloader">
     <div class="preloader-content">
         <svg class="preloader-logo" viewBox="0 0 100 100">
@@ -410,14 +293,24 @@
         <div class="header-title-box">
             <h1>ARMANI ANALETIK</h1>
             <div class="header-sub-row">
-                <p>Минимализм & Аналитика</p>
+                <p data-i18n="header_sub">Минимализм & Аналитика</p>
             </div>
         </div>
     </div>
-    <div id="auth-buttons-container">
-        <div class="auth-buttons">
-            <button class="btn-login" onclick="openStep1()">Кіру</button>
-            <button class="btn-register" onclick="openStep1()">Тіркелу</button>
+
+    <div class="header-right">
+        <!-- 🌐 ТІЛДЕРДІ АУЫСТЫРУ ДРОПДАУНЫ -->
+        <select id="langSelect" class="lang-select" onchange="changeLanguage(this.value)">
+            <option value="kk">🇰🇿 KK</option>
+            <option value="ru">🇷🇺 RU</option>
+            <option value="en">🇬🇧 EN</option>
+        </select>
+
+        <div id="auth-buttons-container">
+            <div class="auth-buttons">
+                <button class="btn-login" onclick="openStep1()" data-i18n="btn_login">Кіру</button>
+                <button class="btn-register" onclick="openStep1()" data-i18n="btn_register">Тіркелу</button>
+            </div>
         </div>
     </div>
 </header>
@@ -448,24 +341,9 @@
         </div>
 
         <div class="social-login-row">
-            <button class="social-btn google-btn">
-                <svg width="22" height="22" viewBox="0 0 24 24">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z"/>
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                </svg>
-            </button>
-            <button class="social-btn steam-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
-                    <path d="M12 2a10 10 0 0 0-10 10c0 4.7 3.2 8.6 7.6 9.6l2.1-3a3.5 3.5 0 0 1 1.3-3.2l-2.8-1.2a2.5 2.5 0 0 1-1.7.7 2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.4 1.8l2.9 1.2c.5-.4 1.2-.6 1.9-.6 1.7 0 3 1.3 3 3s-1.3 3-3 3c-.2 0-.4 0-.6-.1l-1.9 2.8c4.3-.5 7.6-4.2 7.6-8.7A10 10 0 0 0 12 2z"/>
-                </svg>
-            </button>
-            <button class="social-btn telegram-btn">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.67-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.05-.48-.82-.27-1.47-.42-1.42-.88.03-.24.38-.49 1.05-.75 4.12-1.8 6.87-2.98 8.25-3.56 3.93-1.64 4.74-1.92 5.27-1.93.12 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.15-.04.22z"/>
-                </svg>
-            </button>
+            <button class="social-btn google-btn"><svg width="22" height="22" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg></button>
+            <button class="social-btn steam-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 2a10 10 0 0 0-10 10c0 4.7 3.2 8.6 7.6 9.6l2.1-3a3.5 3.5 0 0 1 1.3-3.2l-2.8-1.2a2.5 2.5 0 0 1-1.7.7 2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.4 1.8l2.9 1.2c.5-.4 1.2-.6 1.9-.6 1.7 0 3 1.3 3 3s-1.3 3-3 3c-.2 0-.4 0-.6-.1l-1.9 2.8c4.3-.5 7.6-4.2 7.6-8.7A10 10 0 0 0 12 2z"/></svg></button>
+            <button class="social-btn telegram-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.67-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.05-.48-.82-.27-1.47-.42-1.42-.88.03-.24.38-.49 1.05-.75 4.12-1.8 6.87-2.98 8.25-3.56 3.93-1.64 4.74-1.92 5.27-1.93.12 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.15-.04.22z"/></svg></button>
         </div>
 
         <label class="modal-checkbox-row">
@@ -494,13 +372,13 @@
     <div id="page-home" class="page active">
         
         <div class="contest-banner">
-            <h3>🎁 БҮГІНГІ КОНКУРС</h3>
-            <p>Каналға өтіп, конкурсқа қатысыңыз! 🚀</p>
+            <h3 data-i18n="contest_title">🎁 БҮГІНГІ КОНКУРС</h3>
+            <p data-i18n="contest_sub">Каналға өтіп, конкурсқа қатысыңыз! 🚀</p>
         </div>
 
-        <!-- 🎡 HD ДӨҢГЕЛЕК РУЛЕТКА -->
+        <!-- 🎡 РУЛЕТКА -->
         <div class="card">
-            <h2 class="card-title" style="color:var(--accent);">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
+            <h2 class="card-title" style="color:var(--accent);" data-i18n="wheel_title">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
             
             <div class="wheel-box">
                 <div class="wheel-pointer" id="wheelPointer"></div>
@@ -515,17 +393,17 @@
                 </div>
             </div>
             
-            <button class="btn-spin-green" onclick="spinWheel()" id="spinBtn">🎰 АЙНАЛДЫРУ</button>
+            <button class="btn-spin-green" onclick="spinWheel()" id="spinBtn" data-i18n="btn_spin">🎰 АЙНАЛДЫРУ</button>
         </div>
 
         <!-- 🔗 ШАҚЫРУ СІЛТЕМЕСІ -->
         <div class="card">
-            <h3 style="color:#fff; margin:0; font-size:13px; text-align:left; display:flex; align-items:center; gap:6px;">
+            <h3 style="color:#fff; margin:0; font-size:13px; text-align:left; display:flex; align-items:center; gap:6px;" data-i18n="ref_title">
                 🔗 Сіздің шақыру сілтемеңіз
             </h3>
             <div class="link-box">
                 <input type="text" id="ref-link" value="https://armanianaletik.kz/ref/777" readonly>
-                <button class="btn-copy" onclick="copyLink()">Көшіру</button>
+                <button class="btn-copy" onclick="copyLink()" data-i18n="btn_copy">Көшіру</button>
             </div>
         </div>
 
@@ -533,10 +411,9 @@
 
     <!-- 2. VIP ЗОНА -->
     <div id="page-vip" class="page">
-        
         <div class="card">
-            <h2 class="card-title" style="color:var(--gold);">👑 VIP КЛУБҚА ҚОСЫЛУ</h2>
-            <p style="color: var(--subtext); font-size: 12px; margin: 4px 0 15px 0;">Ең жоғары коэффициенттер мен эксклюзивті аналитикаға қол жеткізіңіз</p>
+            <h2 class="card-title" style="color:var(--gold);" data-i18n="vip_title">👑 VIP КЛУБҚА ҚОСЫЛУ</h2>
+            <p style="color: var(--subtext); font-size: 12px; margin: 4px 0 15px 0;" data-i18n="vip_sub">Ең жоғары коэффициенттер мен эксклюзивті аналитикаға қол жеткізіңіз</p>
             
             <div class="vip-card-grid">
                 <div class="vip-plan-card">
@@ -547,7 +424,7 @@
                         <li>✅ Өтімділігі: 88%+</li>
                         <li>✅ Жабық Telegram VIP канал</li>
                     </ul>
-                    <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip">САТЫП АЛУ 🚀</a>
+                    <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip" data-i18n="vip_buy">САТЫП АЛУ 🚀</a>
                 </div>
 
                 <div class="vip-plan-card popular">
@@ -560,7 +437,7 @@
                         <li>✅ Жеке аналитик көмегі</li>
                         <li>✅ Жабық VIP каналға сілтеме</li>
                     </ul>
-                    <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip" style="background:var(--accent); color:#000;">САТЫП АЛУ 🔥</a>
+                    <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip" style="background:var(--accent); color:#000;" data-i18n="vip_buy">САТЫП АЛУ 🔥</a>
                 </div>
             </div>
         </div>
@@ -575,12 +452,43 @@
                 <div style="font-size: 13px; font-weight: 800; color: var(--accent);">Жалпы Коэффициент: 4.85 🚀</div>
             </div>
         </div>
+    </div>
 
+    <!-- 3. 📊 ЖАҢА СТАТИСТИКА ЖӘНЕ ТАРИХ БЕТІ -->
+    <div id="page-stats" class="page">
+        <div class="card">
+            <h2 class="card-title" style="color:var(--accent);" data-i18n="stats_title">📊 ТАРИХ ЖӘНЕ СТАТИСТИКА</h2>
+            <p style="color: var(--gold); font-weight: 800; font-size: 13px; margin: 4px 0 15px 0;" data-i18n="stats_pass">Жалпы өтімділік: 90%</p>
+            
+            <div class="stat-item">
+                <div style="text-align: left;">
+                    <div style="font-size: 13px; font-weight: 700; color: #fff;">VIP Экспресс #104</div>
+                    <div style="font-size: 10px; color: var(--subtext);">Коэффициент: 3.45</div>
+                </div>
+                <span class="stat-badge-win">✅ ӨТТІ</span>
+            </div>
+
+            <div class="stat-item">
+                <div style="text-align: left;">
+                    <div style="font-size: 13px; font-weight: 700; color: #fff;">VIP Экспресс #103</div>
+                    <div style="font-size: 10px; color: var(--subtext);">Коэффициент: 2.10</div>
+                </div>
+                <span class="stat-badge-win">✅ ӨТТІ</span>
+            </div>
+
+            <div class="stat-item">
+                <div style="text-align: left;">
+                    <div style="font-size: 13px; font-weight: 700; color: #fff;">VIP Ординар #102</div>
+                    <div style="font-size: 10px; color: var(--subtext);">Коэффициент: 1.85</div>
+                </div>
+                <span class="stat-badge-win">✅ ӨТТІ</span>
+            </div>
+        </div>
     </div>
 
 </div>
 
-<!-- 💬 ТЕХНИКАЛЫҚ ҚОЛДАУ БАТЫРМАСЫ -->
+<!-- ТЕХНИКАЛЫҚ ҚОЛДАУ БАТЫРМАСЫ -->
 <a href="https://t.me/armani_04" target="_blank" class="support-float-btn" title="Техникалық қолдау">
     <svg width="28" height="28" viewBox="0 0 24 24" fill="#000000">
         <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
@@ -588,13 +496,88 @@
     <span class="support-badge">1</span>
 </a>
 
-<!-- 🧭 ТӨМЕНГІ НАВИГАЦИЯ -->
+<!-- 🧭 ТӨМЕНГІ НАВИГАЦИЯ (ЖАҢА СТАТИСТИКА БАЙЛАНЫСЫМЕН) -->
 <nav class="bottom-nav">
-    <button class="nav-item active" onclick="switchPage('page-home', this)">🏠 Басты бет</button>
-    <button class="nav-item" onclick="switchPage('page-vip', this)">👑 VIP Зона</button>
+    <button class="nav-item active" onclick="switchPage('page-home', this)" data-i18n="nav_home">🏠 Басты бет</button>
+
+    <button class="nav-item" onclick="switchPage('page-stats', this)" data-i18n="nav_stats">📊 Статистика</button>
+    <button class="nav-item" onclick="switchPage('page-vip', this)" data-i18n="nav_vip">👑 VIP Зона</button>
 </nav>
 
 <script>
+    /* 🌐 ТІЛДЕР СӨЗДІГІ (i18n) */
+    const i18n = {
+        kk: {
+            nav_home: "🏠 Басты бет",
+            nav_vip: "👑 VIP Зона",
+            nav_stats: "📊 Статистика",
+            header_sub: "Минимализм & Аналитика",
+            btn_login: "Кіру",
+            btn_register: "Тіркелу",
+            contest_title: "🎁 БҮГІНГІ КОНКУРС",
+            contest_sub: "Каналға өтіп, конкурсқа қатысыңыз! 🚀",
+            wheel_title: "🎯 СӘТТІЛІК РУЛЕТКАСЫ",
+            btn_spin: "🎰 АЙНАЛДЫРУ",
+            ref_title: "🔗 Сіздің шақыру сілтемеңіз",
+            btn_copy: "Көшіру",
+            vip_title: "👑 VIP КЛУБҚА ҚОСЫЛУ",
+            vip_sub: "Ең жоғары коэффициенттер мен эксклюзивті аналитикаға қол жеткізіңіз",
+            vip_buy: "САТЫП АЛУ 🚀",
+            stats_title: "📊 ТАРИХ ЖӘНЕ СТАТИСТИКА",
+            stats_pass: "Жалпы өтімділік: 90%"
+        },
+        ru: {
+            nav_home: "🏠 Главная",
+            nav_vip: "👑 VIP Зона",
+            nav_stats: "📊 Статистика",
+            header_sub: "Минимализм и Аналитика",
+            btn_login: "Войти",
+            btn_register: "Регистрация",
+            contest_title: "🎁 СЕГОДНЯШНИЙ КОНКУРС",
+            contest_sub: "Переходите в канал и участвуйте! 🚀",
+            wheel_title: "🎯 РУЛЕТКА УДАЧИ",
+            btn_spin: "🎰 КРУТИТЬ",
+            ref_title: "🔗 Ваша реферальная ссылка",
+            btn_copy: "Копировать",
+            vip_title: "👑 ВСТУПИТЬ В VIP КЛУБ",
+            vip_sub: "Получите доступ к эксклюзивным прогнозам",
+            vip_buy: "КУПИТЬ 🚀",
+            stats_title: "📊 ИСТОРИЯ И СТАТИСТИКА",
+            stats_pass: "Общая проходимость: 90%"
+        },
+        en: {
+            nav_home: "🏠 Home",
+            nav_vip: "👑 VIP Zone",
+            nav_stats: "📊 Statistics",
+            header_sub: "Minimalism & Analytics",
+            btn_login: "Login",
+            btn_register: "Register",
+            contest_title: "🎁 TODAY'S CONTEST",
+            contest_sub: "Join the channel and win! 🚀",
+            wheel_title: "🎯 LUCKY WHEEL",
+            btn_spin: "🎰 SPIN",
+            ref_title: "🔗 Your referral link",
+            btn_copy: "Copy",
+            vip_title: "👑 JOIN VIP CLUB",
+            vip_sub: "Get access to exclusive predictions",
+            vip_buy: "BUY NOW 🚀",
+            stats_title: "📊 HISTORY & STATS",
+            stats_pass: "Total win rate: 90%"
+        }
+    };
+
+    function changeLanguage(lang) {
+        localStorage.setItem('selected_lang', lang);
+        document.getElementById('langSelect').value = lang;
+        
+        document.querySelectorAll('[data-i18n]').forEach(elem => {
+            const key = elem.getAttribute('data-i18n');
+            if (i18n[lang] && i18n[lang][key]) {
+                elem.innerText = i18n[lang][key];
+            }
+        });
+    }
+
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     let audioCtx = null;
 
@@ -643,12 +626,13 @@
         drawWheel();
         checkCooldownTimer();
 
-        // ⏳ ЖҮКТЕЛУ ЭКРАНЫН ХАБАРСЫЗ БАЯУ ЖАБУ
+        // 🌐 Сақталған тілді жүктеу
+        const savedLang = localStorage.getItem('selected_lang') || 'kk';
+        changeLanguage(savedLang);
+
         setTimeout(() => {
             const preloader = document.getElementById('preloader');
-            if (preloader) {
-                preloader.classList.add('fade-out');
-            }
+            if (preloader) preloader.classList.add('fade-out');
         }, 600);
     });
 
@@ -663,11 +647,8 @@
         else { btn.classList.remove('active'); btn.disabled = true; }
     }
 
-    /* 🟢 ПОШТАДАН ТЕК АТЫН БӨЛІП АЛУ ЖӘНЕ АВАТАР ОРНАТУ */
     function finishLogin() {
         const rawInput = document.getElementById('emailInput').value || "Пайдаланушы";
-        
-        // Егер пошта енгізілсе (@gmail.com т.б.), тек @-ке дейінгі бөлігін кесіп аламыз
         const cleanUsername = rawInput.includes('@') ? rawInput.split('@')[0] : rawInput;
 
         localStorage.setItem('user_logged', 'true');
@@ -683,15 +664,12 @@
     }
 
     function renderLoggedInUser(username) {
-        // Тағы бір мәрте тексеру: @ белгісі болса, тек алдыңғы бөлігін аламыз
         const displayName = username.includes('@') ? username.split('@')[0] : username;
-        
-        // Әр қолданушының атына байланысты автоматты дөңгелек аватар суретін жасау
         const avatarImg = "https://api.dicebear.com/7.x/bottts/svg?seed=" + encodeURIComponent(displayName);
 
         document.getElementById('auth-buttons-container').innerHTML = `
             <div class="user-top-bar">
-                <div class="user-avatar-btn" onclick="logout()" title="Шығу үшін басыңыз">
+                <div class="user-avatar-btn" onclick="logout()" title="Шығу">
                     <img src="${avatarImg}" alt="Avatar">
                 </div>
                 <span class="header-user-name">${displayName}</span>
@@ -726,7 +704,6 @@
         alert("Сілтеме көшірілді: " + copyText.value);
     }
 
-    // 24 САҒАТТЫҚ ТАЙМЕР
     let cooldownInterval = null;
 
     function checkCooldownTimer() {
@@ -747,7 +724,8 @@
                         clearInterval(cooldownInterval);
                         localStorage.removeItem('nextSpinTime');
                         spinBtn.disabled = false;
-                        spinBtn.innerText = '🎰 АЙНАЛДЫРУ';
+                        const lang = localStorage.getItem('selected_lang') || 'kk';
+                        spinBtn.innerText = i18n[lang].btn_spin;
                     } else {
                         updateTimerText(currentDiff);
                     }
@@ -755,7 +733,8 @@
             } else {
                 localStorage.removeItem('nextSpinTime');
                 spinBtn.disabled = false;
-                spinBtn.innerText = '🎰 АЙНАЛДЫРУ';
+                const lang = localStorage.getItem('selected_lang') || 'kk';
+                spinBtn.innerText = i18n[lang].btn_spin;
             }
         }
     }
@@ -779,7 +758,6 @@
         checkCooldownTimer();
     }
 
-    // РУЛЕТКА
     const prizes = [
         { text: "🏆 VIP Экспресс -10% 🔥", color: "#ffffff", textColor: "#000000" },
         { text: "👑 VIP Канал +1 Күн 👑", color: "#2ecc71", textColor: "#ffffff" },
