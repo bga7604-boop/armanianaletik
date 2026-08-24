@@ -1,933 +1,918 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Armani Analetik</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ARMANI ANALETIK</title>
 
-    <!-- 🟢 FAVICON -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23121613' stroke='%232ecc71' stroke-width='4'/><path d='M25 75 L42 25 L58 25 L40 75 Z' fill='%232ecc71'/><path d='M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z' fill='%23f1c40f'/></svg>">
-    
-    <style>
-        :root {
-            --bg: #0d1017;
-            --card: #181d28;
-            --card-modal: #1c2230;
-            --accent: #2ecc71;
-            --gold: #ffb703;
-            --text: #ffffff;
-            --subtext: #8b98a5;
-            --border: #283042;
-            --input-bg: #283042;
-        }
+<style>
+:root{
+  --bg:#080b10;
+  --card:#10151d;
+  --card2:#151b24;
+  --green:#2ecc71;
+  --gold:#f5b942;
+  --white:#f5f7fa;
+  --muted:#8993a3;
+  --line:#202936;
+  --red:#ff5c5c;
+}
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text); 
-            margin: 0; 
-            padding: 0 0 80px 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-        }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 
-        /* ⏳ PRELOADER STYLES */
-        #preloader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-        #preloader.fade-out {
-            opacity: 0;
-            visibility: hidden;
-        }
-        .preloader-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-        }
-        .preloader-logo {
-            width: 72px;
-            height: 72px;
-            animation: preloaderPulse 1.5s infinite ease-in-out;
-        }
-        @keyframes preloaderPulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(46, 204, 113, 0.3)); }
-            50% { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(46, 204, 113, 0.7)); }
-        }
-        .preloader-spinner {
-            width: 32px;
-            height: 32px;
-            border: 3px solid rgba(46, 204, 113, 0.15);
-            border-top: 3px solid var(--accent);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .preloader-text {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--subtext);
-            letter-spacing: 1px;
-        }
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(46,204,113,.14),transparent 35%),
+    var(--bg);
+  color:var(--white);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  padding-bottom:82px;
+}
 
-        /* 🔝 HEADER */
-        header { 
-            background: #141822; width: 100%; padding: 10px 16px; 
-            border-bottom: 1px solid var(--border); display: flex;
-            align-items: center; justify-content: space-between;
-            position: relative; z-index: 100;
-        }
-        
-        .header-left { display: flex; align-items: center; gap: 10px; }
-        
-        .logo-box { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-        .logo-svg { width: 34px; height: 34px; }
-        
-        .header-title-box h1 { margin: 0; font-size: 13px; font-weight: 800; color: var(--text); }
-        .header-sub-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
-        .header-sub-row p { margin: 0; color: var(--subtext); font-size: 10px; }
-        
-        .header-clock { 
-            background: rgba(46, 204, 113, 0.1); 
-            color: var(--accent); 
-            padding: 1px 5px; 
-            border-radius: 4px; 
-            font-size: 9px; 
-            font-weight: 700; 
-            border: 1px solid rgba(46, 204, 113, 0.3);
-            white-space: nowrap;
-        }
+button{font-family:inherit}
 
-        .header-right { display: flex; align-items: center; gap: 8px; }
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 16px;
+  background:rgba(8,11,16,.86);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
 
-        /* 🌐 ТІЛДІ АУЫСТЫРУ МӘЗІРІ */
-        .lang-select {
-            background: #1c2230;
-            color: #fff;
-            border: 1px solid var(--border);
-            padding: 5px 8px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            outline: none;
-            cursor: pointer;
-        }
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
 
-        .auth-buttons { display: flex; align-items: center; gap: 6px; }
-        .btn-login { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
-        .btn-register { background: var(--gold); color: #000000; border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
+.logo{
+  width:42px;
+  height:42px;
+  border:1px solid rgba(46,204,113,.5);
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:#0d1411;
+  box-shadow:0 0 22px rgba(46,204,113,.12);
+}
 
-        .user-top-bar { display: flex; align-items: center; gap: 10px; }
-        .header-user-name { font-size: 13px; font-weight: 700; color: #ffffff; }
-        .user-avatar-btn { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; cursor: pointer; border: 2px solid var(--accent); }
-        .user-avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
+.logo svg{width:27px;height:27px}
 
-        /* МОДАЛЬДАР */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 15px; }
-        .modal-card { background: var(--card-modal); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; width: 100%; max-width: 380px; padding: 24px; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.6); text-align: left; transform: scale(0.9); animation: popUp 0.3s forwards ease-out; }
-        @keyframes popUp { to { transform: scale(1); } }
-        
-        .modal-close { position: absolute; top: 18px; right: 18px; background: none; border: none; color: var(--gold); font-size: 18px; font-weight: bold; cursor: pointer; }
-        .modal-title-new { color: #fff; font-size: 20px; font-weight: 800; margin: 0 0 20px 0; text-align: left; }
-        
-        .input-group { margin-bottom: 14px; text-align: left; }
-        .input-group label { display: block; font-size: 14px; color: #fff; margin-bottom: 8px; font-weight: 700; }
-        .input-group input { width: 100%; padding: 14px; background: var(--input-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; color: var(--text); font-size: 14px; outline: none; transition: border-color 0.2s; }
-        .input-group input::placeholder { color: #5a6478; }
-        .input-group input:focus { border-color: var(--gold); }
+.brand h1{
+  margin:0;
+  font-size:13px;
+  letter-spacing:1px;
+}
 
-        .btn-submit { width: 100%; background: #323b4e; color: #6e7a91; border: none; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 15px; cursor: pointer; transition: 0.2s; }
-        .btn-submit.active { background: var(--gold); color: #000; cursor: pointer; }
+.brand small{
+  color:var(--muted);
+  font-size:9px;
+}
 
-        .modal-info-box { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 14px; margin: 18px 0; }
-        .info-title { display: flex; align-items: center; gap: 8px; color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-        .info-icon { background: #22c55e; color: #0d1017; border-radius: 50%; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; }
-        .modal-info-box p { font-size: 12px; color: #94a3b8; margin: 0; line-height: 1.45; }
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
 
-        .modal-divider { display: flex; align-items: center; margin: 20px 0; color: #5a6478; font-size: 12px; font-weight: 600; }
-        .modal-divider::before, .modal-divider::after { content: ""; flex: 1; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .modal-divider span { padding: 0 10px; }
+.clock{
+  font-size:10px;
+  color:var(--green);
+  border:1px solid rgba(46,204,113,.25);
+  padding:5px 7px;
+  border-radius:7px;
+}
 
-        .social-login-row { display: flex; justify-content: center; gap: 14px; margin-bottom: 20px; }
-        .social-btn { width: 52px; height: 52px; border-radius: 12px; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.1s; }
-        .social-btn:active { transform: scale(0.95); }
-        .google-btn { background: #ffffff; }
-        .steam-btn { background: #000000; }
-        .telegram-btn { background: #229ED9; }
+.lang{
+  background:var(--card2);
+  color:white;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:6px;
+  font-size:10px;
+}
 
-        .modal-checkbox-row { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
-        .modal-checkbox-row input { display: none; }
-        .checkmark { width: 20px; height: 20px; background: var(--gold); border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-        .checkmark::after { content: "✓"; color: #000; font-weight: 900; font-size: 14px; }
-        .checkbox-text { font-size: 12px; color: #94a3b8; line-height: 1.4; }
-        .checkbox-text a { color: var(--gold); text-decoration: none; }
+.container{
+  width:min(94%,520px);
+  margin:16px auto;
+}
 
-        /* КОНТЕНТ */
-        .container { max-width: 500px; width: 92%; margin: 15px 0; display: flex; flex-direction: column; gap: 12px; }
-        .page { display: none; width: 100%; animation: fadeIn 0.3s ease; }
-        .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.page{display:none}
+.page.active{display:block;animation:show .3s ease}
 
-        .card { background: var(--card); padding: 18px; border-radius: 14px; border: 1px solid var(--border); text-align: center; }
-        .card-title { font-size: 16px; margin: 0 0 8px 0; color: var(--accent); display: flex; justify-content: center; align-items: center; gap: 8px; }
+@keyframes show{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
 
-        /* БАННЕР */
-        .contest-banner {
-            background: rgba(46, 204, 113, 0.05);
-            border: 1px solid var(--accent);
-            border-radius: 14px;
-            padding: 12px;
-            text-align: center;
-        }
-        .contest-banner h3 { margin: 0; font-size: 15px; color: var(--accent); }
-        .contest-banner p { margin: 4px 0 0; font-size: 12px; color: var(--subtext); }
+.hero{
+  padding:24px 18px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:
+    linear-gradient(135deg,rgba(46,204,113,.08),transparent 55%),
+    var(--card);
+  overflow:hidden;
+  position:relative;
+}
 
-        /* РУЛЕТКА */
-        .wheel-box { position: relative; width: 300px; height: 300px; margin: 15px auto; }
-        .wheel-pointer {
-            position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-            width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent;
-            border-top: 24px solid #ffffff; z-index: 20; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
-            transition: transform 0.05s ease-in-out;
-        }
-        .wheel-pointer.bounce { transform: translateX(-50%) translateY(-3px) scaleY(0.9); }
-        .wheel-canvas-container {
-            width: 100%; height: 100%; border-radius: 50%; border: 5px solid var(--accent);
-            box-shadow: 0 0 25px rgba(46, 204, 113, 0.4), inset 0 0 15px rgba(0,0,0,0.5);
-            overflow: hidden; position: relative;
-        }
-        #wheelCanvas { width: 100%; height: 100%; display: block; }
-        .wheel-center-logo {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 52px; height: 52px; background: #121613; border: 3px solid var(--gold);
-            border-radius: 50%; z-index: 10; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 10px rgba(0,0,0,0.8);
-        }
+.hero:after{
+  content:"";
+  position:absolute;
+  width:170px;
+  height:170px;
+  right:-80px;
+  top:-80px;
+  border-radius:50%;
+  background:rgba(46,204,113,.08);
+  filter:blur(2px);
+}
 
-        .btn-spin-green { 
-            background: var(--accent); color: #000; border: none; padding: 14px 25px; border-radius: 12px;
-            font-weight: 800; font-size: 15px; cursor: pointer; width: 100%;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); transition: transform 0.1s, opacity 0.2s, background-color 0.3s;
-        }
-        .btn-spin-green:disabled { background: #2a3447; color: var(--subtext); box-shadow: none; cursor: not-allowed; }
-        .btn-spin-green:not(:disabled):active { transform: scale(0.98); }
+.tag{
+  display:inline-flex;
+  padding:5px 8px;
+  border-radius:7px;
+  background:rgba(46,204,113,.1);
+  color:var(--green);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.6px;
+}
 
-        .link-box { display: flex; align-items: center; background: var(--input-bg); border-radius: 8px; padding: 4px; border: 1px solid var(--border); margin-top: 10px; }
-        .link-box input { flex: 1; background: transparent; border: none; color: var(--subtext); padding: 8px 10px; font-size: 12px; outline: none; }
-        .btn-copy { background: var(--accent); color: #000; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 800; font-size: 12px; cursor: pointer; }
+.hero h2{
+  font-size:27px;
+  line-height:1.1;
+  margin:13px 0 8px;
+}
 
-        /* NAV */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #141822; border-top: 1px solid var(--border); display: flex; justify-space-around; align-items: center; z-index: 100; }
-        .nav-item { color: var(--subtext); text-decoration: none; font-size: 12px; font-weight: 700; background: none; border: none; cursor: pointer; }
-        .nav-item.active { color: var(--accent); }
+.hero p{
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
 
-        /* VIP БӨЛІМІ */
-        .vip-card-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
-        .vip-plan-card { background: #1e2536; border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: left; position: relative; overflow: hidden; }
-        .vip-plan-card.popular { border: 1px solid var(--gold); background: linear-gradient(135deg, #1e2536 0%, #292419 100%); }
-        .badge-popular { position: absolute; top: 10px; right: 10px; background: var(--gold); color: #000; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; }
-        .vip-price { font-size: 22px; font-weight: 800; color: #fff; margin: 6px 0; }
-        .vip-features { list-style: none; padding: 0; margin: 10px 0 14px 0; font-size: 12px; color: var(--subtext); }
-        .vip-features li { margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-        .btn-buy-vip { width: 100%; background: var(--gold); color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: 800; font-size: 13px; cursor: pointer; text-align: center; text-decoration: none; display: block; }
-        .locked-content-box { background: #141822; border: 1px dashed var(--border); border-radius: 12px; padding: 20px; text-align: center; margin-top: 10px; }
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:22px 2px 10px;
+}
 
-        /* 📊 СТАТИСТИКА БӨЛІМІНІҢ СТИЛЬДЕРІ */
-        .stat-item {
-            background: #1e2536;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .stat-badge-win { background: rgba(46, 204, 113, 0.15); color: var(--accent); padding: 4px 8px; border-radius: 6px; font-weight: 800; font-size: 11px; }
+.section-title h3{
+  margin:0;
+  font-size:14px;
+}
 
-        /* ТЕХНИКАЛЫҚ ҚОЛДАУ */
-        .support-float-btn { position: fixed; bottom: 75px; right: 16px; width: 58px; height: 58px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); z-index: 99; text-decoration: none; transition: transform 0.2s ease; }
-        .support-float-btn:active { transform: scale(0.92); }
-        .support-badge { position: absolute; top: -2px; right: -2px; background: #ff4757; color: #ffffff; font-size: 11px; font-weight: 800; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--bg); }
-    </style>
+.section-title span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+.card{
+  background:linear-gradient(145deg,var(--card2),var(--card));
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:15px;
+  margin-bottom:10px;
+}
+
+.match{
+  position:relative;
+  overflow:hidden;
+}
+
+.match.live{
+  border-color:rgba(46,204,113,.45);
+}
+
+.live-badge{
+  position:absolute;
+  top:12px;
+  right:12px;
+  font-size:8px;
+  color:var(--green);
+  border:1px solid rgba(46,204,113,.3);
+  border-radius:5px;
+  padding:3px 5px;
+}
+
+.match-time{
+  text-align:center;
+  color:var(--gold);
+  font-weight:800;
+  font-size:10px;
+  margin-bottom:13px;
+}
+
+.teams{
+  display:grid;
+  grid-template-columns:1fr 70px 1fr;
+  align-items:center;
+  text-align:center;
+}
+
+.team{
+  font-weight:800;
+  font-size:12px;
+}
+
+.team small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:4px;
+}
+
+.vs{
+  font-size:10px;
+  color:var(--muted);
+}
+
+.form{
+  display:flex;
+  justify-content:center;
+  gap:4px;
+  margin-top:13px;
+}
+
+.form i{
+  width:18px;
+  height:18px;
+  border-radius:5px;
+  display:grid;
+  place-items:center;
+  font-size:8px;
+  font-style:normal;
+  background:#202936;
+}
+
+.form i.w{background:rgba(46,204,113,.18);color:var(--green)}
+.form i.l{background:rgba(255,92,92,.15);color:var(--red)}
+.form i.d{color:var(--gold)}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.stat{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:15px;
+}
+
+.stat span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-bottom:7px;
+}
+
+.stat strong{
+  font-size:21px;
+}
+
+.green{color:var(--green)}
+.gold{color:var(--gold)}
+
+.progress{
+  height:6px;
+  background:#202936;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.progress div{
+  height:100%;
+  width:76%;
+  background:var(--green);
+  border-radius:10px;
+}
+
+.analysis{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.analysis-icon{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  background:rgba(46,204,113,.09);
+  display:grid;
+  place-items:center;
+  font-size:19px;
+}
+
+.analysis h4{
+  margin:0 0 4px;
+  font-size:12px;
+}
+
+.analysis p{
+  margin:0;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.btn{
+  width:100%;
+  border:0;
+  border-radius:11px;
+  padding:12px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.btn-green{
+  background:var(--green);
+  color:#061009;
+}
+
+.btn-dark{
+  background:#202936;
+  color:white;
+  border:1px solid var(--line);
+}
+
+.profile{
+  text-align:center;
+  padding:25px 15px;
+}
+
+.avatar{
+  width:70px;
+  height:70px;
+  margin:auto;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:25px;
+  background:linear-gradient(145deg,#18241d,#10151d);
+  border:2px solid var(--green);
+}
+
+.profile h2{
+  margin:12px 0 4px;
+  font-size:18px;
+}
+
+.profile p{
+  margin:0;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.nav{
+  position:fixed;
+  z-index:200;
+  bottom:0;
+  left:0;
+  right:0;
+  height:68px;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  background:rgba(10,13,18,.94);
+  backdrop-filter:blur(18px);
+  border-top:1px solid var(--line);
+}
+
+.nav button{
+  background:none;
+  border:0;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.nav button b{
+  display:block;
+  font-size:19px;
+  margin-bottom:3px;
+}
+
+.nav button.active{
+  color:var(--green);
+}
+
+.toast{
+  position:fixed;
+  z-index:500;
+  left:15px;
+  right:15px;
+  bottom:82px;
+  padding:12px;
+  border-radius:12px;
+  background:#151b24;
+  border:1px solid rgba(46,204,113,.3);
+  transform:translateY(120px);
+  opacity:0;
+  transition:.35s;
+  font-size:10px;
+}
+
+.toast.show{
+  transform:none;
+  opacity:1;
+}
+
+.countdown{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin-top:16px;
+}
+
+.count{
+  min-width:48px;
+  padding:8px 5px;
+  border-radius:9px;
+  background:#0b0f15;
+  border:1px solid var(--line);
+  text-align:center;
+}
+
+.count strong{
+  display:block;
+  font-size:15px;
+}
+
+.count span{
+  color:var(--muted);
+  font-size:7px;
+}
+
+@media(max-width:380px){
+  .hero h2{font-size:23px}
+  .teams{grid-template-columns:1fr 55px 1fr}
+}
+</style>
 </head>
+
 <body>
 
-<!-- PRELOADER -->
-<div id="preloader">
-    <div class="preloader-content">
-        <svg class="preloader-logo" viewBox="0 0 100 100">
-            <rect width="100" height="100" rx="20" fill="#121613" stroke="#2ecc71" stroke-width="4"/>
-            <path d="M25 75 L42 25 L58 25 L40 75 Z" fill="#2ecc71"/>
-            <path d="M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z" fill="#f1c40f"/>
-        </svg>
-        <div class="preloader-spinner"></div>
-        <div class="preloader-text">Жүктелуде...</div>
-    </div>
-</div>
-
-<!-- 🔝 HEADER -->
 <header>
-    <div class="header-left">
-        <div class="logo-box">
-            <svg class="logo-svg" viewBox="0 0 100 100">
-                <rect width="100" height="100" rx="20" fill="#121613" stroke="#2ecc71" stroke-width="4"/>
-                <path d="M25 75 L42 25 L58 25 L40 75 Z" fill="#2ecc71"/>
-                <path d="M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z" fill="#f1c40f"/>
-            </svg>
-            <div class="header-clock" id="header-clock">00:00:00</div>
-        </div>
-        
-        <div class="header-title-box">
-            <h1>ARMANI ANALETIK</h1>
-            <div class="header-sub-row">
-                <p data-i18n="header_sub">Минимализм & Аналитика</p>
-            </div>
-        </div>
+  <div class="brand">
+    <div class="logo">
+      <svg viewBox="0 0 100 100">
+        <path d="M25 75L42 25H58L40 75Z" fill="#2ecc71"/>
+        <path d="M42 25L75 75H60L50 58H62L54 44Z" fill="#f5b942"/>
+      </svg>
     </div>
-
-    <div class="header-right">
-        <!-- 🌐 ТІЛДЕРДІ АУЫСТЫРУ ДРОПДАУНЫ -->
-        <select id="langSelect" class="lang-select" onchange="changeLanguage(this.value)">
-            <option value="kk">🇰🇿 KK</option>
-            <option value="ru">🇷🇺 RU</option>
-            <option value="en">🇬🇧 EN</option>
-        </select>
-
-        <div id="auth-buttons-container">
-            <div class="auth-buttons">
-                <button class="btn-login" onclick="openStep1()" data-i18n="btn_login">Кіру</button>
-                <button class="btn-register" onclick="openStep1()" data-i18n="btn_register">Тіркелу</button>
-            </div>
-        </div>
+    <div>
+      <h1>ARMANI ANALETIK</h1>
+      <small>SPORT • ANALYTICS</small>
     </div>
+  </div>
+
+  <div class="header-right">
+    <div class="clock" id="clock">00:00:00</div>
+    <select class="lang" id="lang">
+      <option>KK</option>
+      <option>RU</option>
+      <option>EN</option>
+    </select>
+  </div>
 </header>
 
-<!-- МОДАЛЬ: АВТОРИЗАЦИЯ -->
-<div class="modal-overlay" id="modalStep1">
-    <div class="modal-card">
-        <button class="modal-close" onclick="closeAllModals()">✕</button>
-        <h2 class="modal-title-new">Кіру немесе тіркелу</h2>
-        
-        <div class="input-group">
-            <label>Email енгізіңіз</label>
-            <input type="email" id="emailInput" placeholder="Email енгізіңіз" oninput="toggleStep1Btn()">
-        </div>
-        
-        <button class="btn-submit" id="btnNext" onclick="finishLogin()" disabled>Әрі қарай</button>
+<main class="container">
 
-        <div class="modal-info-box">
-            <div class="info-title">
-                <span class="info-icon">i</span>
-                <span>Аккаунтыңыз бар ма?</span>
-            </div>
-            <p>Егер сіз бұрын әлеуметтік желілер арқылы кірген болсаңыз – сол әдісті қолданыңыз. Email арқылы кіру үшін жеке кабинетте байланыстыруды орындау қажет.</p>
-        </div>
+<!-- HOME -->
+<section id="home" class="page active">
 
-        <div class="modal-divider">
-            <span>немесе әлеуметтік желілер арқылы</span>
-        </div>
-
-        <div class="social-login-row">
-            <button class="social-btn google-btn"><svg width="22" height="22" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg></button>
-            <button class="social-btn steam-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 2a10 10 0 0 0-10 10c0 4.7 3.2 8.6 7.6 9.6l2.1-3a3.5 3.5 0 0 1 1.3-3.2l-2.8-1.2a2.5 2.5 0 0 1-1.7.7 2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.4 1.8l2.9 1.2c.5-.4 1.2-.6 1.9-.6 1.7 0 3 1.3 3 3s-1.3 3-3 3c-.2 0-.4 0-.6-.1l-1.9 2.8c4.3-.5 7.6-4.2 7.6-8.7A10 10 0 0 0 12 2z"/></svg></button>
-            <button class="social-btn telegram-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.67-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.05-.48-.82-.27-1.47-.42-1.42-.88.03-.24.38-.49 1.05-.75 4.12-1.8 6.87-2.98 8.25-3.56 3.93-1.64 4.74-1.92 5.27-1.93.12 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.15-.04.22z"/></svg></button>
-        </div>
-
-        <label class="modal-checkbox-row">
-            <input type="checkbox" checked id="termsCheck">
-            <span class="checkmark"></span>
-            <span class="checkbox-text">Мен 18 жастан үлкен екенімді растаймын және шарттармен келісемін <a href="#">Келісімдер сайтты пайдалану туралы</a></span>
-        </label>
-    </div>
-</div>
-
-<!-- МОДАЛЬ: ТҮСКЕН НӘТИЖЕ -->
-<div class="modal-overlay" id="modalResult">
-    <div class="modal-card" style="text-align: center;">
-        <button class="modal-close" onclick="closeResultModal()">✕</button>
-        <div style="font-size: 46px; margin-bottom: 10px;">🎉</div>
-        <h2 style="color:var(--gold); margin:0 0 10px 0; font-size:22px; font-weight:800;">ҚҰТТЫҚТАЙМЫЗ!</h2>
-        <p style="color:#fff; font-size:16px; line-height: 1.4;" id="resultText">Сіздің ұтысыңыз!</p>
-        <button class="btn-submit active" onclick="closeResultModal()" style="font-size: 14px; padding: 14px;">ҰТЫСТЫ АЛУ 🚀</button>
-    </div>
-</div>
-
-<!-- 📄 КОНТЕНТ -->
-<div class="container">
-    
-    <!-- 1. БАСТЫ БЕТ -->
-    <div id="page-home" class="page active">
-        
-        <div class="contest-banner">
-            <h3 data-i18n="contest_title">🎁 БҮГІНГІ КОНКУРС</h3>
-            <p data-i18n="contest_sub">Каналға өтіп, конкурсқа қатысыңыз! 🚀</p>
-        </div>
-
-        <!-- 🎡 РУЛЕТКА -->
-        <div class="card">
-            <h2 class="card-title" style="color:var(--accent);" data-i18n="wheel_title">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
-            
-            <div class="wheel-box">
-                <div class="wheel-pointer" id="wheelPointer"></div>
-                <div class="wheel-canvas-container">
-                    <canvas id="wheelCanvas" width="600" height="600"></canvas>
-                </div>
-                <div class="wheel-center-logo">
-                    <svg width="26" height="26" viewBox="0 0 100 100">
-                        <path d="M25 75 L42 25 L58 25 L40 75 Z" fill="#2ecc71"/>
-                        <path d="M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z" fill="#f1c40f"/>
-                    </svg>
-                </div>
-            </div>
-            
-            <button class="btn-spin-green" onclick="spinWheel()" id="spinBtn" data-i18n="btn_spin">🎰 АЙНАЛДЫРУ</button>
-        </div>
-
-        <!-- 🔗 ШАҚЫРУ СІЛТЕМЕСІ -->
-        <div class="card">
-            <h3 style="color:#fff; margin:0; font-size:13px; text-align:left; display:flex; align-items:center; gap:6px;" data-i18n="ref_title">
-                🔗 Сіздің шақыру сілтемеңіз
-            </h3>
-            <div class="link-box">
-                <input type="text" id="ref-link" value="https://armanianaletik.kz/ref/777" readonly>
-                <button class="btn-copy" onclick="copyLink()" data-i18n="btn_copy">Көшіру</button>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- 2. VIP ЗОНА -->
-    <div id="page-vip" class="page">
-        <div class="card">
-            <h2 class="card-title" style="color:var(--gold);" data-i18n="vip_title">👑 VIP КЛУБҚА ҚОСЫЛУ</h2>
-            <p style="color: var(--subtext); font-size: 12px; margin: 4px 0 15px 0;" data-i18n="vip_sub">Ең жоғары коэффициенттер мен эксклюзивті аналитикаға қол жеткізіңіз</p>
-            
-            <div class="vip-card-grid">
-                <div class="vip-plan-card">
-                    <div style="font-size:13px; font-weight:700; color:var(--subtext);">VIP 1 АЙ</div>
-                    <div class="vip-price">9 900 ₸</div>
-                    <ul class="vip-features">
-                        <li>✅ Күнделікті 2+ VIP Прогноз</li>
-                        <li>✅ Өтімділігі: 88%+</li>
-                        <li>✅ Жабық Telegram VIP канал</li>
-                    </ul>
-                    <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip" data-i18n="vip_buy">САТЫП АЛУ 🚀</a>
-                </div>
-
-                <div class="vip-plan-card popular">
-                    <span class="badge-popular">ХИТ 🔥</span>
-                    <div style="font-size:13px; font-weight:700; color:var(--gold);">VIP 3 АЙ</div>
-                    <div class="vip-price">22 900 ₸</div>
-                    <ul class="vip-features">
-                        <li>✅ Күнделікті VIP Экспресс (Кэф 3.0+)</li>
-                        <li>✅ Өтімділігі: 92%+</li>
-                        <li>✅ Жеке аналитик көмегі</li>
-                        <li>✅ Жабық VIP каналға сілтеме</li>
-                    </ul>
-                    <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip" style="background:var(--accent); color:#000;" data-i18n="vip_buy">САТЫП АЛУ 🔥</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="card" style="margin-top: 12px;">
-            <h3 style="margin: 0; font-size: 14px; color: #fff; text-align: left;">🔥 БҮГІНГІ VIP ЭКСПРЕСС</h3>
-            
-            <div class="locked-content-box">
-                <div style="font-size: 32px; margin-bottom: 8px;">🔒</div>
-                <h4 style="margin: 0; color: var(--gold); font-size: 14px;">Контент жабық</h4>
-                <p style="font-size: 11px; color: var(--subtext); margin: 6px 0 12px 0;">Бұл экспрессті көру үшін VIP жазылымды белсендіріңіз</p>
-                <div style="font-size: 13px; font-weight: 800; color: var(--accent);">Жалпы Коэффициент: 4.85 🚀</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. 📊 ЖАҢА СТАТИСТИКА ЖӘНЕ ТАРИХ БЕТІ -->
-    <div id="page-stats" class="page">
-        <div class="card">
-            <h2 class="card-title" style="color:var(--accent);" data-i18n="stats_title">📊 ТАРИХ ЖӘНЕ СТАТИСТИКА</h2>
-            <p style="color: var(--gold); font-weight: 800; font-size: 13px; margin: 4px 0 15px 0;" data-i18n="stats_pass">Жалпы өтімділік: 90%</p>
-            
-            <div class="stat-item">
-                <div style="text-align: left;">
-                    <div style="font-size: 13px; font-weight: 700; color: #fff;">VIP Экспресс #104</div>
-                    <div style="font-size: 10px; color: var(--subtext);">Коэффициент: 3.45</div>
-                </div>
-                <span class="stat-badge-win">✅ ӨТТІ</span>
-            </div>
-
-            <div class="stat-item">
-                <div style="text-align: left;">
-                    <div style="font-size: 13px; font-weight: 700; color: #fff;">VIP Экспресс #103</div>
-                    <div style="font-size: 10px; color: var(--subtext);">Коэффициент: 2.10</div>
-                </div>
-                <span class="stat-badge-win">✅ ӨТТІ</span>
-            </div>
-
-            <div class="stat-item">
-                <div style="text-align: left;">
-                    <div style="font-size: 13px; font-weight: 700; color: #fff;">VIP Ординар #102</div>
-                    <div style="font-size: 10px; color: var(--subtext);">Коэффициент: 1.85</div>
-                </div>
-                <span class="stat-badge-win">✅ ӨТТІ</span>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<!-- ТЕХНИКАЛЫҚ ҚОЛДАУ БАТЫРМАСЫ -->
-<a href="https://t.me/armani_04" target="_blank" class="support-float-btn" title="Техникалық қолдау">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="#000000">
-        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-    </svg>
-    <span class="support-badge">1</span>
-</a>
-
-<!-- 🧭 ТӨМЕНГІ НАВИГАЦИЯ -->
-<nav class="bottom-nav">
-    <button class="nav-item active" onclick="switchPage('page-home', this)" data-i18n="nav_home">🏠 Басты бет</button>
-    <button class="nav-item" onclick="switchPage('page-stats', this)" data-i18n="nav_stats">📊 Статистика</button>
-    <button class="nav-item" onclick="switchPage('page-vip', this)" data-i18n="nav_vip">👑 VIP Зона</button>
-</nav>
-
-<script>
-    /* 🌐 ТІЛДЕР СӨЗДІГІ (i18n) */
-    const i18n = {
-        kk: {
-            nav_home: "🏠 Басты бет",
-            nav_vip: "👑 VIP Зона",
-            nav_stats: "📊 Статистика",
-            header_sub: "Минимализм & Аналитика",
-            btn_login: "Кіру",
-            btn_register: "Тіркелу",
-            contest_title: "🎁 БҮГІНГІ КОНКУРС",
-            contest_sub: "Каналға өтіп, конкурсқа қатысыңыз! 🚀",
-            wheel_title: "🎯 СӘТТІЛІК РУЛЕТКАСЫ",
-            btn_spin: "🎰 АЙНАЛДЫРУ",
-            ref_title: "🔗 Сіздің шақыру сілтемеңіз",
-            btn_copy: "Көшіру",
-            vip_title: "👑 VIP КЛУБҚА ҚОСЫЛУ",
-            vip_sub: "Ең жоғары коэффициенттер мен эксклюзивті аналитикаға қол жеткізіңіз",
-            vip_buy: "САТЫП АЛУ 🚀",
-            stats_title: "📊 ТАРИХ ЖӘНЕ СТАТИСТИКА",
-            stats_pass: "Жалпы өтімділік: 90%"
-        },
-        ru: {
-            nav_home: "🏠 Главная",
-            nav_vip: "👑 VIP Зона",
-            nav_stats: "📊 Статистика",
-            header_sub: "Минимализм и Аналитика",
-            btn_login: "Войти",
-            btn_register: "Регистрация",
-            contest_title: "🎁 СЕГОДНЯШНИЙ КОНКУРС",
-            contest_sub: "Переходите в канал и участвуйте! 🚀",
-            wheel_title: "🎯 РУЛЕТКА УДАЧИ",
-            btn_spin: "🎰 КРУТИТЬ",
-            ref_title: "🔗 Ваша реферальная ссылка",
-            btn_copy: "Копировать",
-            vip_title: "👑 ВСТУПИТЬ В VIP КЛУБ",
-            vip_sub: "Получите доступ к эксклюзивным прогнозам",
-            vip_buy: "КУПИТЬ 🚀",
-            stats_title: "📊 ИСТОРИЯ И СТАТИСТИКА",
-            stats_pass: "Общая проходимость: 90%"
-        },
-        en: {
-            nav_home: "🏠 Home",
-            nav_vip: "👑 VIP Zone",
-            nav_stats: "📊 Statistics",
-            header_sub: "Minimalism & Analytics",
-            btn_login: "Login",
-            btn_register: "Register",
-            contest_title: "🎁 TODAY'S CONTEST",
-            contest_sub: "Join the channel and win! 🚀",
-            wheel_title: "🎯 LUCKY WHEEL",
-            btn_spin: "🎰 SPIN",
-            ref_title: "🔗 Your referral link",
-            btn_copy: "Copy",
-            vip_title: "👑 JOIN VIP CLUB",
-            vip_sub: "Get access to exclusive predictions",
-            vip_buy: "BUY NOW 🚀",
-            stats_title: "📊 HISTORY & STATS",
-            stats_pass: "Total win rate: 90%"
-        }
-    };
-
-    function changeLanguage(lang) {
-        localStorage.setItem('selected_lang', lang);
-        document.getElementById('langSelect').value = lang;
-        
-        document.querySelectorAll('[data-i18n]').forEach(elem => {
-            const key = elem.getAttribute('data-i18n');
-            if (i18n[lang] && i18n[lang][key]) {
-                elem.innerText = i18n[lang][key];
-            }
-        });
-    }
-
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    let audioCtx = null;
-
-    function initAudio() {
-        if (!audioCtx) audioCtx = new AudioContext();
-    }
-
-    function playClickSound() {
-        try {
-            if (!audioCtx) initAudio();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.04);
-            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.04);
-        } catch(e){}
-    }
-
-    function playWinSound() {
-        try {
-            if (!audioCtx) initAudio();
-            const notes = [261.63, 329.63, 392.00, 523.25];
-            notes.forEach((freq, index) => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime + index * 0.08);
-                gain.gain.setValueAtTime(0.4, audioCtx.currentTime + index * 0.08);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + index * 0.08 + 0.4);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(audioCtx.currentTime + index * 0.08);
-                osc.stop(audioCtx.currentTime + index * 0.08 + 0.4);
-            });
-        } catch(e){}
-    }
-
-    window.addEventListener('load', () => {
-        checkSavedUser();
-        drawWheel();
-        checkCooldownTimer();
-
-        // 🌐 Сақталған тілді жүктеу
-        const savedLang = localStorage.getItem('selected_lang') || 'kk';
-        changeLanguage(savedLang);
-
-        setTimeout(() => {
-            const preloader = document.getElementById('preloader');
-            if (preloader) preloader.classList.add('fade-out');
-        }, 600);
-    });
-
-    function openStep1() { document.getElementById('modalStep1').style.display = 'flex'; }
-    function closeAllModals() { document.getElementById('modalStep1').style.display = 'none'; }
-    function closeResultModal() { document.getElementById('modalResult').style.display = 'none'; }
-
-    function toggleStep1Btn() {
-        const val = document.getElementById('emailInput').value;
-        const btn = document.getElementById('btnNext');
-        if(val.length > 2) { btn.classList.add('active'); btn.disabled = false; } 
-        else { btn.classList.remove('active'); btn.disabled = true; }
-    }
-
-    function finishLogin() {
-        const rawInput = document.getElementById('emailInput').value || "Пайдаланушы";
-        const cleanUsername = rawInput.includes('@') ? rawInput.split('@')[0] : rawInput;
-
-        localStorage.setItem('user_logged', 'true');
-        localStorage.setItem('user_name', cleanUsername);
-        renderLoggedInUser(cleanUsername);
-        closeAllModals();
-    }
-
-    function checkSavedUser() {
-        if(localStorage.getItem('user_logged') === 'true') {
-            renderLoggedInUser(localStorage.getItem('user_name'));
-        }
-    }
-
-    function renderLoggedInUser(username) {
-        const displayName = username.includes('@') ? username.split('@')[0] : username;
-        const avatarImg = "https://api.dicebear.com/7.x/bottts/svg?seed=" + encodeURIComponent(displayName);
-
-        document.getElementById('auth-buttons-container').innerHTML = `
-            <div class="user-top-bar">
-                <div class="user-avatar-btn" onclick="logout()" title="Шығу">
-                    <img src="${avatarImg}" alt="Avatar">
-                </div>
-                <span class="header-user-name">${displayName}</span>
-            </div>
-        `;
-    }
-
-    function logout() {
-        if(confirm("Аккаунттан шығасыз ба?")) {
-            localStorage.removeItem('user_logged');
-            localStorage.removeItem('user_name');
-            location.reload();
-        }
-    }
-
-    function switchPage(pageId, btnElement) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-        btnElement.classList.add('active');
-    }
-
-    setInterval(() => {
-        const now = new Date();
-        document.getElementById('header-clock').innerText = now.toLocaleTimeString('kk-KZ');
-    }, 1000);
-
-    function copyLink() {
-        const copyText = document.getElementById("ref-link");
-        copyText.select();
-        document.execCommand("copy");
-        alert("Сілтеме көшірілді: " + copyText.value);
-    }
-
-    let cooldownInterval = null;
-
-    function checkCooldownTimer() {
-        const nextSpinTime = localStorage.getItem('nextSpinTime');
-        const spinBtn = document.getElementById('spinBtn');
-
-        if (nextSpinTime) {
-            const now = Date.now();
-            const diff = parseInt(nextSpinTime) - now;
-
-            if (diff > 0) {
-                spinBtn.disabled = true;
-                updateTimerText(diff);
-                clearInterval(cooldownInterval);
-                cooldownInterval = setInterval(() => {
-                    const currentDiff = parseInt(nextSpinTime) - Date.now();
-                    if (currentDiff <= 0) {
-                        clearInterval(cooldownInterval);
-                        localStorage.removeItem('nextSpinTime');
-                        spinBtn.disabled = false;
-                        const lang = localStorage.getItem('selected_lang') || 'kk';
-                        spinBtn.innerText = i18n[lang].btn_spin;
-                    } else {
-                        updateTimerText(currentDiff);
-                    }
-                }, 1000);
-            } else {
-                localStorage.removeItem('nextSpinTime');
-                spinBtn.disabled = false;
-                const lang = localStorage.getItem('selected_lang') || 'kk';
-                spinBtn.innerText = i18n[lang].btn_spin;
-            }
-        }
-    }
-
-    function updateTimerText(diff) {
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-        const hStr = hours < 10 ? '0' + hours : hours;
-        const mStr = minutes < 10 ? '0' + minutes : minutes;
-        const sStr = seconds < 10 ? '0' + seconds : seconds;
-
-        document.getElementById('spinBtn').innerText = `⏳ КЕЛЕСІ АЙНАЛДЫРУ: ${hStr}:${mStr}:${sStr}`;
-    }
-
-    function start24hCooldown() {
-        const twentyFourHours = 24 * 60 * 60 * 1000;
-        const targetTime = Date.now() + twentyFourHours;
-        localStorage.setItem('nextSpinTime', targetTime);
-        checkCooldownTimer();
-    }
-
-    const prizes = [
-        { text: "🏆 VIP Экспресс -10% 🔥", color: "#ffffff", textColor: "#000000" },
-        { text: "👑 VIP Канал +1 Күн 👑", color: "#2ecc71", textColor: "#ffffff" },
-        { text: "💸 VIP 15% Жеңілдік", color: "#181d28", textColor: "#ffffff" },
-        { text: "🔄 Қайта Айналдыру", color: "#ffffff", textColor: "#000000" },
-        { text: "💸 VIP 25% Жеңілдік", color: "#2ecc71", textColor: "#ffffff" },
-        { text: "🎉 VIP +3 Күн 🌌", color: "#181d28", textColor: "#ffffff" },
-        { text: "🏆 VIP Айлық +15 Күн", color: "#ffffff", textColor: "#000000" }
-    ];
-
-    const canvas = document.getElementById("wheelCanvas");
-    const ctx = canvas.getContext("2d");
-    const numPrizes = prizes.length;
-    const arcSize = (2 * Math.PI) / numPrizes;
-    
-    let currentAngle = 0;
-    let isSpinning = false;
-
-    function drawWheel() {
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-        const radius = canvas.width / 2;
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        for (let i = 0; i < numPrizes; i++) {
-            const angle = currentAngle + (i * arcSize);
-            
-            ctx.beginPath();
-            ctx.fillStyle = prizes[i].color;
-            ctx.moveTo(centerX, centerY);
-            ctx.arc(centerX, centerY, radius, angle, angle + arcSize);
-            ctx.lineTo(centerX, centerY);
-            ctx.fill();
-
-            ctx.strokeStyle = "rgba(0,0,0,0.15)";
-            ctx.lineWidth = 2;
-            ctx.stroke();
-
-            ctx.save();
-            ctx.translate(centerX, centerY);
-            ctx.rotate(angle + arcSize / 2);
-            ctx.textAlign = "right";
-            ctx.fillStyle = prizes[i].textColor;
-            ctx.font = "bold 22px -apple-system, BlinkMacSystemFont, Roboto, sans-serif";
-            ctx.fillText(prizes[i].text, radius - 30, 8);
-            ctx.restore();
-        }
-    }
-
-    function spinWheel() {
-        if (isSpinning) return;
-        
-        const nextSpinTime = localStorage.getItem('nextSpinTime');
-        if (nextSpinTime && parseInt(nextSpinTime) > Date.now()) {
-            alert("Айналдыру 24 сағатта 1 рет қана қолжетімді!");
-            return;
-        }
-
-        initAudio();
-        isSpinning = true;
-
-        const btn = document.getElementById('spinBtn');
-        const pointer = document.getElementById('wheelPointer');
-        btn.disabled = true;
-
-        const winIndex = Math.floor(Math.random() * numPrizes);
-        const targetSectorAngle = (2 * Math.PI) - (winIndex * arcSize) - (arcSize / 2) - (Math.PI / 2);
-        const extraRotations = 5 * (2 * Math.PI);
-        
-        const startAngle = currentAngle;
-        const totalRotation = startAngle + extraRotations + (targetSectorAngle - (startAngle % (2 * Math.PI)));
-        
-        const duration = 5000;
-        const startTime = performance.now();
-        
-        let lastSectorIndex = -1;
-
-        function animateWheel(now) {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            const easeOut = 1 - Math.pow(1 - progress, 3);
-            currentAngle = startAngle + (totalRotation - startAngle) * easeOut;
-            drawWheel();
-
-            const normalizedAngle = (Math.PI * 2.5 - currentAngle) % (Math.PI * 2);
-            const positiveAngle = normalizedAngle < 0 ? normalizedAngle + Math.PI * 2 : normalizedAngle;
-            const currentSectorIndex = Math.floor(positiveAngle / arcSize) % numPrizes;
-
-            if (currentSectorIndex !== lastSectorIndex) {
-                lastSectorIndex = currentSectorIndex;
-                playClickSound();
-                
-                pointer.classList.add('bounce');
-                setTimeout(() => pointer.classList.remove('bounce'), 40);
-            }
-
-            if (progress < 1) {
-                requestAnimationFrame(animateWheel);
-            } else {
-                isSpinning = false;
-                playWinSound();
-                
-                start24hCooldown();
-                
-                setTimeout(() => {
-                    document.getElementById('resultText').innerHTML = `Сіздің ұтысыңыз: <br><br><b style="color:var(--accent); font-size:20px; background: rgba(46,204,113,0.1); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--accent); display: inline-block;">${prizes[winIndex].text}</b>`;
-                    document.getElementById('modalResult').style.display = 'flex';
-                }, 300);
-            }
-        }
-
-        requestAnimationFrame(animateWheel);
-    }
-</script>
-</body>
-</html>
-<!-- 🧮 ИНТЕРАКТИВТІ КАЛЬКУЛЯТОР -->
-<div class="card" style="margin-top: 12px; text-align: left;">
-    <h3 style="color: var(--gold); margin: 0 0 6px 0; font-size: 15px; display: flex; align-items: center; gap: 6px;">
-        🧮 БОЛЖАМДЫ ТАБЫС КАЛЬКУЛЯТОРЫ
-    </h3>
-    <p style="color: var(--subtext); font-size: 11px; margin: 0 0 15px 0;">
-        VIP аналитикамен 1 айда қанша пайда табуға болатынын есептеңіз:
+  <div class="hero">
+    <span class="tag">ARMANI ANALYTICS • 2026</span>
+    <h2>Футболды<br><span class="green">сандармен</span> талда.</h2>
+    <p>
+      Матчтар, командалар формасы және негізгі статистика —
+      барлығы бір минималистік интерфейсте.
     </p>
 
-    <!-- 1. БАСТАПҚЫ БАНК -->
-    <div style="margin-bottom: 14px;">
-        <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px;">
-            <span>Бастапқы банк:</span>
-            <span id="bankValue" style="color: var(--accent);">50 000 ₸</span>
-        </div>
-        <input type="range" id="bankRange" min="10000" max="500000" step="5000" value="50000" oninput="calculateProfit()" style="width: 100%; accent-color: var(--accent); cursor: pointer;">
+    <div class="countdown">
+      <div class="count">
+        <strong id="hh">00</strong>
+        <span>САҒАТ</span>
+      </div>
+      <div class="count">
+        <strong id="mm">00</strong>
+        <span>МИНУТ</span>
+      </div>
+      <div class="count">
+        <strong id="ss">00</strong>
+        <span>СЕКУНД</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h3>⚡ Келесі матчтар</h3>
+    <span>БҮГІН</span>
+  </div>
+
+  <div class="card match live">
+    <div class="live-badge">● LIVE</div>
+    <div class="match-time">20:30</div>
+
+    <div class="teams">
+      <div class="team">
+        LIVERPOOL
+        <small>HOME</small>
+      </div>
+
+      <div class="vs">VS</div>
+
+      <div class="team">
+        NEWCASTLE
+        <small>AWAY</small>
+      </div>
     </div>
 
-    <!-- 2. МЕРЗІМІ -->
-    <div style="margin-bottom: 16px;">
-        <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px;">
-            <span>Мерзімі:</span>
-            <span id="daysValue" style="color: var(--gold);">30 күн</span>
-        </div>
-        <input type="range" id="daysRange" min="7" max="90" step="1" value="30" oninput="calculateProfit()" style="width: 100%; accent-color: var(--gold); cursor: pointer;">
+    <div class="form">
+      <i class="w">W</i>
+      <i class="w">W</i>
+      <i class="d">D</i>
+      <i class="w">W</i>
+      <i class="l">L</i>
+    </div>
+  </div>
+
+  <div class="card match">
+    <div class="match-time">22:00</div>
+
+    <div class="teams">
+      <div class="team">
+        ARSENAL
+        <small>HOME</small>
+      </div>
+
+      <div class="vs">VS</div>
+
+      <div class="team">
+        CHELSEA
+        <small>AWAY</small>
+      </div>
     </div>
 
-    <!-- НӘТИЖЕ БЛОГЫ -->
-    <div style="background: rgba(46, 204, 113, 0.08); border: 1px dashed var(--accent); border-radius: 10px; padding: 12px; text-align: center; margin-bottom: 12px;">
-        <div style="font-size: 11px; color: var(--subtext);">Болжалды таза пайда:</div>
-        <div id="profitResult" style="font-size: 24px; font-weight: 800; color: var(--accent); margin: 4px 0;">+132 000 ₸</div>
-        <div style="font-size: 10px; color: #8b98a5;" id="totalResult">Жалпы банк: 182 000 ₸</div>
+    <div class="form">
+      <i class="w">W</i>
+      <i class="w">W</i>
+      <i class="w">W</i>
+      <i class="d">D</i>
+      <i class="w">W</i>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h3>📊 Бүгінгі көрсеткіштер</h3>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat">
+      <span>ТАЛДАНҒАН МАТЧ</span>
+      <strong>24</strong>
     </div>
 
-    <button onclick="switchPage('page-vip', document.querySelectorAll('.nav-item')[2])" class="btn-spin-green" style="font-size: 13px; padding: 12px;">
-        🚀 ОСЫ ПАЙДАНЫ ТАБУДЫ БАСТАУ
-    </button>
+    <div class="stat">
+      <span>LIVE ОЙЫН</span>
+      <strong class="green">06</strong>
+    </div>
+
+    <div class="stat">
+      <span>FORM INDEX</span>
+      <strong class="gold">76%</strong>
+    </div>
+
+    <div class="stat">
+      <span>DATA UPDATE</span>
+      <strong>LIVE</strong>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- STATS -->
+<section id="stats" class="page">
+
+  <div class="hero">
+    <span class="tag">DATA CENTER</span>
+    <h2>Матч<br><span class="green">статистикасы.</span></h2>
+    <p>Командалардың соңғы нәтижелері мен форма индексін қара.</p>
+  </div>
+
+  <div class="section-title">
+    <h3>📈 Команда формасы</h3>
+  </div>
+
+  <div class="card">
+    <div class="analysis">
+      <div class="analysis-icon">🔴</div>
+      <div style="flex:1">
+        <h4>LIVERPOOL</h4>
+        <p>Соңғы 5 матч • форма индексі</p>
+        <div class="progress"><div style="width:86%"></div></div>
+      </div>
+      <strong class="green">86%</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="analysis">
+      <div class="analysis-icon">🔵</div>
+      <div style="flex:1">
+        <h4>CHELSEA</h4>
+        <p>Соңғы 5 матч • форма индексі</p>
+        <div class="progress"><div style="width:71%"></div></div>
+      </div>
+      <strong class="gold">71%</strong>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h3>📊 Соңғы нәтижелер</h3>
+  </div>
+
+  <div class="card">
+    <div class="analysis">
+      <div class="analysis-icon">🏆</div>
+      <div>
+        <h4>Жеңістер</h4>
+        <p>Соңғы 30 күндегі дерек</p>
+      </div>
+      <strong class="green">18</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="analysis">
+      <div class="analysis-icon">⚖️</div>
+      <div>
+        <h4>Тең ойындар</h4>
+        <p>Соңғы 30 күндегі дерек</p>
+      </div>
+      <strong class="gold">5</strong>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- VIP -->
+<section id="vip" class="page">
+
+  <div class="hero">
+    <span class="tag">PREMIUM</span>
+    <h2>ARMANI<br><span class="gold">ANALYTICS</span></h2>
+    <p>
+      Кеңейтілген статистика, матч талдауы және premium контент.
+    </p>
+  </div>
+
+  <div class="section-title">
+    <h3>👑 Premium Zone</h3>
+  </div>
+
+  <div class="card">
+    <div class="analysis">
+      <div class="analysis-icon">📊</div>
+      <div>
+        <h4>Advanced Statistics</h4>
+        <p>Кеңейтілген командалық деректер</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="analysis">
+      <div class="analysis-icon">⚡</div>
+      <div>
+        <h4>Live Analysis</h4>
+        <p>Матч барысындағы негізгі көрсеткіштер</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="analysis">
+      <div class="analysis-icon">🔔</div>
+      <div>
+        <h4>Match Alerts</h4>
+        <p>Маңызды матч оқиғалары туралы хабарлама</p>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-green"
+    onclick="openTelegram()">
+    TELEGRAM-ҒА ӨТУ →
+  </button>
+
+</section>
+
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+  <div class="card profile">
+    <div class="avatar">A</div>
+    <h2>Armani User</h2>
+    <p>ARMANI ANALETIK мүшесі</p>
+  </div>
+
+  <div class="card">
+    <div class="analysis">
+      <div class="analysis-icon">⚙️</div>
+      <div>
+        <h4>Жеке баптаулар</h4>
+        <p>Тіл және интерфейс параметрлері</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="analysis">
+      <div class="analysis-icon">🔗</div>
+      <div>
+        <h4>Telegram</h4>
+        <p>Armani Analetik арнасы</p>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-dark" onclick="clearData()">
+    Баптауларды тазалау
+  </button>
+
+</section>
+
+</main>
+
+
+<div class="toast" id="toast">
+  ⚡ <b>ARMANI ANALETIK</b> — жаңа статистика жаңартылды.
 </div>
 
+
+<nav class="nav">
+
+  <button class="active" onclick="page('home',this)">
+    <b>⌂</b>
+    Басты бет
+  </button>
+
+  <button onclick="page('stats',this)">
+    <b>▥</b>
+    Статистика
+  </button>
+
+  <button onclick="page('vip',this)">
+    <b>♛</b>
+    Premium
+  </button>
+
+  <button onclick="page('profile',this)">
+    <b>◉</b>
+    Профиль
+  </button>
+
+</nav>
+
+
 <script>
-    function calculateProfit() {
-        const bank = parseInt(document.getElementById('bankRange').value);
-        const days = parseInt(document.getElementById('daysRange').value);
 
-        document.getElementById('bankValue').innerText = bank.toLocaleString('ru-RU') + ' ₸';
-        document.getElementById('daysValue').innerText = days + ' күн';
+/* CLOCK */
+function updateClock(){
+  const now=new Date();
 
-        // Күндік орташа ROI ~ 8.8%
-        const dailyRoi = 0.088; 
-        const profit = Math.round(bank * dailyRoi * days);
-        const total = bank + profit;
+  document.getElementById("clock").textContent=
+    now.toLocaleTimeString("kk-KZ",{hour12:false});
+}
 
-        document.getElementById('profitResult').innerText = '+' + profit.toLocaleString('ru-RU') + ' ₸';
-        document.getElementById('totalResult').innerText = 'Жалпы банк: ' + total.toLocaleString('ru-RU') + ' ₸';
-    }
+setInterval(updateClock,1000);
+updateClock();
+
+
+/* PAGE NAVIGATION */
+function page(id,button){
+
+  document.querySelectorAll(".page")
+    .forEach(x=>x.classList.remove("active"));
+
+  document.getElementById(id)
+    .classList.add("active");
+
+  document.querySelectorAll(".nav button")
+    .forEach(x=>x.classList.remove("active"));
+
+  button.classList.add("active");
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+
+/* COUNTDOWN */
+/* Демонстрациялық келесі матч уақыты */
+let target=new Date();
+target.setHours(target.getHours()+5);
+target.setMinutes(30);
+target.setSeconds(0);
+
+function countdown(){
+
+  let diff=target-new Date();
+
+  if(diff<0){
+    target=new Date();
+    target.setHours(target.getHours()+24);
+    diff=target-new Date();
+  }
+
+  const h=Math.floor(diff/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  const s=Math.floor((diff%60000)/1000);
+
+  document.getElementById("hh").textContent=
+    String(h).padStart(2,"0");
+
+  document.getElementById("mm").textContent=
+    String(m).padStart(2,"0");
+
+  document.getElementById("ss").textContent=
+    String(s).padStart(2,"0");
+}
+
+setInterval(countdown,1000);
+countdown();
+
+
+/* TOAST */
+function showToast(){
+
+  const toast=document.getElementById("toast");
+
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },3500);
+}
+
+setTimeout(showToast,3000);
+setInterval(showToast,18000);
+
+
+/* TELEGRAM */
+function openTelegram(){
+
+  window.open(
+    "https://t.me/armani_04",
+    "_blank"
+  );
+
+}
+
+
+/* CLEAR */
+function clearData(){
+
+  localStorage.clear();
+
+  alert("Баптаулар тазаланды.");
+
+}
+
+
+/* LANGUAGE */
+document.getElementById("lang")
+.addEventListener("change",function(){
+
+  localStorage.setItem("language",this.value);
+
+});
+
+
+const savedLang=localStorage.getItem("language");
+
+if(savedLang){
+  document.getElementById("lang").value=savedLang;
+}
+
 </script>
+
+</body>
+            </html>
