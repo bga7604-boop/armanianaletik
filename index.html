@@ -100,7 +100,14 @@
         .card { background: var(--card); padding: 18px; border-radius: 14px; border: 1px solid var(--border); text-align: center; }
         .card-title { font-size: 16px; margin: 0 0 8px 0; color: var(--accent); display: flex; justify-content: center; align-items: center; gap: 8px; }
 
-        /* РУЛЕТКА */
+        /* 🔥 СИГНАЛДАР БЛОГЫ */
+        .signal-card { background: #121620; border: 1px solid var(--border); border-radius: 10px; padding: 12px; text-align: left; margin-bottom: 10px; }
+        .signal-header { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--subtext); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 8px; }
+        .signal-body { display: flex; justify-content: space-between; align-items: center; }
+        .signal-match { font-size: 13px; font-weight: 700; color: #fff; }
+        .signal-coeff { background: rgba(255, 183, 3, 0.15); color: var(--gold); padding: 4px 8px; border-radius: 6px; font-weight: 800; font-size: 12px; border: 1px solid var(--gold); }
+
+        /* 🎡 РУЛЕТКА */
         .wheel-box { position: relative; width: 300px; height: 300px; margin: 15px auto; }
         .wheel-pointer {
             position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
@@ -108,7 +115,6 @@
             border-top: 24px solid #fff; z-index: 20; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
             transition: transform 0.05s ease-in-out;
         }
-        .wheel-pointer.bounce { transform: translateX(-50%) translateY(-3px) scaleY(0.9); }
         .wheel-canvas-container {
             width: 100%; height: 100%; border-radius: 50%; border: 5px solid var(--accent);
             box-shadow: 0 0 25px rgba(46, 204, 113, 0.4), inset 0 0 15px rgba(0,0,0,0.5);
@@ -126,6 +132,11 @@
             box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); transition: transform 0.1s;
         }
         .btn-spin-green:disabled { background: #2a3447; color: var(--subtext); box-shadow: none; cursor: not-allowed; }
+
+        /* FAQ ACCORDION */
+        .faq-item { background: #121620; border-radius: 8px; margin-bottom: 8px; text-align: left; overflow: hidden; border: 1px solid var(--border); }
+        .faq-question { padding: 12px 14px; font-size: 13px; font-weight: 700; color: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-answer { padding: 0 14px 12px 14px; font-size: 11px; color: var(--subtext); display: none; border-top: 1px dashed rgba(255,255,255,0.05); padding-top: 8px; }
 
         /* NAV */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #141822; border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; z-index: 100; }
@@ -240,6 +251,36 @@
     <!-- 1. БАСТЫ БЕТ -->
     <div id="page-home" class="page active">
         
+        <!-- 🔥 1. ЖАҢА МОДУЛЬ: ТҮЗУ СИГНАЛДАР (LIVE SIGNALS) -->
+        <div class="card" style="padding: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="font-size: 13px; font-weight: 800; color: #fff;">🔥 БҮГІНГІ VIP ТАҢДАУЛАРАР</span>
+                <span style="font-size: 10px; color: var(--accent); background: rgba(46, 204, 113, 0.1); padding: 2px 6px; border-radius: 4px;">LIVE</span>
+            </div>
+            
+            <div class="signal-card">
+                <div class="signal-header">
+                    <span>⚽ Футбол • Чемпиондар Лигасы</span>
+                    <span>Бүгін, 22:45</span>
+                </div>
+                <div class="signal-body">
+                    <div class="signal-match">Реал Мадрид vs Бавария<br><span style="font-size: 11px; color: var(--accent);">Болжам: ТБ (2.5)</span></div>
+                    <div class="signal-coeff">1.85</div>
+                </div>
+            </div>
+
+            <div class="signal-card" style="margin-bottom:0;">
+                <div class="signal-header">
+                    <span>🏀 Баскетбол • NBA</span>
+                    <span>Ертең, 04:00</span>
+                </div>
+                <div class="signal-body">
+                    <div class="signal-match">Lakers vs Warriors<br><span style="font-size: 11px; color: var(--accent);">Болжам: П1 Фора (-4.5)</span></div>
+                    <div class="signal-coeff">1.92</div>
+                </div>
+            </div>
+        </div>
+
         <!-- 🎡 РУЛЕТКА -->
         <div class="card">
             <h2 class="card-title" style="color:var(--accent);" data-i18n="wheel_title">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
@@ -262,14 +303,14 @@
             <p style="color: var(--subtext); font-size: 11px; margin: 0 0 15px 0;">VIP аналитикамен қанша табуға болатынын есептеңіз:</p>
 
             <div style="margin-bottom: 14px;">
-                <div style="display: flex; justify-space-between; font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px;">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px;">
                     <span>Бастапқы банк:</span><span id="bankValue" style="color: var(--accent);">50 000 ₸</span>
                 </div>
                 <input type="range" id="bankRange" min="10000" max="500000" step="5000" value="50000" oninput="calculateProfit()" style="width: 100%; accent-color: var(--accent); cursor: pointer;">
             </div>
 
             <div style="margin-bottom: 16px;">
-                <div style="display: flex; justify-space-between; font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px;">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px;">
                     <span>Мерзімі:</span><span id="daysValue" style="color: var(--gold);">30 күн</span>
                 </div>
                 <input type="range" id="daysRange" min="7" max="90" step="1" value="30" oninput="calculateProfit()" style="width: 100%; accent-color: var(--gold); cursor: pointer;">
@@ -292,6 +333,19 @@
             <div class="link-box">
                 <input type="text" id="ref-link" value="https://armanianaletik.kz/ref/777" readonly>
                 <button class="btn-copy" onclick="copyLink()" data-i18n="btn_copy">Көшіру</button>
+            </div>
+        </div>
+
+        <!-- ❓ 2. ЖАҢА МОДУЛЬ: FAQ (ЖИІ ҚОЙЫЛАТЫН СҰРАҚТАР) -->
+        <div class="card">
+            <h3 style="color:#fff; font-size:14px; margin:0 0 10px 0; text-align:left;">❓ Жиі қойылатын сұрақтар</h3>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">VIP Каналға қалай кіремін? <span>+</span></div>
+                <div class="faq-answer">Төлем жасағаннан кейін менеджер сізге Telegram арқылы VIP топтың жабық сілтемесін жібереді.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">Күніне қанша прогноз шығады? <span>+</span></div>
+                <div class="faq-answer">Күн сайын жоғары өтімділігі бар (88-92%) 2-ден 5-ке дейін VIP аналитика жарияланады.</div>
             </div>
         </div>
 
@@ -330,6 +384,22 @@
         <div class="card">
             <h2 class="card-title" style="color:var(--accent);" data-i18n="stats_title">📊 ТАРИХ ЖӘНЕ СТАТИСТИКА</h2>
             <p style="color: var(--gold); font-weight: 800; font-size: 13px;" data-i18n="stats_pass">Жалпы өтімділік: 90%</p>
+
+            <!-- 📈 3. ЖАҢА МОДУЛЬ: WIN/LOSS ТРИГГЕР СТАТИСТИКАСЫ -->
+            <div style="display: flex; justify-content: space-around; background: #121620; padding: 12px; border-radius: 10px; margin-top: 10px;">
+                <div>
+                    <div style="font-size: 18px; font-weight: 800; color: var(--accent);">142</div>
+                    <div style="font-size: 10px; color: var(--subtext);">Жеңіс ✅</div>
+                </div>
+                <div>
+                    <div style="font-size: 18px; font-weight: 800; color: #e74c3c;">16</div>
+                    <div style="font-size: 10px; color: var(--subtext);">Утылыс ❌</div>
+                </div>
+                <div>
+                    <div style="font-size: 18px; font-weight: 800; color: var(--gold);">+340%</div>
+                    <div style="font-size: 10px; color: var(--subtext);">Пайда (ROI)</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -356,6 +426,27 @@
             const key = elem.getAttribute('data-i18n');
             if (i18n[lang] && i18n[lang][key]) elem.innerText = i18n[lang][key];
         });
+    }
+
+    /* FAQ ACCORDION LOGIC */
+    function toggleFaq(elem) {
+        const answer = elem.nextElementSibling;
+        const icon = elem.querySelector('span');
+        if (answer.style.display === 'block') {
+            answer.style.display = 'none';
+            icon.innerText = '+';
+        } else {
+            answer.style.display = 'block';
+            icon.innerText = '-';
+        }
+    }
+
+    /* LINK COPY LOGIC */
+    function copyLink() {
+        const linkInput = document.getElementById('ref-link');
+        linkInput.select();
+        navigator.clipboard.writeText(linkInput.value);
+        alert('Шақыру сілтемесі көшірілді!');
     }
 
     /* 🧮 КАЛЬКУЛЯТОР ФУНКЦИЯСЫ */
