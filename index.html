@@ -17,7 +17,7 @@
             --text: #ffffff;
             --subtext: #8b98a5;
             --border: #283042;
-            --input-bg: #283042;
+            --telegram: #0088cc;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -71,25 +71,20 @@
         }
 
         /* 👤 ПРОФИЛЬ / КІРУ КНОПКАСЫ */
-        .header-right { display: flex; align-items: center; gap: 8px; }
         .auth-btn {
-            background: rgba(46, 204, 113, 0.15); border: 1px solid var(--accent);
-            color: var(--accent); padding: 6px 12px; border-radius: 8px; font-size: 11px;
-            font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 5px;
+            background: rgba(0, 136, 204, 0.15); border: 1px solid var(--telegram);
+            color: #38b6ff; padding: 6px 12px; border-radius: 20px; font-size: 11px;
+            font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px;
         }
 
         /* МОДАЛЬДАР */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 15px; }
-        .modal-card { background: var(--card-modal); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; width: 100%; max-width: 380px; padding: 24px; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.6); text-align: left; transform: scale(0.9); animation: popUp 0.3s forwards ease-out; }
+        .modal-card { background: var(--card-modal); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; width: 100%; max-width: 350px; padding: 24px; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.6); text-align: center; transform: scale(0.9); animation: popUp 0.3s forwards ease-out; }
         @keyframes popUp { to { transform: scale(1); } }
-        .modal-close { position: absolute; top: 18px; right: 18px; background: none; border: none; color: var(--gold); font-size: 18px; font-weight: bold; cursor: pointer; }
-        .btn-submit { width: 100%; background: var(--gold); color: #000; border: none; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 15px; cursor: pointer; transition: 0.2s; margin-top: 10px;}
-
-        /* ФОРМА ЭЛЕМЕНТТЕРІ */
-        .form-group { margin-bottom: 12px; text-align: left; }
-        .form-group label { display: block; font-size: 11px; color: var(--subtext); margin-bottom: 5px; font-weight: 700; }
-        .form-input { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: #fff; font-size: 13px; outline: none; }
-        .form-input:focus { border-color: var(--accent); }
+        .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--subtext); font-size: 18px; font-weight: bold; cursor: pointer; }
+        
+        .btn-tg-auth { width: 100%; background: var(--telegram); color: #fff; border: none; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 15px; }
+        .btn-submit { width: 100%; background: var(--gold); color: #000; border: none; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; margin-top: 10px; }
 
         /* КОНТЕНТ */
         .container { max-width: 500px; width: 92%; margin: 15px 0; display: flex; flex-direction: column; gap: 12px; }
@@ -100,38 +95,28 @@
         .card { background: var(--card); padding: 18px; border-radius: 14px; border: 1px solid var(--border); text-align: center; }
         .card-title { font-size: 16px; margin: 0 0 8px 0; color: var(--accent); display: flex; justify-content: center; align-items: center; gap: 8px; }
 
-        /* 🔥 СИГНАЛДАР БЛОГЫ */
-        .signal-card { background: #121620; border: 1px solid var(--border); border-radius: 10px; padding: 12px; text-align: left; margin-bottom: 10px; }
-        .signal-header { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--subtext); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px; margin-bottom: 8px; }
-        .signal-body { display: flex; justify-content: space-between; align-items: center; }
-        .signal-match { font-size: 13px; font-weight: 700; color: #fff; }
-        .signal-coeff { background: rgba(255, 183, 3, 0.15); color: var(--gold); padding: 4px 8px; border-radius: 6px; font-weight: 800; font-size: 12px; border: 1px solid var(--gold); }
-
         /* 🎡 РУЛЕТКА */
-        .wheel-box { position: relative; width: 300px; height: 300px; margin: 15px auto; }
+        .wheel-box { position: relative; width: 280px; height: 280px; margin: 15px auto; }
         .wheel-pointer {
             position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-            width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent;
-            border-top: 24px solid #fff; z-index: 20; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
-            transition: transform 0.05s ease-in-out;
+            width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent;
+            border-top: 22px solid #fff; z-index: 20; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
         }
         .wheel-canvas-container {
-            width: 100%; height: 100%; border-radius: 50%; border: 5px solid var(--accent);
-            box-shadow: 0 0 25px rgba(46, 204, 113, 0.4), inset 0 0 15px rgba(0,0,0,0.5);
-            overflow: hidden; position: relative;
+            width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--accent);
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.3); overflow: hidden; position: relative;
         }
         #wheelCanvas { width: 100%; height: 100%; display: block; }
         .wheel-center-logo {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 52px; height: 52px; background: #121613; border: 3px solid var(--gold);
+            width: 48px; height: 48px; background: #121613; border: 2px solid var(--gold);
             border-radius: 50%; z-index: 10; display: flex; align-items: center; justify-content: center;
         }
         .btn-spin-green { 
             background: var(--accent); color: #000; border: none; padding: 14px 25px; border-radius: 12px;
-            font-weight: 800; font-size: 15px; cursor: pointer; width: 100%;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); transition: transform 0.1s;
+            font-weight: 800; font-size: 15px; cursor: pointer; width: 100%; transition: 0.2s;
         }
-        .btn-spin-green:disabled { background: #2a3447; color: var(--subtext); box-shadow: none; cursor: not-allowed; }
+        .btn-spin-green:disabled { background: #2a3447; color: var(--subtext); cursor: not-allowed; }
 
         /* FAQ ACCORDION */
         .faq-item { background: #121620; border-radius: 8px; margin-bottom: 8px; text-align: left; overflow: hidden; border: 1px solid var(--border); }
@@ -143,19 +128,19 @@
         .nav-item { color: var(--subtext); text-decoration: none; font-size: 12px; font-weight: 700; background: none; border: none; cursor: pointer; }
         .nav-item.active { color: var(--accent); }
 
-        .link-box { display: flex; align-items: center; background: var(--input-bg); border-radius: 8px; padding: 4px; border: 1px solid var(--border); margin-top: 10px; }
-        .link-box input { flex: 1; background: transparent; border: none; color: var(--subtext); padding: 8px 10px; font-size: 12px; outline: none; }
-        .btn-copy { background: var(--accent); color: #000; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 800; font-size: 12px; cursor: pointer; }
+        .link-box { display: flex; align-items: center; background: #283042; border-radius: 8px; padding: 4px; border: 1px solid var(--border); margin-top: 10px; }
+        .link-box input { flex: 1; background: transparent; border: none; color: var(--subtext); padding: 8px; font-size: 12px; outline: none; }
+        .btn-copy { background: var(--accent); color: #000; border: none; padding: 8px 12px; border-radius: 6px; font-weight: 800; font-size: 12px; cursor: pointer; }
 
         /* VIP БӨЛІМІ */
         .vip-card-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
         .vip-plan-card { background: #1e2536; border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: left; position: relative; }
         .vip-plan-card.popular { border: 1px solid var(--gold); background: linear-gradient(135deg, #1e2536 0%, #292419 100%); }
         .badge-popular { position: absolute; top: 10px; right: 10px; background: var(--gold); color: #000; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; }
-        .vip-price { font-size: 22px; font-weight: 800; color: #fff; margin: 6px 0; }
+        .vip-price { font-size: 24px; font-weight: 800; color: #fff; margin: 6px 0; }
         .vip-features { list-style: none; padding: 0; margin: 10px 0 14px 0; font-size: 12px; color: var(--subtext); }
         .vip-features li { margin-bottom: 6px; }
-        .btn-buy-vip { width: 100%; background: var(--gold); color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: 800; font-size: 13px; cursor: pointer; text-align: center; text-decoration: none; display: block; }
+        .btn-buy-vip { width: 100%; background: var(--gold); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 13px; cursor: pointer; text-align: center; text-decoration: none; display: block; }
     </style>
 </head>
 <body>
@@ -189,60 +174,35 @@
         </div>
     </div>
     <div class="header-right">
-        <button class="auth-btn" id="authBtn" onclick="openAuthModal()">👤 <span id="authBtnText">Кіру</span></button>
+        <button class="auth-btn" id="authBtn" onclick="openAuthModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#38b6ff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+            <span id="authBtnText">Кіру</span>
+        </button>
     </div>
 </header>
 
-<!-- МОДАЛЬДЫҚ ТЕРЕЗЕ (КІРУ / ТІРКЕЛУ) -->
+<!-- МОДАЛЬДЫҚ ТЕРЕЗЕ (TELEGRAM КІРУ) -->
 <div class="modal-overlay" id="authModal">
     <div class="modal-card">
         <button class="modal-close" onclick="closeAuthModal()">✕</button>
+        
         <div id="loginView">
-            <h2 style="color:var(--accent); margin:0 0 5px 0; font-size:18px;">Жүйеге кіру</h2>
-            <p style="color:var(--subtext); font-size:11px; margin-bottom:15px;">Аккаунтыңызға кіріп, VIP статус алыңыз</p>
+            <div style="font-size: 40px; margin-bottom: 8px;">🚀</div>
+            <h2 style="color:#fff; margin:0 0 6px 0; font-size:18px;">Жүйеге кіру</h2>
+            <p style="color:var(--subtext); font-size:12px; margin: 0 0 15px 0;">Telegram арқылы 1 кликпен жылдам тіркеліңіз немесе кіріңіз</p>
             
-            <div class="form-group">
-                <label>Электронды пошта немесе Телефон</label>
-                <input type="text" id="loginEmail" class="form-input" placeholder="example@mail.com">
-            </div>
-            <div class="form-group">
-                <label>Құпия сөз</label>
-                <input type="password" id="loginPass" class="form-input" placeholder="••••••••">
-            </div>
-            <button class="btn-submit" onclick="handleLogin()">КІРУ 🚀</button>
-            <p style="text-align:center; font-size:11px; color:var(--subtext); margin-top:12px;">
-                Аккаунтыңыз жоқ па? <a href="#" onclick="switchAuthTab('register')" style="color:var(--accent); text-decoration:none; font-weight:700;">Тіркелу</a>
-            </p>
+            <button class="btn-tg-auth" onclick="loginWithTelegram()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                Telegram арқылы кіру
+            </button>
         </div>
 
-        <div id="registerView" style="display: none;">
-            <h2 style="color:var(--gold); margin:0 0 5px 0; font-size:18px;">Тіркелу</h2>
-            <p style="color:var(--subtext); font-size:11px; margin-bottom:15px;">Жаңа аккаунт ашып, аналитиканы бастаңыз</p>
-            
-            <div class="form-group">
-                <label>Аты-жөніңіз</label>
-                <input type="text" id="regName" class="form-input" placeholder="Айдос">
-            </div>
-            <div class="form-group">
-                <label>Электронды пошта</label>
-                <input type="email" id="regEmail" class="form-input" placeholder="example@mail.com">
-            </div>
-            <div class="form-group">
-                <label>Құпия сөз ойлап табыңыз</label>
-                <input type="password" id="regPass" class="form-input" placeholder="••••••••">
-            </div>
-            <button class="btn-submit" style="background:var(--accent); color:#000;" onclick="handleRegister()">ТІРКЕЛУ ✨</button>
-            <p style="text-align:center; font-size:11px; color:var(--subtext); margin-top:12px;">
-                Аккаунтыңыз бар ма? <a href="#" onclick="switchAuthTab('login')" style="color:var(--gold); text-decoration:none; font-weight:700;">Кіру</a>
-            </p>
-        </div>
-
-        <div id="profileView" style="display: none; text-align: center;">
+        <div id="profileView" style="display: none;">
             <div style="font-size: 40px; margin-bottom: 5px;">👤</div>
-            <h2 style="color:#fff; margin:0 0 5px 0; font-size:18px;" id="profileName">Қолданушы</h2>
-            <p style="color:var(--subtext); font-size:11px; margin-bottom:15px;" id="profileEmail">mail@domain.com</p>
+            <h2 style="color:#fff; margin:0 0 4px 0; font-size:18px;" id="profileName">Қолданушы</h2>
+            <p style="color:var(--subtext); font-size:11px; margin-bottom:15px;" id="profileHandle">@user</p>
             <div style="background: rgba(255, 183, 3, 0.1); border: 1px solid var(--gold); border-radius: 8px; padding: 10px; margin-bottom: 15px; font-size: 12px; color: var(--gold); font-weight: 700;">
-                Статус: Стандартты мүше
+                Статус: Стандартты мүше ⭐️
             </div>
             <button class="btn-submit" style="background: #e74c3c; color: #fff;" onclick="handleLogout()">ШЫҒУ 🚪</button>
         </div>
@@ -251,11 +211,11 @@
 
 <!-- МОДАЛЬДЫҚ ТЕРЕЗЕ (РУЛЕТКА НӘТИЖЕСІ) -->
 <div class="modal-overlay" id="modalResult">
-    <div class="modal-card" style="text-align: center;">
+    <div class="modal-card">
         <button class="modal-close" onclick="closeResultModal()">✕</button>
         <div style="font-size: 46px; margin-bottom: 10px;">🎉</div>
         <h2 style="color:var(--gold); margin:0 0 10px 0; font-size:22px; font-weight:800;">ҚҰТТЫҚТАЙМЫЗ!</h2>
-        <p style="color:#fff; font-size:16px;" id="resultText">Сіздің ұтысыңыз!</p>
+        <p style="color:#fff; font-size:15px;" id="resultText">Сіздің ұтысыңыз!</p>
         <button class="btn-submit" onclick="closeResultModal()">ҰТЫСТЫ АЛУ 🚀</button>
     </div>
 </div>
@@ -265,36 +225,6 @@
     
     <!-- 1. БАСТЫ БЕТ -->
     <div id="page-home" class="page active">
-        
-        <!-- 🔥 1. VIP СИГНАЛДАР БЛОГЫ -->
-        <div class="card" style="padding: 14px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span style="font-size: 13px; font-weight: 800; color: #fff;">🔥 БҮГІНГІ VIP ТАҢДАУЛАР</span>
-                <span style="font-size: 10px; color: var(--accent); background: rgba(46, 204, 113, 0.1); padding: 2px 6px; border-radius: 4px;">LIVE</span>
-            </div>
-            
-            <div class="signal-card">
-                <div class="signal-header">
-                    <span>⚽ Футбол • Чемпиондар Лигасы</span>
-                    <span>Бүгін, 22:45</span>
-                </div>
-                <div class="signal-body">
-                    <div class="signal-match">Реал Мадрид vs Бавария<br><span style="font-size: 11px; color: var(--accent);">Болжам: ТБ (2.5)</span></div>
-                    <div class="signal-coeff">1.85</div>
-                </div>
-            </div>
-
-            <div class="signal-card" style="margin-bottom:0;">
-                <div class="signal-header">
-                    <span>🏀 Баскетбол • NBA</span>
-                    <span>Ертең, 04:00</span>
-                </div>
-                <div class="signal-body">
-                    <div class="signal-match">Lakers vs Warriors<br><span style="font-size: 11px; color: var(--accent);">Болжам: П1 Фора (-4.5)</span></div>
-                    <div class="signal-coeff">1.92</div>
-                </div>
-            </div>
-        </div>
 
         <!-- 🎡 РУЛЕТКА -->
         <div class="card">
@@ -303,7 +233,7 @@
                 <div class="wheel-pointer" id="wheelPointer"></div>
                 <div class="wheel-canvas-container"><canvas id="wheelCanvas" width="600" height="600"></canvas></div>
                 <div class="wheel-center-logo">
-                    <svg width="26" height="26" viewBox="0 0 100 100">
+                    <svg width="24" height="24" viewBox="0 0 100 100">
                         <path d="M25 75 L42 25 L58 25 L40 75 Z" fill="#2ecc71"/>
                         <path d="M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z" fill="#f1c40f"/>
                     </svg>
@@ -351,7 +281,7 @@
             </div>
         </div>
 
-        <!-- ❓ 2. FAQ (ЖИІ ҚОЙЫЛАТЫН СҰРАҚТАР) -->
+        <!-- ❓ FAQ (ЖИІ ҚОЙЫЛАТЫН СҰРАҚТАР) -->
         <div class="card">
             <h3 style="color:#fff; font-size:14px; margin:0 0 10px 0; text-align:left;">❓ Жиі қойылатын сұрақтар</h3>
             <div class="faq-item">
@@ -373,9 +303,9 @@
             <div class="vip-card-grid">
                 <div class="vip-plan-card">
                     <div style="font-size:13px; font-weight:700; color:var(--subtext);">VIP 1 АЙ</div>
-                    <div class="vip-price">9 999 ₸</div>
+                    <div class="vip-price">9 900 ₸</div>
                     <ul class="vip-features">
-                        <li>✅ Күнделікті 2+ VIP Прогноз</li>
+                        <li>✅ Күнделікті VIP Прогноздар</li>
                         <li>✅ Өтімділігі: 88%+</li>
                     </ul>
                     <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip">САТЫП АЛУ 🚀</a>
@@ -383,9 +313,9 @@
                 <div class="vip-plan-card popular">
                     <span class="badge-popular">ХИТ 🔥</span>
                     <div style="font-size:13px; font-weight:700; color:var(--gold);">VIP 3 АЙ</div>
-                    <div class="vip-price">28 500 ₸</div>
+                    <div class="vip-price">22 500 ₸</div>
                     <ul class="vip-features">
-                        <li>✅ Күнделікті VIP Экспресс</li>
+                        <li>✅ Күнделікті VIP Экспресстер</li>
                         <li>✅ Өтімділігі: 92%+</li>
                     </ul>
                     <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip" style="background:var(--accent); color:#000;">САТЫП АЛУ 🔥</a>
@@ -400,7 +330,6 @@
             <h2 class="card-title" style="color:var(--accent);">📊 ТАРИХ ЖӘНЕ СТАТИСТИКА</h2>
             <p style="color: var(--gold); font-weight: 800; font-size: 13px;">Жалпы өтімділік: 90%</p>
 
-            <!-- 📈 3. СТАТИСТИКА БЛОГЫ -->
             <div style="display: flex; justify-content: space-around; background: #121620; padding: 12px; border-radius: 10px; margin-top: 10px;">
                 <div>
                     <div style="font-size: 18px; font-weight: 800; color: var(--accent);">142</div>
@@ -460,52 +389,24 @@
         document.getElementById('totalResult').innerText = 'Жалпы банк: ' + (bank + profit).toLocaleString('ru-RU') + ' ₸';
     }
 
-    /* 👤 АВТОРИЗАЦИЯ ЖӘНЕ ТІРКЕЛУ ЛОГИКАСЫ */
+    /* 👤 TELEGRAM АВТОРИЗАЦИЯ ЛОГИКАСЫ */
     function openAuthModal() {
         document.getElementById('authModal').style.display = 'flex';
         checkUserSession();
     }
     function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
 
-    function switchAuthTab(tab) {
-        if (tab === 'register') {
-            document.getElementById('loginView').style.display = 'none';
-            document.getElementById('registerView').style.display = 'block';
+    function loginWithTelegram() {
+        // Егер Telegram WebApp ішінде ашылса Деректерді автоматты алу
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe.user) {
+            const tgUser = window.Telegram.WebApp.initDataUnsafe.user;
+            const user = { name: tgUser.first_name, handle: '@' + (tgUser.username || 'user') };
+            localStorage.setItem('armaniUser', JSON.stringify(user));
         } else {
-            document.getElementById('registerView').style.display = 'none';
-            document.getElementById('loginView').style.display = 'block';
+            // Тесттік / Жай браузерлік кіру
+            const user = { name: "Қолданушы", handle: "@telegram_user" };
+            localStorage.setItem('armaniUser', JSON.stringify(user));
         }
-    }
-
-    function handleRegister() {
-        const name = document.getElementById('regName').value;
-        const email = document.getElementById('regEmail').value;
-        const pass = document.getElementById('regPass').value;
-        if (!name || !email || !pass) {
-            alert('Барлық өрістерді толтырыңыз!');
-            return;
-        }
-        const user = { name, email };
-        localStorage.setItem('armaniUser', JSON.stringify(user));
-        alert('Сәтті тіркелдіңіз!');
-        checkUserSession();
-        closeAuthModal();
-    }
-
-    function handleLogin() {
-        const email = document.getElementById('loginEmail').value;
-        const pass = document.getElementById('loginPass').value;
-        if (!email || !pass) {
-            alert('Пошта мен құпия сөзді енгізіңіз!');
-            return;
-        }
-        // Қарапайым тексеру немесе сақталғанды алу
-        let user = JSON.parse(localStorage.getItem('armaniUser'));
-        if (!user || user.email !== email) {
-            user = { name: email.split('@')[0], email: email };
-        }
-        localStorage.setItem('armaniUser', JSON.stringify(user));
-        alert('Жүйеге сәтті кірдіңіз!');
         checkUserSession();
         closeAuthModal();
     }
@@ -513,7 +414,6 @@
     function handleLogout() {
         localStorage.removeItem('armaniUser');
         checkUserSession();
-        alert('Аккаунттан шықтыңыз.');
         closeAuthModal();
     }
 
@@ -521,22 +421,19 @@
         const userStr = localStorage.getItem('armaniUser');
         const authBtnText = document.getElementById('authBtnText');
         const loginView = document.getElementById('loginView');
-        const registerView = document.getElementById('registerView');
         const profileView = document.getElementById('profileView');
 
         if (userStr) {
             const user = JSON.parse(userStr);
             authBtnText.innerText = user.name;
             loginView.style.display = 'none';
-            registerView.style.display = 'none';
             profileView.style.display = 'block';
             document.getElementById('profileName').innerText = user.name;
-            document.getElementById('profileEmail').innerText = user.email;
+            document.getElementById('profileHandle').innerText = user.handle;
         } else {
             authBtnText.innerText = "Кіру";
             profileView.style.display = 'none';
             loginView.style.display = 'block';
-            registerView.style.display = 'none';
         }
     }
 
