@@ -130,9 +130,9 @@
         .btn-login { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
         .btn-register { background: var(--gold); color: #000000; border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
 
-        .user-top-bar { display: flex; align-items: center; gap: 10px; }
-        .header-user-name { font-size: 13px; font-weight: 700; color: #ffffff; }
-        .user-avatar-btn { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; cursor: pointer; border: 2px solid var(--accent); }
+        .user-top-bar { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .header-user-name { font-size: 12px; font-weight: 700; color: #ffffff; }
+        .user-avatar-btn { width: 34px; height: 34px; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent); }
         .user-avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
 
         /* МОДАЛЬДАР */
@@ -231,7 +231,7 @@
 
         /* NAV */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #141822; border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; z-index: 100; }
-        .nav-item { color: var(--subtext); text-decoration: none; font-size: 12px; font-weight: 700; background: none; border: none; cursor: pointer; }
+        .nav-item { color: var(--subtext); text-decoration: none; font-size: 11px; font-weight: 700; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; }
         .nav-item.active { color: var(--accent); }
 
         /* VIP БӨЛІМІ */
@@ -334,7 +334,7 @@
                 <span class="info-icon">i</span>
                 <span>Аккаунтыңыз бар ма?</span>
             </div>
-            <p>Егер сіз бұрын әлеуметтік желілер арқылы кірген болсаңыз – сол әдісті қолданыңыз. Email арқылы кіру үшін жеке кабинетте байланыстыруды орындау қажет.</p>
+            <p>Егер сіз бұрын әлеуметтік желілер арқылы кірген болсаңыз – сол әдісті қолданыңыз.</p>
         </div>
 
         <div class="modal-divider">
@@ -352,6 +352,33 @@
             <span class="checkmark"></span>
             <span class="checkbox-text">Мен 18 жастан үлкен екенімді растаймын және шарттармен келісемін <a href="#">Келісімдер сайтты пайдалану туралы</a></span>
         </label>
+    </div>
+</div>
+
+<!-- 👤 МОДАЛЬ: ПРОФИЛЬ / ЖЕКЕ КАБИНЕТ -->
+<div class="modal-overlay" id="modalProfile">
+    <div class="modal-card">
+        <button class="modal-close" onclick="closeProfileModal()">✕</button>
+        <h2 class="modal-title-new" style="text-align: center; margin-bottom: 12px;" data-i18n="profile_title">👤 ЖЕКЕ КАБИНЕТ</h2>
+        
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img id="profileAvatar" src="" style="width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--accent); margin-bottom: 8px;">
+            <div id="profileName" style="font-size: 16px; font-weight: 800; color: #fff;"></div>
+            <span style="background: rgba(46, 204, 113, 0.15); color: var(--accent); padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 800; margin-top: 4px; display: inline-block;">Белсенді қолданушы</span>
+        </div>
+
+        <div class="modal-info-box" style="margin: 10px 0;">
+            <div class="info-title">
+                <span>🔑 ID Аккаунт:</span>
+                <span style="color: var(--gold);" id="profileId">#77492</span>
+            </div>
+            <div class="info-title" style="margin-top: 8px;">
+                <span>👑 VIP Мартебесі:</span>
+                <span style="color: var(--subtext);">Белсенді емес</span>
+            </div>
+        </div>
+
+        <button class="btn-submit active" onclick="logout()" style="background: #ff4757; color: #fff; margin-top: 15px;">АККАУНТТАН ШЫҒУ 🚪</button>
     </div>
 </div>
 
@@ -417,9 +444,10 @@
             <p style="color: var(--subtext); font-size: 12px; margin: 4px 0 15px 0;" data-i18n="vip_sub">Ең жоғары коэффициенттер мен эксклюзивті аналитикаға қол жеткізіңіз</p>
             
             <div class="vip-card-grid">
+                <!-- 🟢 ӨЗГЕРТІЛДІ: 9 900 ₸ -->
                 <div class="vip-plan-card">
                     <div style="font-size:13px; font-weight:700; color:var(--subtext);">VIP 1 АЙ</div>
-                    <div class="vip-price">9 999 ₸</div>
+                    <div class="vip-price">9 900 ₸</div>
                     <ul class="vip-features">
                         <li>✅ Күнделікті 2+ VIP Прогноз</li>
                         <li>✅ Өтімділігі: 88%+</li>
@@ -428,10 +456,11 @@
                     <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip" data-i18n="vip_buy">САТЫП АЛУ 🚀</a>
                 </div>
 
+                <!-- 🟢 ӨЗГЕРТІЛДІ: 28 000 ₸ -->
                 <div class="vip-plan-card popular">
                     <span class="badge-popular">ХИТ 🔥</span>
                     <div style="font-size:13px; font-weight:700; color:var(--gold);">VIP 3 АЙ</div>
-                    <div class="vip-price">28 500 ₸</div>
+                    <div class="vip-price">28 000 ₸</div>
                     <ul class="vip-features">
                         <li>✅ Күнделікті VIP Экспресс (Кэф 3.0+)</li>
                         <li>✅ Өтімділігі: 92%+</li>
@@ -455,7 +484,7 @@
         </div>
     </div>
 
-    <!-- 3. 📊 ЖАҢА СТАТИСТИКА ЖӘНЕ ТАРИХ БЕТІ -->
+    <!-- 3. 📊 СТАТИСТИКА БЕТІ -->
     <div id="page-stats" class="page">
         <div class="card">
             <h2 class="card-title" style="color:var(--accent);" data-i18n="stats_title">📊 ТАРИХ ЖӘНЕ СТАТИСТИКА</h2>
@@ -497,11 +526,12 @@
     <span class="support-badge">1</span>
 </a>
 
-<!-- 🧭 ТӨМЕНГІ НАВИГАЦИЯ -->
+<!-- 🧭 ТӨМЕНГІ НАВИГАЦИЯ (ПРОФИЛЬ ҚОСЫЛДЫ) -->
 <nav class="bottom-nav">
     <button class="nav-item active" onclick="switchPage('page-home', this)" data-i18n="nav_home">🏠 Басты бет</button>
     <button class="nav-item" onclick="switchPage('page-stats', this)" data-i18n="nav_stats">📊 Статистика</button>
     <button class="nav-item" onclick="switchPage('page-vip', this)" data-i18n="nav_vip">👑 VIP Зона</button>
+    <button class="nav-item" onclick="handleProfileNavClick()" data-i18n="nav_profile">👤 Профиль</button>
 </nav>
 
 <script>
@@ -511,6 +541,8 @@
             nav_home: "🏠 Басты бет",
             nav_vip: "👑 VIP Зона",
             nav_stats: "📊 Статистика",
+            nav_profile: "👤 Профиль",
+            profile_title: "👤 ЖЕКЕ КАБИНЕТ",
             header_sub: "Минимализм & Аналитика",
             btn_login: "Кіру",
             btn_register: "Тіркелу",
@@ -530,6 +562,8 @@
             nav_home: "🏠 Главная",
             nav_vip: "👑 VIP Зона",
             nav_stats: "📊 Статистика",
+            nav_profile: "👤 Профиль",
+            profile_title: "👤 ЛИЧНЫЙ КАБИНЕТ",
             header_sub: "Минимализм и Аналитика",
             btn_login: "Войти",
             btn_register: "Регистрация",
@@ -549,6 +583,8 @@
             nav_home: "🏠 Home",
             nav_vip: "👑 VIP Zone",
             nav_stats: "📊 Statistics",
+            nav_profile: "👤 Profile",
+            profile_title: "👤 PERSONAL CABINET",
             header_sub: "Minimalism & Analytics",
             btn_login: "Login",
             btn_register: "Register",
@@ -633,7 +669,6 @@
         drawWheel();
         checkCooldownTimer();
 
-        // 🌐 Сақталған тілді жүктеу
         const savedLang = localStorage.getItem('selected_lang') || 'kk';
         changeLanguage(savedLang);
 
@@ -647,6 +682,16 @@
     function openStep1() { document.getElementById('modalStep1').style.display = 'flex'; }
     function closeAllModals() { document.getElementById('modalStep1').style.display = 'none'; }
     function closeResultModal() { document.getElementById('modalResult').style.display = 'none'; }
+    function openProfileModal() { document.getElementById('modalProfile').style.display = 'flex'; }
+    function closeProfileModal() { document.getElementById('modalProfile').style.display = 'none'; }
+
+    function handleProfileNavClick() {
+        if(localStorage.getItem('user_logged') === 'true') {
+            openProfileModal();
+        } else {
+            openStep1();
+        }
+    }
 
     function toggleStep1Btn() {
         const val = document.getElementById('emailInput').value;
@@ -676,13 +721,16 @@
         const avatarImg = "https://api.dicebear.com/7.x/bottts/svg?seed=" + encodeURIComponent(displayName);
 
         document.getElementById('auth-buttons-container').innerHTML = `
-            <div class="user-top-bar">
-                <div class="user-avatar-btn" onclick="logout()" title="Шығу">
+            <div class="user-top-bar" onclick="openProfileModal()">
+                <div class="user-avatar-btn">
                     <img src="${avatarImg}" alt="Avatar">
                 </div>
                 <span class="header-user-name">${displayName}</span>
             </div>
         `;
+
+        document.getElementById('profileAvatar').src = avatarImg;
+        document.getElementById('profileName').innerText = displayName;
     }
 
     function logout() {
