@@ -18,7 +18,6 @@
             --subtext: #8b98a5;
             --border: #283042;
             --telegram: #0088cc;
-            --google: #ea4335;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -33,7 +32,7 @@
             align-items: center; 
         }
 
-        /* ⏳ PRELOADER */
+        /* ⏳ ЖҮКТЕЛУДЕ (PRELOADER) */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--bg); z-index: 9999;
@@ -48,9 +47,10 @@
             50% { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(46, 204, 113, 0.7)); }
         }
         .preloader-spinner {
-            width: 32px; height: 32px; border: 3px solid rgba(46, 204, 113, 0.15);
+            width: 36px; height: 36px; border: 3px solid rgba(46, 204, 113, 0.15);
             border-top: 3px solid var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite;
         }
+        .preloader-text { font-size: 14px; font-weight: 800; color: var(--accent); letter-spacing: 2px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* 🔝 HEADER */
@@ -84,20 +84,9 @@
         @keyframes popUp { to { transform: scale(1); } }
         .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--subtext); font-size: 18px; font-weight: bold; cursor: pointer; }
         
-        /* КІРУ БАТЫРМАЛАРЫ */
-        .social-btn-group { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
-        .btn-social { width: 100%; border: none; padding: 11px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; color: #fff; }
-        .btn-tg { background: var(--telegram); }
-        .btn-google { background: #fff; color: #000; }
-
-        .divider { display: flex; align-items: center; text-align: center; color: var(--subtext); font-size: 11px; margin: 14px 0; }
-        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
-        .divider::before { margin-right: .5em; }
-        .divider::after { margin-left: .5em; }
-
-        .phone-input-group { text-align: left; }
+        .phone-input-group { text-align: left; margin-top: 10px; }
         .phone-input-group label { display: block; font-size: 11px; color: var(--subtext); margin-bottom: 5px; font-weight: 700; }
-        .form-input { width: 100%; background: #283042; border: 1px solid var(--border); border-radius: 8px; padding: 10px; color: #fff; font-size: 13px; outline: none; margin-bottom: 8px; }
+        .form-input { width: 100%; background: #283042; border: 1px solid var(--border); border-radius: 8px; padding: 10px; color: #fff; font-size: 13px; outline: none; margin-bottom: 10px; }
         .form-input:focus { border-color: var(--accent); }
 
         .btn-submit { width: 100%; background: var(--accent); color: #000; border: none; padding: 11px; border-radius: 10px; font-weight: 800; font-size: 13px; cursor: pointer; }
@@ -112,20 +101,20 @@
         .card-title { font-size: 16px; margin: 0 0 8px 0; color: var(--accent); display: flex; justify-content: center; align-items: center; gap: 8px; }
 
         /* 🎡 РУЛЕТКА */
-        .wheel-box { position: relative; width: 280px; height: 280px; margin: 15px auto; }
+        .wheel-box { position: relative; width: 290px; height: 290px; margin: 15px auto; }
         .wheel-pointer {
             position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-            width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent;
-            border-top: 22px solid #fff; z-index: 20; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+            width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent;
+            border-top: 24px solid #e74c3c; z-index: 20; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8));
         }
         .wheel-canvas-container {
-            width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--accent);
-            box-shadow: 0 0 20px rgba(46, 204, 113, 0.3); overflow: hidden; position: relative;
+            width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--gold);
+            box-shadow: 0 0 20px rgba(255, 183, 3, 0.4); overflow: hidden; position: relative;
         }
         #wheelCanvas { width: 100%; height: 100%; display: block; }
         .wheel-center-logo {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 48px; height: 48px; background: #121613; border: 2px solid var(--gold);
+            width: 50px; height: 50px; background: #121613; border: 3px solid var(--gold);
             border-radius: 50%; z-index: 10; display: flex; align-items: center; justify-content: center;
         }
         .btn-spin-green { 
@@ -161,7 +150,7 @@
 </head>
 <body>
 
-<!-- PRELOADER -->
+<!-- ⏳ ЖҮКТЕЛУДЕ (PRELOADER) -->
 <div id="preloader">
     <div class="preloader-content">
         <svg class="preloader-logo" viewBox="0 0 100 100">
@@ -170,6 +159,7 @@
             <path d="M42 25 L75 75 L60 75 L50 58 L62 58 L54 44 Z" fill="#f1c40f"/>
         </svg>
         <div class="preloader-spinner"></div>
+        <div class="preloader-text">ЖҮКТЕЛУДЕ...</div>
     </div>
 </div>
 
@@ -197,35 +187,24 @@
     </div>
 </header>
 
-<!-- МОДАЛЬДЫҚ ТЕРЕЗЕ (КІРУ ЖӘНЕ ПРОФИЛЬ) -->
+<!-- МОДАЛЬДЫҚ ТЕРЕЗЕ (ТІРКЕЛУ ЖӘНЕ КІРУ) -->
 <div class="modal-overlay" id="authModal">
     <div class="modal-card">
         <button class="modal-close" onclick="closeAuthModal()">✕</button>
         
-        <!-- 1. КІРУ ФОРМАСЫ -->
+        <!-- 1. ТІРКЕЛУ / КІРУ ФОРМАСЫ -->
         <div id="loginView">
-            <h2 style="color:#fff; margin:0 0 4px 0; font-size:18px;">Жүйеге кіру</h2>
-            <p style="color:var(--subtext); font-size:11px; margin: 0 0 12px 0;">Төмендегі әдістердің бірін таңдаңыз</p>
+            <h2 style="color:#fff; margin:0 0 4px 0; font-size:18px;">Тіркелу / Кіру</h2>
+            <p style="color:var(--subtext); font-size:11px; margin: 0 0 12px 0;">Деректеріңізді енгізіп жүйеге кіріңіз</p>
 
-            <!-- Соц. сеттер -->
-            <div class="social-btn-group">
-                <button class="btn-social btn-google" onclick="loginGoogle()">
-                    <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3h3.88c2.27-2.09 3.665-5.17 3.665-9.12z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.26v3.09C3.25 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.26C.46 8.23 0 10.06 0 12s.46 3.77 1.26 5.38l4.02-3.09z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.25 2.7 1.26 6.62l4.02 3.09c.95-2.85 3.6-4.96 6.72-4.96z"/></svg>
-                    Google арқылы кіру
-                </button>
-                <button class="btn-social btn-tg" onclick="loginTelegram()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-                    Telegram арқылы кіру
-                </button>
-            </div>
-
-            <div class="divider">НЕМЕСЕ ТЕЛЕФОНМЕН</div>
-
-            <!-- Телефон номер & СМС Код -->
             <div class="phone-input-group">
                 <div id="step-phone">
+                    <label>Атыңыз (немесе Никнейм):</label>
+                    <input type="text" id="userName" class="form-input" placeholder="Мысалы: Арман">
+
                     <label>Телефон номеріңіз:</label>
                     <input type="tel" id="userPhone" class="form-input" placeholder="+7 (700) 000-00-00">
+                    
                     <button class="btn-submit" onclick="sendSMSCode()">SMS КОД АЛУ 📲</button>
                 </div>
 
@@ -233,7 +212,7 @@
                     <label>SMS-пен келген 4 таңбалы код:</label>
                     <input type="number" id="smsCode" class="form-input" placeholder="1234">
                     <button class="btn-submit" onclick="verifySMSCode()">РАСТАУ ЖӘНЕ КІРУ 🚀</button>
-                    <p style="font-size:10px; color:var(--gold); margin-top:6px;">* Тесттік код: 1234</p>
+                    <p style="font-size:10px; color:var(--gold); margin-top:6px; text-align:center;">* Тесттік код: 1234</p>
                 </div>
             </div>
         </div>
@@ -242,7 +221,7 @@
         <div id="profileView" style="display: none;">
             <div style="font-size: 40px; margin-bottom: 5px;">👤</div>
             <h2 style="color:#fff; margin:0 0 4px 0; font-size:18px;" id="profileName">Қолданушы</h2>
-            <p style="color:var(--subtext); font-size:11px; margin-bottom:15px;" id="profileInfo">user@domain.com</p>
+            <p style="color:var(--subtext); font-size:11px; margin-bottom:15px;" id="profilePhone">+7 (700) 000-00-00</p>
             <div style="background: rgba(255, 183, 3, 0.1); border: 1px solid var(--gold); border-radius: 8px; padding: 10px; margin-bottom: 15px; font-size: 12px; color: var(--gold); font-weight: 700;">
                 Статус: Стандартты мүше ⭐️
             </div>
@@ -272,7 +251,7 @@
         <div class="card">
             <h2 class="card-title" style="color:var(--accent);">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
             <div class="wheel-box">
-                <div class="wheel-pointer" id="wheelPointer"></div>
+                <div class="wheel-pointer"></div>
                 <div class="wheel-canvas-container"><canvas id="wheelCanvas" width="600" height="600"></canvas></div>
                 <div class="wheel-center-logo">
                     <svg width="24" height="24" viewBox="0 0 100 100">
@@ -431,50 +410,42 @@
         document.getElementById('totalResult').innerText = 'Жалпы банк: ' + (bank + profit).toLocaleString('ru-RU') + ' ₸';
     }
 
-    /* 👤 АВТОРИЗАЦИЯ ЛОГИКАСЫ (SMS, GOOGLE, TELEGRAM) */
+    /* 👤 АВТОРИЗАЦИЯ ЛОГИКАСЫ (СМС/ТІРКЕЛУ) */
     function openAuthModal() {
         document.getElementById('authModal').style.display = 'flex';
         checkUserSession();
     }
     function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
 
-    // 1. Google арқылы кіру
-    function loginGoogle() {
-        const user = { name: "Google User", info: "user@gmail.com" };
-        localStorage.setItem('armaniUser', JSON.stringify(user));
-        checkUserSession();
-        closeAuthModal();
-    }
-
-    // 2. Telegram арқылы кіру
-    function loginTelegram() {
-        const user = { name: "Telegram User", info: "@telegram_id" };
-        localStorage.setItem('armaniUser', JSON.stringify(user));
-        checkUserSession();
-        closeAuthModal();
-    }
-
-    // 3. СМС Арқылы кіру
     function sendSMSCode() {
-        const phone = document.getElementById('userPhone').value;
+        const name = document.getElementById('userName').value.trim();
+        const phone = document.getElementById('userPhone').value.trim();
+        
+        if (!name) {
+            alert("Өтініш, атыңызды жазыңыз!");
+            return;
+        }
         if (!phone || phone.length < 8) {
             alert("Телефон номерді дұрыс енгізіңіз!");
             return;
         }
+        
         document.getElementById('step-phone').style.display = 'none';
         document.getElementById('step-code').style.display = 'block';
-        alert("Сіздің телефоныңызға SMS код жіберілді! (Тесттік код: 1234)");
+        alert("Сізге SMS код жіберілді! (Тесттік код: 1234)");
     }
 
     function verifySMSCode() {
-        const code = document.getElementById('smsCode').value;
-        const phone = document.getElementById('userPhone').value;
+        const code = document.getElementById('smsCode').value.trim();
+        const name = document.getElementById('userName').value.trim();
+        const phone = document.getElementById('userPhone').value.trim();
+
         if (code === "1234" || code.length === 4) {
-            const user = { name: "Қолданушы", info: phone };
+            const user = { name: name, phone: phone };
             localStorage.setItem('armaniUser', JSON.stringify(user));
             checkUserSession();
             closeAuthModal();
-            // Қайтадан әдепкі күйге келтіру
+            // Қайта әдепкіге келтіру
             document.getElementById('step-phone').style.display = 'block';
             document.getElementById('step-code').style.display = 'none';
         } else {
@@ -482,7 +453,6 @@
         }
     }
 
-    // 🚪 Шығу
     function handleLogout() {
         localStorage.removeItem('armaniUser');
         checkUserSession();
@@ -501,7 +471,7 @@
             loginView.style.display = 'none';
             profileView.style.display = 'block';
             document.getElementById('profileName').innerText = user.name;
-            document.getElementById('profileInfo').innerText = user.info;
+            document.getElementById('profilePhone').innerText = user.phone;
         } else {
             authBtnText.innerText = "Кіру";
             profileView.style.display = 'none';
@@ -513,7 +483,8 @@
         drawWheel();
         checkCooldownTimer();
         checkUserSession();
-        setTimeout(() => document.getElementById('preloader').classList.add('fade-out'), 500);
+        // Жүктелу экранын жабу
+        setTimeout(() => document.getElementById('preloader').classList.add('fade-out'), 800);
     });
 
     function closeResultModal() { document.getElementById('modalResult').style.display = 'none'; }
@@ -525,7 +496,7 @@
     }
     setInterval(() => { document.getElementById('header-clock').innerText = new Date().toLocaleTimeString('kk-KZ'); }, 1000);
 
-    /* 🎡 РУЛЕТКА МЕН ТАЙМЕР */
+    /* 🎡 РУЛЕТКА ЛОГИКАСЫ (ЖАЗУЛАРЫ АНЫҚ КӨРІНЕТІН) */
     let cooldownInterval = null;
     function checkCooldownTimer() {
         const nextSpin = localStorage.getItem('nextSpinTime');
@@ -550,13 +521,14 @@
         }
     }
 
+    // Түстер анық көрінуі үшін қарама-қарсы таңдалды
     const prizes = [
-        { text: "🏆 VIP Экспресс -10%", color: "#ffffff", textColor: "#000" },
-        { text: "👑 VIP Канал +1 Күн", color: "#2ecc71", textColor: "#fff" },
-        { text: "💸 VIP 15% Жеңілдік", color: "#181d28", textColor: "#fff" },
-        { text: "🔄 Қайта Айналдыру", color: "#ffffff", textColor: "#000" },
-        { text: "💸 VIP 25% Жеңілдік", color: "#2ecc71", textColor: "#fff" },
-        { text: "🎉 VIP +3 Күн", color: "#181d28", textColor: "#fff" }
+        { text: "VIP Экспресс -10%", color: "#181d28", textColor: "#ffb703" },
+        { text: "VIP Канал +1 Күн", color: "#2ecc71", textColor: "#000000" },
+        { text: "VIP 15% Жеңілдік", color: "#ffffff", textColor: "#000000" },
+        { text: "Қайта Айналдыру", color: "#181d28", textColor: "#2ecc71" },
+        { text: "VIP 25% Жеңілдік", color: "#ffb703", textColor: "#000000" },
+        { text: "VIP +3 Күн", color: "#2ecc71", textColor: "#ffffff" }
     ];
     const canvas = document.getElementById("wheelCanvas");
     const ctx = canvas.getContext("2d");
@@ -566,13 +538,35 @@
     function drawWheel() {
         const cx = canvas.width / 2, cy = canvas.height / 2, r = canvas.width / 2;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
         for (let i = 0; i < prizes.length; i++) {
             const angle = currentAngle + (i * arcSize);
-            ctx.beginPath(); ctx.fillStyle = prizes[i].color; ctx.moveTo(cx, cy);
-            ctx.arc(cx, cy, r, angle, angle + arcSize); ctx.lineTo(cx, cy); ctx.fill();
-            ctx.save(); ctx.translate(cx, cy); ctx.rotate(angle + arcSize / 2);
-            ctx.textAlign = "right"; ctx.fillStyle = prizes[i].textColor;
-            ctx.font = "bold 22px sans-serif"; ctx.fillText(prizes[i].text, r - 30, 8); ctx.restore();
+            
+            // Секторды салу
+            ctx.beginPath();
+            ctx.fillStyle = prizes[i].color;
+            ctx.moveTo(cx, cy);
+            ctx.arc(cx, cy, r, angle, angle + arcSize);
+            ctx.lineTo(cx, cy);
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#283042";
+            ctx.stroke();
+
+            // Тексті салу (Анық әрі ірі қылып)
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(angle + arcSize / 2);
+            ctx.textAlign = "right";
+            ctx.fillStyle = prizes[i].textColor;
+            ctx.font = "900 22px -apple-system, sans-serif";
+            
+            // Жазуға көлеңке беру (анық көріну үшін)
+            ctx.shadowColor = "rgba(0,0,0,0.5)";
+            ctx.shadowBlur = 4;
+            
+            ctx.fillText(prizes[i].text, r - 25, 8);
+            ctx.restore();
         }
     }
 
