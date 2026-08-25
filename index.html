@@ -54,14 +54,14 @@
 
         /* 🔝 HEADER */
         header { 
-            background: #141822; width: 100%; padding: 10px 16px; 
+            background: #141822; width: 100%; padding: 12px 16px; 
             border-bottom: 1px solid var(--border); display: flex;
             align-items: center; justify-content: space-between; position: relative; z-index: 100;
         }
         .header-left { display: flex; align-items: center; gap: 10px; }
         .logo-box { display: flex; flex-direction: column; align-items: center; gap: 3px; }
         .logo-svg { width: 34px; height: 34px; }
-        .header-title-box h1 { margin: 0; font-size: 13px; font-weight: 800; color: var(--text); }
+        .header-title-box h1 { margin: 0; font-size: 14px; font-weight: 800; color: var(--text); letter-spacing: 0.5px; }
         .header-sub-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
         .header-sub-row p { margin: 0; color: var(--subtext); font-size: 10px; }
         .header-clock { 
@@ -69,27 +69,27 @@
             padding: 1px 5px; border-radius: 4px; font-size: 9px; 
             font-weight: 700; border: 1px solid rgba(46, 204, 113, 0.3); white-space: nowrap;
         }
+
+        /* 👤 ПРОФИЛЬ / КІРУ КНОПКАСЫ */
         .header-right { display: flex; align-items: center; gap: 8px; }
-        .lang-select { background: #1c2230; color: #fff; border: 1px solid var(--border); padding: 5px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; outline: none; cursor: pointer; }
-        .auth-buttons { display: flex; align-items: center; gap: 6px; }
-        .btn-login { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
-        .btn-register { background: var(--gold); color: #000; border: 1px solid var(--gold); padding: 6px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; cursor: pointer; }
-        .user-top-bar { display: flex; align-items: center; gap: 10px; }
-        .header-user-name { font-size: 13px; font-weight: 700; color: #fff; }
-        .user-avatar-btn { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; cursor: pointer; border: 2px solid var(--accent); }
-        .user-avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
+        .auth-btn {
+            background: rgba(46, 204, 113, 0.15); border: 1px solid var(--accent);
+            color: var(--accent); padding: 6px 12px; border-radius: 8px; font-size: 11px;
+            font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 5px;
+        }
 
         /* МОДАЛЬДАР */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 15px; }
         .modal-card { background: var(--card-modal); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; width: 100%; max-width: 380px; padding: 24px; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.6); text-align: left; transform: scale(0.9); animation: popUp 0.3s forwards ease-out; }
         @keyframes popUp { to { transform: scale(1); } }
         .modal-close { position: absolute; top: 18px; right: 18px; background: none; border: none; color: var(--gold); font-size: 18px; font-weight: bold; cursor: pointer; }
-        .modal-title-new { color: #fff; font-size: 20px; font-weight: 800; margin: 0 0 20px 0; }
-        .input-group { margin-bottom: 14px; }
-        .input-group label { display: block; font-size: 14px; color: #fff; margin-bottom: 8px; font-weight: 700; }
-        .input-group input { width: 100%; padding: 14px; background: var(--input-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; color: var(--text); font-size: 14px; outline: none; }
-        .btn-submit { width: 100%; background: #323b4e; color: #6e7a91; border: none; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 15px; cursor: pointer; transition: 0.2s; }
-        .btn-submit.active { background: var(--gold); color: #000; }
+        .btn-submit { width: 100%; background: var(--gold); color: #000; border: none; padding: 14px; border-radius: 10px; font-weight: 800; font-size: 15px; cursor: pointer; transition: 0.2s; margin-top: 10px;}
+
+        /* ФОРМА ЭЛЕМЕНТТЕРІ */
+        .form-group { margin-bottom: 12px; text-align: left; }
+        .form-group label { display: block; font-size: 11px; color: var(--subtext); margin-bottom: 5px; font-weight: 700; }
+        .form-input { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; color: #fff; font-size: 13px; outline: none; }
+        .form-input:focus { border-color: var(--accent); }
 
         /* КОНТЕНТ */
         .container { max-width: 500px; width: 92%; margin: 15px 0; display: flex; flex-direction: column; gap: 12px; }
@@ -143,18 +143,6 @@
         .nav-item { color: var(--subtext); text-decoration: none; font-size: 12px; font-weight: 700; background: none; border: none; cursor: pointer; }
         .nav-item.active { color: var(--accent); }
 
-        /* LIVE FEED NOTIFICATION */
-        .live-toast {
-            position: fixed; bottom: 70px; left: 16px; background: #1e2536; border: 1px solid var(--accent);
-            border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5); z-index: 99; transform: translateY(100px); opacity: 0;
-            transition: all 0.4s ease;
-        }
-        .live-toast.show { transform: translateY(0); opacity: 1; }
-        .toast-icon { font-size: 18px; }
-        .toast-text { font-size: 11px; color: #fff; }
-        .toast-text b { color: var(--gold); }
-
         .link-box { display: flex; align-items: center; background: var(--input-bg); border-radius: 8px; padding: 4px; border: 1px solid var(--border); margin-top: 10px; }
         .link-box input { flex: 1; background: transparent; border: none; color: var(--subtext); padding: 8px 10px; font-size: 12px; outline: none; }
         .btn-copy { background: var(--accent); color: #000; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 800; font-size: 12px; cursor: pointer; }
@@ -197,51 +185,78 @@
         </div>
         <div class="header-title-box">
             <h1>ARMANI ANALETIK</h1>
-            <div class="header-sub-row"><p data-i18n="header_sub">Минимализм & Аналитика</p></div>
+            <div class="header-sub-row"><p>Минимализм & Аналитика</p></div>
         </div>
     </div>
-
     <div class="header-right">
-        <select id="langSelect" class="lang-select" onchange="changeLanguage(this.value)">
-            <option value="kk">🇰🇿 KK</option>
-            <option value="ru">🇷🇺 RU</option>
-            <option value="en">🇬🇧 EN</option>
-        </select>
-        <div id="auth-buttons-container">
-            <div class="auth-buttons">
-                <button class="btn-login" onclick="openStep1()" data-i18n="btn_login">Кіру</button>
-                <button class="btn-register" onclick="openStep1()" data-i18n="btn_register">Тіркелу</button>
-            </div>
-        </div>
+        <button class="auth-btn" id="authBtn" onclick="openAuthModal()">👤 <span id="authBtnText">Кіру</span></button>
     </div>
 </header>
 
-<!-- LIVE ACTIVITY TOAST -->
-<div class="live-toast" id="liveToast">
-    <div class="toast-icon">⚡</div>
-    <div class="toast-text" id="toastText"><b>Айдос</b> жаңа ғана VIP 3 АЙ сатып алды 🔥</div>
-</div>
-
-<!-- МОДАЛЬДАР -->
-<div class="modal-overlay" id="modalStep1">
+<!-- МОДАЛЬДЫҚ ТЕРЕЗЕ (КІРУ / ТІРКЕЛУ) -->
+<div class="modal-overlay" id="authModal">
     <div class="modal-card">
-        <button class="modal-close" onclick="closeAllModals()">✕</button>
-        <h2 class="modal-title-new">Кіру немесе тіркелу</h2>
-        <div class="input-group">
-            <label>Email енгізіңіз</label>
-            <input type="email" id="emailInput" placeholder="Email енгізіңіз" oninput="toggleStep1Btn()">
+        <button class="modal-close" onclick="closeAuthModal()">✕</button>
+        <div id="loginView">
+            <h2 style="color:var(--accent); margin:0 0 5px 0; font-size:18px;">Жүйеге кіру</h2>
+            <p style="color:var(--subtext); font-size:11px; margin-bottom:15px;">Аккаунтыңызға кіріп, VIP статус алыңыз</p>
+            
+            <div class="form-group">
+                <label>Электронды пошта немесе Телефон</label>
+                <input type="text" id="loginEmail" class="form-input" placeholder="example@mail.com">
+            </div>
+            <div class="form-group">
+                <label>Құпия сөз</label>
+                <input type="password" id="loginPass" class="form-input" placeholder="••••••••">
+            </div>
+            <button class="btn-submit" onclick="handleLogin()">КІРУ 🚀</button>
+            <p style="text-align:center; font-size:11px; color:var(--subtext); margin-top:12px;">
+                Аккаунтыңыз жоқ па? <a href="#" onclick="switchAuthTab('register')" style="color:var(--accent); text-decoration:none; font-weight:700;">Тіркелу</a>
+            </p>
         </div>
-        <button class="btn-submit" id="btnNext" onclick="finishLogin()" disabled>Әрі қарай</button>
+
+        <div id="registerView" style="display: none;">
+            <h2 style="color:var(--gold); margin:0 0 5px 0; font-size:18px;">Тіркелу</h2>
+            <p style="color:var(--subtext); font-size:11px; margin-bottom:15px;">Жаңа аккаунт ашып, аналитиканы бастаңыз</p>
+            
+            <div class="form-group">
+                <label>Аты-жөніңіз</label>
+                <input type="text" id="regName" class="form-input" placeholder="Айдос">
+            </div>
+            <div class="form-group">
+                <label>Электронды пошта</label>
+                <input type="email" id="regEmail" class="form-input" placeholder="example@mail.com">
+            </div>
+            <div class="form-group">
+                <label>Құпия сөз ойлап табыңыз</label>
+                <input type="password" id="regPass" class="form-input" placeholder="••••••••">
+            </div>
+            <button class="btn-submit" style="background:var(--accent); color:#000;" onclick="handleRegister()">ТІРКЕЛУ ✨</button>
+            <p style="text-align:center; font-size:11px; color:var(--subtext); margin-top:12px;">
+                Аккаунтыңыз бар ма? <a href="#" onclick="switchAuthTab('login')" style="color:var(--gold); text-decoration:none; font-weight:700;">Кіру</a>
+            </p>
+        </div>
+
+        <div id="profileView" style="display: none; text-align: center;">
+            <div style="font-size: 40px; margin-bottom: 5px;">👤</div>
+            <h2 style="color:#fff; margin:0 0 5px 0; font-size:18px;" id="profileName">Қолданушы</h2>
+            <p style="color:var(--subtext); font-size:11px; margin-bottom:15px;" id="profileEmail">mail@domain.com</p>
+            <div style="background: rgba(255, 183, 3, 0.1); border: 1px solid var(--gold); border-radius: 8px; padding: 10px; margin-bottom: 15px; font-size: 12px; color: var(--gold); font-weight: 700;">
+                Статус: Стандартты мүше
+            </div>
+            <button class="btn-submit" style="background: #e74c3c; color: #fff;" onclick="handleLogout()">ШЫҒУ 🚪</button>
+        </div>
     </div>
 </div>
 
+<!-- МОДАЛЬДЫҚ ТЕРЕЗЕ (РУЛЕТКА НӘТИЖЕСІ) -->
 <div class="modal-overlay" id="modalResult">
     <div class="modal-card" style="text-align: center;">
         <button class="modal-close" onclick="closeResultModal()">✕</button>
         <div style="font-size: 46px; margin-bottom: 10px;">🎉</div>
         <h2 style="color:var(--gold); margin:0 0 10px 0; font-size:22px; font-weight:800;">ҚҰТТЫҚТАЙМЫЗ!</h2>
         <p style="color:#fff; font-size:16px;" id="resultText">Сіздің ұтысыңыз!</p>
-        <button class="btn-submit active" onclick="closeResultModal()">ҰТЫСТЫ АЛУ 🚀</button>
+        <button class="btn-submit" onclick="closeResultModal()">ҰТЫСТЫ АЛУ 🚀</button>
     </div>
 </div>
 
@@ -251,10 +266,10 @@
     <!-- 1. БАСТЫ БЕТ -->
     <div id="page-home" class="page active">
         
-        <!-- 🔥 1. ЖАҢА МОДУЛЬ: ТҮЗУ СИГНАЛДАР (LIVE SIGNALS) -->
+        <!-- 🔥 1. VIP СИГНАЛДАР БЛОГЫ -->
         <div class="card" style="padding: 14px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span style="font-size: 13px; font-weight: 800; color: #fff;">🔥 БҮГІНГІ VIP ТАҢДАУЛАРАР</span>
+                <span style="font-size: 13px; font-weight: 800; color: #fff;">🔥 БҮГІНГІ VIP ТАҢДАУЛАР</span>
                 <span style="font-size: 10px; color: var(--accent); background: rgba(46, 204, 113, 0.1); padding: 2px 6px; border-radius: 4px;">LIVE</span>
             </div>
             
@@ -283,7 +298,7 @@
 
         <!-- 🎡 РУЛЕТКА -->
         <div class="card">
-            <h2 class="card-title" style="color:var(--accent);" data-i18n="wheel_title">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
+            <h2 class="card-title" style="color:var(--accent);">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
             <div class="wheel-box">
                 <div class="wheel-pointer" id="wheelPointer"></div>
                 <div class="wheel-canvas-container"><canvas id="wheelCanvas" width="600" height="600"></canvas></div>
@@ -294,10 +309,10 @@
                     </svg>
                 </div>
             </div>
-            <button class="btn-spin-green" onclick="spinWheel()" id="spinBtn" data-i18n="btn_spin">🎰 АЙНАЛДЫРУ</button>
+            <button class="btn-spin-green" onclick="spinWheel()" id="spinBtn">🎰 АЙНАЛДЫРУ</button>
         </div>
 
-        <!-- 🧮 ИНТЕРАКТИВТІ КАЛЬКУЛЯТОР -->
+        <!-- 🧮 ТАБЫС КАЛЬКУЛЯТОРЫ -->
         <div class="card" style="text-align: left;">
             <h3 style="color: var(--gold); margin: 0 0 6px 0; font-size: 15px;">🧮 ТАБЫС КАЛЬКУЛЯТОРЫ</h3>
             <p style="color: var(--subtext); font-size: 11px; margin: 0 0 15px 0;">VIP аналитикамен қанша табуға болатынын есептеңіз:</p>
@@ -329,14 +344,14 @@
 
         <!-- 🔗 ШАҚЫРУ СІЛТЕМЕСІ -->
         <div class="card">
-            <h3 style="color:#fff; margin:0; font-size:13px; text-align:left;" data-i18n="ref_title">🔗 Сіздің шақыру сілтемеңіз</h3>
+            <h3 style="color:#fff; margin:0; font-size:13px; text-align:left;">🔗 Сіздің шақыру сілтемеңіз</h3>
             <div class="link-box">
                 <input type="text" id="ref-link" value="https://armanianaletik.kz/ref/777" readonly>
-                <button class="btn-copy" onclick="copyLink()" data-i18n="btn_copy">Көшіру</button>
+                <button class="btn-copy" onclick="copyLink()">Көшіру</button>
             </div>
         </div>
 
-        <!-- ❓ 2. ЖАҢА МОДУЛЬ: FAQ (ЖИІ ҚОЙЫЛАТЫН СҰРАҚТАР) -->
+        <!-- ❓ 2. FAQ (ЖИІ ҚОЙЫЛАТЫН СҰРАҚТАР) -->
         <div class="card">
             <h3 style="color:#fff; font-size:14px; margin:0 0 10px 0; text-align:left;">❓ Жиі қойылатын сұрақтар</h3>
             <div class="faq-item">
@@ -354,7 +369,7 @@
     <!-- 2. VIP ЗОНА -->
     <div id="page-vip" class="page">
         <div class="card">
-            <h2 class="card-title" style="color:var(--gold);" data-i18n="vip_title">👑 VIP КЛУБҚА ҚОСЫЛУ</h2>
+            <h2 class="card-title" style="color:var(--gold);">👑 VIP КЛУБҚА ҚОСЫЛУ</h2>
             <div class="vip-card-grid">
                 <div class="vip-plan-card">
                     <div style="font-size:13px; font-weight:700; color:var(--subtext);">VIP 1 АЙ</div>
@@ -363,7 +378,7 @@
                         <li>✅ Күнделікті 2+ VIP Прогноз</li>
                         <li>✅ Өтімділігі: 88%+</li>
                     </ul>
-                    <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip" data-i18n="vip_buy">САТЫП АЛУ 🚀</a>
+                    <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip">САТЫП АЛУ 🚀</a>
                 </div>
                 <div class="vip-plan-card popular">
                     <span class="badge-popular">ХИТ 🔥</span>
@@ -373,7 +388,7 @@
                         <li>✅ Күнделікті VIP Экспресс</li>
                         <li>✅ Өтімділігі: 92%+</li>
                     </ul>
-                    <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip" style="background:var(--accent); color:#000;" data-i18n="vip_buy">САТЫП АЛУ 🔥</a>
+                    <a href="https://t.me/armani_04" target="_blank" class="btn-buy-vip" style="background:var(--accent); color:#000;">САТЫП АЛУ 🔥</a>
                 </div>
             </div>
         </div>
@@ -382,10 +397,10 @@
     <!-- 3. СТАТИСТИКА -->
     <div id="page-stats" class="page">
         <div class="card">
-            <h2 class="card-title" style="color:var(--accent);" data-i18n="stats_title">📊 ТАРИХ ЖӘНЕ СТАТИСТИКА</h2>
-            <p style="color: var(--gold); font-weight: 800; font-size: 13px;" data-i18n="stats_pass">Жалпы өтімділік: 90%</p>
+            <h2 class="card-title" style="color:var(--accent);">📊 ТАРИХ ЖӘНЕ СТАТИСТИКА</h2>
+            <p style="color: var(--gold); font-weight: 800; font-size: 13px;">Жалпы өтімділік: 90%</p>
 
-            <!-- 📈 3. ЖАҢА МОДУЛЬ: WIN/LOSS ТРИГГЕР СТАТИСТИКАСЫ -->
+            <!-- 📈 3. СТАТИСТИКА БЛОГЫ -->
             <div style="display: flex; justify-content: space-around; background: #121620; padding: 12px; border-radius: 10px; margin-top: 10px;">
                 <div>
                     <div style="font-size: 18px; font-weight: 800; color: var(--accent);">142</div>
@@ -393,7 +408,7 @@
                 </div>
                 <div>
                     <div style="font-size: 18px; font-weight: 800; color: #e74c3c;">16</div>
-                    <div style="font-size: 10px; color: var(--subtext);">Утылыс ❌</div>
+                    <div style="font-size: 10px; color: var(--subtext);">Ұтылыс ❌</div>
                 </div>
                 <div>
                     <div style="font-size: 18px; font-weight: 800; color: var(--gold);">+340%</div>
@@ -407,27 +422,12 @@
 
 <!-- 🧭 NAV -->
 <nav class="bottom-nav">
-    <button class="nav-item active" onclick="switchPage('page-home', this)" data-i18n="nav_home">🏠 Басты бет</button>
-    <button class="nav-item" onclick="switchPage('page-stats', this)" data-i18n="nav_stats">📊 Статистика</button>
-    <button class="nav-item" onclick="switchPage('page-vip', this)" data-i18n="nav_vip">👑 VIP Зона</button>
+    <button class="nav-item active" onclick="switchPage('page-home', this)">🏠 Басты бет</button>
+    <button class="nav-item" onclick="switchPage('page-stats', this)">📊 Статистика</button>
+    <button class="nav-item" onclick="switchPage('page-vip', this)">👑 VIP Зона</button>
 </nav>
 
 <script>
-    const i18n = {
-        kk: { nav_home: "🏠 Басты бет", nav_vip: "👑 VIP Зона", nav_stats: "📊 Статистика", header_sub: "Минимализм & Аналитика", btn_login: "Кіру", btn_register: "Тіркелу", wheel_title: "🎯 СӘТТІЛІК РУЛЕТКАСЫ", btn_spin: "🎰 АЙНАЛДЫРУ", ref_title: "🔗 Сіздің шақыру сілтемеңіз", btn_copy: "Көшіру", vip_title: "👑 VIP КЛУБҚА ҚОСЫЛУ", vip_buy: "САТЫП АЛУ 🚀", stats_title: "📊 ТАРИХ ЖӘНЕ СТАТИСТИКА", stats_pass: "Жалпы өтімділік: 90%" },
-        ru: { nav_home: "🏠 Главная", nav_vip: "👑 VIP Зона", nav_stats: "📊 Статистика", header_sub: "Минимализм и Аналитика", btn_login: "Войти", btn_register: "Регистрация", wheel_title: "🎯 РУЛЕТКА УДАЧИ", btn_spin: "🎰 КРУТИТЬ", ref_title: "🔗 Ваша реферальная ссылка", btn_copy: "Копировать", vip_title: "👑 ВСТУПИТЬ В VIP КЛУБ", vip_buy: "КУПИТЬ 🚀", stats_title: "📊 ИСТОРИЯ И СТАТИСТИКА", stats_pass: "Общая проходимость: 90%" },
-        en: { nav_home: "🏠 Home", nav_vip: "👑 VIP Zone", nav_stats: "📊 Statistics", header_sub: "Minimalism & Analytics", btn_login: "Login", btn_register: "Register", wheel_title: "🎯 LUCKY WHEEL", btn_spin: "🎰 SPIN", ref_title: "🔗 Your referral link", btn_copy: "Copy", vip_title: "👑 JOIN VIP CLUB", vip_buy: "BUY NOW 🚀", stats_title: "📊 HISTORY & STATS", stats_pass: "Total win rate: 90%" }
-    };
-
-    function changeLanguage(lang) {
-        localStorage.setItem('selected_lang', lang);
-        document.getElementById('langSelect').value = lang;
-        document.querySelectorAll('[data-i18n]').forEach(elem => {
-            const key = elem.getAttribute('data-i18n');
-            if (i18n[lang] && i18n[lang][key]) elem.innerText = i18n[lang][key];
-        });
-    }
-
     /* FAQ ACCORDION LOGIC */
     function toggleFaq(elem) {
         const answer = elem.nextElementSibling;
@@ -460,48 +460,94 @@
         document.getElementById('totalResult').innerText = 'Жалпы банк: ' + (bank + profit).toLocaleString('ru-RU') + ' ₸';
     }
 
-    /* ⚡ LIVE ACTIVITY TOAST */
-    const activities = [
-        "<b>Айдос</b> жаңа ғана VIP 3 АЙ сатып алды 🔥",
-        "<b>Данияр</b> рулеткадан VIP +1 күн ұтып алды 🎉",
-        "<b>Ернар</b> VIP Экспрессті белсендірді 🚀",
-        "<b>Әлішер</b> VIP 1 АЙ жазылымын алды 💎"
-    ];
-    function showLiveToast() {
-        const toast = document.getElementById('liveToast');
-        const textElem = document.getElementById('toastText');
-        const randomText = activities[Math.floor(Math.random() * activities.length)];
-        textElem.innerHTML = randomText;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 4000);
+    /* 👤 АВТОРИЗАЦИЯ ЖӘНЕ ТІРКЕЛУ ЛОГИКАСЫ */
+    function openAuthModal() {
+        document.getElementById('authModal').style.display = 'flex';
+        checkUserSession();
     }
-    setInterval(showLiveToast, 12000);
+    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+
+    function switchAuthTab(tab) {
+        if (tab === 'register') {
+            document.getElementById('loginView').style.display = 'none';
+            document.getElementById('registerView').style.display = 'block';
+        } else {
+            document.getElementById('registerView').style.display = 'none';
+            document.getElementById('loginView').style.display = 'block';
+        }
+    }
+
+    function handleRegister() {
+        const name = document.getElementById('regName').value;
+        const email = document.getElementById('regEmail').value;
+        const pass = document.getElementById('regPass').value;
+        if (!name || !email || !pass) {
+            alert('Барлық өрістерді толтырыңыз!');
+            return;
+        }
+        const user = { name, email };
+        localStorage.setItem('armaniUser', JSON.stringify(user));
+        alert('Сәтті тіркелдіңіз!');
+        checkUserSession();
+        closeAuthModal();
+    }
+
+    function handleLogin() {
+        const email = document.getElementById('loginEmail').value;
+        const pass = document.getElementById('loginPass').value;
+        if (!email || !pass) {
+            alert('Пошта мен құпия сөзді енгізіңіз!');
+            return;
+        }
+        // Қарапайым тексеру немесе сақталғанды алу
+        let user = JSON.parse(localStorage.getItem('armaniUser'));
+        if (!user || user.email !== email) {
+            user = { name: email.split('@')[0], email: email };
+        }
+        localStorage.setItem('armaniUser', JSON.stringify(user));
+        alert('Жүйеге сәтті кірдіңіз!');
+        checkUserSession();
+        closeAuthModal();
+    }
+
+    function handleLogout() {
+        localStorage.removeItem('armaniUser');
+        checkUserSession();
+        alert('Аккаунттан шықтыңыз.');
+        closeAuthModal();
+    }
+
+    function checkUserSession() {
+        const userStr = localStorage.getItem('armaniUser');
+        const authBtnText = document.getElementById('authBtnText');
+        const loginView = document.getElementById('loginView');
+        const registerView = document.getElementById('registerView');
+        const profileView = document.getElementById('profileView');
+
+        if (userStr) {
+            const user = JSON.parse(userStr);
+            authBtnText.innerText = user.name;
+            loginView.style.display = 'none';
+            registerView.style.display = 'none';
+            profileView.style.display = 'block';
+            document.getElementById('profileName').innerText = user.name;
+            document.getElementById('profileEmail').innerText = user.email;
+        } else {
+            authBtnText.innerText = "Кіру";
+            profileView.style.display = 'none';
+            loginView.style.display = 'block';
+            registerView.style.display = 'none';
+        }
+    }
 
     window.addEventListener('load', () => {
         drawWheel();
         checkCooldownTimer();
-        changeLanguage(localStorage.getItem('selected_lang') || 'kk');
+        checkUserSession();
         setTimeout(() => document.getElementById('preloader').classList.add('fade-out'), 500);
     });
 
-    function openStep1() { document.getElementById('modalStep1').style.display = 'flex'; }
-    function closeAllModals() { document.getElementById('modalStep1').style.display = 'none'; }
     function closeResultModal() { document.getElementById('modalResult').style.display = 'none'; }
-    function toggleStep1Btn() {
-        const btn = document.getElementById('btnNext');
-        if(document.getElementById('emailInput').value.length > 2) { btn.classList.add('active'); btn.disabled = false; }
-        else { btn.classList.remove('active'); btn.disabled = true; }
-    }
-    function finishLogin() {
-        const raw = document.getElementById('emailInput').value || "Пайдаланушы";
-        localStorage.setItem('user_logged', 'true');
-        localStorage.setItem('user_name', raw.split('@')[0]);
-        renderLoggedInUser(raw.split('@')[0]);
-        closeAllModals();
-    }
-    function renderLoggedInUser(u) {
-        document.getElementById('auth-buttons-container').innerHTML = `<div class="user-top-bar"><div class="user-avatar-btn"><img src="https://api.dicebear.com/7.x/bottts/svg?seed=${u}"></div><span class="header-user-name">${u}</span></div>`;
-    }
     function switchPage(pageId, btn) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
@@ -524,7 +570,7 @@
                     clearInterval(cooldownInterval);
                     localStorage.removeItem('nextSpinTime');
                     spinBtn.disabled = false;
-                    spinBtn.innerText = i18n[localStorage.getItem('selected_lang') || 'kk'].btn_spin;
+                    spinBtn.innerText = "🎰 АЙНАЛДЫРУ";
                 } else {
                     const h = Math.floor(diff / 3600000).toString().padStart(2, '0');
                     const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
