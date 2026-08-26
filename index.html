@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Armani analetik</title>
-    
+
+    <!-- 🌐 ЛОГОТИПТЕР МЕН ИКОНКАЛАР -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563eb'/><text x='50%' y='55%' font-size='50' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>A</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563eb'/><text x='50%' y='55%' font-size='50' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>A</text></svg>">
+    <meta name="theme-color" content="#0b111e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Armani analetik">
+
     <style>
         :root {
             --bg: #0b111e;
@@ -17,9 +24,9 @@
             --subtext: #94a3b8;
             --input-bg: #182238;
             --danger: #ef4444;
+            --telegram: #0088cc;
         }
 
-        /* LIGHT MODE */
         body.light-mode {
             --bg: #f8fafc;
             --header-bg: #ffffff;
@@ -33,298 +40,241 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; transition: background-color 0.2s, color 0.2s; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text); 
-            margin: 0; padding: 0;
-            display: flex; flex-direction: column; min-height: 100vh;
+            background-color: var(--bg); color: var(--text); 
+            margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh;
         }
 
-        /* 🔝 HEADER (СУРЕТТЕН ДӘЛ АЛЫНҒАН) */
+        /* ⏳ PRELOADER */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg); z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        #preloader.hidden { opacity: 0; visibility: hidden; }
+        .loader-logo {
+            background: var(--accent); color: #fff; font-size: 18px; font-weight: 800;
+            padding: 12px 24px; border-radius: 14px; margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+        .spinner {
+            width: 36px; height: 36px; border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--accent); border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* HEADER */
         header { 
-            background: var(--header-bg);
-            width: 100%; padding: 12px 16px; 
+            background: var(--header-bg); width: 100%; padding: 12px 16px; 
             display: flex; align-items: center; justify-content: space-between;
             position: sticky; top: 0; z-index: 100;
         }
-        
         .header-left { display: flex; align-items: center; gap: 12px; }
-        .menu-burger {
-            background: none; border: none; color: var(--text); cursor: pointer;
-            display: flex; flex-direction: column; gap: 4px; padding: 4px;
-        }
-        .menu-burger span { display: block; width: 18px; height: 2px; background: var(--text); border-radius: 2px; }
-
-        .brand-logo {
-            background: var(--accent);
-            color: #fff; font-weight: 800; font-size: 13px;
-            padding: 8px 14px; border-radius: 8px;
-            cursor: pointer; display: flex; align-items: center;
-        }
-
+        .menu-burger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
+        .menu-burger span { width: 18px; height: 2px; background: var(--text); border-radius: 2px; }
+        .brand-logo { background: var(--accent); color: #fff; font-weight: 800; font-size: 13px; padding: 8px 14px; border-radius: 8px; cursor: pointer; }
         .header-right { display: flex; align-items: center; gap: 8px; }
-
-        .icon-btn {
-            background: var(--input-bg); border: none;
-            width: 38px; height: 38px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text); cursor: pointer;
-        }
+        .icon-btn { background: var(--input-bg); border: none; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text); cursor: pointer; }
         .icon-btn svg { width: 18px; height: 18px; fill: currentColor; }
-
-        .user-avatar-wrapper {
-            position: relative; cursor: pointer; width: 38px; height: 38px;
-        }
-        .user-avatar-img {
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
-        }
-
-        /* 📱 SIDE MENU */
-        .sidebar-drawer {
-            position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
-            background: var(--header-bg); border-right: 1px solid var(--card-border);
-            z-index: 2000; transition: left 0.3s ease; padding: 20px;
-            display: flex; flex-direction: column;
-        }
-        .sidebar-drawer.open { left: 0; }
-        .sidebar-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-            z-index: 1999; display: none;
-        }
-        .sidebar-overlay.active { display: block; }
-        
-        .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .sidebar-menu { display: flex; flex-direction: column; gap: 8px; }
-        .sidebar-item {
-            display: flex; align-items: center; gap: 12px; padding: 12px 14px;
-            color: var(--text); text-decoration: none; border-radius: 10px;
-            font-size: 14px; font-weight: 600; cursor: pointer;
-        }
-        .sidebar-item:hover, .sidebar-item.active { background: var(--input-bg); color: var(--accent); }
-        .sidebar-item svg { width: 18px; height: 18px; fill: currentColor; }
+        .user-avatar-wrapper { width: 38px; height: 38px; cursor: pointer; }
+        .user-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
         /* MAIN CONTAINER */
         .main-container { max-width: 500px; width: 92%; margin: 10px auto; flex: 1; }
-        .page-section { display: none; }
-        .page-section.active { display: block; }
 
-        .section-title { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 15px; }
-
-        /* COURSES GRID */
-        .cards-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-        .content-card {
-            background: var(--card); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;
-        }
-        .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
-        .card-badge { align-self: flex-start; background: var(--accent); color: #fff; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; margin-bottom: 10px; }
-        .card-title { font-size: 16px; font-weight: 700; color: var(--text); margin: 0 0 8px 0; }
-        .card-desc { font-size: 12px; color: var(--subtext); line-height: 1.5; margin-bottom: 14px; flex: 1; }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--card-border); }
-        .btn-action { background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
-
-        /* WHEEL SECTION (СУРЕТТЕГІДЕЙ СТИЛЬ) */
-        .wheel-section { 
-            background: var(--card); 
-            border-radius: 20px; 
-            padding: 25px 20px; 
-            text-align: center; 
-        }
+        /* WHEEL SECTION */
+        .wheel-section { background: var(--card); border-radius: 20px; padding: 25px 20px; text-align: center; }
         .wheel-title { font-size: 22px; font-weight: 800; color: #fff; margin: 0 0 8px 0; }
-        .wheel-subtitle { color: var(--subtext); font-size: 12px; margin: 0 0 20px 0; line-height: 1.4; }
-
+        .wheel-subtitle { color: var(--subtext); font-size: 12px; margin: 0 0 20px 0; }
         .wheel-box { position: relative; width: 250px; height: 250px; margin: 0 auto 25px auto; }
-        .wheel-pointer {
-            position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
-            width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent;
-            border-top: 16px solid var(--accent); z-index: 20;
-        }
+        .wheel-pointer { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 16px solid var(--accent); z-index: 20; }
         .wheel-canvas-container { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--accent); overflow: hidden; }
         #wheelCanvas { width: 100%; height: 100%; }
+        .btn-spin { background: var(--accent); color: #fff; border: none; padding: 12px 30px; border-radius: 10px; font-weight: 800; font-size: 14px; cursor: pointer; width: 100%; max-width: 260px; }
 
-        .btn-spin { 
-            background: var(--accent); color: #fff; border: none; padding: 12px 30px; border-radius: 10px;
-            font-weight: 800; font-size: 14px; cursor: pointer; width: 100%; max-width: 260px;
+        /* ✈️ TELEGRAM FLOATING SUPPORT BUTTON */
+        .telegram-btn-float {
+            position: fixed; bottom: 20px; right: 20px;
+            background: var(--telegram); color: #fff;
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4);
+            z-index: 1000; text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .telegram-btn-float:active { transform: scale(0.9); }
+        .telegram-btn-float svg { width: 24px; height: 24px; fill: #fff; }
+
+        /* MODAL PRO PROFILE */
+        .modal-overlay { 
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); 
+            z-index: 3000; display: none; justify-content: center; align-items: center; padding: 15px; 
+        }
+        .modal-card { 
+            background: var(--card); border: 1px solid var(--card-border); 
+            border-radius: 24px; width: 100%; max-width: 400px; padding: 24px; 
+            position: relative; max-height: 90vh; overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
+        }
+        .modal-close { 
+            position: absolute; top: 16px; right: 16px; background: var(--input-bg); 
+            border: none; color: var(--subtext); font-size: 14px; width: 32px; height: 32px; 
+            border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
         }
 
-        .btn-spin-timer {
-            display: none; width: 100%; max-width: 280px; margin: 0 auto; padding: 12px;
-            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--gold); border-radius: 10px; text-align: center;
+        .profile-tabs { display: flex; border-bottom: 1px solid var(--card-border); margin-bottom: 20px; margin-top: 10px; }
+        .profile-tab { flex: 1; text-align: center; padding: 10px 0; font-size: 12px; font-weight: 700; color: var(--subtext); cursor: pointer; position: relative; }
+        .profile-tab.active { color: var(--accent); }
+        .profile-tab.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background: var(--accent); border-radius: 2px; }
+
+        .avatar-edit-container { position: relative; width: 90px; height: 90px; margin: 0 auto 15px auto; }
+        .avatar-edit-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); }
+        .avatar-camera-btn { 
+            position: absolute; bottom: 0; right: 0; background: var(--accent); 
+            border: 2px solid var(--card); color: #fff; width: 30px; height: 30px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;
         }
-        .spin-timer-label { font-size: 11px; color: var(--subtext); display: block; margin-bottom: 4px; }
-        .spin-timer-count { font-size: 18px; font-weight: 800; color: var(--gold); font-family: monospace; }
+        .avatar-camera-btn svg { width: 14px; height: 14px; fill: #fff; }
 
-        /* MODALS & PROFILE */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 15px; }
-        .modal-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 20px; width: 100%; max-width: 360px; padding: 24px; position: relative; }
-        .modal-close { position: absolute; top: 16px; right: 16px; background: var(--input-bg); border: none; color: var(--subtext); font-size: 14px; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; }
-
-        .profile-container { text-align: center; }
-        .profile-avatar-box { width: 80px; height: 80px; margin: 0 auto 12px auto; }
-        .profile-avatar-box img { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--accent); object-fit: cover; }
-        .profile-name { font-size: 18px; font-weight: 800; color: var(--text); margin: 0; }
-        .profile-email { font-size: 12px; color: var(--subtext); margin-top: 4px; }
-        
-        .profile-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .profile-stat-card { background: var(--input-bg); border-radius: 12px; padding: 12px; text-align: center; }
-        .profile-stat-val { font-size: 16px; font-weight: 800; color: var(--accent); }
+        .profile-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .profile-stat-card { background: var(--input-bg); border-radius: 12px; padding: 10px; text-align: center; }
+        .profile-stat-val { font-size: 15px; font-weight: 800; color: var(--accent); }
         .profile-stat-lbl { font-size: 11px; color: var(--subtext); margin-top: 2px; }
 
-        .btn-logout {
-            width: 100%; padding: 12px; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger);
-            color: var(--danger); border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer;
+        .form-group { margin-bottom: 14px; text-align: left; }
+        .form-label { font-size: 12px; font-weight: 600; color: var(--subtext); margin-bottom: 6px; display: block; }
+        .form-input, .form-textarea { 
+            width: 100%; background: var(--input-bg); border: 1px solid var(--card-border); 
+            border-radius: 10px; padding: 10px 14px; color: var(--text); font-size: 13px; outline: none;
         }
+        .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+        .form-textarea { resize: none; height: 60px; }
+
+        .btn-telegram { width: 100%; padding: 12px; background: var(--telegram); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; margin-bottom: 12px; }
+        .btn-save { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; margin-bottom: 8px; }
+        .btn-logout { width: 100%; padding: 11px; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--danger); color: var(--danger); border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
         footer { text-align: center; padding: 20px; font-size: 12px; color: var(--subtext); margin-top: 30px; }
     </style>
 </head>
 <body>
 
-<!-- SIDE NAVIGATION DRAWER -->
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-<div class="sidebar-drawer" id="sidebarDrawer">
-    <div class="sidebar-header">
-        <div class="brand-logo">Armani analetik</div>
-        <button class="modal-close" onclick="closeSidebar()">✕</button>
-    </div>
-    <div class="sidebar-menu">
-        <div class="sidebar-item active" onclick="switchPage('wheelPage', this)">
-            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-            Бонус Рулетка
-        </div>
-        <div class="sidebar-item" onclick="switchPage('coursesPage', this)">
-            <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
-            Курстар
-        </div>
-        <div class="sidebar-item" onclick="switchPage('statsPage', this)">
-            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-            Статистика
-        </div>
-    </div>
+<!-- ⏳ PRELOADER -->
+<div id="preloader">
+    <div class="loader-logo">Armani analetik</div>
+    <div class="spinner"></div>
 </div>
 
-<!-- HEADER (СУРЕТТЕГІДЕЙ ДӘЛ) -->
+<!-- HEADER -->
 <header>
     <div class="header-left">
-        <button class="menu-burger" onclick="openSidebar()">
-            <span></span><span></span><span></span>
-        </button>
-
-        <div class="brand-logo" onclick="switchPage('wheelPage')">Armani analetik</div>
+        <button class="menu-burger"><span></span><span></span><span></span></button>
+        <div class="brand-logo">Armani analetik</div>
     </div>
-
     <div class="header-right">
-        <!-- ТҮН / КҮН НЫСАНА ИКОНКАСЫ -->
-        <button class="icon-btn" onclick="toggleTheme()" title="Режим ауыстыру">
+        <button class="icon-btn" onclick="toggleTheme()">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 1 0 10 10 A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 1v2M12 21v2M1 12h2M21 12h2"/></svg>
         </button>
-
-        <!-- СӨМКЕ ИКОНКАСЫ -->
-        <button class="icon-btn" onclick="switchPage('coursesPage')" title="Курстар">
-            <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
-        </button>
-
-        <!-- РОБОТ АВАТАР -->
         <div class="user-avatar-wrapper" onclick="openModal('modalProfile')">
-            <img class="user-avatar-img" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="User">
+            <img class="user-avatar-img" id="headerAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="User">
         </div>
     </div>
 </header>
 
-<!-- MAIN CONTAINER -->
 <div class="main-container">
-
-    <!-- 1. РУЛЕТКА БЕТІ (НЕГІЗГІ БЕТ) -->
-    <div id="wheelPage" class="page-section active">
-        <div class="wheel-section">
-            <h1 class="wheel-title">Бонустар Рулеткасы</h1>
-            <p class="wheel-subtitle">Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз</p>
-            
-            <div class="wheel-box">
-                <div class="wheel-pointer"></div>
-                <div class="wheel-canvas-container">
-                    <canvas id="wheelCanvas" width="500" height="500"></canvas>
-                </div>
-            </div>
-
-            <button class="btn-spin" onclick="spinWheel()" id="spinBtn">Айналдыру</button>
-            
-            <div class="btn-spin-timer" id="spinTimerBox">
-                <span class="spin-timer-label">Келесі мүмкіндік:</span>
-                <span class="spin-timer-count" id="spinTimerText">14:06:09</span>
+    <div class="wheel-section">
+        <h1 class="wheel-title">Бонустар Рулеткасы</h1>
+        <p class="wheel-subtitle">Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз</p>
+        <div class="wheel-box">
+            <div class="wheel-pointer"></div>
+            <div class="wheel-canvas-container">
+                <canvas id="wheelCanvas" width="500" height="500"></canvas>
             </div>
         </div>
+        <button class="btn-spin" onclick="spinWheel()">Айналдыру</button>
     </div>
-
-    <!-- 2. КУРСТАР БЕТІ -->
-    <div id="coursesPage" class="page-section">
-        <div class="section-title">Арнайы Курстар</div>
-        <div class="cards-grid">
-            <div class="content-card">
-                <div class="card-body">
-                    <span class="card-badge">ЖАҢА</span>
-                    <h3 class="card-title">Бастапқы Аналитика</h3>
-                    <p class="card-desc">Спорттық аналитика негіздері, тәуекелдерді басқару және банк менеджменті.</p>
-                    <div class="card-footer">
-                        <span style="font-weight:800; font-size:15px;">14 900 ₸</span>
-                        <button class="btn-action" onclick="alert('Телеграм қолдауға жазыңыз!')">Көру</button>
-                    </div>
-                </div>
-            </div>
-            <div class="content-card">
-                <div class="card-body">
-                    <span class="card-badge" style="background:var(--gold); color:#000;">PRO</span>
-                    <h3 class="card-title">VIP Математикалық Модельдеу</h3>
-                    <p class="card-desc">Алгоритмдік формулалар мен экспресс талдаудың құпия әдістері.</p>
-                    <div class="card-footer">
-                        <span style="font-weight:800; font-size:15px;">39 900 ₸</span>
-                        <button class="btn-action" onclick="alert('Телеграм қолдауға жазыңыз!')">Көру</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. СТАТИСТИКА БЕТІ -->
-    <div id="statsPage" class="page-section">
-        <div class="section-title">Аналитика Статистикасы</div>
-        <div class="content-card" style="padding:20px;">
-            <div style="font-size:13px; color:var(--subtext);">Жалпы өтімділік:</div>
-            <div style="font-size:28px; font-weight:900; color:var(--accent); margin-bottom:15px;">82%</div>
-            <div style="font-size:13px; line-height:2;">
-                ✅ VIP Экспресс #114 — <b>ӨТТІ (Кэф 2.10)</b><br>
-                ✅ VIP Экспресс #113 — <b>ӨТТІ (Кэф 1.85)</b><br>
-                ❌ VIP Экспресс #112 — <b>ӨТПЕДІ (Кэф 2.45)</b><br>
-                ✅ VIP Экспресс #111 — <b>ӨТТІ (Кэф 1.95)</b>
-            </div>
-        </div>
-    </div>
-
 </div>
 
-<!-- PROFILE MODAL -->
+<!-- ✈️ FLOATING TELEGRAM SUPPORT BUTTON -->
+<a href="https://t.me/armani_04" target="_blank" class="telegram-btn-float" title="Телеграм қолдау қызметі">
+    <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
+</a>
+
+<!-- MODAL PROFILE -->
 <div class="modal-overlay" id="modalProfile">
     <div class="modal-card">
         <button class="modal-close" onclick="closeModal('modalProfile')">✕</button>
-        <div class="profile-container">
-            <div class="profile-avatar-box">
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="Avatar">
+        
+        <div class="profile-tabs">
+            <div class="profile-tab active" onclick="switchProfileTab('tabProfile', this)">Профиль</div>
+            <div class="profile-tab" onclick="switchProfileTab('tabSupport', this)">Қолдау</div>
+            <div class="profile-tab" onclick="switchProfileTab('tabSecurity', this)">Қауіпсіздік</div>
+        </div>
+
+        <div id="tabProfile" class="tab-content active">
+            <div class="avatar-edit-container">
+                <img class="avatar-edit-img" id="profileAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="Avatar">
+                <label for="avatarInput" class="avatar-camera-btn">
+                    <svg viewBox="0 0 24 24"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+                </label>
+                <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="changeAvatar(event)">
             </div>
-            <h3 class="profile-name">Armani User</h3>
-            <div class="profile-email">user@armani.analytic</div>
 
             <div class="profile-stats-grid">
                 <div class="profile-stat-card">
-                    <div class="profile-stat-val">PRO</div>
+                    <div class="profile-stat-val">PRO VIP</div>
                     <div class="profile-stat-lbl">Мәртебесі</div>
                 </div>
                 <div class="profile-stat-card">
-                    <div class="profile-stat-val">3</div>
-                    <div class="profile-stat-lbl">Курстар</div>
+                    <div class="profile-stat-val">3 Курс</div>
+                    <div class="profile-stat-lbl">Белсенді</div>
                 </div>
             </div>
 
-            <button onclick="logout()" class="btn-logout">Шығу</button>
+            <div class="form-group">
+                <label class="form-label">Толық аты-жөніңіз</label>
+                <input type="text" class="form-input" id="inputName" value="Armani Bot">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Төлем әдісі</label>
+                <input type="text" class="form-input" id="inputPay" value="Kaspi Gold (**** 4812)">
+            </div>
+
+            <button class="btn-save" onclick="saveProfile()">Өзгерістерді сақтау</button>
+            <button class="btn-logout" onclick="logout()">Жүйеден шығу</button>
         </div>
+
+        <!-- ✈️ TELEGRAM TAB -->
+        <div id="tabSupport" class="tab-content">
+            <div style="text-align: center; padding: 10px 0;">
+                <p style="font-size: 13px; color: var(--subtext); margin-bottom: 20px;">
+                    Қандай да бір сұрағыңыз немесе мәселеңіз болса, біздің Telegram қолдау операторына жазыңыз (@armani_04).
+                </p>
+                <a href="https://t.me/armani_04" target="_blank" class="btn-telegram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
+                    Telegram Арқылы Жазу
+                </a>
+            </div>
+        </div>
+
+        <div id="tabSecurity" class="tab-content">
+            <div class="form-group">
+                <label class="form-label">Ағымдағы құпия сөз</label>
+                <input type="password" class="form-input" placeholder="••••••••">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Жаңа құпия сөз</label>
+                <input type="password" class="form-input" placeholder="Жаңа құпия сөз еңгізіңіз">
+            </div>
+            <button class="btn-save" onclick="alert('Құпия сөз жаңартылды!')">Құпия сөзді өзгерту</button>
+        </div>
+
     </div>
 </div>
 
@@ -333,161 +283,77 @@
 </footer>
 
 <script>
-    let timerInterval = null;
-
     window.addEventListener('load', () => {
-        drawWheel();
-        checkSpinTimerState();
+        setTimeout(() => {
+            document.getElementById('preloader').classList.add('hidden');
+        }, 500);
     });
 
-    /* DRAWER NAV FUNCTIONS */
-    function openSidebar() {
-        document.getElementById('sidebarDrawer').classList.add('open');
-        document.getElementById('sidebarOverlay').classList.add('active');
-    }
-    function closeSidebar() {
-        document.getElementById('sidebarDrawer').classList.remove('open');
-        document.getElementById('sidebarOverlay').classList.remove('active');
-    }
-
-    /* SWITCH PAGES */
-    function switchPage(pageId, element) {
-        document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-        
-        if(element) {
-            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
-        }
-        closeSidebar();
-    }
-
-    /* DARK/LIGHT THEME TOGGLE */
-    function toggleTheme() {
-        document.body.classList.toggle('light-mode');
-    }
-
-    /* MODAL CONTROL */
+    function toggleTheme() { document.body.classList.toggle('light-mode'); }
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    function logout() { alert('Жүйеден шықтыңыз'); closeModal('modalProfile'); }
+    
+    function switchProfileTab(tabId, element) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        element.classList.add('active');
+    }
 
-    /* WHEEL ENGINE (СУРЕТТЕГІДЕЙ КҮҢГІРТ ЖӘНЕ КӨК ТҮСТЕР) */
-    const prizes = [
-        { text: "-15% КУРС", color: "#161f33", textColor: "#ffffff" },
-        { text: "+3 КҮН VIP", color: "#2563eb", textColor: "#ffffff" },
-        { text: "-50% КУРС", color: "#1e293b", textColor: "#ffffff" },
-        { text: "-15% КУРС", color: "#161f33", textColor: "#ffffff" },
-        { text: "+1 КҮН VIP", color: "#2563eb", textColor: "#ffffff" },
-        { text: "-25% КУРС", color: "#1e293b", textColor: "#ffffff" },
-        { text: "ҚАЙТА АЙНАЛДЫРУ", color: "#ffffff", textColor: "#000000" }
-    ];
+    function changeAvatar(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profileAvatar').src = e.target.result;
+                document.getElementById('headerAvatar').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
 
+    function saveProfile() {
+        const name = document.getElementById('inputName').value;
+        alert(`Профиль сәтті сақталды: ${name}`);
+        closeModal('modalProfile');
+    }
+
+    function logout() {
+        alert('Жүйеден шықтыңыз');
+        closeModal('modalProfile');
+    }
+
+    /* WHEEL CANVAS */
     const canvas = document.getElementById("wheelCanvas");
     const ctx = canvas.getContext("2d");
-    const numPrizes = prizes.length;
-    const arcSize = (2 * Math.PI) / numPrizes;
+    const prizes = ["-15% КУРС", "+3 КҮН VIP", "-50% КУРС", "-15% КУРС", "+1 КҮН VIP", "-25% КУРС", "ҚАЙТА АЙНАЛДЫРУ"];
+    const colors = ["#161f33", "#2563eb", "#1e293b", "#161f33", "#2563eb", "#1e293b", "#ffffff"];
     let currentAngle = 0;
-    let isSpinning = false;
 
     function drawWheel() {
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-        const radius = canvas.width / 2;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+        const numPrizes = prizes.length;
+        const arcSize = (2 * Math.PI) / numPrizes;
         for (let i = 0; i < numPrizes; i++) {
             const angle = currentAngle + (i * arcSize);
             ctx.beginPath();
-            ctx.fillStyle = prizes[i].color;
-            ctx.moveTo(centerX, centerY);
-            ctx.arc(centerX, centerY, radius, angle, angle + arcSize);
-            ctx.lineTo(centerX, centerY);
+            ctx.fillStyle = colors[i];
+            ctx.moveTo(250, 250);
+            ctx.arc(250, 250, 250, angle, angle + arcSize);
             ctx.fill();
-
             ctx.save();
-            ctx.translate(centerX, centerY);
+            ctx.translate(250, 250);
             ctx.rotate(angle + arcSize / 2);
             ctx.textAlign = "right";
-            ctx.fillStyle = prizes[i].textColor;
-            ctx.font = "bold 15px -apple-system, sans-serif";
-            ctx.fillText(prizes[i].text, radius - 20, 5);
+            ctx.fillStyle = colors[i] === "#ffffff" ? "#000" : "#fff";
+            ctx.font = "bold 15px sans-serif";
+            ctx.fillText(prizes[i], 230, 5);
             ctx.restore();
         }
     }
-
+    drawWheel();
     function spinWheel() {
-        if (isSpinning) return;
-        isSpinning = true;
-
-        const winIndex = Math.floor(Math.random() * numPrizes);
-        const targetAngle = (2 * Math.PI) - (winIndex * arcSize) - (arcSize / 2) - (Math.PI / 2);
-        const totalRotation = currentAngle + (5 * 2 * Math.PI) + (targetAngle - (currentAngle % (2 * Math.PI)));
-
-        const duration = 3500;
-        const startTime = performance.now();
-
-        function animate(now) {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easeOut = 1 - Math.pow(1 - progress, 3);
-            
-            currentAngle = currentAngle + (totalRotation - currentAngle) * (easeOut * 0.08);
-            drawWheel();
-
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                isSpinning = false;
-                alert("Ұтысыңыз: " + prizes[winIndex].text);
-                const nextSpin = Date.now() + (14 * 60 * 60 * 1000) + (6 * 60 * 1000) + (9 * 1000);
-                localStorage.setItem('armani_next_spin', nextSpin.toString());
-                showTimerUI(nextSpin);
-            }
-        }
-        requestAnimationFrame(animate);
-    }
-
-    function checkSpinTimerState() {
-        const nextSpinTime = localStorage.getItem('armani_next_spin');
-        const now = Date.now();
-        if (nextSpinTime && now < parseInt(nextSpinTime)) {
-            showTimerUI(parseInt(nextSpinTime));
-        } else {
-            showSpinButtonUI();
-        }
-    }
-
-    function showTimerUI(targetTime) {
-        const btn = document.getElementById('spinBtn');
-        const timerBox = document.getElementById('spinTimerBox');
-        btn.style.display = 'none';
-        timerBox.style.display = 'block';
-
-        if (timerInterval) clearInterval(timerInterval);
-
-        function updateCountdown() {
-            const diff = targetTime - Date.now();
-            if (diff <= 0) {
-                clearInterval(timerInterval);
-                localStorage.removeItem('armani_next_spin');
-                showSpinButtonUI();
-                return;
-            }
-            const h = Math.floor(diff / (1000 * 60 * 60)).toString().padStart(2, '0');
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-            const s = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
-            document.getElementById('spinTimerText').innerText = `${h}:${m}:${s}`;
-        }
-        updateCountdown();
-        timerInterval = setInterval(updateCountdown, 1000);
-    }
-
-    function showSpinButtonUI() {
-        const btn = document.getElementById('spinBtn');
-        const timerBox = document.getElementById('spinTimerBox');
-        btn.style.display = 'block';
-        timerBox.style.display = 'none';
+        currentAngle += Math.PI * 8 + Math.random() * 5;
+        drawWheel();
     }
 </script>
 </body>
