@@ -105,7 +105,7 @@
         .history-item { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
         .badge-win { background: rgba(16, 185, 129, 0.15); color: var(--green); font-weight: 800; padding: 4px 8px; border-radius: 6px; font-size: 11px; }
 
-        /* TELEGRAM PROMO CARD (🔮 ТЕГІН БОЛЖАМДАР БӨЛІМІНДЕГІ ӘДЕМІ БЛОК) */
+        /* TELEGRAM PROMO CARD */
         .tg-promo-card {
             background: linear-gradient(135deg, rgba(0, 136, 204, 0.15), rgba(37, 99, 235, 0.15));
             border: 1px solid rgba(0, 136, 204, 0.3);
@@ -147,12 +147,15 @@
         .tg-promo-btn:active { transform: scale(0.97); }
 
         /* COURSES CARDS */
-        .courses-grid { display: flex; flex-direction: column; gap: 12px; }
-        .course-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+        .courses-grid { display: flex; flex-direction: column; gap: 14px; }
+        .course-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
         .course-badge { background: rgba(37, 99, 235, 0.15); color: var(--accent); font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; width: fit-content; }
-        .course-title { font-size: 15px; font-weight: 800; margin: 0; }
-        .course-desc { font-size: 12px; color: var(--subtext); margin: 0; }
-        .course-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; }
+        .course-title { font-size: 16px; font-weight: 800; margin: 0; }
+        .course-desc { font-size: 12px; color: var(--subtext); margin: 0; line-height: 1.4; }
+        .course-modules { list-style: none; padding: 0; margin: 4px 0; font-size: 12px; color: var(--text); }
+        .course-modules li { margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+        .course-modules li::before { content: "✓"; color: var(--green); font-weight: bold; }
+        .course-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; border-top: 1px solid var(--card-border); padding-top: 10px; }
         .course-price { font-size: 16px; font-weight: 800; color: var(--gold); }
         .btn-buy { background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
 
@@ -160,7 +163,7 @@
         .telegram-btn-float { position: fixed; bottom: 20px; right: 20px; background: var(--telegram); color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); z-index: 1000; text-decoration: none; }
         .telegram-btn-float svg { width: 24px; height: 24px; fill: #fff; }
 
-        /* MODAL PROFILE */
+        /* MODAL PROFILE & AUTH */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 15px; }
         .modal-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 24px; width: 100%; max-width: 420px; padding: 24px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; box-shadow: 0 20px 30px rgba(0,0,0,0.5); }
         .modal-close { position: absolute; top: 16px; right: 16px; background: var(--input-bg); border: none; color: var(--subtext); font-size: 14px; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -192,6 +195,12 @@
         .btn-save { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; margin-top: 5px; }
         .btn-logout { width: 100%; padding: 11px; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--red); color: var(--red); border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; margin-top: 10px; }
         
+        /* AUTH BUTTONS */
+        .social-auth-container { margin-top: 15px; display: flex; flex-direction: column; gap: 8px; }
+        .btn-social { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text); }
+        .btn-google { border-color: #ea4335; }
+        .btn-telegram-auth { background: var(--telegram); color: #fff; border: none; }
+
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
@@ -243,7 +252,10 @@
         <div class="brand-logo" onclick="switchPage('wheelSection')">Armani analetik</div>
     </div>
     <div class="header-right">
-        <button class="icon-btn" onclick="toggleTheme()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 1 0 10 10 A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/></svg></button>
+        <!-- КҮН МЕН АЙ КӨРІНІСІН АУЫСТЫРУ КӨПШІГІ -->
+        <button class="icon-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Режимді ауыстыру">
+            <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/></svg>
+        </button>
         <div class="user-avatar-wrapper" onclick="openModal('modalProfile')">
             <img class="user-avatar-img" id="headerAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="User">
         </div>
@@ -255,7 +267,7 @@
     <!-- BANNER -->
     <div class="hero-banner">
         <h3>VIP Каналға Қосыл!</h3>
-        <p>Күндік өтімділігі 80%+ болатын экспресстер мен VIP талдаулар!</p>
+        <p>Күндік өтімділігі 80%+ болатын статистикалық болжамдар мен VIP талдаулар!</p>
         <button class="hero-btn" onclick="window.open('https://t.me/analetik_1', '_blank')">Толығырақ</button>
     </div>
     
@@ -303,7 +315,7 @@
         </div>
     </div>
 
-    <!-- 3: PREDICTIONS SECTION (🔥 КЕРЕМЕТ ТЕЛЕГРАМ БЛОК) -->
+    <!-- 3: PREDICTIONS SECTION -->
     <div id="predictSection" class="page-section">
         <div class="tg-promo-card">
             <div class="tg-promo-icon">
@@ -311,7 +323,7 @@
             </div>
             <h2 class="tg-promo-title">Тегін болжамдар Telegram арнамызда!</h2>
             <p class="tg-promo-desc">
-                Күнделікті ең сенімді әрі тегін спорттық болжамдарды, VIP экспресстерді жіберіп алмау үшін ресми Telegram каналымызға жазылыңыз.
+                Күнделікті ең сенімді әрі тегін спорттық болжамдарды, статистикалық болжамдарды жіберіп алмау үшін ресми Telegram каналымызға жазылыңыз.
             </p>
             <a href="https://t.me/analetik_1" target="_blank" class="tg-promo-btn">
                 <span>Арнаға өту (@analetik_1)</span>
@@ -322,19 +334,55 @@
 
     <!-- 4: COURSES SECTION -->
     <div id="coursesSection" class="page-section">
-        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">Оқу курстары</h2>
+        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">Толық Оқу Курстары</h2>
         <div class="courses-grid">
             <div class="course-card">
-                <span class="course-badge">START</span>
+                <span class="course-badge">START • 4 Модуль</span>
                 <h3 class="course-title">Спорттық Аналитика Негіздері</h3>
-                <p class="course-desc">Статистиканы дұрыс талдау мен банк-менеджмент ережелері.</p>
-                <div class="course-footer"><div class="course-price">15,000 ₸</div><button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Сатып алу</button></div>
+                <p class="course-desc">Жаңадан бастаушыларға арналған базалық курс. Статистиканы талдау мен қаржыны қорғау негіздері.</p>
+                <ul class="course-modules">
+                    <li>1-Модуль: Банк-менеджмент және флэт стратегиясы</li>
+                    <li>2-Модуль: Коэффициенттерді есептеу және маржа</li>
+                    <li>3-Модуль: Коммандалық статистиканы талдау</li>
+                    <li>4-Модуль: Психология және тіптер қателіктері</li>
+                </ul>
+                <div class="course-footer">
+                    <div class="course-price">15,000 ₸</div>
+                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Курсты сатып алу</button>
+                </div>
             </div>
+
             <div class="course-card">
-                <span class="course-badge">PRO VIP</span>
+                <span class="course-badge">PRO VIP • 6 Модуль</span>
                 <h3 class="course-title">VIP Анализ және Live Стратегиялар</h3>
-                <p class="course-desc">Лайв режимдегі жоғары коэффициенттермен жұмыс істеу құпиялары.</p>
-                <div class="course-footer"><div class="course-price">35,000 ₸</div><button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Сатып алу</button></div>
+                <p class="course-desc">Тікелей эфирде (Live) жоғары коэффициенттермен кәсіби жұмыс істеу құпиялары.</p>
+                <ul class="course-modules">
+                    <li>1-Модуль: Live-статистиканы секундта оқу</li>
+                    <li>2-Модуль: Футбол, Баскетбол және ТЕННИС талдауы</li>
+                    <li>3-Модуль: Соңғы минуттардағы тотал стратегиялары</li>
+                    <li>4-Модуль: Рискісіз арбитраж (вилка) концептісі</li>
+                    <li>5-Модуль: Модельдеу және бағдарламалық құралдар</li>
+                    <li>6-Модуль: Тікелей менторлық және кураторлық қолдау</li>
+                </ul>
+                <div class="course-footer">
+                    <div class="course-price">35,000 ₸</div>
+                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Курсты сатып алу</button>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <span class="course-badge">EXPERT • Жеке Менторлық</span>
+                <h3 class="course-title">Арнаны Жүргізу және Монетизация</h3>
+                <p class="course-desc">Жеке спорттық-сараптамалық телеграм каналды нөлден бастап ашып, оны дамыту курсы.</p>
+                <ul class="course-modules">
+                    <li>Каналды безендіру және контент-жоспар</li>
+                    <li>Трафик тарту (жарнама беру ережелері)</li>
+                    <li>Аудиториямен жұмыс және клиенттік сервис</li>
+                </ul>
+                <div class="course-footer">
+                    <div class="course-price">60,000 ₸</div>
+                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Курсты сатып алу</button>
+                </div>
             </div>
         </div>
     </div>
@@ -387,7 +435,6 @@
             <div class="profile-tab" onclick="switchProfileTab('tabSecurity', this)">Қауіпсіздік</div>
         </div>
 
-        <!-- 1-ВКЛАДКА: ДЕРЕКТЕР -->
         <div id="tabProfile" class="tab-content active">
             <div class="form-group">
                 <label class="form-label">Аты-жөніңіз</label>
@@ -398,14 +445,29 @@
                 <input type="tel" class="form-input" id="inputPhone" value="+7 (707) 123-45-67">
             </div>
             <div class="form-group">
+                <label class="form-label">Туған күні мен айы (Күн/Ай/Жыл)</label>
+                <input type="date" class="form-input" id="inputBirthDate">
+            </div>
+            <div class="form-group">
                 <label class="form-label">Төлем картасы (Kaspi Gold)</label>
                 <input type="text" class="form-input" id="inputPay" value="4400 •••• •••• 4812">
             </div>
             <button class="btn-save" onclick="saveProfile()">Өзгерістерді сақтау</button>
+
+            <div class="social-auth-container">
+                <button class="btn-social btn-google" onclick="authSocial('Google')">
+                    <svg style="width:16px; height:16px;" viewBox="0 0 24 24"><path fill="#ea4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.2 9 5 12 5z"/><path fill="#4285f4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#fbbc05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15s.7 5.3 1.9 7.7l3.7-2.9c-.2-.7-.4-1.5-.4-2.3z"/><path fill="#34a853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.2-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"/></svg>
+                    Google арқылы қайта кіру / Тіркелу
+                </button>
+                <button class="btn-social btn-telegram-auth" onclick="authSocial('Telegram')">
+                    <svg style="width:16px; height:16px; fill:#fff;" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
+                    Telegram арқылы кіру
+                </button>
+            </div>
+
             <button class="btn-logout" onclick="logout()">Жүйеден шығу</button>
         </div>
 
-        <!-- 2-ВКЛАДКА: БОНУСТАР -->
         <div id="tabRewards" class="tab-content">
             <div class="reward-card">
                 <div>
@@ -419,7 +481,6 @@
             </p>
         </div>
 
-        <!-- 3-ВКЛАДКА: ҚАУІПСІЗДІК -->
         <div id="tabSecurity" class="tab-content">
             <div class="form-group">
                 <label class="form-label">Ескі құпия сөз</label>
@@ -438,8 +499,42 @@
 <footer>© 2026 Armani analetik. Барлық құқықтар қорғалған.</footer>
 
 <script>
-    window.addEventListener('load', () => setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 400));
-    function toggleTheme() { document.body.classList.toggle('light-mode'); }
+    const sunIcon = `<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>`;
+    const moonIcon = `<path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/>`;
+
+    window.addEventListener('load', () => {
+        loadTheme();
+        loadProfileData();
+        setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 400);
+    });
+
+    /* КҮН / АЙ ТЕМАЛАРЫН САҚТАУЖӘНЕ АУЫСТЫРУ */
+    function toggleTheme() {
+        const isLight = document.body.classList.toggle('light-mode');
+        const theme = isLight ? 'light' : 'dark';
+        localStorage.setItem('armani_theme', theme);
+        updateThemeIcon(theme);
+    }
+
+    function loadTheme() {
+        const savedTheme = localStorage.getItem('armani_theme') || 'dark';
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+        } else {
+            document.body.classList.remove('light-mode');
+        }
+        updateThemeIcon(savedTheme);
+    }
+
+    function updateThemeIcon(theme) {
+        const iconSvg = document.getElementById('themeIcon');
+        if (theme === 'light') {
+            iconSvg.innerHTML = sunIcon; // Күн режимі белгішесі (жарық фон)
+        } else {
+            iconSvg.innerHTML = moonIcon; // Ай режимі белгішесі (қараңғы фон)
+        }
+    }
+
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     
@@ -456,7 +551,7 @@
         closeDrawer();
     }
 
-    /* PROFILE FUNCTIONS */
+    /* PROFILE FUNCTIONS & STORAGE */
     function switchProfileTab(tabId, el) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
@@ -469,8 +564,10 @@
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                document.getElementById('profileAvatar').src = e.target.result;
-                document.getElementById('headerAvatar').src = e.target.result;
+                const imgData = e.target.result;
+                document.getElementById('profileAvatar').src = imgData;
+                document.getElementById('headerAvatar').src = imgData;
+                localStorage.setItem('armani_avatar', imgData);
             }
             reader.readAsDataURL(file);
         }
@@ -478,15 +575,49 @@
 
     function saveProfile() {
         const name = document.getElementById('inputName').value;
+        const phone = document.getElementById('inputPhone').value;
+        const bdate = document.getElementById('inputBirthDate').value;
+        const pay = document.getElementById('inputPay').value;
+
+        localStorage.setItem('armani_name', name);
+        localStorage.setItem('armani_phone', phone);
+        localStorage.setItem('armani_bdate', bdate);
+        localStorage.setItem('armani_pay', pay);
+
         document.getElementById('displayUserName').innerText = name;
-        alert('Профиль деректері сәтті сақталды!');
+        alert('Деректер сақталды!');
+        closeModal('modalProfile');
+    }
+
+    function loadProfileData() {
+        const savedName = localStorage.getItem('armani_name');
+        const savedPhone = localStorage.getItem('armani_phone');
+        const savedBdate = localStorage.getItem('armani_bdate');
+        const savedPay = localStorage.getItem('armani_pay');
+        const savedAvatar = localStorage.getItem('armani_avatar');
+
+        if(savedName) {
+            document.getElementById('inputName').value = savedName;
+            document.getElementById('displayUserName').innerText = savedName;
+        }
+        if(savedPhone) document.getElementById('inputPhone').value = savedPhone;
+        if(savedBdate) document.getElementById('inputBirthDate').value = savedBdate;
+        if(savedPay) document.getElementById('inputPay').value = savedPay;
+        if(savedAvatar) {
+            document.getElementById('profileAvatar').src = savedAvatar;
+            document.getElementById('headerAvatar').src = savedAvatar;
+        }
+    }
+
+    function authSocial(provider) {
+        alert(`${provider} арқылы кіру орындалды.`);
         closeModal('modalProfile');
     }
 
     function logout() {
         if(confirm('Жүйеден шығуды растайсыз ба?')) {
-            alert('Шығу орындалды.');
-            closeModal('modalProfile');
+            localStorage.clear();
+            location.reload();
         }
     }
 
