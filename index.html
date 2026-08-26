@@ -415,7 +415,7 @@
                 <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="changeAvatar(event)">
             </div>
             <h3 class="profile-user-title" id="displayUserName">Armani User</h3>
-            <div class="profile-user-sub">ID: #849204 • PRO VIP Пайдаланушы</div>
+            <div class="profile-user-sub" id="displayUserEmail">ID: #849204 • PRO VIP Пайдаланушы</div>
         </div>
 
         <div class="profile-stats-grid">
@@ -441,6 +441,10 @@
                 <input type="text" class="form-input" id="inputName" value="Armani User">
             </div>
             <div class="form-group">
+                <label class="form-label">Электронды пошта (Gmail)</label>
+                <input type="email" class="form-input" id="inputEmail" placeholder="mail@gmail.com" value="">
+            </div>
+            <div class="form-group">
                 <label class="form-label">Телефон нөміріңіз</label>
                 <input type="tel" class="form-input" id="inputPhone" value="+7 (707) 123-45-67">
             </div>
@@ -457,7 +461,7 @@
             <div class="social-auth-container">
                 <button class="btn-social btn-google" onclick="authSocial('Google')">
                     <svg style="width:16px; height:16px;" viewBox="0 0 24 24"><path fill="#ea4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.2 9 5 12 5z"/><path fill="#4285f4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#fbbc05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15s.7 5.3 1.9 7.7l3.7-2.9c-.2-.7-.4-1.5-.4-2.3z"/><path fill="#34a853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.2-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"/></svg>
-                    Google арқылы қайта кіру / Тіркелу
+                    Google арқылы кіру / Gmail сақтау
                 </button>
                 <button class="btn-social btn-telegram-auth" onclick="authSocial('Telegram')">
                     <svg style="width:16px; height:16px; fill:#fff;" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
@@ -508,7 +512,7 @@
         setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 400);
     });
 
-    /* КҮН / АЙ ТЕМАЛАРЫН САҚТАУЖӘНЕ АУЫСТЫРУ */
+    /* КҮН / АЙ ТЕМАЛАРЫН САҚТАУ ЖӘНЕ АУЫСТЫРУ */
     function toggleTheme() {
         const isLight = document.body.classList.toggle('light-mode');
         const theme = isLight ? 'light' : 'dark';
@@ -529,9 +533,9 @@
     function updateThemeIcon(theme) {
         const iconSvg = document.getElementById('themeIcon');
         if (theme === 'light') {
-            iconSvg.innerHTML = sunIcon; // Күн режимі белгішесі (жарық фон)
+            iconSvg.innerHTML = sunIcon;
         } else {
-            iconSvg.innerHTML = moonIcon; // Ай режимі белгішесі (қараңғы фон)
+            iconSvg.innerHTML = moonIcon;
         }
     }
 
@@ -551,7 +555,6 @@
         closeDrawer();
     }
 
-    /* PROFILE FUNCTIONS & STORAGE */
     function switchProfileTab(tabId, el) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
@@ -575,22 +578,27 @@
 
     function saveProfile() {
         const name = document.getElementById('inputName').value;
+        const email = document.getElementById('inputEmail').value;
         const phone = document.getElementById('inputPhone').value;
         const bdate = document.getElementById('inputBirthDate').value;
         const pay = document.getElementById('inputPay').value;
 
         localStorage.setItem('armani_name', name);
+        localStorage.setItem('armani_email', email);
         localStorage.setItem('armani_phone', phone);
         localStorage.setItem('armani_bdate', bdate);
         localStorage.setItem('armani_pay', pay);
 
         document.getElementById('displayUserName').innerText = name;
+        document.getElementById('displayUserEmail').innerText = email ? email : 'ID: #849204 • PRO VIP';
+        
         alert('Деректер сақталды!');
         closeModal('modalProfile');
     }
 
     function loadProfileData() {
         const savedName = localStorage.getItem('armani_name');
+        const savedEmail = localStorage.getItem('armani_email');
         const savedPhone = localStorage.getItem('armani_phone');
         const savedBdate = localStorage.getItem('armani_bdate');
         const savedPay = localStorage.getItem('armani_pay');
@@ -599,6 +607,10 @@
         if(savedName) {
             document.getElementById('inputName').value = savedName;
             document.getElementById('displayUserName').innerText = savedName;
+        }
+        if(savedEmail) {
+            document.getElementById('inputEmail').value = savedEmail;
+            document.getElementById('displayUserEmail').innerText = savedEmail;
         }
         if(savedPhone) document.getElementById('inputPhone').value = savedPhone;
         if(savedBdate) document.getElementById('inputBirthDate').value = savedBdate;
@@ -609,13 +621,42 @@
         }
     }
 
+    /* ӘЛЕУМЕТТІК ЖЕЛІЛЕР МЕН GMAIL АРҚЫЛЫ КІРУ ЖӘНЕ ДЕРЕКТІ САҚТАУ */
     function authSocial(provider) {
-        alert(`${provider} арқылы кіру орындалды.`);
-        closeModal('modalProfile');
+        if(provider === 'Google') {
+            let gmail = prompt("Google поштаңызды (Gmail) енгізіңіз:", "armani.user@gmail.com");
+            if(gmail) {
+                let name = gmail.split('@')[0];
+                name = name.charAt(0).toUpperCase() + name.slice(1);
+                
+                // localStorage-қа сақтаймыз
+                localStorage.setItem('armani_name', name);
+                localStorage.setItem('armani_email', gmail);
+                
+                // Экрандағы мәндерді жаңартамыз
+                document.getElementById('inputName').value = name;
+                document.getElementById('inputEmail').value = gmail;
+                document.getElementById('displayUserName').innerText = name;
+                document.getElementById('displayUserEmail').innerText = gmail;
+                
+                alert(`Google (${gmail}) арқылы сәтті кірдіңіз және деректеріңіз сақталды!`);
+                closeModal('modalProfile');
+            }
+        } else if(provider === 'Telegram') {
+            let tgUser = prompt("Telegram username немесе атыңызды енгізіңіз:", "Armani_VIP");
+            if(tgUser) {
+                localStorage.setItem('armani_name', tgUser);
+                document.getElementById('inputName').value = tgUser;
+                document.getElementById('displayUserName').innerText = tgUser;
+                
+                alert(`Telegram (@${tgUser}) арқылы кіру расталды!`);
+                closeModal('modalProfile');
+            }
+        }
     }
 
     function logout() {
-        if(confirm('Жүйеден шығуды растайсыз ба?')) {
+        if(confirm('Жүйеден шығуды және сақталған деректерді өшіруді растайсыз ба?')) {
             localStorage.clear();
             location.reload();
         }
