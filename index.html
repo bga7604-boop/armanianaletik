@@ -53,7 +53,11 @@
         .header-right { display: flex; align-items: center; gap: 8px; }
         .icon-btn { background: var(--input-bg); border: none; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text); cursor: pointer; }
         .icon-btn svg { width: 18px; height: 18px; fill: currentColor; }
-        .user-avatar-wrapper { width: 38px; height: 38px; cursor: pointer; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent); }
+        
+        /* КІРУ БАТЫРМАСЫ ЖӘНЕ АВАТАР */
+        .header-auth-btn { background: var(--accent); color: #fff; border: none; padding: 8px 12px; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .user-avatar-wrapper { width: 38px; height: 38px; cursor: pointer; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent); display: none; }
+        .user-avatar-wrapper.active { display: block; }
         .user-avatar-img { width: 100%; height: 100%; object-fit: cover; }
 
         /* DRAWER MENU */
@@ -238,7 +242,7 @@
             <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
             Оқу курстары
         </li>
-        <li class="nav-item" onclick="openModal('modalProfile'); closeDrawer();">
+        <li class="nav-item" onclick="openProfileModal(); closeDrawer();">
             <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
             Жеке профиль
         </li>
@@ -252,11 +256,19 @@
         <div class="brand-logo" onclick="switchPage('wheelSection')">Armani analetik</div>
     </div>
     <div class="header-right">
-        <!-- КҮН МЕН АЙ КӨРІНІСІН АУЫСТЫРУ КӨПШІГІ -->
+        <!-- ТЕМА АУЫСТЫРУ -->
         <button class="icon-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Режимді ауыстыру">
             <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/></svg>
         </button>
-        <div class="user-avatar-wrapper" onclick="openModal('modalProfile')">
+
+        <!-- КІРУ/ТІРКЕЛУ БАТЫРМАСЫ (ЕГЕР КІРМЕГЕН БОЛСА) -->
+        <button class="header-auth-btn" id="headerAuthBtn" onclick="openProfileModal()">
+            <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            Кіру
+        </button>
+
+        <!-- ПРОФИЛЬ АВАТАРЫ (ЕГЕР КІРГЕН БОЛСА ШЫҒАДЫ) -->
+        <div class="user-avatar-wrapper" id="headerAvatarWrapper" onclick="openProfileModal()">
             <img class="user-avatar-img" id="headerAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="User">
         </div>
     </div>
@@ -343,7 +355,7 @@
                 <ul class="course-modules">
                     <li>1-Модуль: Банк-менеджмент және флэт стратегиясы</li>
                     <li>2-Модуль: Коэффициенттерді есептеу және маржа</li>
-                    <li>3-Модуль: Коммандалық статистиканы талдау</li>
+                    <li>3-Модуль: Командалық статистиканы талдау</li>
                     <li>4-Модуль: Психология және тіптер қателіктері</li>
                 </ul>
                 <div class="course-footer">
@@ -401,100 +413,108 @@
     </div>
 </div>
 
-<!-- MODAL PROFILE -->
+<!-- MODAL PROFILE & AUTH -->
 <div class="modal-overlay" id="modalProfile">
     <div class="modal-card">
         <button class="modal-close" onclick="closeModal('modalProfile')">✕</button>
         
-        <div class="profile-header">
-            <div class="avatar-container">
-                <img class="avatar-img" id="profileAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="Avatar">
-                <label for="avatarInput" class="avatar-upload-btn" title="Суретті өзгерту">
-                    <svg viewBox="0 0 24 24"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
-                </label>
-                <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="changeAvatar(event)">
-            </div>
-            <h3 class="profile-user-title" id="displayUserName">Armani User</h3>
-            <div class="profile-user-sub" id="displayUserEmail">ID: #849204 • PRO VIP Пайдаланушы</div>
-        </div>
-
-        <div class="profile-stats-grid">
-            <div class="profile-stat-card">
-                <div class="profile-stat-val">PRO VIP</div>
-                <div class="profile-stat-lbl">Мәртебесі</div>
-            </div>
-            <div class="profile-stat-card">
-                <div class="profile-stat-val">2 Курс</div>
-                <div class="profile-stat-lbl">Белсенді</div>
-            </div>
-        </div>
-
-        <div class="profile-tabs">
-            <div class="profile-tab active" onclick="switchProfileTab('tabProfile', this)">Деректер</div>
-            <div class="profile-tab" onclick="switchProfileTab('tabRewards', this)">Бонустар</div>
-            <div class="profile-tab" onclick="switchProfileTab('tabSecurity', this)">Қауіпсіздік</div>
-        </div>
-
-        <div id="tabProfile" class="tab-content active">
-            <div class="form-group">
-                <label class="form-label">Аты-жөніңіз</label>
-                <input type="text" class="form-input" id="inputName" value="Armani User">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Электронды пошта (Gmail)</label>
-                <input type="email" class="form-input" id="inputEmail" placeholder="mail@gmail.com" value="">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Телефон нөміріңіз</label>
-                <input type="tel" class="form-input" id="inputPhone" value="+7 (707) 123-45-67">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Туған күні мен айы (Күн/Ай/Жыл)</label>
-                <input type="date" class="form-input" id="inputBirthDate">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Төлем картасы (Kaspi Gold)</label>
-                <input type="text" class="form-input" id="inputPay" value="4400 •••• •••• 4812">
-            </div>
-            <button class="btn-save" onclick="saveProfile()">Өзгерістерді сақтау</button>
-
+        <!-- КІРГЕНГЕ ДЕЙІНГІ БӨЛІК (КІРУ / ТІРКЕЛУ) -->
+        <div id="authViewSection">
+            <h3 style="font-size: 20px; font-weight: 800; margin-top: 0; margin-bottom: 8px;">Жүйеге кіру</h3>
+            <p style="font-size: 13px; color: var(--subtext); margin-bottom: 20px;">Бонустарды сақтау және жеке кабинетке кіру үшін авторизациядан өтіңіз.</p>
+            
             <div class="social-auth-container">
                 <button class="btn-social btn-google" onclick="authSocial('Google')">
                     <svg style="width:16px; height:16px;" viewBox="0 0 24 24"><path fill="#ea4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.2 9 5 12 5z"/><path fill="#4285f4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#fbbc05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15s.7 5.3 1.9 7.7l3.7-2.9c-.2-.7-.4-1.5-.4-2.3z"/><path fill="#34a853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.2-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"/></svg>
-                    Google арқылы кіру / Gmail сақтау
+                    Google (Gmail) арқылы кіру
                 </button>
                 <button class="btn-social btn-telegram-auth" onclick="authSocial('Telegram')">
                     <svg style="width:16px; height:16px; fill:#fff;" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
                     Telegram арқылы кіру
                 </button>
             </div>
-
-            <button class="btn-logout" onclick="logout()">Жүйеден шығу</button>
         </div>
 
-        <div id="tabRewards" class="tab-content">
-            <div class="reward-card">
-                <div>
-                    <div style="font-size:11px; color:var(--subtext);">Ұтып алған промокод:</div>
-                    <div class="reward-code" id="userPromoCode">АЙНАЛДЫРЫЛМАҒАН</div>
+        <!-- КІРГЕННЕН КЕЙІНГІ ПРОФИЛЬ БӨЛІГІ -->
+        <div id="profileViewSection" style="display: none;">
+            <div class="profile-header">
+                <div class="avatar-container">
+                    <img class="avatar-img" id="profileAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="Avatar">
+                    <label for="avatarInput" class="avatar-upload-btn" title="Суретті өзгерту">
+                        <svg viewBox="0 0 24 24"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+                    </label>
+                    <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="changeAvatar(event)">
                 </div>
-                <button style="background:var(--accent); color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;" onclick="copyPromo()">Көшіру</button>
+                <h3 class="profile-user-title" id="displayUserName">Armani User</h3>
+                <div class="profile-user-sub" id="displayUserEmail">ID: #849204 • PRO VIP Пайдаланушы</div>
             </div>
-            <p style="font-size:11px; color:var(--subtext); text-align:left; margin-top:10px;">
-                * Промокодты курстарды сатып алу кезінде админге (@analetik_1) жіберіп, жеңілдік алыңыз.
-            </p>
-        </div>
 
-        <div id="tabSecurity" class="tab-content">
-            <div class="form-group">
-                <label class="form-label">Ескі құпия сөз</label>
-                <input type="password" class="form-input" placeholder="••••••••">
+            <div class="profile-stats-grid">
+                <div class="profile-stat-card">
+                    <div class="profile-stat-val">PRO VIP</div>
+                    <div class="profile-stat-lbl">Мәртебесі</div>
+                </div>
+                <div class="profile-stat-card">
+                    <div class="profile-stat-val">2 Курс</div>
+                    <div class="profile-stat-lbl">Белсенді</div>
+                </div>
             </div>
-            <div class="form-group">
-                <label class="form-label">Жаңа құпия сөз</label>
-                <input type="password" class="form-input" placeholder="Жаңа құпия сөз еңгізіңіз">
+
+            <div class="profile-tabs">
+                <div class="profile-tab active" onclick="switchProfileTab('tabProfile', this)">Деректер</div>
+                <div class="profile-tab" onclick="switchProfileTab('tabRewards', this)">Бонустар</div>
+                <div class="profile-tab" onclick="switchProfileTab('tabSecurity', this)">Қауіпсіздік</div>
             </div>
-            <button class="btn-save" onclick="alert('Құпия сөз сәтті жаңартылды!')">Құпия сөзді өзгерту</button>
+
+            <div id="tabProfile" class="tab-content active">
+                <div class="form-group">
+                    <label class="form-label">Аты-жөніңіз</label>
+                    <input type="text" class="form-input" id="inputName">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Электронды пошта (Gmail)</label>
+                    <input type="email" class="form-input" id="inputEmail" placeholder="mail@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Телефон нөміріңіз</label>
+                    <input type="tel" class="form-input" id="inputPhone" value="+7 (707) 123-45-67">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Туған күні мен айы</label>
+                    <input type="date" class="form-input" id="inputBirthDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Төлем картасы (Kaspi Gold)</label>
+                    <input type="text" class="form-input" id="inputPay" value="4400 •••• •••• 4812">
+                </div>
+                <button class="btn-save" onclick="saveProfile()">Өзгерістерді сақтау</button>
+                <button class="btn-logout" onclick="logout()">Жүйеден шығу</button>
+            </div>
+
+            <div id="tabRewards" class="tab-content">
+                <div class="reward-card">
+                    <div>
+                        <div style="font-size:11px; color:var(--subtext);">Ұтып алған промокод:</div>
+                        <div class="reward-code" id="userPromoCode">АЙНАЛДЫРЫЛМАҒАН</div>
+                    </div>
+                    <button style="background:var(--accent); color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;" onclick="copyPromo()">Көшіру</button>
+                </div>
+                <p style="font-size:11px; color:var(--subtext); text-align:left; margin-top:10px;">
+                    * Промокодты курстарды сатып алу кезінде админге (@analetik_1) жіберіп, жеңілдік алыңыз.
+                </p>
+            </div>
+
+            <div id="tabSecurity" class="tab-content">
+                <div class="form-group">
+                    <label class="form-label">Ескі құпия сөз</label>
+                    <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Жаңа құпия сөз</label>
+                    <input type="password" class="form-input" placeholder="Жаңа құпия сөз енгізіңіз">
+                </div>
+                <button class="btn-save" onclick="alert('Құпия сөз сәтті жаңартылды!')">Құпия сөзді өзгерту</button>
+            </div>
         </div>
 
     </div>
@@ -508,7 +528,7 @@
 
     window.addEventListener('load', () => {
         loadTheme();
-        loadProfileData();
+        checkAuthStatus();
         setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 400);
     });
 
@@ -560,6 +580,35 @@
         document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
         el.classList.add('active');
+    }
+
+    /* АВТОРИЗАЦИЯ ЖӘНЕ ПРОФИЛЬ КҮЙІН ТЕКСЕРУ */
+    function checkAuthStatus() {
+        const savedName = localStorage.getItem('armani_name');
+        const authBtn = document.getElementById('headerAuthBtn');
+        const avatarWrapper = document.getElementById('headerAvatarWrapper');
+        const authView = document.getElementById('authViewSection');
+        const profileView = document.getElementById('profileViewSection');
+
+        if (savedName) {
+            // Егер кірген болса: Кіру батырмасы жасырылып, аватар шығады
+            authBtn.style.display = 'none';
+            avatarWrapper.classList.add('active');
+            authView.style.display = 'none';
+            profileView.style.display = 'block';
+            loadProfileData();
+        } else {
+            // Егер кірмеген болса: Кіру батырмасы тұрады, модальда кіру формасы көрінеді
+            authBtn.style.display = 'flex';
+            avatarWrapper.classList.remove('active');
+            authView.style.display = 'block';
+            profileView.style.display = 'none';
+        }
+    }
+
+    function openProfileModal() {
+        checkAuthStatus();
+        openModal('modalProfile');
     }
 
     function changeAvatar(event) {
@@ -621,7 +670,7 @@
         }
     }
 
-    /* ӘЛЕУМЕТТІК ЖЕЛІЛЕР МЕН GMAIL АРҚЫЛЫ КІРУ ЖӘНЕ ДЕРЕКТІ САҚТАУ */
+    /* ӘЛЕУМЕТТІК ЖЕЛІЛЕР МЕН GMAIL АРҚЫЛЫ КІРУ */
     function authSocial(provider) {
         if(provider === 'Google') {
             let gmail = prompt("Google поштаңызды (Gmail) енгізіңіз:", "armani.user@gmail.com");
@@ -629,26 +678,19 @@
                 let name = gmail.split('@')[0];
                 name = name.charAt(0).toUpperCase() + name.slice(1);
                 
-                // localStorage-қа сақтаймыз
                 localStorage.setItem('armani_name', name);
                 localStorage.setItem('armani_email', gmail);
                 
-                // Экрандағы мәндерді жаңартамыз
-                document.getElementById('inputName').value = name;
-                document.getElementById('inputEmail').value = gmail;
-                document.getElementById('displayUserName').innerText = name;
-                document.getElementById('displayUserEmail').innerText = gmail;
-                
-                alert(`Google (${gmail}) арқылы сәтті кірдіңіз және деректеріңіз сақталды!`);
+                checkAuthStatus();
+                alert(`Google (${gmail}) арқылы сәтті кірдіңіз!`);
                 closeModal('modalProfile');
             }
         } else if(provider === 'Telegram') {
             let tgUser = prompt("Telegram username немесе атыңызды енгізіңіз:", "Armani_VIP");
             if(tgUser) {
                 localStorage.setItem('armani_name', tgUser);
-                document.getElementById('inputName').value = tgUser;
-                document.getElementById('displayUserName').innerText = tgUser;
                 
+                checkAuthStatus();
                 alert(`Telegram (@${tgUser}) арқылы кіру расталды!`);
                 closeModal('modalProfile');
             }
