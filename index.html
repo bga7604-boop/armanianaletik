@@ -79,6 +79,21 @@
         .header-title-box h1 { margin: 0; font-size: 15px; font-weight: 900; color: #fff; letter-spacing: 0.5px; }
         .header-title-box span { color: var(--accent); }
 
+        /* 🇰🇿 АСТАНА УАҚЫТЫ */
+        .astana-clock {
+            background: rgba(0, 210, 255, 0.08);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 4px 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .astana-clock span { color: #fff; font-family: monospace; font-size: 12px; }
+
         .header-nav { display: flex; align-items: center; gap: 8px; }
         .nav-btn {
             background: rgba(20, 28, 46, 0.8);
@@ -161,6 +176,22 @@
 
         /* 🎯 РУЛЕТКА */
         .wheel-section { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 20px; text-align: center; }
+        
+        /* ⏳ 24 САҒАТ ТАЙМЕР СТИЛІ */
+        .wheel-timer-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 183, 3, 0.08);
+            border: 1px solid rgba(255, 183, 3, 0.25);
+            padding: 6px 14px;
+            border-radius: 12px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+        }
+        .wheel-timer-label { font-size: 11px; color: var(--subtext); font-weight: 600; }
+        .wheel-timer-count { font-size: 13px; font-weight: 900; color: var(--gold); font-family: monospace; }
+
         .wheel-box { position: relative; width: 260px; height: 260px; margin: 15px auto; }
         .wheel-pointer {
             position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
@@ -206,6 +237,7 @@
             .nav-btn span { display: none; }
             .header-title-box p { display: none; }
             .courses-grid { grid-template-columns: 1fr; }
+            .astana-clock { font-size: 9px; padding: 3px 6px; }
         }
     </style>
 </head>
@@ -238,6 +270,11 @@
             <div class="header-title-box">
                 <h1>ARMANI <span>ANALYTIC</span></h1>
             </div>
+        </div>
+        
+        <!-- АСТАНА УАҚЫТЫ САТЫ -->
+        <div class="astana-clock">
+            🇰🇿 AST: <span id="astanaClock">--:--:--</span>
         </div>
     </div>
 
@@ -332,7 +369,13 @@
     <!-- РУЛЕТКА -->
     <div class="wheel-section">
         <h2 style="margin:0; font-size:18px; color:#fff; font-weight: 800;">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
-        <p style="color:var(--subtext); font-size:11px; margin: 3px 0 10px 0;">Күнделікті бонустар ұтып алыңыз</p>
+        <p style="color:var(--subtext); font-size:11px; margin: 3px 0 5px 0;">Күнделікті бонустар ұтып алыңыз</p>
+        
+        <!-- 24 САҒАТ ТАЙМЕР -->
+        <div class="wheel-timer-box">
+            <span class="wheel-timer-label">⏳ Келесі айналдыруға дейін:</span>
+            <span class="wheel-timer-count" id="wheelTimer">24:00:00</span>
+        </div>
         
         <div class="wheel-box">
             <div class="wheel-pointer"></div>
@@ -420,7 +463,40 @@
         }, 600);
         drawWheel();
         checkAuth();
+        startAstanaClock();
+        start24hTimer();
     });
+
+    /* 🇰🇿 АСТАНА УАҚЫТЫ СКРИПТІ (UTC+5) */
+    function startAstanaClock() {
+        function updateClock() {
+            const now = new Date();
+            const options = { timeZone: 'Asia/Almaty', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            document.getElementById('astanaClock').innerText = new Intl.DateTimeFormat('en-GB', options).format(now);
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+    }
+
+    /* ⏳ 24 САҒАТ ТАЙМЕР СКРИПТІ */
+    function start24hTimer() {
+        function updateTimer() {
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+
+            const diff = tomorrow - now;
+
+            const h = Math.floor(diff / (1000 * 60 * 60)).toString().padStart(2, '0');
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            const s = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+
+            document.getElementById('wheelTimer').innerText = `${h}:${m}:${s}`;
+        }
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    }
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
