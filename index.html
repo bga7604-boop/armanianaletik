@@ -105,12 +105,46 @@
         .history-item { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
         .badge-win { background: rgba(16, 185, 129, 0.15); color: var(--green); font-weight: 800; padding: 4px 8px; border-radius: 6px; font-size: 11px; }
 
-        /* PREDICTIONS SECTION (🔮 ТЕГІН БОЛЖАМДАР + СЫЛКА) */
-        .match-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
-        .match-header { display: flex; justify-content: space-between; font-size: 11px; color: var(--subtext); margin-bottom: 10px; font-weight: 700; }
-        .match-teams { display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 14px; margin-bottom: 12px; }
-        .match-pick { background: var(--input-bg); padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; font-size: 12px; }
-        .telegram-channel-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--telegram); color: #fff; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 13px; text-decoration: none; margin-bottom: 15px; width: 100%; text-align: center; }
+        /* TELEGRAM PROMO CARD (🔮 ТЕГІН БОЛЖАМДАР БӨЛІМІНДЕГІ ӘДЕМІ БЛОК) */
+        .tg-promo-card {
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.15), rgba(37, 99, 235, 0.15));
+            border: 1px solid rgba(0, 136, 204, 0.3);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .tg-promo-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--telegram);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4);
+        }
+        .tg-promo-icon svg { width: 36px; height: 36px; fill: #fff; }
+        .tg-promo-title { font-size: 20px; font-weight: 800; margin: 0 0 10px 0; color: #fff; }
+        .tg-promo-desc { font-size: 13px; color: var(--subtext); line-height: 1.5; margin: 0 0 20px 0; }
+        .tg-promo-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--telegram);
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 14px;
+            text-decoration: none;
+            box-shadow: 0 8px 18px rgba(0, 136, 204, 0.3);
+            transition: transform 0.2s;
+        }
+        .tg-promo-btn:active { transform: scale(0.97); }
 
         /* COURSES CARDS */
         .courses-grid { display: flex; flex-direction: column; gap: 12px; }
@@ -269,26 +303,20 @@
         </div>
     </div>
 
-    <!-- 3: PREDICTIONS SECTION (🔮 ТЕГІН БОЛЖАМДАР + СЫЛКА) -->
+    <!-- 3: PREDICTIONS SECTION (🔥 КЕРЕМЕТ ТЕЛЕГРАМ БЛОК) -->
     <div id="predictSection" class="page-section">
-        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">Бүгінгі Тегін Болжамдар</h2>
-        
-        <!-- TELEGRAM KANALGA SSYLKA -->
-        <a href="https://t.me/analetik_1" target="_blank" class="telegram-channel-btn">
-            <svg style="width:20px; height:20px; fill:#fff;" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
-            Тегін каналға жазылу (@analetik_1)
-        </a>
-
-        <div class="match-card">
-            <div class="match-header"><span>ФУТБОЛ • ЧЕМПИОНДАР ЛИГАСЫ</span><span>БҮГІН 22:00</span></div>
-            <div class="match-teams"><span>Манчестер Сити</span><span>VS</span><span>ПСЖ</span></div>
-            <div class="match-pick"><span>Болжам: <b>Ман Сити Жеңісі (П1)</b></span><span style="color:var(--gold); font-weight:800;">Кэф: 1.85</span></div>
-        </div>
-
-        <div class="match-card">
-            <div class="match-header"><span>ФУТБОЛ • АПЛ</span><span>БҮГІН 20:30</span></div>
-            <div class="match-teams"><span>Ливерпуль</span><span>VS</span><span>Тоттенхэм</span></div>
-            <div class="match-pick"><span>Болжам: <b>Екі команда да гол соғады</b></span><span style="color:var(--gold); font-weight:800;">Кэф: 1.68</span></div>
+        <div class="tg-promo-card">
+            <div class="tg-promo-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
+            </div>
+            <h2 class="tg-promo-title">Тегін болжамдар Telegram арнамызда!</h2>
+            <p class="tg-promo-desc">
+                Күнделікті ең сенімді әрі тегін спорттық болжамдарды, VIP экспресстерді жіберіп алмау үшін ресми Telegram каналымызға жазылыңыз.
+            </p>
+            <a href="https://t.me/analetik_1" target="_blank" class="tg-promo-btn">
+                <span>Арнаға өту (@analetik_1)</span>
+                <svg style="width:16px; height:16px; fill:#fff;" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
         </div>
     </div>
 
