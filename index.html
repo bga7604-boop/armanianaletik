@@ -68,11 +68,11 @@
         header { 
             background: var(--header-bg); width: 100%; padding: 12px 16px; 
             display: flex; align-items: center; justify-content: space-between;
-            position: sticky; top: 0; z-index: 100;
+            position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--card-border);
         }
         .header-left { display: flex; align-items: center; gap: 12px; }
-        .menu-burger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
-        .menu-burger span { width: 18px; height: 2px; background: var(--text); border-radius: 2px; }
+        .menu-burger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 4px; padding: 4px; }
+        .menu-burger span { width: 20px; height: 2px; background: var(--text); border-radius: 2px; }
         .brand-logo { background: var(--accent); color: #fff; font-weight: 800; font-size: 13px; padding: 8px 14px; border-radius: 8px; cursor: pointer; }
         .header-right { display: flex; align-items: center; gap: 8px; }
         .icon-btn { background: var(--input-bg); border: none; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text); cursor: pointer; }
@@ -80,18 +80,67 @@
         .user-avatar-wrapper { width: 38px; height: 38px; cursor: pointer; }
         .user-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
+        /* 🍔 SIDE DRAWER MENU (ҮШ СЫЗЫҚ ИШІНДЕГІ МЕНЮ) */
+        .drawer-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+            z-index: 2000; display: none;
+        }
+        .drawer-overlay.active { display: block; }
+        .drawer-menu {
+            position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
+            background: var(--card); border-right: 1px solid var(--card-border);
+            z-index: 2001; transition: left 0.3s ease; padding: 20px;
+            display: flex; flex-direction: column;
+        }
+        .drawer-menu.active { left: 0; }
+        .drawer-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; }
+        .drawer-title { font-weight: 800; font-size: 16px; color: var(--text); }
+        .drawer-close { background: none; border: none; color: var(--subtext); font-size: 18px; cursor: pointer; }
+        .nav-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+        .nav-item {
+            display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+            border-radius: 10px; color: var(--subtext); text-decoration: none;
+            font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .nav-item:hover, .nav-item.active { background: var(--input-bg); color: var(--accent); }
+        .nav-item svg { width: 18px; height: 18px; fill: currentColor; }
+
         /* MAIN CONTAINER */
-        .main-container { max-width: 500px; width: 92%; margin: 10px auto; flex: 1; }
+        .main-container { max-width: 500px; width: 92%; margin: 15px auto; flex: 1; }
+        .page-section { display: none; }
+        .page-section.active { display: block; }
 
         /* WHEEL SECTION */
-        .wheel-section { background: var(--card); border-radius: 20px; padding: 25px 20px; text-align: center; }
+        .wheel-section { background: var(--card); border-radius: 20px; padding: 25px 20px; text-align: center; border: 1px solid var(--card-border); }
         .wheel-title { font-size: 22px; font-weight: 800; color: #fff; margin: 0 0 8px 0; }
         .wheel-subtitle { color: var(--subtext); font-size: 12px; margin: 0 0 20px 0; }
+        
+        /* 🎡 WHEEL WITH CENTER LOGO */
         .wheel-box { position: relative; width: 250px; height: 250px; margin: 0 auto 25px auto; }
         .wheel-pointer { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 16px solid var(--accent); z-index: 20; }
-        .wheel-canvas-container { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--accent); overflow: hidden; }
+        .wheel-canvas-container { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--accent); overflow: hidden; position: relative; }
         #wheelCanvas { width: 100%; height: 100%; }
+        
+        /* 🎯 CENTER LOGO HUB */
+        .wheel-center-logo {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 50px; height: 50px; background: var(--card); border: 3px solid var(--accent);
+            border-radius: 50%; z-index: 15; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5); font-weight: 900; color: var(--text); font-size: 18px;
+        }
+
         .btn-spin { background: var(--accent); color: #fff; border: none; padding: 12px 30px; border-radius: 10px; font-weight: 800; font-size: 14px; cursor: pointer; width: 100%; max-width: 260px; }
+
+        /* 📚 COURSES CARDS */
+        .courses-grid { display: flex; flex-direction: column; gap: 14px; }
+        .course-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+        .course-badge { background: rgba(37, 99, 235, 0.15); color: var(--accent); font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; width: fit-content; }
+        .course-title { font-size: 16px; font-weight: 800; margin: 0; }
+        .course-desc { font-size: 12px; color: var(--subtext); margin: 0; line-height: 1.4; }
+        .course-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; }
+        .course-price { font-size: 16px; font-weight: 800; color: var(--gold); }
+        .btn-buy { background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
 
         /* ✈️ TELEGRAM FLOATING SUPPORT BUTTON */
         .telegram-btn-float {
@@ -150,7 +199,6 @@
             border-radius: 10px; padding: 10px 14px; color: var(--text); font-size: 13px; outline: none;
         }
         .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
-        .form-textarea { resize: none; height: 60px; }
 
         .btn-telegram { width: 100%; padding: 12px; background: var(--telegram); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; margin-bottom: 12px; }
         .btn-save { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; margin-bottom: 8px; }
@@ -170,11 +218,38 @@
     <div class="spinner"></div>
 </div>
 
+<!-- 🍔 SIDE DRAWER OVERLAY & MENU -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer-menu" id="drawerMenu">
+    <div class="drawer-header">
+        <div class="drawer-title">Armani Analetik</div>
+        <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <ul class="nav-list">
+        <li class="nav-item active" onclick="switchPage('wheelSection', this)">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            Бонустар рулеткасы
+        </li>
+        <li class="nav-item" onclick="switchPage('coursesSection', this)">
+            <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+            Оқу курстары
+        </li>
+        <li class="nav-item" onclick="openModal('modalProfile'); closeDrawer();">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            Жеке профиль
+        </li>
+        <li class="nav-item" onclick="window.open('https://t.me/armani_04', '_blank')">
+            <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
+            Telegram қолдау
+        </li>
+    </ul>
+</div>
+
 <!-- HEADER -->
 <header>
     <div class="header-left">
-        <button class="menu-burger"><span></span><span></span><span></span></button>
-        <div class="brand-logo">Armani analetik</div>
+        <button class="menu-burger" onclick="openDrawer()"><span></span><span></span><span></span></button>
+        <div class="brand-logo" onclick="switchPage('wheelSection')">Armani analetik</div>
     </div>
     <div class="header-right">
         <button class="icon-btn" onclick="toggleTheme()">
@@ -187,17 +262,52 @@
 </header>
 
 <div class="main-container">
-    <div class="wheel-section">
-        <h1 class="wheel-title">Бонустар Рулеткасы</h1>
-        <p class="wheel-subtitle">Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз</p>
-        <div class="wheel-box">
-            <div class="wheel-pointer"></div>
-            <div class="wheel-canvas-container">
-                <canvas id="wheelCanvas" width="500" height="500"></canvas>
+    
+    <!-- SECTION 1: WHEEL -->
+    <div id="wheelSection" class="page-section active">
+        <div class="wheel-section">
+            <h1 class="wheel-title">Бонустар Рулеткасы</h1>
+            <p class="wheel-subtitle">Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз</p>
+            <div class="wheel-box">
+                <div class="wheel-pointer"></div>
+                <div class="wheel-canvas-container">
+                    <canvas id="wheelCanvas" width="500" height="500"></canvas>
+                    <!-- 🎯 CENTER LOGO HUB -->
+                    <div class="wheel-center-logo">A</div>
+                </div>
             </div>
+            <button class="btn-spin" onclick="spinWheel()">Айналдыру</button>
         </div>
-        <button class="btn-spin" onclick="spinWheel()">Айналдыру</button>
     </div>
+
+    <!-- SECTION 2: COURSES (КУРСТАР БӨЛІМІ) -->
+    <div id="coursesSection" class="page-section">
+        <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 15px;">Оқу курстары</h2>
+        <div class="courses-grid">
+            
+            <div class="course-card">
+                <span class="course-badge">START</span>
+                <h3 class="course-title">Спорттық Аналитика Негіздері</h3>
+                <p class="course-desc">Жаңадан бастаушыларға арналған курс. Статистиканы дұрыс талдау мен банк-менеджмент ережелері.</p>
+                <div class="course-footer">
+                    <div class="course-price">15,000 ₸</div>
+                    <button class="btn-buy" onclick="window.open('https://t.me/armani_04', '_blank')">Сатып алу</button>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <span class="course-badge">PRO VIP</span>
+                <h3 class="course-title">VIP Анализ және Live Стратегиялар</h3>
+                <p class="course-desc">Тәжірибелі аналитиктерге арналған стратегиялар, лайв режимдегі жоғары коэффициенттермен жұмыс.</p>
+                <div class="course-footer">
+                    <div class="course-price">35,000 ₸</div>
+                    <button class="btn-buy" onclick="window.open('https://t.me/armani_04', '_blank')">Сатып алу</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
 
 <!-- ✈️ FLOATING TELEGRAM SUPPORT BUTTON -->
@@ -250,7 +360,6 @@
             <button class="btn-logout" onclick="logout()">Жүйеден шығу</button>
         </div>
 
-        <!-- ✈️ TELEGRAM TAB -->
         <div id="tabSupport" class="tab-content">
             <div style="text-align: center; padding: 10px 0;">
                 <p style="font-size: 13px; color: var(--subtext); margin-bottom: 20px;">
@@ -293,6 +402,27 @@
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     
+    /* DRAWER MENU FUNCTIONS */
+    function openDrawer() {
+        document.getElementById('drawerOverlay').classList.add('active');
+        document.getElementById('drawerMenu').classList.add('active');
+    }
+    function closeDrawer() {
+        document.getElementById('drawerOverlay').classList.remove('active');
+        document.getElementById('drawerMenu').classList.remove('active');
+    }
+
+    /* PAGE SWITCHER */
+    function switchPage(pageId, element) {
+        document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        if (element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
+        }
+        closeDrawer();
+    }
+
     function switchProfileTab(tabId, element) {
         document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
         document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
