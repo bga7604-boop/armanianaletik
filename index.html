@@ -53,8 +53,8 @@
         .header-right { display: flex; align-items: center; gap: 8px; }
         .icon-btn { background: var(--input-bg); border: none; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text); cursor: pointer; }
         .icon-btn svg { width: 18px; height: 18px; fill: currentColor; }
-        .user-avatar-wrapper { width: 38px; height: 38px; cursor: pointer; }
-        .user-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .user-avatar-wrapper { width: 38px; height: 38px; cursor: pointer; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent); }
+        .user-avatar-img { width: 100%; height: 100%; object-fit: cover; }
 
         /* DRAWER MENU */
         .drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 2000; display: none; }
@@ -93,7 +93,7 @@
         .btn-spin:disabled { opacity: 0.5; cursor: not-allowed; }
         .timer-text { font-size: 12px; color: var(--gold); margin-top: 10px; font-weight: 700; display: none; }
 
-        /* STATISTICS SECTION (📊 СТАТИСТИКА Беті) */
+        /* STATISTICS SECTION */
         .stat-card-big { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 15px; }
         .stat-circle-box { position: relative; width: 120px; height: 120px; margin: 15px auto; display: flex; align-items: center; justify-content: center; }
         .stat-circle-val { font-size: 28px; font-weight: 900; color: var(--green); }
@@ -105,7 +105,7 @@
         .history-item { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
         .badge-win { background: rgba(16, 185, 129, 0.15); color: var(--green); font-weight: 800; padding: 4px 8px; border-radius: 6px; font-size: 11px; }
 
-        /* PREDICTIONS SECTION (🔮 ТЕГІН БОЛЖАМДАР) */
+        /* PREDICTIONS SECTION */
         .match-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
         .match-header { display: flex; justify-content: space-between; font-size: 11px; color: var(--subtext); margin-bottom: 10px; font-weight: 700; }
         .match-teams { display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 14px; margin-bottom: 12px; }
@@ -125,23 +125,43 @@
         .telegram-btn-float { position: fixed; bottom: 20px; right: 20px; background: var(--telegram); color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); z-index: 1000; text-decoration: none; }
         .telegram-btn-float svg { width: 24px; height: 24px; fill: #fff; }
 
-        /* MODALS */
+        /* 👤 MODAL PRO PROFILE (ТОЛЫҚ ЖАҢАРТЫЛҒАН ДИЗАЙН) */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 15px; }
-        .modal-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 24px; width: 100%; max-width: 400px; padding: 24px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; }
-        .modal-close { position: absolute; top: 16px; right: 16px; background: var(--input-bg); border: none; color: var(--subtext); font-size: 14px; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; }
+        .modal-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 24px; width: 100%; max-width: 420px; padding: 24px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; box-shadow: 0 20px 30px rgba(0,0,0,0.5); }
+        .modal-close { position: absolute; top: 16px; right: 16px; background: var(--input-bg); border: none; color: var(--subtext); font-size: 14px; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        .profile-tabs { display: flex; border-bottom: 1px solid var(--card-border); margin-bottom: 20px; }
+        .profile-header { margin-bottom: 20px; }
+        .avatar-container { position: relative; width: 90px; height: 90px; margin: 0 auto 12px auto; }
+        .avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); }
+        .avatar-upload-btn { position: absolute; bottom: 0; right: 0; background: var(--accent); border: 2px solid var(--card); color: #fff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .avatar-upload-btn svg { width: 14px; height: 14px; fill: #fff; }
+
+        .profile-user-title { font-size: 18px; font-weight: 800; margin: 0; color: var(--text); }
+        .profile-user-sub { font-size: 12px; color: var(--subtext); margin-top: 2px; }
+
+        .profile-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .profile-stat-card { background: var(--input-bg); padding: 12px; border-radius: 12px; border: 1px solid var(--card-border); }
+        .profile-stat-val { font-size: 14px; font-weight: 800; color: var(--gold); }
+        .profile-stat-lbl { font-size: 11px; color: var(--subtext); margin-top: 2px; }
+
+        .profile-tabs { display: flex; border-bottom: 1px solid var(--card-border); margin-bottom: 18px; }
         .profile-tab { flex: 1; text-align: center; padding: 10px 0; font-size: 12px; font-weight: 700; color: var(--subtext); cursor: pointer; position: relative; }
         .profile-tab.active { color: var(--accent); }
         .profile-tab.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background: var(--accent); }
 
-        .form-group { margin-bottom: 12px; text-align: left; }
-        .form-label { font-size: 11px; font-weight: 600; color: var(--subtext); margin-bottom: 4px; display: block; }
-        .form-input { width: 100%; background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px; color: var(--text); font-size: 13px; outline: none; }
+        .form-group { margin-bottom: 14px; text-align: left; }
+        .form-label { font-size: 11px; font-weight: 600; color: var(--subtext); margin-bottom: 6px; display: block; }
+        .form-input { width: 100%; background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 11px 14px; color: var(--text); font-size: 13px; outline: none; }
+        .form-input:focus { border-color: var(--accent); }
 
-        .btn-save { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; }
+        .btn-save { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; margin-top: 5px; }
+        .btn-logout { width: 100%; padding: 11px; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--red); color: var(--red); border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; margin-top: 10px; }
+        
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+
+        .reward-card { background: var(--input-bg); border: 1px dashed var(--card-border); padding: 12px; border-radius: 10px; text-align: left; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .reward-code { font-size: 14px; font-weight: 800; color: var(--gold); }
 
         footer { text-align: center; padding: 20px; font-size: 12px; color: var(--subtext); margin-top: 30px; }
     </style>
@@ -150,6 +170,7 @@
 
 <div id="preloader"><div class="loader-logo">Armani analetik</div><div class="spinner"></div></div>
 
+<!-- DRAWER MENU -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
 <div class="drawer-menu" id="drawerMenu">
     <div class="drawer-header">
@@ -180,6 +201,7 @@
     </ul>
 </div>
 
+<!-- HEADER -->
 <header>
     <div class="header-left">
         <button class="menu-burger" onclick="openDrawer()"><span></span><span></span><span></span></button>
@@ -219,7 +241,7 @@
         </div>
     </div>
 
-    <!-- 2: STATS SECTION (📊 КҮНДІК ӨТІМДІЛІК 80%) -->
+    <!-- 2: STATS SECTION -->
     <div id="statSection" class="page-section">
         <div class="stat-card-big">
             <h2 style="font-size: 18px; margin: 0;">Күндік Болжамдар Өтімділігі</h2>
@@ -246,7 +268,7 @@
         </div>
     </div>
 
-    <!-- 3: PREDICTIONS SECTION (🔮 ТЕГІН БОЛЖАМДАР) -->
+    <!-- 3: PREDICTIONS SECTION -->
     <div id="predictSection" class="page-section">
         <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">Бүгінгі Тегін Болжамдар</h2>
         
@@ -284,10 +306,10 @@
 
 </div>
 
-<!-- TELEGRAM BTN -->
+<!-- TELEGRAM FLOATING BUTTON -->
 <a href="https://t.me/armani_04" target="_blank" class="telegram-btn-float"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg></a>
 
-<!-- MODAL PROFILE & WIN RESULT -->
+<!-- WIN MODAL -->
 <div class="modal-overlay" id="modalWin">
     <div class="modal-card">
         <h2 style="font-size:22px; color:var(--gold); margin-top:0;">Құттықтаймыз! 🎉</h2>
@@ -296,26 +318,85 @@
     </div>
 </div>
 
+<!-- 👤 MODAL PRO PROFILE (ЖАҢАРТЫЛҒАН ПРОФИЛЬ МОДАЛКАСЫ) -->
 <div class="modal-overlay" id="modalProfile">
     <div class="modal-card">
         <button class="modal-close" onclick="closeModal('modalProfile')">✕</button>
-        <div class="profile-tabs">
-            <div class="profile-tab active" onclick="switchProfileTab('tabProfile', this)">Профиль</div>
-            <div class="profile-tab" onclick="switchProfileTab('tabRewards', this)">Бонустар</div>
+        
+        <div class="profile-header">
+            <div class="avatar-container">
+                <img class="avatar-img" id="profileAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="Avatar">
+                <label for="avatarInput" class="avatar-upload-btn" title="Суретті өзгерту">
+                    <svg viewBox="0 0 24 24"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+                </label>
+                <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="changeAvatar(event)">
+            </div>
+            <h3 class="profile-user-title" id="displayUserName">Armani User</h3>
+            <div class="profile-user-sub">ID: #849204 • PRO VIP Пайдаланушы</div>
         </div>
 
-        <div id="tabProfile" class="tab-content active">
-            <div class="form-group"><label class="form-label">Аты-жөніңіз</label><input type="text" class="form-input" value="Armani Bot"></div>
-            <div class="form-group"><label class="form-label">Төлем картасы</label><input type="text" class="form-input" value="Kaspi Gold (**** 4812)"></div>
-            <button class="btn-save" onclick="closeModal('modalProfile')">Сақтау</button>
-        </div>
-
-        <div id="tabRewards" class="tab-content">
-            <div style="background:var(--input-bg); padding:10px; border-radius:10px; text-align:left; margin-bottom:10px;">
-                <div style="font-size:11px; color:var(--subtext);">Жеңілдік Промокоды:</div>
-                <div style="font-size:14px; font-weight:800; color:var(--gold);" id="userPromoCode">АЙНАЛДЫРЫЛМАҒАН</div>
+        <div class="profile-stats-grid">
+            <div class="profile-stat-card">
+                <div class="profile-stat-val">PRO VIP</div>
+                <div class="profile-stat-lbl">Мәртебесі</div>
+            </div>
+            <div class="profile-stat-card">
+                <div class="profile-stat-val">2 Курс</div>
+                <div class="profile-stat-lbl">Белсенді</div>
             </div>
         </div>
+
+        <div class="profile-tabs">
+            <div class="profile-tab active" onclick="switchProfileTab('tabProfile', this)">Деректер</div>
+            <div class="profile-tab" onclick="switchProfileTab('tabRewards', this)">Бонустар</div>
+            <div class="profile-tab" onclick="switchProfileTab('tabSecurity', this)">Қауіпсіздік</div>
+        </div>
+
+        <!-- 1-ВКЛАДКА: ДЕРЕКТЕР -->
+        <div id="tabProfile" class="tab-content active">
+            <div class="form-group">
+                <label class="form-label">Аты-жөніңіз</label>
+                <input type="text" class="form-input" id="inputName" value="Armani User">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Телефон нөміріңіз</label>
+                <input type="tel" class="form-input" id="inputPhone" value="+7 (707) 123-45-67">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Төлем картасы (Kaspi Gold)</label>
+                <input type="text" class="form-input" id="inputPay" value="4400 •••• •••• 4812">
+            </div>
+            <button class="btn-save" onclick="saveProfile()">Өзгерістерді сақтау</button>
+            <button class="btn-logout" onclick="logout()">Жүйеден шығу</button>
+        </div>
+
+        <!-- 2-ВКЛАДКА: БОНУСТАР -->
+        <div id="tabRewards" class="tab-content">
+            <div class="reward-card">
+                <div>
+                    <div style="font-size:11px; color:var(--subtext);">Ұтып алған промокод:</div>
+                    <div class="reward-code" id="userPromoCode">АЙНАЛДЫРЫЛМАҒАН</div>
+                </div>
+                <button style="background:var(--accent); color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;" onclick="copyPromo()">Көшіру</button>
+            </div>
+            <p style="font-size:11px; color:var(--subtext); text-align:left; margin-top:10px;">
+                * Промокодты курстарды сатып алу кезінде операторға (@armani_04) жіберіп, жеңілдік алыңыз.
+            </p>
+        </div>
+
+        <!-- 3-ВКЛАДКА: ҚАУІПСІЗДІК -->
+        <div id="tabSecurity" class="tab-content">
+            <div class="form-group">
+                <label class="form-label">Ескі құпия сөз</label>
+                <input type="password" class="form-input" placeholder="••••••••">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Жаңа құпия сөз</label>
+                <input type="password" class="form-input" placeholder="Жаңа құпия сөз еңгізіңіз">
+            </div>
+            <button class="btn-save" onclick="alert('Құпия сөз сәтті жаңартылды!')">Құпия сөзді өзгерту</button>
+        </div>
+
     </div>
 </div>
 
@@ -340,11 +421,48 @@
         closeDrawer();
     }
 
+    /* PROFILE FUNCTIONS */
     function switchProfileTab(tabId, el) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
         el.classList.add('active');
+    }
+
+    function changeAvatar(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profileAvatar').src = e.target.result;
+                document.getElementById('headerAvatar').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function saveProfile() {
+        const name = document.getElementById('inputName').value;
+        document.getElementById('displayUserName').innerText = name;
+        alert('Профиль деректері сәтті сақталды!');
+        closeModal('modalProfile');
+    }
+
+    function logout() {
+        if(confirm('Жүйеден шығуды растайсыз ба?')) {
+            alert('Шығу орындалды.');
+            closeModal('modalProfile');
+        }
+    }
+
+    function copyPromo() {
+        const code = document.getElementById('userPromoCode').innerText;
+        if(code !== 'АЙНАЛДЫРЫЛМАҒАН') {
+            navigator.clipboard.writeText(code);
+            alert('Промокод көшірілді: ' + code);
+        } else {
+            alert('Алдымен рулетканы айналдырыңыз!');
+        }
     }
 
     /* WHEEL ENGINE */
