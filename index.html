@@ -105,11 +105,12 @@
         .history-item { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
         .badge-win { background: rgba(16, 185, 129, 0.15); color: var(--green); font-weight: 800; padding: 4px 8px; border-radius: 6px; font-size: 11px; }
 
-        /* PREDICTIONS SECTION */
+        /* PREDICTIONS SECTION (🔮 ТЕГІН БОЛЖАМДАР + СЫЛКА) */
         .match-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
         .match-header { display: flex; justify-content: space-between; font-size: 11px; color: var(--subtext); margin-bottom: 10px; font-weight: 700; }
         .match-teams { display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 14px; margin-bottom: 12px; }
         .match-pick { background: var(--input-bg); padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; font-size: 12px; }
+        .telegram-channel-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--telegram); color: #fff; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 13px; text-decoration: none; margin-bottom: 15px; width: 100%; text-align: center; }
 
         /* COURSES CARDS */
         .courses-grid { display: flex; flex-direction: column; gap: 12px; }
@@ -125,7 +126,7 @@
         .telegram-btn-float { position: fixed; bottom: 20px; right: 20px; background: var(--telegram); color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); z-index: 1000; text-decoration: none; }
         .telegram-btn-float svg { width: 24px; height: 24px; fill: #fff; }
 
-        /* 👤 MODAL PRO PROFILE (ТОЛЫҚ ЖАҢАРТЫЛҒАН ДИЗАЙН) */
+        /* MODAL PROFILE */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 15px; }
         .modal-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 24px; width: 100%; max-width: 420px; padding: 24px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; box-shadow: 0 20px 30px rgba(0,0,0,0.5); }
         .modal-close { position: absolute; top: 16px; right: 16px; background: var(--input-bg); border: none; color: var(--subtext); font-size: 14px; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -221,7 +222,7 @@
     <div class="hero-banner">
         <h3>VIP Каналға Қосыл!</h3>
         <p>Күндік өтімділігі 80%+ болатын экспресстер мен VIP талдаулар!</p>
-        <button class="hero-btn" onclick="window.open('https://t.me/armani_04', '_blank')">Толығырақ</button>
+        <button class="hero-btn" onclick="window.open('https://t.me/analetik_1', '_blank')">Толығырақ</button>
     </div>
     
     <!-- 1: WHEEL SECTION -->
@@ -268,10 +269,16 @@
         </div>
     </div>
 
-    <!-- 3: PREDICTIONS SECTION -->
+    <!-- 3: PREDICTIONS SECTION (🔮 ТЕГІН БОЛЖАМДАР + СЫЛКА) -->
     <div id="predictSection" class="page-section">
         <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">Бүгінгі Тегін Болжамдар</h2>
         
+        <!-- TELEGRAM KANALGA SSYLKA -->
+        <a href="https://t.me/analetik_1" target="_blank" class="telegram-channel-btn">
+            <svg style="width:20px; height:20px; fill:#fff;" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
+            Тегін каналға жазылу (@analetik_1)
+        </a>
+
         <div class="match-card">
             <div class="match-header"><span>ФУТБОЛ • ЧЕМПИОНДАР ЛИГАСЫ</span><span>БҮГІН 22:00</span></div>
             <div class="match-teams"><span>Манчестер Сити</span><span>VS</span><span>ПСЖ</span></div>
@@ -293,13 +300,13 @@
                 <span class="course-badge">START</span>
                 <h3 class="course-title">Спорттық Аналитика Негіздері</h3>
                 <p class="course-desc">Статистиканы дұрыс талдау мен банк-менеджмент ережелері.</p>
-                <div class="course-footer"><div class="course-price">15,000 ₸</div><button class="btn-buy" onclick="window.open('https://t.me/armani_04', '_blank')">Сатып алу</button></div>
+                <div class="course-footer"><div class="course-price">15,000 ₸</div><button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Сатып алу</button></div>
             </div>
             <div class="course-card">
                 <span class="course-badge">PRO VIP</span>
                 <h3 class="course-title">VIP Анализ және Live Стратегиялар</h3>
                 <p class="course-desc">Лайв режимдегі жоғары коэффициенттермен жұмыс істеу құпиялары.</p>
-                <div class="course-footer"><div class="course-price">35,000 ₸</div><button class="btn-buy" onclick="window.open('https://t.me/armani_04', '_blank')">Сатып алу</button></div>
+                <div class="course-footer"><div class="course-price">35,000 ₸</div><button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Сатып алу</button></div>
             </div>
         </div>
     </div>
@@ -307,7 +314,7 @@
 </div>
 
 <!-- TELEGRAM FLOATING BUTTON -->
-<a href="https://t.me/armani_04" target="_blank" class="telegram-btn-float"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg></a>
+<a href="https://t.me/analetik_1" target="_blank" class="telegram-btn-float"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg></a>
 
 <!-- WIN MODAL -->
 <div class="modal-overlay" id="modalWin">
@@ -318,7 +325,7 @@
     </div>
 </div>
 
-<!-- 👤 MODAL PRO PROFILE (ЖАҢАРТЫЛҒАН ПРОФИЛЬ МОДАЛКАСЫ) -->
+<!-- MODAL PROFILE -->
 <div class="modal-overlay" id="modalProfile">
     <div class="modal-card">
         <button class="modal-close" onclick="closeModal('modalProfile')">✕</button>
@@ -380,7 +387,7 @@
                 <button style="background:var(--accent); color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;" onclick="copyPromo()">Көшіру</button>
             </div>
             <p style="font-size:11px; color:var(--subtext); text-align:left; margin-top:10px;">
-                * Промокодты курстарды сатып алу кезінде операторға (@armani_04) жіберіп, жеңілдік алыңыз.
+                * Промокодты курстарды сатып алу кезінде админге (@analetik_1) жіберіп, жеңілдік алыңыз.
             </p>
         </div>
 
