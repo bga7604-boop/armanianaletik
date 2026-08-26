@@ -194,26 +194,27 @@
             border-radius: 50%; z-index: 10; display: flex; align-items: center; justify-content: center;
         }
 
-        .wheel-timer-box {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: rgba(255, 183, 3, 0.08);
-            border: 1px solid rgba(255, 183, 3, 0.3);
-            padding: 8px 16px;
-            border-radius: 12px;
-            margin-bottom: 14px;
-            box-shadow: 0 0 15px rgba(255, 183, 3, 0.1);
-        }
-        .wheel-timer-label { font-size: 11px; color: var(--subtext); font-weight: 600; }
-        .wheel-timer-count { font-size: 14px; font-weight: 900; color: var(--gold); font-family: monospace; letter-spacing: 0.5px; }
-
         .btn-spin { 
             background: linear-gradient(90deg, #00d2ff, #0088ff); color: #000; border: none; padding: 13px 24px; border-radius: 12px;
             font-weight: 900; font-size: 14px; cursor: pointer; width: 100%; max-width: 280px;
             box-shadow: 0 4px 15px var(--accent-glow); transition: 0.2s ease; display: block; margin: 0 auto;
         }
+
+        /* 🔥 БАТЫРМА ОРНЫНА ШЫҒАТЫН ТАЙМЕР СТИЛІ */
+        .btn-spin-timer {
+            display: none;
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            background: rgba(255, 183, 3, 0.08);
+            border: 1px solid rgba(255, 183, 3, 0.4);
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(255, 183, 3, 0.15);
+            text-align: center;
+        }
+        .spin-timer-label { font-size: 11px; color: var(--subtext); font-weight: 600; display: block; margin-bottom: 2px; }
+        .spin-timer-count { font-size: 16px; font-weight: 900; color: var(--gold); font-family: monospace; letter-spacing: 1px; }
 
         /* FOOTER */
         footer { background: #04060b; border-top: 1px solid var(--border); padding: 30px 16px 20px 16px; margin-top: 30px; }
@@ -258,7 +259,7 @@
         .modal-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
         .modal-title { color: #fff; font-size: 16px; font-weight: 800; margin: 0 0 12px 0; }
 
-        /* 🔥 ЗАМАНАУИ ПРОФИЛЬ МОДАЛ СТИЛЬДЕРІ */
+        /* PROFIL MODAL STYLES */
         .profile-card-content { text-align: center; }
         .profile-avatar-wrapper { position: relative; width: 84px; height: 84px; margin: 0 auto 12px auto; }
         .profile-avatar-img { width: 100%; height: 100%; border-radius: 50%; border: 2.5px solid var(--accent); box-shadow: 0 0 20px var(--accent-glow); object-fit: cover; background: #080d1a; }
@@ -425,7 +426,7 @@
     <!-- РУЛЕТКА -->
     <div class="wheel-section">
         <h2 style="margin:0; font-size:18px; color:#fff; font-weight: 800;">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h2>
-        <p style="color:var(--subtext); font-size:11px; margin: 3px 0 5px 0;">Күнделікті бонустар ұтып алыңыз</p>
+        <p style="color:var(--subtext); font-size:11px; margin: 3px 0 15px 0;">Күнделікті бонустар ұтып алыңыз</p>
         
         <div class="wheel-box">
             <div class="wheel-pointer"></div>
@@ -440,14 +441,13 @@
             </div>
         </div>
 
-        <div>
-            <div class="wheel-timer-box">
-                <span class="wheel-timer-label">⏳ Келесі айналдыруға дейін:</span>
-                <span class="wheel-timer-count" id="wheelTimer">24:00:00</span>
-            </div>
-        </div>
-        
+        <!-- 🔥 БАТЫРМА ЖӘНЕ ОРНЫНА ШЫҒАТЫН ТАЙМЕР -->
         <button class="btn-spin" onclick="spinWheel()" id="spinBtn">🎰 АЙНАЛДЫРУ</button>
+        
+        <div class="btn-spin-timer" id="spinTimerBox">
+            <span class="spin-timer-label">⏳ Келесі айналдыруға дейін:</span>
+            <span class="spin-timer-count" id="spinTimerText">00:00:00</span>
+        </div>
     </div>
 
 </div>
@@ -508,7 +508,6 @@
     </div>
 </div>
 
-<!-- 🔥 ЖАҢА ЗАМАНАУИ ПРОФИЛЬ МОДАЛЫ -->
 <div class="modal-overlay" id="modalProfile">
     <div class="modal-card">
         <button class="modal-close" onclick="closeModal('modalProfile')">✕</button>
@@ -548,6 +547,8 @@
 </div>
 
 <script>
+    let timerInterval = null;
+
     window.addEventListener('load', () => {
         setTimeout(() => {
             const loader = document.getElementById('preloader');
@@ -556,7 +557,7 @@
         drawWheel();
         checkAuth();
         startAstanaClock();
-        start24hTimer();
+        checkSpinTimerState(); // Руллетка таймер күйін тексеру
     });
 
     function startAstanaClock() {
@@ -569,23 +570,56 @@
         setInterval(updateClock, 1000);
     }
 
-    function start24hTimer() {
-        function updateTimer() {
-            const now = new Date();
-            const tomorrow = new Date(now);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            tomorrow.setHours(0, 0, 0, 0);
+    /* 🔥 ТАЙМЕРДІ ТЕКСЕРУ ЖӘНЕ ІСКЕ ҚОСУ СҮЗГІСІ */
+    function checkSpinTimerState() {
+        const nextSpinTime = localStorage.getItem('armani_next_spin');
+        const now = Date.now();
 
-            const diff = tomorrow - now;
+        if (nextSpinTime && now < parseInt(nextSpinTime)) {
+            showTimerUI(parseInt(nextSpinTime));
+        } else {
+            showSpinButtonUI();
+        }
+    }
+
+    function showTimerUI(targetTime) {
+        const btn = document.getElementById('spinBtn');
+        const timerBox = document.getElementById('spinTimerBox');
+        
+        btn.style.display = 'none';
+        timerBox.style.display = 'block';
+
+        if (timerInterval) clearInterval(timerInterval);
+
+        function updateCountdown() {
+            const now = Date.now();
+            const diff = targetTime - now;
+
+            if (diff <= 0) {
+                clearInterval(timerInterval);
+                localStorage.removeItem('armani_next_spin');
+                showSpinButtonUI();
+                return;
+            }
 
             const h = Math.floor(diff / (1000 * 60 * 60)).toString().padStart(2, '0');
             const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
             const s = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
 
-            document.getElementById('wheelTimer').innerText = `${h}:${m}:${s}`;
+            document.getElementById('spinTimerText').innerText = `${h}:${m}:${s}`;
         }
-        updateTimer();
-        setInterval(updateTimer, 1000);
+
+        updateCountdown();
+        timerInterval = setInterval(updateCountdown, 1000);
+    }
+
+    function showSpinButtonUI() {
+        const btn = document.getElementById('spinBtn');
+        const timerBox = document.getElementById('spinTimerBox');
+        
+        btn.style.display = 'block';
+        btn.disabled = false;
+        timerBox.style.display = 'none';
     }
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
@@ -691,6 +725,11 @@
             } else {
                 isSpinning = false;
                 alert("🎉 Ұтысыңыз: " + prizes[winIndex].text);
+                
+                // 🔥 ТАЙМЕРДІ 24 САҒАТҚА ОРНАТУ ЖӘНЕ БАТЫРМАНЫ ТАЙМЕРГЕ АУЫСТЫРУ
+                const nextSpin = Date.now() + (24 * 60 * 60 * 1000);
+                localStorage.setItem('armani_next_spin', nextSpin.toString());
+                showTimerUI(nextSpin);
             }
         }
         requestAnimationFrame(animate);
