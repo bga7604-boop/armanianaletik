@@ -217,23 +217,23 @@
             <div class="drawer-title">Armani Analetik</div>
         </div>
         <ul class="nav-list">
-            <li class="nav-item active" onclick="switchPage('wheelSection', this)" data-i18n="nav_wheel">
+            <li class="nav-item active" onclick="switchPage('wheelSection', this)">
                 <i class="fa-solid fa-dharmachakra"></i>
                 Бонустар рулеткасы
             </li>
-            <li class="nav-item" onclick="switchPage('statSection', this)" data-i18n="nav_stats">
+            <li class="nav-item" onclick="switchPage('statSection', this)">
                 <i class="fa-solid fa-chart-line"></i>
                 Өтімділік статистикасы
             </li>
-            <li class="nav-item" onclick="switchPage('predictSection', this)" data-i18n="nav_predict">
+            <li class="nav-item" onclick="switchPage('predictSection', this)">
                 <i class="fa-solid fa-pen-to-square"></i>
                 Тегін болжамдар
             </li>
-            <li class="nav-item" onclick="switchPage('coursesSection', this)" data-i18n="nav_courses">
+            <li class="nav-item" onclick="switchPage('coursesSection', this)">
                 <i class="fa-solid fa-graduation-cap"></i>
                 Оқу курстары
             </li>
-            <li class="nav-item" onclick="openProfileModal(); closeDrawer();" data-i18n="nav_profile">
+            <li class="nav-item" onclick="openProfileModal(); closeDrawer();">
                 <i class="fa-solid fa-user"></i>
                 Жеке профиль
             </li>
@@ -243,15 +243,14 @@
     <!-- SIDEBAR FOOTER (ТІЛДЕР ЖӘНЕ ИКОНКАЛАР) -->
     <div class="drawer-footer">
         <div class="lang-switch">
-            <button class="lang-btn active" id="lang-btn-kk" onclick="setLanguage('kk')">KK</button>
-            <button class="lang-btn" id="lang-btn-ru" onclick="setLanguage('ru')">RU</button>
+            <button class="lang-btn active">KK</button>
+            <button class="lang-btn">RU</button>
         </div>
         <div class="social-links">
             <a href="https://t.me/analetik_1" target="_blank" class="social-btn"><i class="fa-paper-plane"></i></a>
             <a href="#" target="_blank" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
             <a href="#" target="_blank" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
-            <!-- TIKTOK СІЛТЕМЕСІ ҚОСЫЛДЫ -->
-            <a href="https://www.tiktok.com/@armani_analetik" target="_blank" class="social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" target="_blank" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
         </div>
     </div>
 </div>
@@ -270,7 +269,7 @@
 
         <button class="header-auth-btn" id="headerAuthBtn" onclick="openProfileModal()">
             <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-            <span data-i18n="login_btn">Кіру</span>
+            Кіру
         </button>
 
         <div class="user-avatar-wrapper" id="headerAvatarWrapper" onclick="openProfileModal()">
@@ -282,20 +281,20 @@
 <div class="main-container">
 
     <div class="pwa-install-banner" id="pwaBanner">
-        <p data-i18n="pwa_text">Қолданбаны телефонға орнату</p>
-        <button class="btn-install-pwa" id="btnInstallPWA" data-i18n="pwa_btn">Орнату</button>
+        <p>Қолданбаны телефонға орнату</p>
+        <button class="btn-install-pwa" id="btnInstallPWA">Орнату</button>
     </div>
 
     <div class="hero-banner">
-        <h3 data-i18n="hero_title">VIP Каналға Қосыл!</h3>
-        <p data-i18n="hero_desc">Күндік өтімділігі 80%+ болатын статистикалық болжамдар мен VIP талдаулар!</p>
-        <button class="hero-btn" onclick="window.open('https://t.me/analetik_1', '_blank')" data-i18n="hero_btn">Толығырақ</button>
+        <h3>VIP Каналға Қосыл!</h3>
+        <p>Күндік өтімділігі 80%+ болатын статистикалық болжамдар мен VIP талдаулар!</p>
+        <button class="hero-btn" onclick="window.open('https://t.me/analetik_1', '_blank')">Толығырақ</button>
     </div>
     
     <div id="wheelSection" class="page-section active">
         <div class="wheel-section">
-            <h1 class="wheel-title" data-i18n="wheel_title">Бонустар Рулеткасы</h1>
-            <p class="wheel-subtitle" data-i18n="wheel_subtitle">Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз</p>
+            <h1 class="wheel-title">Бонустар Рулеткасы</h1>
+            <p class="wheel-subtitle">Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз</p>
             <div class="wheel-box">
                 <div class="wheel-pointer"></div>
                 <div class="wheel-canvas-container">
@@ -303,34 +302,34 @@
                     <div class="wheel-center-logo">AV</div>
                 </div>
             </div>
-            <button class="btn-spin" id="spinBtn" onclick="spinWheel()" data-i18n="spin_btn">Айналдыру</button>
-            <div class="timer-text" id="spinTimer" data-i18n="next_spin">Келесі мүмкіндік: 23:59:59</div>
+            <button class="btn-spin" id="spinBtn" onclick="spinWheel()">Айналдыру</button>
+            <div class="timer-text" id="spinTimer">Келесі мүмкіндік: 23:59:59</div>
         </div>
     </div>
 
     <div id="statSection" class="page-section">
         <div class="stat-card-big">
-            <h2 style="font-size: 18px; margin: 0;" data-i18n="stat_title">Күндік Болжамдар Өтімділігі</h2>
+            <h2 style="font-size: 18px; margin: 0;">Күндік Болжамдар Өтімділігі</h2>
             <div class="stat-circle-box">
                 <div>
                     <div class="stat-circle-val">80%</div>
-                    <div class="stat-circle-lbl" data-i18n="stat_passability">Өтімділік</div>
+                    <div class="stat-circle-lbl">Өтімділік</div>
                 </div>
             </div>
-            <p style="font-size: 12px; color: var(--subtext); margin: 0;" data-i18n="stat_desc">Соңғы 30 күндегі сараптама нәтижесі бойынша</p>
+            <p style="font-size: 12px; color: var(--subtext); margin: 0;">Соңғы 30 күндегі сараптама нәтижесі бойынша</p>
 
             <div class="stat-grid">
-                <div class="stat-box"><div class="stat-num" style="color:var(--green)">160</div><div class="stat-circle-lbl" data-i18n="stat_won">Ұтты</div></div>
-                <div class="stat-box"><div class="stat-num" style="color:var(--red)">40</div><div class="stat-circle-lbl" data-i18n="stat_lost">Ұтылды</div></div>
-                <div class="stat-box"><div class="stat-num" style="color:var(--gold)">1.85</div><div class="stat-circle-lbl" data-i18n="stat_avg">Орт. Кэф</div></div>
+                <div class="stat-box"><div class="stat-num" style="color:var(--green)">160</div><div class="stat-circle-lbl">Утты</div></div>
+                <div class="stat-box"><div class="stat-num" style="color:var(--red)">40</div><div class="stat-circle-lbl">Ұтылды</div></div>
+                <div class="stat-box"><div class="stat-num" style="color:var(--gold)">1.85</div><div class="stat-circle-lbl">Орт. Кэф</div></div>
             </div>
         </div>
 
-        <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 10px;" data-i18n="history_title">Соңғы нәтижелер тарихы</h3>
+        <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 10px;">Соңғы нәтижелер тарихы</h3>
         <div class="history-list">
-            <div class="history-item"><span>Реал Мадрид - Барселона (ТБ 2.5)</span><span class="badge-win" data-i18n="win_badge">УТТЫ (1.82)</span></div>
-            <div class="history-item"><span>Арсенал - Челси (П1)</span><span class="badge-win" data-i18n="win_badge">УТТЫ (1.75)</span></div>
-            <div class="history-item"><span>Бавария - Боруссия (Ф1 -1)</span><span class="badge-win" data-i18n="win_badge">УТТЫ (1.90)</span></div>
+            <div class="history-item"><span>Реал Мадрид - Барселона (ТБ 2.5)</span><span class="badge-win">УТТЫ (1.82)</span></div>
+            <div class="history-item"><span>Арсенал - Челси (П1)</span><span class="badge-win">УТТЫ (1.75)</span></div>
+            <div class="history-item"><span>Бавария - Боруссия (Ф1 -1)</span><span class="badge-win">УТТЫ (1.90)</span></div>
         </div>
     </div>
 
@@ -339,66 +338,66 @@
             <div class="tg-promo-icon">
                 <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
             </div>
-            <h2 class="tg-promo-title" data-i18n="tg_title">Тегін болжамдар Telegram арнамызда!</h2>
-            <p class="tg-promo-desc" data-i18n="tg_desc">
+            <h2 class="tg-promo-title">Тегін болжамдар Telegram арнамызда!</h2>
+            <p class="tg-promo-desc">
                 Күнделікті ең сенімді әрі тегін спорттық болжамдарды, статистикалық болжамдарды жіберіп алмау үшін ресми Telegram каналымызға жазылыңыз.
             </p>
             <a href="https://t.me/analetik_1" target="_blank" class="tg-promo-btn">
-                <span data-i18n="tg_btn">Арнаға өту (@analetik_1)</span>
+                <span>Арнаға өту (@analetik_1)</span>
                 <svg style="width:16px; height:16px; fill:#fff;" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
         </div>
     </div>
 
     <div id="coursesSection" class="page-section">
-        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;" data-i18n="courses_main_title">Толық Оқу Курстары</h2>
+        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">Толық Оқу Курстары</h2>
         <div class="courses-grid">
             <div class="course-card">
                 <span class="course-badge">START • 4 Модуль</span>
-                <h3 class="course-title" data-i18n="c1_title">Спорттық Аналитика Негіздері</h3>
-                <p class="course-desc" data-i18n="c1_desc">Жаңадан бастаушыларға арналған базалық курс. Статистиканы талдау мен қаржыны қорғау негіздері.</p>
+                <h3 class="course-title">Спорттық Аналитика Негіздері</h3>
+                <p class="course-desc">Жаңадан бастаушыларға арналған базалық курс. Статистиканы талдау мен қаржыны қорғау негіздері.</p>
                 <ul class="course-modules">
-                    <li data-i18n="c1_m1">1-Модуль: Банк-менеджмент және флэт стратегиясы</li>
-                    <li data-i18n="c1_m2">2-Модуль: Коэффициенттерді есептеу және маржа</li>
-                    <li data-i18n="c1_m3">3-Модуль: Командалық статистиканы талдау</li>
-                    <li data-i18n="c1_m4">4-Модуль: Психология және тіптер қателіктері</li>
+                    <li>1-Модуль: Банк-менеджмент және флэт стратегиясы</li>
+                    <li>2-Модуль: Коэффициенттерді есептеу және маржа</li>
+                    <li>3-Модуль: Командалық статистиканы талдау</li>
+                    <li>4-Модуль: Психология және тіптер қателіктері</li>
                 </ul>
                 <div class="course-footer">
                     <div class="course-price">15,000 ₸</div>
-                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')" data-i18n="buy_btn">Курсты сатып алу</button>
+                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Курсты сатып алу</button>
                 </div>
             </div>
 
             <div class="course-card">
                 <span class="course-badge">PRO VIP • 6 Модуль</span>
-                <h3 class="course-title" data-i18n="c2_title">VIP Анализ және Live Стратегиялар</h3>
-                <p class="course-desc" data-i18n="c2_desc">Тікелей эфирде (Live) жоғары коэффициенттермен кәсіби жұмыс істеу құпиялары.</p>
+                <h3 class="course-title">VIP Анализ және Live Стратегиялар</h3>
+                <p class="course-desc">Тікелей эфирде (Live) жоғары коэффициенттермен кәсіби жұмыс істеу құпиялары.</p>
                 <ul class="course-modules">
-                    <li data-i18n="c2_m1">1-Модуль: Live-статистиканы секундта оқу</li>
-                    <li data-i18n="c2_m2">2-Модуль: Футбол, Баскетбол және ТЕННИС талдауы</li>
-                    <li data-i18n="c2_m3">3-Модуль: Соңғы минуттардағы тотал стратегиялары</li>
-                    <li data-i18n="c2_m4">4-Модуль: Рискісіз арбитраж (вилка) концептісі</li>
-                    <li data-i18n="c2_m5">5-Модуль: Модельдеу және бағдарламалық құралдар</li>
-                    <li data-i18n="c2_m6">6-Модуль: Тікелей менторлық және кураторлық қолдау</li>
+                    <li>1-Модуль: Live-статистиканы секундта оқу</li>
+                    <li>2-Модуль: Футбол, Баскетбол және ТЕННИС талдауы</li>
+                    <li>3-Модуль: Соңғы минуттардағы тотал стратегиялары</li>
+                    <li>4-Модуль: Рискісіз арбитраж (вилка) концептісі</li>
+                    <li>5-Модуль: Модельдеу және бағдарламалық құралдар</li>
+                    <li>6-Модуль: Тікелей менторлық және кураторлық қолдау</li>
                 </ul>
                 <div class="course-footer">
                     <div class="course-price">35,000 ₸</div>
-                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')" data-i18n="buy_btn">Курсты сатып алу</button>
+                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Курсты сатып алу</button>
                 </div>
             </div>
 
             <div class="course-card">
-                <span class="course-badge" data-i18n="c3_badge">EXPERT • Жеке Менторлық</span>
-                <h3 class="course-title" data-i18n="c3_title">Арнаны Жүргізу және Монетизация</h3>
-                <p class="course-desc" data-i18n="c3_desc">Жеке спорттық-сараптамалық телеграм каналды нөлден бастап ашып, оны дамыту курсы.</p>
+                <span class="course-badge">EXPERT • Жеке Менторлық</span>
+                <h3 class="course-title">Арнаны Жүргізу және Монетизация</h3>
+                <p class="course-desc">Жеке спорттық-сараптамалық телеграм каналды нөлден бастап ашып, оны дамыту курсы.</p>
                 <ul class="course-modules">
-                    <li data-i18n="c3_m1">Каналды безендіру және контент-жоспар</li>
-                    <li data-i18n="c3_m2">Трафик тарту (жарнама беру ережелері)</li>
-                    <li data-i18n="c3_m3">Аудиториямен жұмыс және клиенттік сервис</li>
+                    <li>Каналды безендіру және контент-жоспар</li>
+                    <li>Трафик тарту (жарнама беру ережелері)</li>
+                    <li>Аудиториямен жұмыс және клиенттік сервис</li>
                 </ul>
                 <div class="course-footer">
                     <div class="course-price">60,000 ₸</div>
-                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')" data-i18n="buy_btn">Курсты сатып алу</button>
+                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Курсты сатып алу</button>
                 </div>
             </div>
         </div>
@@ -410,9 +409,9 @@
 
 <div class="modal-overlay" id="modalWin">
     <div class="modal-card">
-        <h2 style="font-size:22px; color:var(--gold); margin-top:0;" data-i18n="win_modal_title">Құттықтаймыз! 🎉</h2>
-        <p style="font-size:14px; margin-bottom:20px;"><span data-i18n="win_modal_desc">Сіздің ұтысыңыз:</span> <br><b id="winText" style="font-size:18px; color:var(--accent);"></b></p>
-        <button class="btn-save" onclick="closeModal('modalWin')" data-i18n="save_bonus_btn">Бонусты Сақтау</button>
+        <h2 style="font-size:22px; color:var(--gold); margin-top:0;">Құттықтаймыз! 🎉</h2>
+        <p style="font-size:14px; margin-bottom:20px;">Сіздің ұтысыңыз: <br><b id="winText" style="font-size:18px; color:var(--accent);"></b></p>
+        <button class="btn-save" onclick="closeModal('modalWin')">Бонусты Сақтау</button>
     </div>
 </div>
 
@@ -421,17 +420,17 @@
         <button class="modal-close" onclick="closeModal('modalProfile')">✕</button>
         
         <div id="authViewSection">
-            <h3 style="font-size: 20px; font-weight: 800; margin-top: 0; margin-bottom: 8px;" data-i18n="auth_title">Жүйеге кіру</h3>
-            <p style="font-size: 13px; color: var(--subtext); margin-bottom: 20px;" data-i18n="auth_desc">Бонустарды сақтау және жеке кабинетке кіру үшін авторизациядан өтіңіз.</p>
+            <h3 style="font-size: 20px; font-weight: 800; margin-top: 0; margin-bottom: 8px;">Жүйеге кіру</h3>
+            <p style="font-size: 13px; color: var(--subtext); margin-bottom: 20px;">Бонустарды сақтау және жеке кабинетке кіру үшін авторизациядан өтіңіз.</p>
             
             <div class="social-auth-container">
                 <button class="btn-social btn-google" onclick="authSocial('Google')">
                     <svg style="width:16px; height:16px;" viewBox="0 0 24 24"><path fill="#ea4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.2 9 5 12 5z"/><path fill="#4285f4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#fbbc05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15s.7 5.3 1.9 7.7l3.7-2.9c-.2-.7-.4-1.5-.4-2.3z"/><path fill="#34a853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.2-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"/></svg>
-                    <span data-i18n="auth_google">Google (Gmail) арқылы кіру</span>
+                    Google (Gmail) арқылы кіру
                 </button>
                 <button class="btn-social btn-telegram-auth" onclick="authSocial('Telegram')">
                     <svg style="width:16px; height:16px; fill:#fff;" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
-                    <span data-i18n="auth_telegram">Telegram арқылы кіру</span>
+                    Telegram арқылы кіру
                 </button>
             </div>
         </div>
@@ -452,264 +451,83 @@
             <div class="profile-stats-grid">
                 <div class="profile-stat-card">
                     <div class="profile-stat-val">PRO VIP</div>
-                    <div class="profile-stat-lbl" data-i18n="prof_status">Мәртебесі</div>
+                    <div class="profile-stat-lbl">Мәртебесі</div>
                 </div>
                 <div class="profile-stat-card">
-                    <div class="profile-stat-val" data-i18n="prof_courses_count">2 Курс</div>
-                    <div class="profile-stat-lbl" data-i18n="prof_active">Белсенді</div>
+                    <div class="profile-stat-val">2 Курс</div>
+                    <div class="profile-stat-lbl">Белсенді</div>
                 </div>
             </div>
 
             <div class="profile-tabs">
-                <div class="profile-tab active" onclick="switchProfileTab('tabProfile', this)" data-i18n="tab_data">Деректер</div>
-                <div class="profile-tab" onclick="switchProfileTab('tabRewards', this)" data-i18n="tab_bonuses">Бонустар</div>
-                <div class="profile-tab" onclick="switchProfileTab('tabSecurity', this)" data-i18n="tab_sec">Қауіпсіздік</div>
+                <div class="profile-tab active" onclick="switchProfileTab('tabProfile', this)">Деректер</div>
+                <div class="profile-tab" onclick="switchProfileTab('tabRewards', this)">Бонустар</div>
+                <div class="profile-tab" onclick="switchProfileTab('tabSecurity', this)">Қауіпсіздік</div>
             </div>
 
             <div id="tabProfile" class="tab-content active">
                 <div class="form-group">
-                    <label class="form-label" data-i18n="lbl_fullname">Аты-жөніңіз</label>
+                    <label class="form-label">Аты-жөніңіз</label>
                     <input type="text" class="form-input" id="inputName">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="lbl_email">Электронды пошта (Gmail)</label>
+                    <label class="form-label">Электронды пошта (Gmail)</label>
                     <input type="email" class="form-input" id="inputEmail" placeholder="mail@gmail.com">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="lbl_phone">Телефон нөміріңіз</label>
+                    <label class="form-label">Телефон нөміріңіз</label>
                     <input type="tel" class="form-input" id="inputPhone" value="+7 (707) 123-45-67">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="lbl_bdate">Туған күні мен айы</label>
+                    <label class="form-label">Туған күні мен айы</label>
                     <input type="date" class="form-input" id="inputBirthDate">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="lbl_card">Төлем картасы (Kaspi Gold)</label>
+                    <label class="form-label">Төлем картасы (Kaspi Gold)</label>
                     <input type="text" class="form-input" id="inputPay" value="4400 •••• •••• 4812">
                 </div>
-                <button class="btn-save" onclick="saveProfile()" data-i18n="save_changes_btn">Өзгерістерді сақтау</button>
-                <button class="btn-logout" onclick="logout()" data-i18n="logout_btn">Жүйеден шығу</button>
+                <button class="btn-save" onclick="saveProfile()">Өзгерістерді сақтау</button>
+                <button class="btn-logout" onclick="logout()">Жүйеден шығу</button>
             </div>
 
             <div id="tabRewards" class="tab-content">
                 <div class="reward-card">
                     <div>
-                        <div style="font-size:11px; color:var(--subtext);" data-i18n="won_promo_lbl">Ұтып алған промокод:</div>
+                        <div style="font-size:11px; color:var(--subtext);">Ұтып алған промокод:</div>
                         <div class="reward-code" id="userPromoCode">АЙНАЛДЫРЫЛМАҒАН</div>
                     </div>
-                    <button style="background:var(--accent); color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;" onclick="copyPromo()" data-i18n="copy_btn">Көшіру</button>
+                    <button style="background:var(--accent); color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;" onclick="copyPromo()">Көшіру</button>
                 </div>
-                <p style="font-size:11px; color:var(--subtext); text-align:left; margin-top:10px;" data-i18n="promo_note">
+                <p style="font-size:11px; color:var(--subtext); text-align:left; margin-top:10px;">
                     * Промокодты курстарды сатып алу кезінде админге (@analetik_1) жіберіп, жеңілдік алыңыз.
                 </p>
             </div>
 
             <div id="tabSecurity" class="tab-content">
                 <div class="form-group">
-                    <label class="form-label" data-i18n="old_pass">Ескі құпия сөз</label>
+                    <label class="form-label">Ескі құпия сөз</label>
                     <input type="password" class="form-input" placeholder="••••••••">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="new_pass">Жаңа құпия сөз</label>
+                    <label class="form-label">Жаңа құпия сөз</label>
                     <input type="password" class="form-input" placeholder="Жаңа құпия сөз енгізіңіз">
                 </div>
-                <button class="btn-save" onclick="alert('Құпия сөз сәтті жаңартылды!')" data-i18n="change_pass_btn">Құпия сөзді өзгерту</button>
+                <button class="btn-save" onclick="alert('Құпия сөз сәтті жаңартылды!')">Құпия сөзді өзгерту</button>
             </div>
         </div>
 
     </div>
 </div>
 
-<footer>© 2026 Armani analetik. <span data-i18n="rights">Барлық құқықтар қорғалған.</span></footer>
+<footer>© 2026 Armani analetik. Барлық құқықтар қорғалған.</footer>
 
 <script>
-    /* ТІЛДЕР О Б Ъ Е К Т І С І (KK / RU) */
-    const translations = {
-        kk: {
-            nav_wheel: '<i class="fa-solid fa-dharmachakra"></i> Бонустар рулеткасы',
-            nav_stats: '<i class="fa-solid fa-chart-line"></i> Өтімділік статистикасы',
-            nav_predict: '<i class="fa-solid fa-pen-to-square"></i> Тегін болжамдар',
-            nav_courses: '<i class="fa-solid fa-graduation-cap"></i> Оқу курстары',
-            nav_profile: '<i class="fa-solid fa-user"></i> Жеке профиль',
-            login_btn: 'Кіру',
-            pwa_text: 'Қолданбаны телефонға орнату',
-            pwa_btn: 'Орнату',
-            hero_title: 'VIP Каналға Қосыл!',
-            hero_desc: 'Күндік өтімділігі 80%+ болатын статистикалық болжамдар мен VIP талдаулар!',
-            hero_btn: 'Толығырақ',
-            wheel_title: 'Бонустар Рулеткасы',
-            wheel_subtitle: 'Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз',
-            spin_btn: 'Айналдыру',
-            next_spin: 'Келесі мүмкіндік: 23:59:59',
-            stat_title: 'Күндік Болжамдар Өтімділігі',
-            stat_passability: 'Өтімділік',
-            stat_desc: 'Соңғы 30 күндегі сараптама нәтижесі бойынша',
-            stat_won: 'Ұтты',
-            stat_lost: 'Ұтылды',
-            stat_avg: 'Орт. Кэф',
-            history_title: 'Соңғы нәтижелер тарихы',
-            win_badge: 'УТТЫ (1.82)',
-            tg_title: 'Тегін болжамдар Telegram арнамызда!',
-            tg_desc: 'Күнделікті ең сенімді әрі тегін спорттық болжамдарды, статистикалық болжамдарды жіберіп алмау үшін ресми Telegram каналымызға жазылыңыз.',
-            tg_btn: 'Арнаға өту (@analetik_1)',
-            courses_main_title: 'Толық Оқу Курстары',
-            c1_title: 'Спорттық Аналитика Негіздері',
-            c1_desc: 'Жаңадан бастаушыларға арналған базалық курс. Статистиканы талдау мен қаржыны қорғау негіздері.',
-            c1_m1: '1-Модуль: Банк-менеджмент және флэт стратегиясы',
-            c1_m2: '2-Модуль: Коэффициенттерді есептеу және маржа',
-            c1_m3: '3-Модуль: Командалық статистиканы талдау',
-            c1_m4: '4-Модуль: Психология және тіптер қателіктері',
-            c2_title: 'VIP Анализ және Live Стратегиялар',
-            c2_desc: 'Тікелей эфирде (Live) жоғары коэффициенттермен кәсіби жұмыс істеу құпиялары.',
-            c2_m1: '1-Модуль: Live-статистиканы секундта оқу',
-            c2_m2: '2-Модуль: Футбол, Баскетбол және ТЕННИС талдауы',
-            c2_m3: '3-Модуль: Соңғы минуттардағы тотал стратегиялары',
-            c2_m4: '4-Модуль: Рискісіз арбитраж (вилка) концептісі',
-            c2_m5: '5-Модуль: Модельдеу және бағдарламалық құралдар',
-            c2_m6: '6-Модуль: Тікелей менторлық және кураторлық қолдау',
-            c3_badge: 'EXPERT • Жеке Менторлық',
-            c3_title: 'Арнаны Жүргізу және Монетизация',
-            c3_desc: 'Жеке спорттық-сараптамалық телеграм каналды нөлден бастап ашып, оны дамыту курсы.',
-            c3_m1: 'Каналды безендіру және контент-жоспар',
-            c3_m2: 'Трафик тарту (жарнама беру ережелері)',
-            c3_m3: 'Аудиториямен жұмыс және клиенттік сервис',
-            buy_btn: 'Курсты сатып алу',
-            win_modal_title: 'Құттықтаймыз! 🎉',
-            win_modal_desc: 'Сіздің ұтысыңыз:',
-            save_bonus_btn: 'Бонусты Сақтау',
-            auth_title: 'Жүйеге кіру',
-            auth_desc: 'Бонустарды сақтау және жеке кабинетке кіру үшін авторизациядан өтіңіз.',
-            auth_google: 'Google (Gmail) арқылы кіру',
-            auth_telegram: 'Telegram арқылы кіру',
-            prof_status: 'Мәртебесі',
-            prof_courses_count: '2 Курс',
-            prof_active: 'Белсенді',
-            tab_data: 'Деректер',
-            tab_bonuses: 'Бонустар',
-            tab_sec: 'Қауіпсіздік',
-            lbl_fullname: 'Аты-жөніңіз',
-            lbl_email: 'Электронды пошта (Gmail)',
-            lbl_phone: 'Телефон нөміріңіз',
-            lbl_bdate: 'Туған күні мен айы',
-            lbl_card: 'Төлем картасы (Kaspi Gold)',
-            save_changes_btn: 'Өзгерістерді сақтау',
-            logout_btn: 'Жүйеден шығу',
-            won_promo_lbl: 'Ұтып алған промокод:',
-            copy_btn: 'Көшіру',
-            promo_note: '* Промокодты курстарды сатып алу кезінде админге (@analetik_1) жіберіп, жеңілдік алыңыз.',
-            old_pass: 'Ескі құпия сөз',
-            new_pass: 'Жаңа құпия сөз',
-            change_pass_btn: 'Құпия сөзді өзгерту',
-            rights: 'Барлық құқықтар қорғалған.'
-        },
-        ru: {
-            nav_wheel: '<i class="fa-solid fa-dharmachakra"></i> Рулетка бонусов',
-            nav_stats: '<i class="fa-solid fa-chart-line"></i> Статистика проходимости',
-            nav_predict: '<i class="fa-solid fa-pen-to-square"></i> Бесплатные прогнозы',
-            nav_courses: '<i class="fa-solid fa-graduation-cap"></i> Обучающие курсы',
-            nav_profile: '<i class="fa-solid fa-user"></i> Личный профиль',
-            login_btn: 'Войти',
-            pwa_text: 'Установить приложение на телефон',
-            pwa_btn: 'Установить',
-            hero_title: 'Вступай в VIP Канал!',
-            hero_desc: 'Статистические прогнозы с проходимостью 80%+ и VIP аналитика!',
-            hero_btn: 'Подробнее',
-            wheel_title: 'Рулетка Бонусов',
-            wheel_subtitle: 'Выигрывайте ежедневные скидки и бонусы',
-            spin_btn: 'Вращать',
-            next_spin: 'Следующая попытка: 23:59:59',
-            stat_title: 'Проходимость Ежедневных Прогнозов',
-            stat_passability: 'Проходимость',
-            stat_desc: 'По результатам анализа за последние 30 дней',
-            stat_won: 'Выиграно',
-            stat_lost: 'Проиграно',
-            stat_avg: 'Ср. Коэф',
-            history_title: 'История последних результатов',
-            win_badge: 'ВЫИГРЫШ (1.82)',
-            tg_title: 'Бесплатные прогнозы в нашем Telegram!',
-            tg_desc: 'Подписывайтесь на наш официальный Telegram-канал, чтобы не пропустить ежедневные бесплатные и надежные спортивные прогнозы.',
-            tg_btn: 'Перейти в канал (@analetik_1)',
-            courses_main_title: 'Полные Обучающие Курсы',
-            c1_title: 'Основы Спортивной Аналитики',
-            c1_desc: 'Базовый курс для начинающих. Основы анализа статистики и защита капитала.',
-            c1_m1: '1-Модуль: Банк-менеджмент и стратегия флэт',
-            c1_m2: '2-Модуль: Расчет коэффициентов и маржа',
-            c1_m3: '3-Модуль: Анализ командной статистики',
-            c1_m4: '4-Модуль: Психология и ошибки капперов',
-            c2_title: 'VIP Анализ и Live Стратегии',
-            c2_desc: 'Секреты профессиональной работы в прямом эфире (Live) с высокими коэффициентами.',
-            c2_m1: '1-Модуль: Чтение Live-статистики за секунды',
-            c2_m2: '2-Модуль: Анализ Футбола, Баскетбола и ТЕННИСА',
-            c2_m3: '3-Модуль: Стратегии тотала на последних минутах',
-            c2_m4: '4-Модуль: Концепция безрискового арбитража (вилки)',
-            c2_m5: '5-Модуль: Моделирование и программные инструменты',
-            c2_m6: '6-Модуль: Прямое менторство и поддержка куратора',
-            c3_badge: 'EXPERT • Личное Менторство',
-            c3_title: 'Ведение Канала и Монетизация',
-            c3_desc: 'Курс по созданию и развитию собственного спортивно-аналитического Telegram-канала с нуля.',
-            c3_m1: 'Оформление канала и контент-план',
-            c3_m2: 'Привлечение трафика (правила закупки рекламы)',
-            c3_m3: 'Работа с аудиторией и клиентский сервис',
-            buy_btn: 'Купить курс',
-            win_modal_title: 'Поздравляем! 🎉',
-            win_modal_desc: 'Ваш выигрыш:',
-            save_bonus_btn: 'Сохранить бонус',
-            auth_title: 'Вход в систему',
-            auth_desc: 'Авторизуйтесь, чтобы сохранить бонусы и войти в личный кабинет.',
-            auth_google: 'Войти через Google (Gmail)',
-            auth_telegram: 'Войти через Telegram',
-            prof_status: 'Статус',
-            prof_courses_count: '2 Курса',
-            prof_active: 'Активно',
-            tab_data: 'Данные',
-            tab_bonuses: 'Бонусы',
-            tab_sec: 'Безопасность',
-            lbl_fullname: 'Ваше имя',
-            lbl_email: 'Электронная почта (Gmail)',
-            lbl_phone: 'Ваш номер телефона',
-            lbl_bdate: 'Дата рождения',
-            lbl_card: 'Платежная карта (Kaspi Gold)',
-            save_changes_btn: 'Сохранить изменения',
-            logout_btn: 'Выйти из системы',
-            won_promo_lbl: 'Выигранный промокод:',
-            copy_btn: 'Копировать',
-            promo_note: '* Отправьте промокод админу (@analetik_1) при покупке курсов, чтобы получить скидку.',
-            old_pass: 'Старый пароль',
-            new_pass: 'Новый пароль',
-            change_pass_btn: 'Изменить пароль',
-            rights: 'Все права защищены.'
-        }
-    };
-
-    function setLanguage(lang) {
-        localStorage.setItem('armani_lang', lang);
-        
-        // Active class switch on buttons
-        document.getElementById('lang-btn-kk').classList.toggle('active', lang === 'kk');
-        document.getElementById('lang-btn-ru').classList.toggle('active', lang === 'ru');
-
-        // Translate elements with data-i18n
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (translations[lang] && translations[lang][key]) {
-                el.innerHTML = translations[lang][key];
-            }
-        });
-
-        document.documentElement.lang = lang;
-    }
-
     const sunIcon = `<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>`;
     const moonIcon = `<path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/>`;
 
     window.addEventListener('load', () => {
         loadTheme();
         checkAuthStatus();
-
-        // Сақталған тілді жүктеу (әдепкі KK)
-        const savedLang = localStorage.getItem('armani_lang') || 'kk';
-        setLanguage(savedLang);
-
         setTimeout(() => {
             const loader = document.getElementById('preloader');
             loader.style.opacity = '0';
@@ -730,4 +548,236 @@
 
     document.getElementById('btnInstallPWA').addEventListener('click', () => {
         if (deferredPrompt) {
-     
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    document.getElementById('pwaBanner').style.display = 'none';
+                }
+                deferredPrompt = null;
+            });
+        }
+    });
+
+    function toggleTheme() {
+        const isLight = document.body.classList.toggle('light-mode');
+        const theme = isLight ? 'light' : 'dark';
+        localStorage.setItem('armani_theme', theme);
+        updateThemeIcon(theme);
+    }
+
+    function loadTheme() {
+        const savedTheme = localStorage.getItem('armani_theme') || 'dark';
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+        } else {
+            document.body.classList.remove('light-mode');
+        }
+        updateThemeIcon(savedTheme);
+    }
+
+    function updateThemeIcon(theme) {
+        const iconSvg = document.getElementById('themeIcon');
+        iconSvg.innerHTML = theme === 'light' ? sunIcon : moonIcon;
+    }
+
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    
+    function openDrawer() { document.getElementById('drawerOverlay').classList.add('active'); document.getElementById('drawerMenu').classList.add('active'); }
+    function closeDrawer() { document.getElementById('drawerOverlay').classList.remove('active'); document.getElementById('drawerMenu').classList.remove('active'); }
+
+    function switchPage(pageId, el) {
+        document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        if (el) {
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            el.classList.add('active');
+        }
+        closeDrawer();
+    }
+
+    function switchProfileTab(tabId, el) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        el.classList.add('active');
+    }
+
+    function checkAuthStatus() {
+        const savedName = localStorage.getItem('armani_name');
+        const authBtn = document.getElementById('headerAuthBtn');
+        const avatarWrapper = document.getElementById('headerAvatarWrapper');
+        const authView = document.getElementById('authViewSection');
+        const profileView = document.getElementById('profileViewSection');
+
+        if (savedName) {
+            authBtn.style.display = 'none';
+            avatarWrapper.classList.add('active');
+            authView.style.display = 'none';
+            profileView.style.display = 'block';
+            loadProfileData();
+        } else {
+            authBtn.style.display = 'flex';
+            avatarWrapper.classList.remove('active');
+            authView.style.display = 'block';
+            profileView.style.display = 'none';
+        }
+    }
+
+    function openProfileModal() {
+        checkAuthStatus();
+        openModal('modalProfile');
+    }
+
+    function changeAvatar(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imgData = e.target.result;
+                document.getElementById('profileAvatar').src = imgData;
+                document.getElementById('headerAvatar').src = imgData;
+                localStorage.setItem('armani_avatar', imgData);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function saveProfile() {
+        const name = document.getElementById('inputName').value;
+        const email = document.getElementById('inputEmail').value;
+        const phone = document.getElementById('inputPhone').value;
+        const bdate = document.getElementById('inputBirthDate').value;
+        const pay = document.getElementById('inputPay').value;
+
+        localStorage.setItem('armani_name', name);
+        localStorage.setItem('armani_email', email);
+        localStorage.setItem('armani_phone', phone);
+        localStorage.setItem('armani_bdate', bdate);
+        localStorage.setItem('armani_pay', pay);
+
+        document.getElementById('displayUserName').innerText = name;
+        document.getElementById('displayUserEmail').innerText = email ? email : 'ID: #849204 • PRO VIP';
+        
+        alert('Деректер сақталды!');
+        closeModal('modalProfile');
+    }
+
+    function loadProfileData() {
+        const savedName = localStorage.getItem('armani_name');
+        const savedEmail = localStorage.getItem('armani_email');
+        const savedPhone = localStorage.getItem('armani_phone');
+        const savedBdate = localStorage.getItem('armani_bdate');
+        const savedPay = localStorage.getItem('armani_pay');
+        const savedAvatar = localStorage.getItem('armani_avatar');
+
+        if(savedName) {
+            document.getElementById('inputName').value = savedName;
+            document.getElementById('displayUserName').innerText = savedName;
+        }
+        if(savedEmail) {
+            document.getElementById('inputEmail').value = savedEmail;
+            document.getElementById('displayUserEmail').innerText = savedEmail;
+        }
+        if(savedPhone) document.getElementById('inputPhone').value = savedPhone;
+        if(savedBdate) document.getElementById('inputBirthDate').value = savedBdate;
+        if(savedPay) document.getElementById('inputPay').value = savedPay;
+        if(savedAvatar) {
+            document.getElementById('profileAvatar').src = savedAvatar;
+            document.getElementById('headerAvatar').src = savedAvatar;
+        }
+    }
+
+    function authSocial(provider) {
+        if(provider === 'Google') {
+            let gmail = prompt("Google поштаңызды (Gmail) енгізіңіз:", "armani.user@gmail.com");
+            if(gmail) {
+                let name = gmail.split('@')[0];
+                name = name.charAt(0).toUpperCase() + name.slice(1);
+                
+                localStorage.setItem('armani_name', name);
+                localStorage.setItem('armani_email', gmail);
+                
+                checkAuthStatus();
+                alert(`Google (${gmail}) арқылы сәтті кірдіңіз!`);
+                closeModal('modalProfile');
+            }
+        } else if(provider === 'Telegram') {
+            let tgUser = prompt("Telegram username немесе атыңызды енгізіңіз:", "Armani_VIP");
+            if(tgUser) {
+                localStorage.setItem('armani_name', tgUser);
+                
+                checkAuthStatus();
+                alert(`Telegram (@${tgUser}) арқылы кіру расталды!`);
+                closeModal('modalProfile');
+            }
+        }
+    }
+
+    function logout() {
+        if(confirm('Жүйеден шығуды және сақталған деректерді өшіруді растайсыз ба?')) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+
+    function copyPromo() {
+        const code = document.getElementById('userPromoCode').innerText;
+        if(code !== 'АЙНАЛДЫРЫЛМАҒАН') {
+            navigator.clipboard.writeText(code);
+            alert('Промокод көшірілді: ' + code);
+        } else {
+            alert('Алдымен рулетканы айналдырыңыз!');
+        }
+    }
+
+    /* WHEEL ENGINE */
+    const canvas = document.getElementById("wheelCanvas");
+    const ctx = canvas.getContext("2d");
+    const prizes = ["-15% КУРС", "+3 КҮН VIP", "-50% КУРС", "-15% КУРС", "+1 КҮН VIP", "-25% КУРС", "ҚАЙТА АЙНАЛДЫРУ"];
+    const colors = ["#161f33", "#2563eb", "#1e293b", "#161f33", "#2563eb", "#1e293b", "#ffffff"];
+    let currentRotation = 0;
+
+    function drawWheel() {
+        const numPrizes = prizes.length;
+        const arcSize = (2 * Math.PI) / numPrizes;
+        for (let i = 0; i < numPrizes; i++) {
+            const angle = i * arcSize;
+            ctx.beginPath();
+            ctx.fillStyle = colors[i];
+            ctx.moveTo(250, 250);
+            ctx.arc(250, 250, 250, angle, angle + arcSize);
+            ctx.fill();
+            ctx.save();
+            ctx.translate(250, 250);
+            ctx.rotate(angle + arcSize / 2);
+            ctx.textAlign = "right";
+            ctx.fillStyle = colors[i] === "#ffffff" ? "#000" : "#fff";
+            ctx.font = "bold 15px sans-serif";
+            ctx.fillText(prizes[i], 230, 5);
+            ctx.restore();
+        }
+    }
+    drawWheel();
+
+    function spinWheel() {
+        const btn = document.getElementById('spinBtn');
+        btn.disabled = true;
+        const winIndex = Math.floor(Math.random() * prizes.length);
+        const arcSize = 360 / prizes.length;
+        const targetDegree = 360 - (winIndex * arcSize) - (arcSize / 2);
+        currentRotation += 1440 + targetDegree;
+        
+        canvas.style.transform = `rotate(${currentRotation}deg)`;
+
+        setTimeout(() => {
+            const resultText = prizes[winIndex];
+            document.getElementById('winText').innerText = resultText;
+            document.getElementById('userPromoCode').innerText = `PROMO-${resultText.replace(/[^A-Z0-9]/g, '')}`;
+            openModal('modalWin');
+            document.getElementById('spinTimer').style.display = 'block';
+        }, 4000);
+    }
+</script>
+</body>
+</html>
