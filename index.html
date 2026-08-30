@@ -1,769 +1,783 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Armani analetik</title>
-<!-- PWA & Mobile Optimization for APK -->
-<link rel="manifest" href="manifest.json">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Armani Analetik">
-<meta name="theme-color" content="#0b111e">
-<!-- FontAwesome Иконкалар кітапханасы -->
-<link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563eb'/><text x='50%' y='55%' font-size='50' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>AV</text></svg>">
-<style>
-:root {
---bg: #0b111e;
---header-bg: #0b111e;
---card: #111a2e;
---card-border: rgba(255, 255, 255, 0.08);
---accent: #2563eb;
---gold: #f59e0b;
---green: #10b981;
---red: #ef4444;
---text: #ffffff;
---subtext: #94a3b8;
---input-bg: #182238;
---telegram: #0088cc;
-}
-body.light-mode {
---bg: #f8fafc;
---header-bg: #ffffff;
---card: #ffffff;
---card-border: rgba(0, 0, 0, 0.08);
---text: #0f172a;
---subtext: #64748b;
---input-bg: #f1f5f9;
-}
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; transition: background-color 0.2s, color 0.2s; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; user-select: none; }
-/* PRELOADER / SPLASH SCREEN */
-#preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--accent); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.4s ease; }
-#preloader.hidden { opacity: 0; pointer-events: none; }
-.splash-logo-box { background: #ffffff; color: var(--accent); font-size: 70px; font-weight: 900; width: 150px; height: 150px; border-radius: 28px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); letter-spacing: -2px; }
-/* HEADER */
-header { background: var(--header-bg); width: 100%; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--card-border); }
-.header-left { display: flex; align-items: center; gap: 12px; }
-.menu-burger { background: none; border: none; cursor: pointer; font-size: 22px; color: var(--text); padding: 4px; display: flex; align-items: center; }
-.brand-logo { background: var(--accent); color: #fff; font-weight: 900; font-size: 16px; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
-.brand-name { font-weight: 800; font-size: 18px; color: var(--text); }
-.header-right { display: flex; align-items: center; gap: 8px; }
-.icon-btn { background: var(--input-bg); border: none; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text); cursor: pointer; }
-.icon-btn svg { width: 18px; height: 18px; fill: currentColor; }
-.header-auth-btn { background: var(--accent); color: #fff; border: none; padding: 8px 12px; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-.user-avatar-wrapper { width: 38px; height: 38px; cursor: pointer; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent); display: none; }
-.user-avatar-wrapper.active { display: block; }
-.user-avatar-img { width: 100%; height: 100%; object-fit: cover; }
-/* DRAWER MENU */
-.drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 2000; display: none; }
-.drawer-overlay.active { display: block; }
-.drawer-menu { position: fixed; top: 0; left: -300px; width: 300px; height: 100%; background: var(--card); border-right: 1px solid var(--card-border); z-index: 2001; transition: left 0.3s ease; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
-.drawer-menu.active { left: 0; }
-.drawer-header { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--card-border); }
-.drawer-title { font-weight: 800; font-size: 18px; color: var(--text); }
-.nav-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
-.nav-item { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 10px; color: var(--subtext); text-decoration: none; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-.nav-item i { font-size: 18px; width: 22px; text-align: center; color: var(--accent); }
-.nav-item:hover, .nav-item.active { background: var(--input-bg); color: var(--accent); }
-/* DRAWER FOOTER (KK/RU + SOCİALS) */
-.drawer-footer { padding-top: 15px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; }
-.lang-switch { display: flex; background: var(--input-bg); padding: 4px; border-radius: 10px; align-items: center; gap: 2px; }
-.lang-btn { border: none; background: none; padding: 6px 10px; font-weight: 800; font-size: 12px; border-radius: 6px; cursor: pointer; color: var(--subtext); }
-.lang-btn.active { background: var(--accent); color: #fff; }
-.social-links { display: flex; gap: 6px; }
-.social-btn { width: 34px; height: 34px; background: var(--input-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text); text-decoration: none; font-size: 14px; transition: 0.2s; }
-.social-btn:hover { background: var(--accent); color: #fff; }
-/* PWA INSTALL BANNER */
-.pwa-install-banner { background: var(--card); border: 1px dashed var(--accent); border-radius: 12px; padding: 12px; display: none; align-items: center; justify-content: space-between; margin-bottom: 15px; }
-.pwa-install-banner p { margin: 0; font-size: 12px; font-weight: 600; }
-.btn-install-pwa { background: var(--accent); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; }
-/* MAIN */
-.main-container { max-width: 500px; width: 92%; margin: 15px auto; flex: 1; }
-.page-section { display: none; }
-.page-section.active { display: block; }
-/* HERO BANNER */
-.hero-banner { background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 16px; padding: 18px; color: #fff; margin-bottom: 20px; position: relative; overflow: hidden; }
-.hero-banner h3 { margin: 0 0 6px 0; font-size: 16px; font-weight: 800; }
-.hero-banner p { margin: 0 0 12px 0; font-size: 12px; opacity: 0.9; line-height: 1.3; }
-.hero-btn { background: #fff; color: var(--accent); border: none; padding: 8px 14px; border-radius: 8px; font-weight: 800; font-size: 12px; cursor: pointer; }
-/* WHEEL SECTION */
-.wheel-section { background: var(--card); border-radius: 20px; padding: 25px 20px; text-align: center; border: 1px solid var(--card-border); }
-.wheel-title { font-size: 20px; font-weight: 800; margin: 0 0 6px 0; }
-.wheel-subtitle { color: var(--subtext); font-size: 12px; margin: 0 0 20px 0; }
-.wheel-box { position: relative; width: 240px; height: 240px; margin: 0 auto 20px auto; }
-.wheel-pointer { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 16px solid var(--accent); z-index: 20; }
-.wheel-canvas-container { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--accent); overflow: hidden; position: relative; }
-#wheelCanvas { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0.9, 0.2, 1); }
-.wheel-center-logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; background: var(--card); border: 3px solid var(--accent); border-radius: 50%; z-index: 15; display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--text); font-size: 18px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
-.btn-spin { background: var(--accent); color: #fff; border: none; padding: 12px 30px; border-radius: 10px; font-weight: 800; font-size: 14px; cursor: pointer; width: 100%; max-width: 260px; }
-.btn-spin:disabled { opacity: 0.5; cursor: not-allowed; }
-.timer-text { font-size: 12px; color: var(--gold); margin-top: 10px; font-weight: 700; display: none; }
-/* STATISTICS SECTION */
-.stat-card-big { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 15px; }
-.stat-circle-box { position: relative; width: 120px; height: 120px; margin: 15px auto; display: flex; align-items: center; justify-content: center; }
-.stat-circle-val { font-size: 28px; font-weight: 900; color: var(--green); }
-.stat-circle-lbl { font-size: 11px; color: var(--subtext); }
-.stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; }
-.stat-box { background: var(--input-bg); padding: 12px; border-radius: 12px; }
-.stat-num { font-weight: 800; font-size: 16px; margin-bottom: 2px; }
-.history-list { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-.history-item { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
-.badge-win { background: rgba(16, 185, 129, 0.15); color: var(--green); font-weight: 800; padding: 4px 8px; border-radius: 6px; font-size: 11px; }
-/* TELEGRAM PROMO CARD */
-.tg-promo-card { background: linear-gradient(135deg, rgba(0, 136, 204, 0.15), rgba(37, 99, 235, 0.15)); border: 1px solid rgba(0, 136, 204, 0.3); border-radius: 20px; padding: 30px 20px; text-align: center; position: relative; overflow: hidden; }
-.tg-promo-icon { width: 70px; height: 70px; background: var(--telegram); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); }
-.tg-promo-icon svg { width: 36px; height: 36px; fill: #fff; }
-.tg-promo-title { font-size: 20px; font-weight: 800; margin: 0 0 10px 0; color: #fff; }
-.tg-promo-desc { font-size: 13px; color: var(--subtext); line-height: 1.5; margin: 0 0 20px 0; }
-.tg-promo-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--telegram); color: #fff; padding: 14px 28px; border-radius: 14px; font-weight: 800; font-size: 14px; text-decoration: none; box-shadow: 0 8px 18px rgba(0, 136, 204, 0.3); transition: transform 0.2s; }
-.tg-promo-btn:active { transform: scale(0.97); }
-/* COURSES CARDS */
-.courses-grid { display: flex; flex-direction: column; gap: 14px; }
-.course-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
-.course-badge { background: rgba(37, 99, 235, 0.15); color: var(--accent); font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; width: fit-content; }
-.course-title { font-size: 16px; font-weight: 800; margin: 0; }
-.course-desc { font-size: 12px; color: var(--subtext); margin: 0; line-height: 1.4; }
-.course-modules { list-style: none; padding: 0; margin: 4px 0; font-size: 12px; color: var(--text); }
-.course-modules li { margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
-.course-modules li::before { content: "✓"; color: var(--green); font-weight: bold; }
-.course-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; border-top: 1px solid var(--card-border); padding-top: 10px; }
-.course-price { font-size: 16px; font-weight: 800; color: var(--gold); }
-.btn-buy { background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
-/* FLOATING TELEGRAM BUTTON */
-.telegram-btn-float { position: fixed; bottom: 20px; right: 20px; background: var(--telegram); color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); z-index: 1000; text-decoration: none; }
-.telegram-btn-float svg { width: 24px; height: 24px; fill: #fff; }
-/* MODAL PROFILE & AUTH */
-.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 15px; }
-.modal-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 24px; width: 100%; max-width: 420px; padding: 24px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; box-shadow: 0 20px 30px rgba(0,0,0,0.5); }
-.modal-close { position: absolute; top: 16px; right: 16px; background: var(--input-bg); border: none; color: var(--subtext); font-size: 14px; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.profile-header { margin-bottom: 20px; }
-.avatar-container { position: relative; width: 90px; height: 90px; margin: 0 auto 12px auto; }
-.avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); }
-.avatar-upload-btn { position: absolute; bottom: 0; right: 0; background: var(--accent); border: 2px solid var(--card); color: #fff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-.avatar-upload-btn svg { width: 14px; height: 14px; fill: #fff; }
-.profile-user-title { font-size: 18px; font-weight: 800; margin: 0; color: var(--text); }
-.profile-user-sub { font-size: 12px; color: var(--subtext); margin-top: 2px; }
-.profile-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-.profile-stat-card { background: var(--input-bg); padding: 12px; border-radius: 12px; border: 1px solid var(--card-border); }
-.profile-stat-val { font-size: 14px; font-weight: 800; color: var(--gold); }
-.profile-stat-lbl { font-size: 11px; color: var(--subtext); margin-top: 2px; }
-.profile-tabs { display: flex; border-bottom: 1px solid var(--card-border); margin-bottom: 18px; }
-.profile-tab { flex: 1; text-align: center; padding: 10px 0; font-size: 12px; font-weight: 700; color: var(--subtext); cursor: pointer; position: relative; }
-.profile-tab.active { color: var(--accent); }
-.profile-tab.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background: var(--accent); }
-.form-group { margin-bottom: 14px; text-align: left; }
-.form-label { font-size: 11px; font-weight: 600; color: var(--subtext); margin-bottom: 6px; display: block; }
-.form-input { width: 100%; background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 11px 14px; color: var(--text); font-size: 13px; outline: none; }
-.form-input:focus { border-color: var(--accent); }
-.btn-save { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; margin-top: 5px; }
-.btn-logout { width: 100%; padding: 11px; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--red); color: var(--red); border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; margin-top: 10px; }
-.social-auth-container { margin-top: 15px; display: flex; flex-direction: column; gap: 8px; }
-.btn-social { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text); }
-.btn-google { border-color: #ea4335; }
-.btn-telegram-auth { background: var(--telegram); color: #fff; border: none; }
-.tab-content { display: none; }
-.tab-content.active { display: block; }
-.reward-card { background: var(--input-bg); border: 1px dashed var(--card-border); padding: 12px; border-radius: 10px; text-align: left; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-.reward-code { font-size: 14px; font-weight: 800; color: var(--gold); }
-footer { text-align: center; padding: 20px; font-size: 12px; color: var(--subtext); margin-top: 30px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Armani analetik</title>
+
+    <!-- PWA & Mobile Optimization for APK -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Armani Analetik">
+    <meta name="theme-color" content="#0b111e">
+
+    <!-- FontAwesome Иконкалар кітапханасы -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563eb'/><text x='50%' y='55%' font-size='50' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>AV</text></svg>">
+
+    <style>
+        :root {
+            --bg: #0b111e;
+            --header-bg: #0b111e;
+            --card: #111a2e;
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent: #2563eb;
+            --gold: #f59e0b;
+            --green: #10b981;
+            --red: #ef4444;
+            --text: #ffffff;
+            --subtext: #94a3b8;
+            --input-bg: #182238;
+            --telegram: #0088cc;
+        }
+
+        body.light-mode {
+            --bg: #f8fafc;
+            --header-bg: #ffffff;
+            --card: #ffffff;
+            --card-border: rgba(0, 0, 0, 0.08);
+            --text: #0f172a;
+            --subtext: #64748b;
+            --input-bg: #f1f5f9;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; transition: background-color 0.2s, color 0.2s; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; user-select: none; }
+
+        /* PRELOADER / SPLASH SCREEN */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--accent); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.4s ease; }
+        #preloader.hidden { opacity: 0; pointer-events: none; }
+        .splash-logo-box { background: #ffffff; color: var(--accent); font-size: 70px; font-weight: 900; width: 150px; height: 150px; border-radius: 28px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); letter-spacing: -2px; }
+
+        /* HEADER */
+        header { background: var(--header-bg); width: 100%; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--card-border); }
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        .menu-burger { background: none; border: none; cursor: pointer; font-size: 22px; color: var(--text); padding: 4px; display: flex; align-items: center; }
+        .brand-logo { background: var(--accent); color: #fff; font-weight: 900; font-size: 16px; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
+        .brand-name { font-weight: 800; font-size: 18px; color: var(--text); }
+        .header-right { display: flex; align-items: center; gap: 8px; }
+        .icon-btn { background: var(--input-bg); border: none; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text); cursor: pointer; }
+        .icon-btn svg { width: 18px; height: 18px; fill: currentColor; }
+        
+        .header-auth-btn { background: var(--accent); color: #fff; border: none; padding: 8px 12px; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .user-avatar-wrapper { width: 38px; height: 38px; cursor: pointer; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent); display: none; }
+        .user-avatar-wrapper.active { display: block; }
+        .user-avatar-img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* DRAWER MENU */
+        .drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 2000; display: none; }
+        .drawer-overlay.active { display: block; }
+        .drawer-menu { position: fixed; top: 0; left: -300px; width: 300px; height: 100%; background: var(--card); border-right: 1px solid var(--card-border); z-index: 2001; transition: left 0.3s ease; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .drawer-menu.active { left: 0; }
+        .drawer-header { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--card-border); }
+        .drawer-title { font-weight: 800; font-size: 18px; color: var(--text); }
+        .nav-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+        .nav-item { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 10px; color: var(--subtext); text-decoration: none; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .nav-item i { font-size: 18px; width: 22px; text-align: center; color: var(--accent); }
+        .nav-item:hover, .nav-item.active { background: var(--input-bg); color: var(--accent); }
+
+        /* DRAWER FOOTER (KK/RU + SOCİALS) */
+        .drawer-footer { padding-top: 15px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; }
+        .lang-switch { display: flex; background: var(--input-bg); padding: 4px; border-radius: 10px; align-items: center; gap: 2px; }
+        .lang-btn { border: none; background: none; padding: 6px 10px; font-weight: 800; font-size: 12px; border-radius: 6px; cursor: pointer; color: var(--subtext); }
+        .lang-btn.active { background: var(--accent); color: #fff; }
+        .social-links { display: flex; gap: 6px; }
+        .social-btn { width: 34px; height: 34px; background: var(--input-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text); text-decoration: none; font-size: 14px; transition: 0.2s; }
+        .social-btn:hover { background: var(--accent); color: #fff; }
+
+        /* PWA INSTALL BANNER */
+        .pwa-install-banner { background: var(--card); border: 1px dashed var(--accent); border-radius: 12px; padding: 12px; display: none; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+        .pwa-install-banner p { margin: 0; font-size: 12px; font-weight: 600; }
+        .btn-install-pwa { background: var(--accent); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; }
+
+        /* MAIN */
+        .main-container { max-width: 500px; width: 92%; margin: 15px auto; flex: 1; }
+        .page-section { display: none; }
+        .page-section.active { display: block; }
+
+        /* HERO BANNER */
+        .hero-banner { background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 16px; padding: 18px; color: #fff; margin-bottom: 20px; position: relative; overflow: hidden; }
+        .hero-banner h3 { margin: 0 0 6px 0; font-size: 16px; font-weight: 800; }
+        .hero-banner p { margin: 0 0 12px 0; font-size: 12px; opacity: 0.9; line-height: 1.3; }
+        .hero-btn { background: #fff; color: var(--accent); border: none; padding: 8px 14px; border-radius: 8px; font-weight: 800; font-size: 12px; cursor: pointer; }
+
+        /* WHEEL SECTION */
+        .wheel-section { background: var(--card); border-radius: 20px; padding: 25px 20px; text-align: center; border: 1px solid var(--card-border); }
+        .wheel-title { font-size: 20px; font-weight: 800; margin: 0 0 6px 0; }
+        .wheel-subtitle { color: var(--subtext); font-size: 12px; margin: 0 0 20px 0; }
+        .wheel-box { position: relative; width: 240px; height: 240px; margin: 0 auto 20px auto; }
+        .wheel-pointer { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 16px solid var(--accent); z-index: 20; }
+        .wheel-canvas-container { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--accent); overflow: hidden; position: relative; }
+        #wheelCanvas { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0.9, 0.2, 1); }
+        .wheel-center-logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; background: var(--card); border: 3px solid var(--accent); border-radius: 50%; z-index: 15; display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--text); font-size: 18px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        .btn-spin { background: var(--accent); color: #fff; border: none; padding: 12px 30px; border-radius: 10px; font-weight: 800; font-size: 14px; cursor: pointer; width: 100%; max-width: 260px; }
+        .btn-spin:disabled { opacity: 0.5; cursor: not-allowed; }
+        .timer-text { font-size: 12px; color: var(--gold); margin-top: 10px; font-weight: 700; display: none; }
+
+        /* STATISTICS SECTION */
+        .stat-card-big { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 15px; }
+        .stat-circle-box { position: relative; width: 120px; height: 120px; margin: 15px auto; display: flex; align-items: center; justify-content: center; }
+        .stat-circle-val { font-size: 28px; font-weight: 900; color: var(--green); }
+        .stat-circle-lbl { font-size: 11px; color: var(--subtext); }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .stat-box { background: var(--input-bg); padding: 12px; border-radius: 12px; }
+        .stat-num { font-weight: 800; font-size: 16px; margin-bottom: 2px; }
+        .history-list { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        .history-item { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
+        .badge-win { background: rgba(16, 185, 129, 0.15); color: var(--green); font-weight: 800; padding: 4px 8px; border-radius: 6px; font-size: 11px; }
+
+        /* TELEGRAM PROMO CARD */
+        .tg-promo-card { background: linear-gradient(135deg, rgba(0, 136, 204, 0.15), rgba(37, 99, 235, 0.15)); border: 1px solid rgba(0, 136, 204, 0.3); border-radius: 20px; padding: 30px 20px; text-align: center; position: relative; overflow: hidden; }
+        .tg-promo-icon { width: 70px; height: 70px; background: var(--telegram); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); }
+        .tg-promo-icon svg { width: 36px; height: 36px; fill: #fff; }
+        .tg-promo-title { font-size: 20px; font-weight: 800; margin: 0 0 10px 0; color: #fff; }
+        .tg-promo-desc { font-size: 13px; color: var(--subtext); line-height: 1.5; margin: 0 0 20px 0; }
+        .tg-promo-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--telegram); color: #fff; padding: 14px 28px; border-radius: 14px; font-weight: 800; font-size: 14px; text-decoration: none; box-shadow: 0 8px 18px rgba(0, 136, 204, 0.3); transition: transform 0.2s; }
+        .tg-promo-btn:active { transform: scale(0.97); }
+
+        /* COURSES CARDS */
+        .courses-grid { display: flex; flex-direction: column; gap: 14px; }
+        .course-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+        .course-badge { background: rgba(37, 99, 235, 0.15); color: var(--accent); font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; width: fit-content; }
+        .course-title { font-size: 16px; font-weight: 800; margin: 0; }
+        .course-desc { font-size: 12px; color: var(--subtext); margin: 0; line-height: 1.4; }
+        .course-modules { list-style: none; padding: 0; margin: 4px 0; font-size: 12px; color: var(--text); }
+        .course-modules li { margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+        .course-modules li::before { content: "✓"; color: var(--green); font-weight: bold; }
+        .course-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; border-top: 1px solid var(--card-border); padding-top: 10px; }
+        .course-price { font-size: 16px; font-weight: 800; color: var(--gold); }
+        .btn-buy { background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
+
+        /* FLOATING TELEGRAM BUTTON */
+        .telegram-btn-float { position: fixed; bottom: 20px; right: 20px; background: var(--telegram); color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); z-index: 1000; text-decoration: none; }
+        .telegram-btn-float svg { width: 24px; height: 24px; fill: #fff; }
+
+        /* MODAL PROFILE & AUTH */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 15px; }
+        .modal-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 24px; width: 100%; max-width: 420px; padding: 24px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; box-shadow: 0 20px 30px rgba(0,0,0,0.5); }
+        .modal-close { position: absolute; top: 16px; right: 16px; background: var(--input-bg); border: none; color: var(--subtext); font-size: 14px; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        .profile-header { margin-bottom: 20px; }
+        .avatar-container { position: relative; width: 90px; height: 90px; margin: 0 auto 12px auto; }
+        .avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); }
+        .avatar-upload-btn { position: absolute; bottom: 0; right: 0; background: var(--accent); border: 2px solid var(--card); color: #fff; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .avatar-upload-btn svg { width: 14px; height: 14px; fill: #fff; }
+
+        .profile-user-title { font-size: 18px; font-weight: 800; margin: 0; color: var(--text); }
+        .profile-user-sub { font-size: 12px; color: var(--subtext); margin-top: 2px; }
+
+        .profile-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .profile-stat-card { background: var(--input-bg); padding: 12px; border-radius: 12px; border: 1px solid var(--card-border); }
+        .profile-stat-val { font-size: 14px; font-weight: 800; color: var(--gold); }
+        .profile-stat-lbl { font-size: 11px; color: var(--subtext); margin-top: 2px; }
+
+        .profile-tabs { display: flex; border-bottom: 1px solid var(--card-border); margin-bottom: 18px; }
+        .profile-tab { flex: 1; text-align: center; padding: 10px 0; font-size: 12px; font-weight: 700; color: var(--subtext); cursor: pointer; position: relative; }
+        .profile-tab.active { color: var(--accent); }
+        .profile-tab.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background: var(--accent); }
+
+        .form-group { margin-bottom: 14px; text-align: left; }
+        .form-label { font-size: 11px; font-weight: 600; color: var(--subtext); margin-bottom: 6px; display: block; }
+        .form-input { width: 100%; background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 11px 14px; color: var(--text); font-size: 13px; outline: none; }
+        .form-input:focus { border-color: var(--accent); }
+
+        .btn-save { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; margin-top: 5px; }
+        .btn-logout { width: 100%; padding: 11px; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--red); color: var(--red); border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; margin-top: 10px; }
+        
+        .social-auth-container { margin-top: 15px; display: flex; flex-direction: column; gap: 8px; }
+        .btn-social { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text); }
+        .btn-google { border-color: #ea4335; }
+        .btn-telegram-auth { background: var(--telegram); color: #fff; border: none; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .reward-card { background: var(--input-bg); border: 1px dashed var(--card-border); padding: 12px; border-radius: 10px; text-align: left; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .reward-code { font-size: 14px; font-weight: 800; color: var(--gold); }
+
+        footer { text-align: center; padding: 20px; font-size: 12px; color: var(--subtext); margin-top: 30px; }
+    </style>
 </head>
 <body>
+
 <!-- 1. SPLASH SCREEN (AV ЛОГОТИПІ) -->
 <div id="preloader">
-<div class="splash-logo-box">AV</div>
+    <div class="splash-logo-box">AV</div>
 </div>
+
 <!-- 2. SIDEBAR (БҮЙІРЛІК МӘЗІР ІШІНДЕ KK/RU ДА БАР) -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
 <div class="drawer-menu" id="drawerMenu">
-<div>
-<div class="drawer-header">
-<div class="brand-logo">AV</div>
-<div class="drawer-title">Armani Analetik</div>
+    <div>
+        <div class="drawer-header">
+            <div class="brand-logo">AV</div>
+            <div class="drawer-title">Armani Analetik</div>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item active" onclick="switchPage('wheelSection', this)">
+                <i class="fa-solid fa-dharmachakra"></i>
+                Бонустар рулеткасы
+            </li>
+            <li class="nav-item" onclick="switchPage('statSection', this)">
+                <i class="fa-solid fa-chart-line"></i>
+                Өтімділік статистикасы
+            </li>
+            <li class="nav-item" onclick="switchPage('predictSection', this)">
+                <i class="fa-solid fa-pen-to-square"></i>
+                Тегін болжамдар
+            </li>
+            <li class="nav-item" onclick="switchPage('coursesSection', this)">
+                <i class="fa-solid fa-graduation-cap"></i>
+                Оқу курстары
+            </li>
+            <li class="nav-item" onclick="openProfileModal(); closeDrawer();">
+                <i class="fa-solid fa-user"></i>
+                Жеке профиль
+            </li>
+        </ul>
+    </div>
+
+    <!-- SIDEBAR FOOTER (ТІЛДЕР ЖӘНЕ ИКОНКАЛАР) -->
+    <div class="drawer-footer">
+        <div class="lang-switch">
+            <button class="lang-btn active">KK</button>
+            <button class="lang-btn">RU</button>
+        </div>
+        <div class="social-links">
+            <a href="https://t.me/analetik_1" target="_blank" class="social-btn"><i class="fa-paper-plane"></i></a>
+            <a href="#" target="_blank" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" target="_blank" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" target="_blank" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+    </div>
 </div>
-<ul class="nav-list">
-<li class="nav-item active" onclick="switchPage('wheelSection', this)">
-<i class="fa-solid fa-dharmachakra"></i>
-<span data-i18n="nav_wheel">Бонустар рулеткасы</span>
-</li>
-<li class="nav-item" onclick="switchPage('statSection', this)">
-<i class="fa-solid fa-chart-line"></i>
-<span data-i18n="nav_stat">Өтімділік статистикасы</span>
-</li>
-<li class="nav-item" onclick="switchPage('predictSection', this)">
-<i class="fa-solid fa-pen-to-square"></i>
-<span data-i18n="nav_predict">Тегін болжамдар</span>
-</li>
-<li class="nav-item" onclick="switchPage('coursesSection', this)">
-<i class="fa-solid fa-graduation-cap"></i>
-<span data-i18n="nav_courses">Оқу курстары</span>
-</li>
-<li class="nav-item" onclick="openProfileModal(); closeDrawer();">
-<i class="fa-solid fa-user"></i>
-<span data-i18n="nav_profile">Жеке профиль</span>
-</li>
-</ul>
-</div>
-<!-- SIDEBAR FOOTER (ТІЛДЕР ЖӘНЕ ИКОНКАЛАР) -->
-<div class="drawer-footer">
-<div class="lang-switch">
-<button class="lang-btn active" id="langKK" onclick="setLanguage('kk')">KK</button>
-<button class="lang-btn" id="langRU" onclick="setLanguage('ru')">RU</button>
-</div>
-<div class="social-links">
-<a href="[https://t.me/analetik_1](https://t.me/analetik_1)" target="_blank" class="social-btn"><i class="fa-paper-plane"></i></a>
-<a href="#" target="_blank" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
-<a href="#" target="_blank" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
-<a href="[https://www.tiktok.com/@armanianaletik](https://www.tiktok.com/@armanianaletik)" target="_blank" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
-</div>
-</div>
-</div>
+
 <!-- HEADER (ЖОҒАРҒЫ БӨЛІМ) -->
 <header>
-<div class="header-left">
-<button class="menu-burger" onclick="openDrawer()"><i class="fa-solid fa-bars"></i></button>
-<div class="brand-logo" onclick="switchPage('wheelSection')">AV</div>
-<div class="brand-name">Armani Analetik</div>
-</div>
-<div class="header-right">
-<button class="icon-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Режимді ауыстыру">
-<svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/></svg>
-</button>
-<button class="header-auth-btn" id="headerAuthBtn" onclick="openProfileModal()">
-<svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-<span data-i18n="auth_login">Кіру</span>
-</button>
-<div class="user-avatar-wrapper" id="headerAvatarWrapper" onclick="openProfileModal()">
-<img class="user-avatar-img" id="headerAvatar" src="[https://api.dicebear.com/7.x/bottts/svg?seed=Armani](https://api.dicebear.com/7.x/bottts/svg?seed=Armani)" alt="User">
-</div>
-</div>
+    <div class="header-left">
+        <button class="menu-burger" onclick="openDrawer()"><i class="fa-solid fa-bars"></i></button>
+        <div class="brand-logo" onclick="switchPage('wheelSection')">AV</div>
+        <div class="brand-name">Armani Analetik</div>
+    </div>
+    <div class="header-right">
+        <button class="icon-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Режимді ауыстыру">
+            <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/></svg>
+        </button>
+
+        <button class="header-auth-btn" id="headerAuthBtn" onclick="openProfileModal()">
+            <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            Кіру
+        </button>
+
+        <div class="user-avatar-wrapper" id="headerAvatarWrapper" onclick="openProfileModal()">
+            <img class="user-avatar-img" id="headerAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="User">
+        </div>
+    </div>
 </header>
+
 <div class="main-container">
-<div class="pwa-install-banner" id="pwaBanner">
-<p data-i18n="pwa_text">Қолданбаны телефонға орнату</p>
-<button class="btn-install-pwa" id="btnInstallPWA" data-i18n="pwa_btn">Орнату</button>
+
+    <div class="pwa-install-banner" id="pwaBanner">
+        <p>Қолданбаны телефонға орнату</p>
+        <button class="btn-install-pwa" id="btnInstallPWA">Орнату</button>
+    </div>
+
+    <div class="hero-banner">
+        <h3>VIP Каналға Қосыл!</h3>
+        <p>Күндік өтімділігі 80%+ болатын статистикалық болжамдар мен VIP талдаулар!</p>
+        <button class="hero-btn" onclick="window.open('https://t.me/analetik_1', '_blank')">Толығырақ</button>
+    </div>
+    
+    <div id="wheelSection" class="page-section active">
+        <div class="wheel-section">
+            <h1 class="wheel-title">Бонустар Рулеткасы</h1>
+            <p class="wheel-subtitle">Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз</p>
+            <div class="wheel-box">
+                <div class="wheel-pointer"></div>
+                <div class="wheel-canvas-container">
+                    <canvas id="wheelCanvas" width="500" height="500"></canvas>
+                    <div class="wheel-center-logo">AV</div>
+                </div>
+            </div>
+            <button class="btn-spin" id="spinBtn" onclick="spinWheel()">Айналдыру</button>
+            <div class="timer-text" id="spinTimer">Келесі мүмкіндік: 23:59:59</div>
+        </div>
+    </div>
+
+    <div id="statSection" class="page-section">
+        <div class="stat-card-big">
+            <h2 style="font-size: 18px; margin: 0;">Күндік Болжамдар Өтімділігі</h2>
+            <div class="stat-circle-box">
+                <div>
+                    <div class="stat-circle-val">80%</div>
+                    <div class="stat-circle-lbl">Өтімділік</div>
+                </div>
+            </div>
+            <p style="font-size: 12px; color: var(--subtext); margin: 0;">Соңғы 30 күндегі сараптама нәтижесі бойынша</p>
+
+            <div class="stat-grid">
+                <div class="stat-box"><div class="stat-num" style="color:var(--green)">160</div><div class="stat-circle-lbl">Утты</div></div>
+                <div class="stat-box"><div class="stat-num" style="color:var(--red)">40</div><div class="stat-circle-lbl">Ұтылды</div></div>
+                <div class="stat-box"><div class="stat-num" style="color:var(--gold)">1.85</div><div class="stat-circle-lbl">Орт. Кэф</div></div>
+            </div>
+        </div>
+
+        <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 10px;">Соңғы нәтижелер тарихы</h3>
+        <div class="history-list">
+            <div class="history-item"><span>Реал Мадрид - Барселона (ТБ 2.5)</span><span class="badge-win">УТТЫ (1.82)</span></div>
+            <div class="history-item"><span>Арсенал - Челси (П1)</span><span class="badge-win">УТТЫ (1.75)</span></div>
+            <div class="history-item"><span>Бавария - Боруссия (Ф1 -1)</span><span class="badge-win">УТТЫ (1.90)</span></div>
+        </div>
+    </div>
+
+    <div id="predictSection" class="page-section">
+        <div class="tg-promo-card">
+            <div class="tg-promo-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
+            </div>
+            <h2 class="tg-promo-title">Тегін болжамдар Telegram арнамызда!</h2>
+            <p class="tg-promo-desc">
+                Күнделікті ең сенімді әрі тегін спорттық болжамдарды, статистикалық болжамдарды жіберіп алмау үшін ресми Telegram каналымызға жазылыңыз.
+            </p>
+            <a href="https://t.me/analetik_1" target="_blank" class="tg-promo-btn">
+                <span>Арнаға өту (@analetik_1)</span>
+                <svg style="width:16px; height:16px; fill:#fff;" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </div>
+
+    <div id="coursesSection" class="page-section">
+        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">Толық Оқу Курстары</h2>
+        <div class="courses-grid">
+            <div class="course-card">
+                <span class="course-badge">START • 4 Модуль</span>
+                <h3 class="course-title">Спорттық Аналитика Негіздері</h3>
+                <p class="course-desc">Жаңадан бастаушыларға арналған базалық курс. Статистиканы талдау мен қаржыны қорғау негіздері.</p>
+                <ul class="course-modules">
+                    <li>1-Модуль: Банк-менеджмент және флэт стратегиясы</li>
+                    <li>2-Модуль: Коэффициенттерді есептеу және маржа</li>
+                    <li>3-Модуль: Командалық статистиканы талдау</li>
+                    <li>4-Модуль: Психология және тіптер қателіктері</li>
+                </ul>
+                <div class="course-footer">
+                    <div class="course-price">15,000 ₸</div>
+                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Курсты сатып алу</button>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <span class="course-badge">PRO VIP • 6 Модуль</span>
+                <h3 class="course-title">VIP Анализ және Live Стратегиялар</h3>
+                <p class="course-desc">Тікелей эфирде (Live) жоғары коэффициенттермен кәсіби жұмыс істеу құпиялары.</p>
+                <ul class="course-modules">
+                    <li>1-Модуль: Live-статистиканы секундта оқу</li>
+                    <li>2-Модуль: Футбол, Баскетбол және ТЕННИС талдауы</li>
+                    <li>3-Модуль: Соңғы минуттардағы тотал стратегиялары</li>
+                    <li>4-Модуль: Рискісіз арбитраж (вилка) концептісі</li>
+                    <li>5-Модуль: Модельдеу және бағдарламалық құралдар</li>
+                    <li>6-Модуль: Тікелей менторлық және кураторлық қолдау</li>
+                </ul>
+                <div class="course-footer">
+                    <div class="course-price">35,000 ₸</div>
+                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Курсты сатып алу</button>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <span class="course-badge">EXPERT • Жеке Менторлық</span>
+                <h3 class="course-title">Арнаны Жүргізу және Монетизация</h3>
+                <p class="course-desc">Жеке спорттық-сараптамалық телеграм каналды нөлден бастап ашып, оны дамыту курсы.</p>
+                <ul class="course-modules">
+                    <li>Каналды безендіру және контент-жоспар</li>
+                    <li>Трафик тарту (жарнама беру ережелері)</li>
+                    <li>Аудиториямен жұмыс және клиенттік сервис</li>
+                </ul>
+                <div class="course-footer">
+                    <div class="course-price">60,000 ₸</div>
+                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Курсты сатып алу</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-<div class="hero-banner">
-<h3 data-i18n="hero_title">VIP Каналға Қосыл!</h3>
-<p data-i18n="hero_desc">Күндік өтімділігі 80%+ болатын статистикалық болжамдар мен VIP талдаулар!</p>
-<button class="hero-btn" data-i18n="hero_btn" onclick="window.open('[https://t.me/analetik_1](https://t.me/analetik_1)', '_blank')">Толығырақ</button>
-</div>
-<div id="wheelSection" class="page-section active">
-<div class="wheel-section">
-<h1 class="wheel-title" data-i18n="wheel_title">Бонустар Рулеткасы</h1>
-<p class="wheel-subtitle" data-i18n="wheel_sub">Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз</p>
-<div class="wheel-box">
-<div class="wheel-pointer"></div>
-<div class="wheel-canvas-container">
-<canvas id="wheelCanvas" width="500" height="500"></canvas>
-<div class="wheel-center-logo">AV</div>
-</div>
-</div>
-<button class="btn-spin" id="spinBtn" data-i18n="spin_btn" onclick="spinWheel()">Айналдыру</button>
-<div class="timer-text" id="spinTimer">Келесі мүмкіндік: 23:59:59</div>
-</div>
-</div>
-<div id="statSection" class="page-section">
-<div class="stat-card-big">
-<h2 style="font-size: 18px; margin: 0;" data-i18n="stat_title">Күндік Болжамдар Өтімділігі</h2>
-<div class="stat-circle-box">
-<div>
-<div class="stat-circle-val">80%</div>
-<div class="stat-circle-lbl" data-i18n="stat_rate">Өтімділік</div>
-</div>
-</div>
-<p style="font-size: 12px; color: var(--subtext); margin: 0;" data-i18n="stat_sub">Соңғы 30 күндегі сараптама нәтижесі бойынша</p>
-<div class="stat-grid">
-<div class="stat-box"><div class="stat-num" style="color:var(--green)">160</div><div class="stat-circle-lbl" data-i18n="stat_win">Ұтты</div></div>
-<div class="stat-box"><div class="stat-num" style="color:var(--red)">40</div><div class="stat-circle-lbl" data-i18n="stat_loss">Ұтылды</div></div>
-<div class="stat-box"><div class="stat-num" style="color:var(--gold)">1.85</div><div class="stat-circle-lbl" data-i18n="stat_avg">Орт. Кэф</div></div>
-</div>
-</div>
-<h3 style="font-size: 15px; font-weight: 800; margin-bottom: 10px;" data-i18n="stat_history">Соңғы нәтижелер тарихы</h3>
-<div class="history-list">
-<div class="history-item"><span>Реал Мадрид - Барселона (ТБ 2.5)</span><span class="badge-win">УТТЫ (1.82)</span></div>
-<div class="history-item"><span>Арсенал - Челси (П1)</span><span class="badge-win">УТТЫ (1.75)</span></div>
-<div class="history-item"><span>Бавария - Боруссия (Ф1 -1)</span><span class="badge-win">УТТЫ (1.90)</span></div>
-</div>
-</div>
-<div id="predictSection" class="page-section">
-<div class="tg-promo-card">
-<div class="tg-promo-icon">
-<svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
-</div>
-<h2 class="tg-promo-title" data-i18n="predict_title">Тегін болжамдар Telegram арнамызда!</h2>
-<p class="tg-promo-desc" data-i18n="predict_desc">
-Күнделікті ең сенімді әрі тегін спорттық болжамдарды, статистикалық болжамдарды жіберіп алмау үшін ресми Telegram каналымызға жазылыңыз.
-</p>
-<a href="[https://t.me/analetik_1](https://t.me/analetik_1)" target="_blank" class="tg-promo-btn">
-<span data-i18n="predict_btn">Арнаға өту (@analetik_1)</span>
-<svg style="width:16px; height:16px; fill:#fff;" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-</a>
-</div>
-</div>
-<div id="coursesSection" class="page-section">
-<h2 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;" data-i18n="courses_title">Толық Оқу Курстары</h2>
-<div class="courses-grid">
-<div class="course-card">
-<span class="course-badge">START • 4 Модуль</span>
-<h3 class="course-title">Спорттық Аналитика Негіздері</h3>
-<p class="course-desc">Жаңадан бастаушыларға арналған базалық курс. Статистиканы талдау мен қаржыны қорғау негіздері.</p>
-<ul class="course-modules">
-<li>1-Модуль: Банк-менеджмент және флэт стратегиясы</li>
-<li>2-Модуль: Коэффициенттерді есептеу және маржа</li>
-<li>3-Модуль: Командалық статистиканы талдау</li>
-<li>4-Модуль: Психология және тіптер қателіктері</li>
-</ul>
-<div class="course-footer">
-<div class="course-price">15,000 ₸</div>
-<button class="btn-buy" data-i18n="course_buy" onclick="window.open('[https://t.me/analetik_1](https://t.me/analetik_1)', '_blank')">Курсты сатып алу</button>
-</div>
-</div>
-<div class="course-card">
-<span class="course-badge">PRO VIP • 6 Модуль</span>
-<h3 class="course-title">VIP Анализ және Live Стратегиялар</h3>
-<p class="course-desc">Тікелей эфирде (Live) жоғары коэффициенттермен кәсіби жұмыс істеу құпиялары.</p>
-<ul class="course-modules">
-<li>1-Модуль: Live-статистиканы секундта оқу</li>
-<li>2-Модуль: Футбол, Баскетбол және ТЕННИС талдауы</li>
-<li>3-Модуль: Соңғы минуттардағы тотал стратегиялары</li>
-<li>4-Модуль: Рискісіз арбитраж (вилка) концептісі</li>
-<li>5-Модуль: Модельдеу және бағдарламалық құралдар</li>
-<li>6-Модуль: Тікелей менторлық және кураторлық қолдау</li>
-</ul>
-<div class="course-footer">
-<div class="course-price">35,000 ₸</div>
-<button class="btn-buy" data-i18n="course_buy" onclick="window.open('[https://t.me/analetik_1](https://t.me/analetik_1)', '_blank')">Курсты сатып алу</button>
-</div>
-</div>
-<div class="course-card">
-<span class="course-badge">EXPERT • Жеке Менторлық</span>
-<h3 class="course-title">Арнаны Жүргізу және Монетизация</h3>
-<p class="course-desc">Жеке спорттық-сараптамалық телеграм каналды нөлден бастап ашып, оны дамыту курсы.</p>
-<ul class="course-modules">
-<li>Каналды безендіру және контент-жоспар</li>
-<li>Трафик тарту (жарнама беру ережелері)</li>
-<li>Аудиториямен жұмыс және клиенттік сервис</li>
-</ul>
-<div class="course-footer">
-<div class="course-price">60,000 ₸</div>
-<button class="btn-buy" data-i18n="course_buy" onclick="window.open('[https://t.me/analetik_1](https://t.me/analetik_1)', '_blank')">Курсты сатып алу</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<a href="[https://t.me/analetik_1](https://t.me/analetik_1)" target="_blank" class="telegram-btn-float"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg></a>
+
+<a href="https://t.me/analetik_1" target="_blank" class="telegram-btn-float"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg></a>
+
 <div class="modal-overlay" id="modalWin">
-<div class="modal-card">
-<h2 style="font-size:22px; color:var(--gold); margin-top:0;">Құттықтаймыз! 🎉</h2>
-<p style="font-size:14px; margin-bottom:20px;">Сіздің ұтысыңыз: 
-<b id="winText" style="font-size:18px; color:var(--accent);"></b></p>
-<button class="btn-save" onclick="closeModal('modalWin')">Бонусты Сақтау</button>
+    <div class="modal-card">
+        <h2 style="font-size:22px; color:var(--gold); margin-top:0;">Құттықтаймыз! 🎉</h2>
+        <p style="font-size:14px; margin-bottom:20px;">Сіздің ұтысыңыз: <br><b id="winText" style="font-size:18px; color:var(--accent);"></b></p>
+        <button class="btn-save" onclick="closeModal('modalWin')">Бонусты Сақтау</button>
+    </div>
 </div>
-</div>
+
 <div class="modal-overlay" id="modalProfile">
-<div class="modal-card">
-<button class="modal-close" onclick="closeModal('modalProfile')">✕</button>
-<div id="authViewSection">
-<h3 style="font-size: 20px; font-weight: 800; margin-top: 0; margin-bottom: 8px;" data-i18n="login_title">Жүйеге кіру</h3>
-<p style="font-size: 13px; color: var(--subtext); margin-bottom: 20px;" data-i18n="login_desc">Бонустарды сақтау және жеке кабинетке кіру үшін авторизациядан өтіңіз.</p>
-<div class="social-auth-container">
-<button class="btn-social btn-google" onclick="authSocial('Google')">
-<svg style="width:16px; height:16px;" viewBox="0 0 24 24"><path fill="#ea4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.2 9 5 12 5z"/><path fill="#4285f4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#fbbc05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15s.7 5.3 1.9 7.7l3.7-2.9c-.2-.7-.4-1.5-.4-2.3z"/><path fill="#34a853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.2-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"/></svg>
-Google (Gmail) арқылы кіру
-</button>
-<button class="btn-social btn-telegram-auth" onclick="authSocial('Telegram')">
-<svg style="width:16px; height:16px; fill:#fff;" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
-Telegram арқылы кіру
-</button>
+    <div class="modal-card">
+        <button class="modal-close" onclick="closeModal('modalProfile')">✕</button>
+        
+        <div id="authViewSection">
+            <h3 style="font-size: 20px; font-weight: 800; margin-top: 0; margin-bottom: 8px;">Жүйеге кіру</h3>
+            <p style="font-size: 13px; color: var(--subtext); margin-bottom: 20px;">Бонустарды сақтау және жеке кабинетке кіру үшін авторизациядан өтіңіз.</p>
+            
+            <div class="social-auth-container">
+                <button class="btn-social btn-google" onclick="authSocial('Google')">
+                    <svg style="width:16px; height:16px;" viewBox="0 0 24 24"><path fill="#ea4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.2 9 5 12 5z"/><path fill="#4285f4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#fbbc05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15s.7 5.3 1.9 7.7l3.7-2.9c-.2-.7-.4-1.5-.4-2.3z"/><path fill="#34a853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.2-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"/></svg>
+                    Google (Gmail) арқылы кіру
+                </button>
+                <button class="btn-social btn-telegram-auth" onclick="authSocial('Telegram')">
+                    <svg style="width:16px; height:16px; fill:#fff;" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.56.84-1.13.53l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.77-5.21c.25-.22-.05-.34-.39-.12l-7.14 4.49-3.08-.96c-.67-.21-.68-.67.14-.99l12.03-4.64c.56-.2 1.05.14.85.88z"/></svg>
+                    Telegram арқылы кіру
+                </button>
+            </div>
+        </div>
+
+        <div id="profileViewSection" style="display: none;">
+            <div class="profile-header">
+                <div class="avatar-container">
+                    <img class="avatar-img" id="profileAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="Avatar">
+                    <label for="avatarInput" class="avatar-upload-btn" title="Суретті өзгерту">
+                        <svg viewBox="0 0 24 24"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+                    </label>
+                    <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="changeAvatar(event)">
+                </div>
+                <h3 class="profile-user-title" id="displayUserName">Armani User</h3>
+                <div class="profile-user-sub" id="displayUserEmail">ID: #849204 • PRO VIP Пайдаланушы</div>
+            </div>
+
+            <div class="profile-stats-grid">
+                <div class="profile-stat-card">
+                    <div class="profile-stat-val">PRO VIP</div>
+                    <div class="profile-stat-lbl">Мәртебесі</div>
+                </div>
+                <div class="profile-stat-card">
+                    <div class="profile-stat-val">2 Курс</div>
+                    <div class="profile-stat-lbl">Белсенді</div>
+                </div>
+            </div>
+
+            <div class="profile-tabs">
+                <div class="profile-tab active" onclick="switchProfileTab('tabProfile', this)">Деректер</div>
+                <div class="profile-tab" onclick="switchProfileTab('tabRewards', this)">Бонустар</div>
+                <div class="profile-tab" onclick="switchProfileTab('tabSecurity', this)">Қауіпсіздік</div>
+            </div>
+
+            <div id="tabProfile" class="tab-content active">
+                <div class="form-group">
+                    <label class="form-label">Аты-жөніңіз</label>
+                    <input type="text" class="form-input" id="inputName">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Электронды пошта (Gmail)</label>
+                    <input type="email" class="form-input" id="inputEmail" placeholder="mail@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Телефон нөміріңіз</label>
+                    <input type="tel" class="form-input" id="inputPhone" value="+7 (707) 123-45-67">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Туған күні мен айы</label>
+                    <input type="date" class="form-input" id="inputBirthDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Төлем картасы (Kaspi Gold)</label>
+                    <input type="text" class="form-input" id="inputPay" value="4400 •••• •••• 4812">
+                </div>
+                <button class="btn-save" onclick="saveProfile()">Өзгерістерді сақтау</button>
+                <button class="btn-logout" onclick="logout()">Жүйеден шығу</button>
+            </div>
+
+            <div id="tabRewards" class="tab-content">
+                <div class="reward-card">
+                    <div>
+                        <div style="font-size:11px; color:var(--subtext);">Ұтып алған промокод:</div>
+                        <div class="reward-code" id="userPromoCode">АЙНАЛДЫРЫЛМАҒАН</div>
+                    </div>
+                    <button style="background:var(--accent); color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;" onclick="copyPromo()">Көшіру</button>
+                </div>
+                <p style="font-size:11px; color:var(--subtext); text-align:left; margin-top:10px;">
+                    * Промокодты курстарды сатып алу кезінде админге (@analetik_1) жіберіп, жеңілдік алыңыз.
+                </p>
+            </div>
+
+            <div id="tabSecurity" class="tab-content">
+                <div class="form-group">
+                    <label class="form-label">Ескі құпия сөз</label>
+                    <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Жаңа құпия сөз</label>
+                    <input type="password" class="form-input" placeholder="Жаңа құпия сөз енгізіңіз">
+                </div>
+                <button class="btn-save" onclick="alert('Құпия сөз сәтті жаңартылды!')">Құпия сөзді өзгерту</button>
+            </div>
+        </div>
+
+    </div>
 </div>
-</div>
-<div id="profileViewSection" style="display: none;">
-<div class="profile-header">
-<div class="avatar-container">
-<img class="avatar-img" id="profileAvatar" src="[https://api.dicebear.com/7.x/bottts/svg?seed=Armani](https://api.dicebear.com/7.x/bottts/svg?seed=Armani)" alt="Avatar">
-<label for="avatarInput" class="avatar-upload-btn" title="Суретті өзгерту">
-<svg viewBox="0 0 24 24"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
-</label>
-<input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="changeAvatar(event)">
-</div>
-<h3 class="profile-user-title" id="displayUserName">Armani User</h3>
-<div class="profile-user-sub" id="displayUserEmail">ID: #849204 • PRO VIP Пайдаланушы</div>
-</div>
-<div class="profile-stats-grid">
-<div class="profile-stat-card">
-<div class="profile-stat-val">PRO VIP</div>
-<div class="profile-stat-lbl">Мәртебесі</div>
-</div>
-<div class="profile-stat-card">
-<div class="profile-stat-val">2 Курс</div>
-<div class="profile-stat-lbl">Белсенді</div>
-</div>
-</div>
-<div class="profile-tabs">
-<div class="profile-tab active" onclick="switchProfileTab('tabProfile', this)">Деректер</div>
-<div class="profile-tab" onclick="switchProfileTab('tabRewards', this)">Бонустар</div>
-<div class="profile-tab" onclick="switchProfileTab('tabSecurity', this)">Қауіпсіздік</div>
-</div>
-<div id="tabProfile" class="tab-content active">
-<div class="form-group">
-<label class="form-label">Аты-жөніңіз</label>
-<input type="text" class="form-input" id="inputName">
-</div>
-<div class="form-group">
-<label class="form-label">Электронды пошта (Gmail)</label>
-<input type="email" class="form-input" id="inputEmail" placeholder="mail@gmail.com">
-</div>
-<div class="form-group">
-<label class="form-label">Телефон нөміріңіз</label>
-<input type="tel" class="form-input" id="inputPhone" value="+7 (707) 123-45-67">
-</div>
-<div class="form-group">
-<label class="form-label">Туған күні мен айы</label>
-<input type="date" class="form-input" id="inputBirthDate">
-</div>
-<div class="form-group">
-<label class="form-label">Төлем картасы (Kaspi Gold)</label>
-<input type="text" class="form-input" id="inputPay" value="4400 •••• •••• 4812">
-</div>
-<button class="btn-save" onclick="saveProfile()">Өзгерістерді сақтау</button>
-<button class="btn-logout" onclick="logout()">Жүйеден шығу</button>
-</div>
-<div id="tabRewards" class="tab-content">
-<div class="reward-card">
-<div>
-<div style="font-size:11px; color:var(--subtext);">Ұтып алған промокод:</div>
-<div class="reward-code" id="userPromoCode">АЙНАЛДЫРЫЛМАҒАН</div>
-</div>
-<button style="background:var(--accent); color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;" onclick="copyPromo()">Көшіру</button>
-</div>
-<p style="font-size:11px; color:var(--subtext); text-align:left; margin-top:10px;">
-* Промокодты курстарды сатып алу кезінде админге (@analetik_1) жіберіп, жеңілдік алыңыз.
-</p>
-</div>
-<div id="tabSecurity" class="tab-content">
-<div class="form-group">
-<label class="form-label">Ескі құпия сөз</label>
-<input type="password" class="form-input" placeholder="••••••••">
-</div>
-<div class="form-group">
-<label class="form-label">Жаңа құпия сөз</label>
-<input type="password" class="form-input" placeholder="Жаңа құпия сөз енгізіңіз">
-</div>
-<button class="btn-save" onclick="alert('Құпия сөз сәтті жаңартылды!')">Құпия сөзді өзгерту</button>
-</div>
-</div>
-</div>
-</div>
+
 <footer>© 2026 Armani analetik. Барлық құқықтар қорғалған.</footer>
+
 <script>
-const i18nData = {
-kk: {
-nav_wheel: "Бонустар рулеткасы",
-nav_stat: "Өтімділік статистикасы",
-nav_predict: "Тегін болжамдар",
-nav_courses: "Оқу курстары",
-nav_profile: "Жеке профиль",
-hero_title: "VIP Каналға Қосыл!",
-hero_desc: "Күндік өтімділігі 80%+ болатын статистикалық болжамдар мен VIP талдаулар!",
-hero_btn: "Толығырақ",
-wheel_title: "Бонустар Рулеткасы",
-wheel_sub: "Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз",
-spin_btn: "Айналдыру",
-stat_title: "Күндік Болжамдар Өтімділігі",
-stat_rate: "Өтімділік",
-stat_sub: "Соңғы 30 күндегі сараптама нәтижесі бойынша",
-stat_win: "Ұтты",
-stat_loss: "Ұтылды",
-stat_avg: "Орт. Кэф",
-stat_history: "Соңғы нәтижелер тарихы",
-predict_title: "Тегін болжамдар Telegram арнамызда!",
-predict_desc: "Күнделікті ең сенімді әрі тегін спорттық болжамдарды, статистикалық болжамдарды жіберіп алмау үшін ресми Telegram каналымызға жазылыңыз.",
-predict_btn: "Арнаға өту (@analetik_1)",
-courses_title: "Толық Оқу Курстары",
-course_buy: "Курсты сатып алу",
-auth_login: "Кіру",
-login_title: "Жүйеге кіру",
-login_desc: "Бонустарды сақтау және жеке кабинетке кіру үшін авторизациядан өтіңіз.",
-pwa_text: "Қолданбаны телефонға орнату",
-pwa_btn: "Орнату"
-},
-ru: {
-nav_wheel: "Рулетка бонусов",
-nav_stat: "Статистика проходимости",
-nav_predict: "Бесплатные прогнозы",
-nav_courses: "Обучающие курсы",
-nav_profile: "Личный профиль",
-hero_title: "Вступай в VIP Канал!",
-hero_desc: "Статистические прогнозы с проходимостью 80%+ и VIP аналитика!",
-hero_btn: "Подробнее",
-wheel_title: "Рулетка Бонусов",
-wheel_sub: "Выигрывайте ежедневные скидки и бонусы",
-spin_btn: "Крутить",
-stat_title: "Проходимость Дневных Прогнозов",
-stat_rate: "Проходимость",
-stat_sub: "По результатам анализа за последние 30 дней",
-stat_win: "Выиграл",
-stat_loss: "Проиграл",
-stat_avg: "Ср. Коэф",
-stat_history: "История последних результатов",
-predict_title: "Бесплатные прогнозы в нашем Telegram!",
-predict_desc: "Подписывайтесь на наш официальный Telegram-канал, чтобы не пропустить ежедневные надежные и бесплатные спортивные прогнозы.",
-predict_btn: "Перейти в канал (@analetik_1)",
-courses_title: "Полные Обучающие Курсы",
-course_buy: "Купить курс",
-auth_login: "Войти",
-login_title: "Вход в систему",
-login_desc: "Авторизуйтесь для сохранения бонусов и доступа в личный кабинет.",
-pwa_text: "Установить приложение на телефон",
-pwa_btn: "Установить"
-}
-};
-function setLanguage(lang) {
-localStorage.setItem('armani_lang', lang);
-document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-if(lang === 'kk') {
-document.getElementById('langKK').classList.add('active');
-} else {
-document.getElementById('langRU').classList.add('active');
-}
-document.querySelectorAll('[data-i18n]').forEach(el => {
-const key = el.getAttribute('data-i18n');
-if (i18nData[lang] && i18nData[lang][key]) {
-el.innerText = i18nData[lang][key];
-}
-});
-}
-const sunIcon = <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>;
-const moonIcon = <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/>;
-window.addEventListener('load', () => {
-loadTheme();
-checkAuthStatus();
-const savedLang = localStorage.getItem('armani_lang') || 'kk';
-setLanguage(savedLang);
-setTimeout(() => {
-const loader = document.getElementById('preloader');
-loader.style.opacity = '0';
-setTimeout(() => loader.classList.add('hidden'), 400);
-}, 1500);
-if ('serviceWorker' in navigator) {
-navigator.serviceWorker.register('sw.js').catch(err => console.log('SW Registration failed:', err));
-}
-});
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-e.preventDefault();
-deferredPrompt = e;
-document.getElementById('pwaBanner').style.display = 'flex';
-});
-document.getElementById('btnInstallPWA').addEventListener('click', () => {
-if (deferredPrompt) {
-deferredPrompt.prompt();
-deferredPrompt.userChoice.then((choiceResult) => {
-if (choiceResult.outcome === 'accepted') {
-document.getElementById('pwaBanner').style.display = 'none';
-}
-deferredPrompt = null;
-});
-}
-});
-function toggleTheme() {
-const isLight = document.body.classList.toggle('light-mode');
-const theme = isLight ? 'light' : 'dark';
-localStorage.setItem('armani_theme', theme);
-updateThemeIcon(theme);
-}
-function loadTheme() {
-const savedTheme = localStorage.getItem('armani_theme') || 'dark';
-if (savedTheme === 'light') {
-document.body.classList.add('light-mode');
-} else {
-document.body.classList.remove('light-mode');
-}
-updateThemeIcon(savedTheme);
-}
-function updateThemeIcon(theme) {
-const iconSvg = document.getElementById('themeIcon');
-iconSvg.innerHTML = theme === 'light' ? sunIcon : moonIcon;
-}
-function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-function openDrawer() { document.getElementById('drawerOverlay').classList.add('active'); document.getElementById('drawerMenu').classList.add('active'); }
-function closeDrawer() { document.getElementById('drawerOverlay').classList.remove('active'); document.getElementById('drawerMenu').classList.remove('active'); }
-function switchPage(pageId, el) {
-document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
-document.getElementById(pageId).classList.add('active');
-if (el) {
-document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-el.classList.add('active');
-}
-closeDrawer();
-}
-function switchProfileTab(tabId, el) {
-document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
-document.getElementById(tabId).classList.add('active');
-el.classList.add('active');
-}
-function checkAuthStatus() {
-const savedName = localStorage.getItem('armani_name');
-const authBtn = document.getElementById('headerAuthBtn');
-const avatarWrapper = document.getElementById('headerAvatarWrapper');
-const authView = document.getElementById('authViewSection');
-const profileView = document.getElementById('profileViewSection');
-if (savedName) {
-authBtn.style.display = 'none';
-avatarWrapper.classList.add('active');
-authView.style.display = 'none';
-profileView.style.display = 'block';
-loadProfileData();
-} else {
-authBtn.style.display = 'flex';
-avatarWrapper.classList.remove('active');
-authView.style.display = 'block';
-profileView.style.display = 'none';
-}
-}
-function openProfileModal() {
-checkAuthStatus();
-openModal('modalProfile');
-}
-function changeAvatar(event) {
-const file = event.target.files[0];
-if (file) {
-const reader = new FileReader();
-reader.onload = function(e) {
-const imgData = e.target.result;
-document.getElementById('profileAvatar').src = imgData;
-document.getElementById('headerAvatar').src = imgData;
-localStorage.setItem('armani_avatar', imgData);
-}
-reader.readAsDataURL(file);
-}
-}
-function saveProfile() {
-const name = document.getElementById('inputName').value;
-const email = document.getElementById('inputEmail').value;
-const phone = document.getElementById('inputPhone').value;
-const bdate = document.getElementById('inputBirthDate').value;
-const pay = document.getElementById('inputPay').value;
-localStorage.setItem('armani_name', name);
-localStorage.setItem('armani_email', email);
-localStorage.setItem('armani_phone', phone);
-localStorage.setItem('armani_bdate', bdate);
-localStorage.setItem('armani_pay', pay);
-document.getElementById('displayUserName').innerText = name;
-document.getElementById('displayUserEmail').innerText = email ? email : 'ID: #849204 • PRO VIP';
-alert('Деректер сақталды!');
-closeModal('modalProfile');
-}
-function loadProfileData() {
-const savedName = localStorage.getItem('armani_name');
-const savedEmail = localStorage.getItem('armani_email');
-const savedPhone = localStorage.getItem('armani_phone');
-const savedBdate = localStorage.getItem('armani_bdate');
-const savedPay = localStorage.getItem('armani_pay');
-const savedAvatar = localStorage.getItem('armani_avatar');
-if(savedName) {
-document.getElementById('inputName').value = savedName;
-document.getElementById('displayUserName').innerText = savedName;
-}
-if(savedEmail) {
-document.getElementById('inputEmail').value = savedEmail;
-document.getElementById('displayUserEmail').innerText = savedEmail;
-}
-if(savedPhone) document.getElementById('inputPhone').value = savedPhone;
-if(savedBdate) document.getElementById('inputBirthDate').value = savedBdate;
-if(savedPay) document.getElementById('inputPay').value = savedPay;
-if(savedAvatar) {
-document.getElementById('profileAvatar').src = savedAvatar;
-document.getElementById('headerAvatar').src = savedAvatar;
-}
-}
-function authSocial(provider) {
-if(provider === 'Google') {
-let gmail = prompt("Google поштаңызды (Gmail) енгізіңіз:", "armani.user@gmail.com");
-if(gmail) {
-let name = gmail.split('@')[0];
-name = name.charAt(0).toUpperCase() + name.slice(1);
-localStorage.setItem('armani_name', name);
-localStorage.setItem('armani_email', gmail);
-checkAuthStatus();
-alert(Google (${gmail}) арқылы сәтті кірдіңіз!);
-closeModal('modalProfile');
-}
-} else if(provider === 'Telegram') {
-let tgUser = prompt("Telegram username немесе атыңызды енгізіңіз:", "Armani_VIP");
-if(tgUser) {
-localStorage.setItem('armani_name', tgUser);
-checkAuthStatus();
-alert(Telegram (@${tgUser}) арқылы кіру расталды!);
-closeModal('modalProfile');
-}
-}
-}
-function logout() {
-if(confirm('Жүйеден шығуды және сақталған деректерді өшіруді растайсыз ба?')) {
-localStorage.clear();
-location.reload();
-}
-}
-function copyPromo() {
-const code = document.getElementById('userPromoCode').innerText;
-if(code !== 'АЙНАЛДЫРЫЛМАҒАН') {
-navigator.clipboard.writeText(code);
-alert('Промокод көшірілді: ' + code);
-} else {
-alert('Алдымен рулетканы айналдырыңыз!');
-}
-}
-/* WHEEL ENGINE */
-const canvas = document.getElementById("wheelCanvas");
-const ctx = canvas.getContext("2d");
-const prizes = ["-15% КУРС", "+3 КҮН VIP", "-50% КУРС", "-15% КУРС", "+1 КҮН VIP", "-25% КУРС", "ҚАЙТА АЙНАЛДЫРУ"];
-const colors = ["#161f33", "#2563eb", "#1e293b", "#161f33", "#2563eb", "#1e293b", "#ffffff"];
-let currentRotation = 0;
-function drawWheel() {
-const numPrizes = prizes.length;
-const arcSize = (2 * Math.PI) / numPrizes;
-for (let i = 0; i < numPrizes; i++) {
-const angle = i * arcSize;
-ctx.beginPath();
-ctx.fillStyle = colors[i];
-ctx.moveTo(250, 250);
-ctx.arc(250, 250, 250, angle, angle + arcSize);
-ctx.fill();
-ctx.save();
-ctx.translate(250, 250);
-ctx.rotate(angle + arcSize / 2);
-ctx.textAlign = "right";
-ctx.fillStyle = colors[i] === "#ffffff" ? "#000" : "#fff";
-ctx.font = "bold 15px sans-serif";
-ctx.fillText(prizes[i], 230, 5);
-ctx.restore();
-}
-}
-drawWheel();
-function spinWheel() {
-const btn = document.getElementById('spinBtn');
-btn.disabled = true;
-const winIndex = Math.floor(Math.random() * prizes.length);
-const arcSize = 360 / prizes.length;
-const targetDegree = 360 - (winIndex * arcSize) - (arcSize / 2);
-currentRotation += 1440 + targetDegree;
-canvas.style.transform = rotate(${currentRotation}deg);
-setTimeout(() => {
-const resultText = prizes[winIndex];
-document.getElementById('winText').innerText = resultText;
-document.getElementById('userPromoCode').innerText = PROMO-${resultText.replace(/[^A-Z0-9]/g, '')};
-openModal('modalWin');
-document.getElementById('spinTimer').style.display = 'block';
-}, 4000);
-}
+    const sunIcon = `<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>`;
+    const moonIcon = `<path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/>`;
+
+    window.addEventListener('load', () => {
+        loadTheme();
+        checkAuthStatus();
+        setTimeout(() => {
+            const loader = document.getElementById('preloader');
+            loader.style.opacity = '0';
+            setTimeout(() => loader.classList.add('hidden'), 400);
+        }, 1500);
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW Registration failed:', err));
+        }
+    });
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('pwaBanner').style.display = 'flex';
+    });
+
+    document.getElementById('btnInstallPWA').addEventListener('click', () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    document.getElementById('pwaBanner').style.display = 'none';
+                }
+                deferredPrompt = null;
+            });
+        }
+    });
+
+    function toggleTheme() {
+        const isLight = document.body.classList.toggle('light-mode');
+        const theme = isLight ? 'light' : 'dark';
+        localStorage.setItem('armani_theme', theme);
+        updateThemeIcon(theme);
+    }
+
+    function loadTheme() {
+        const savedTheme = localStorage.getItem('armani_theme') || 'dark';
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+        } else {
+            document.body.classList.remove('light-mode');
+        }
+        updateThemeIcon(savedTheme);
+    }
+
+    function updateThemeIcon(theme) {
+        const iconSvg = document.getElementById('themeIcon');
+        iconSvg.innerHTML = theme === 'light' ? sunIcon : moonIcon;
+    }
+
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    
+    function openDrawer() { document.getElementById('drawerOverlay').classList.add('active'); document.getElementById('drawerMenu').classList.add('active'); }
+    function closeDrawer() { document.getElementById('drawerOverlay').classList.remove('active'); document.getElementById('drawerMenu').classList.remove('active'); }
+
+    function switchPage(pageId, el) {
+        document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        if (el) {
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            el.classList.add('active');
+        }
+        closeDrawer();
+    }
+
+    function switchProfileTab(tabId, el) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        el.classList.add('active');
+    }
+
+    function checkAuthStatus() {
+        const savedName = localStorage.getItem('armani_name');
+        const authBtn = document.getElementById('headerAuthBtn');
+        const avatarWrapper = document.getElementById('headerAvatarWrapper');
+        const authView = document.getElementById('authViewSection');
+        const profileView = document.getElementById('profileViewSection');
+
+        if (savedName) {
+            authBtn.style.display = 'none';
+            avatarWrapper.classList.add('active');
+            authView.style.display = 'none';
+            profileView.style.display = 'block';
+            loadProfileData();
+        } else {
+            authBtn.style.display = 'flex';
+            avatarWrapper.classList.remove('active');
+            authView.style.display = 'block';
+            profileView.style.display = 'none';
+        }
+    }
+
+    function openProfileModal() {
+        checkAuthStatus();
+        openModal('modalProfile');
+    }
+
+    function changeAvatar(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imgData = e.target.result;
+                document.getElementById('profileAvatar').src = imgData;
+                document.getElementById('headerAvatar').src = imgData;
+                localStorage.setItem('armani_avatar', imgData);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function saveProfile() {
+        const name = document.getElementById('inputName').value;
+        const email = document.getElementById('inputEmail').value;
+        const phone = document.getElementById('inputPhone').value;
+        const bdate = document.getElementById('inputBirthDate').value;
+        const pay = document.getElementById('inputPay').value;
+
+        localStorage.setItem('armani_name', name);
+        localStorage.setItem('armani_email', email);
+        localStorage.setItem('armani_phone', phone);
+        localStorage.setItem('armani_bdate', bdate);
+        localStorage.setItem('armani_pay', pay);
+
+        document.getElementById('displayUserName').innerText = name;
+        document.getElementById('displayUserEmail').innerText = email ? email : 'ID: #849204 • PRO VIP';
+        
+        alert('Деректер сақталды!');
+        closeModal('modalProfile');
+    }
+
+    function loadProfileData() {
+        const savedName = localStorage.getItem('armani_name');
+        const savedEmail = localStorage.getItem('armani_email');
+        const savedPhone = localStorage.getItem('armani_phone');
+        const savedBdate = localStorage.getItem('armani_bdate');
+        const savedPay = localStorage.getItem('armani_pay');
+        const savedAvatar = localStorage.getItem('armani_avatar');
+
+        if(savedName) {
+            document.getElementById('inputName').value = savedName;
+            document.getElementById('displayUserName').innerText = savedName;
+        }
+        if(savedEmail) {
+            document.getElementById('inputEmail').value = savedEmail;
+            document.getElementById('displayUserEmail').innerText = savedEmail;
+        }
+        if(savedPhone) document.getElementById('inputPhone').value = savedPhone;
+        if(savedBdate) document.getElementById('inputBirthDate').value = savedBdate;
+        if(savedPay) document.getElementById('inputPay').value = savedPay;
+        if(savedAvatar) {
+            document.getElementById('profileAvatar').src = savedAvatar;
+            document.getElementById('headerAvatar').src = savedAvatar;
+        }
+    }
+
+    function authSocial(provider) {
+        if(provider === 'Google') {
+            let gmail = prompt("Google поштаңызды (Gmail) енгізіңіз:", "armani.user@gmail.com");
+            if(gmail) {
+                let name = gmail.split('@')[0];
+                name = name.charAt(0).toUpperCase() + name.slice(1);
+                
+                localStorage.setItem('armani_name', name);
+                localStorage.setItem('armani_email', gmail);
+                
+                checkAuthStatus();
+                alert(`Google (${gmail}) арқылы сәтті кірдіңіз!`);
+                closeModal('modalProfile');
+            }
+        } else if(provider === 'Telegram') {
+            let tgUser = prompt("Telegram username немесе атыңызды енгізіңіз:", "Armani_VIP");
+            if(tgUser) {
+                localStorage.setItem('armani_name', tgUser);
+                
+                checkAuthStatus();
+                alert(`Telegram (@${tgUser}) арқылы кіру расталды!`);
+                closeModal('modalProfile');
+            }
+        }
+    }
+
+    function logout() {
+        if(confirm('Жүйеден шығуды және сақталған деректерді өшіруді растайсыз ба?')) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+
+    function copyPromo() {
+        const code = document.getElementById('userPromoCode').innerText;
+        if(code !== 'АЙНАЛДЫРЫЛМАҒАН') {
+            navigator.clipboard.writeText(code);
+            alert('Промокод көшірілді: ' + code);
+        } else {
+            alert('Алдымен рулетканы айналдырыңыз!');
+        }
+    }
+
+    /* WHEEL ENGINE */
+    const canvas = document.getElementById("wheelCanvas");
+    const ctx = canvas.getContext("2d");
+    const prizes = ["-15% КУРС", "+3 КҮН VIP", "-50% КУРС", "-15% КУРС", "+1 КҮН VIP", "-25% КУРС", "ҚАЙТА АЙНАЛДЫРУ"];
+    const colors = ["#161f33", "#2563eb", "#1e293b", "#161f33", "#2563eb", "#1e293b", "#ffffff"];
+    let currentRotation = 0;
+
+    function drawWheel() {
+        const numPrizes = prizes.length;
+        const arcSize = (2 * Math.PI) / numPrizes;
+        for (let i = 0; i < numPrizes; i++) {
+            const angle = i * arcSize;
+            ctx.beginPath();
+            ctx.fillStyle = colors[i];
+            ctx.moveTo(250, 250);
+            ctx.arc(250, 250, 250, angle, angle + arcSize);
+            ctx.fill();
+            ctx.save();
+            ctx.translate(250, 250);
+            ctx.rotate(angle + arcSize / 2);
+            ctx.textAlign = "right";
+            ctx.fillStyle = colors[i] === "#ffffff" ? "#000" : "#fff";
+            ctx.font = "bold 15px sans-serif";
+            ctx.fillText(prizes[i], 230, 5);
+            ctx.restore();
+        }
+    }
+    drawWheel();
+
+    function spinWheel() {
+        const btn = document.getElementById('spinBtn');
+        btn.disabled = true;
+        const winIndex = Math.floor(Math.random() * prizes.length);
+        const arcSize = 360 / prizes.length;
+        const targetDegree = 360 - (winIndex * arcSize) - (arcSize / 2);
+        currentRotation += 1440 + targetDegree;
+        
+        canvas.style.transform = `rotate(${currentRotation}deg)`;
+
+        setTimeout(() => {
+            const resultText = prizes[winIndex];
+            document.getElementById('winText').innerText = resultText;
+            document.getElementById('userPromoCode').innerText = `PROMO-${resultText.replace(/[^A-Z0-9]/g, '')}`;
+            openModal('modalWin');
+            document.getElementById('spinTimer').style.display = 'block';
+        }, 4000);
+    }
 </script>
 </body>
-</html>
+                                                                                                                       </html>
