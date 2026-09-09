@@ -248,8 +248,8 @@
         </div>
         <div class="social-links">
             <a href="https://t.me/analetik_1" target="_blank" class="social-btn"><i class="fa-paper-plane"></i></a>
+            <a href="https://t.me/armani_04" target="_blank" class="social-btn"><i class="fa-solid fa-headset"></i></a>
             <a href="#" target="_blank" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" target="_blank" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
             <a href="#" target="_blank" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
         </div>
     </div>
@@ -346,6 +346,11 @@
                 <span>Арнаға өту (@analetik_1)</span>
                 <svg style="width:16px; height:16px; fill:#fff;" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
+            <div style="margin-top: 15px;">
+                <a href="https://t.me/armani_04" target="_blank" style="color: var(--subtext); text-decoration: underline; font-size: 12px;">
+                    Админмен байланыс: @armani_04
+                </a>
+            </div>
         </div>
     </div>
 
@@ -364,7 +369,7 @@
                 </ul>
                 <div class="course-footer">
                     <div class="course-price">15,000 ₸</div>
-                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Курсты сатып алу</button>
+                    <button class="btn-buy" onclick="window.open('https://t.me/armani_04', '_blank')">Курсты сатып алу</button>
                 </div>
             </div>
 
@@ -382,7 +387,7 @@
                 </ul>
                 <div class="course-footer">
                     <div class="course-price">35,000 ₸</div>
-                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Курсты сатып алу</button>
+                    <button class="btn-buy" onclick="window.open('https://t.me/armani_04', '_blank')">Курсты сатып алу</button>
                 </div>
             </div>
 
@@ -397,7 +402,7 @@
                 </ul>
                 <div class="course-footer">
                     <div class="course-price">60,000 ₸</div>
-                    <button class="btn-buy" onclick="window.open('https://t.me/analetik_1', '_blank')">Курсты сатып алу</button>
+                    <button class="btn-buy" onclick="window.open('https://t.me/armani_04', '_blank')">Курсты сатып алу</button>
                 </div>
             </div>
         </div>
@@ -499,7 +504,7 @@
                     <button style="background:var(--accent); color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;" onclick="copyPromo()">Көшіру</button>
                 </div>
                 <p style="font-size:11px; color:var(--subtext); text-align:left; margin-top:10px;">
-                    * Промокодты курстарды сатып алу кезінде админге (@analetik_1) жіберіп, жеңілдік алыңыз.
+                    * Промокодты курстарды сатып алу кезінде админге (@armani_04) жіберіп, жеңілдік алыңыз.
                 </p>
             </div>
 
@@ -528,6 +533,8 @@
     window.addEventListener('load', () => {
         loadTheme();
         checkAuthStatus();
+        checkWheelCooldown();
+        
         setTimeout(() => {
             const loader = document.getElementById('preloader');
             loader.style.opacity = '0';
@@ -670,6 +677,7 @@
         const savedBdate = localStorage.getItem('armani_bdate');
         const savedPay = localStorage.getItem('armani_pay');
         const savedAvatar = localStorage.getItem('armani_avatar');
+        const savedPromo = localStorage.getItem('armani_promo');
 
         if(savedName) {
             document.getElementById('inputName').value = savedName;
@@ -685,6 +693,9 @@
         if(savedAvatar) {
             document.getElementById('profileAvatar').src = savedAvatar;
             document.getElementById('headerAvatar').src = savedAvatar;
+        }
+        if(savedPromo) {
+            document.getElementById('userPromoCode').innerText = savedPromo;
         }
     }
 
@@ -731,7 +742,7 @@
         }
     }
 
-    /* WHEEL ENGINE */
+    /* WHEEL ENGINE & TIMER LOGIC */
     const canvas = document.getElementById("wheelCanvas");
     const ctx = canvas.getContext("2d");
     const prizes = ["-15% КУРС", "+3 КҮН VIP", "-50% КУРС", "-15% КУРС", "+1 КҮН VIP", "-25% КУРС", "ҚАЙТА АЙНАЛДЫРУ"];
@@ -760,9 +771,54 @@
     }
     drawWheel();
 
+    function checkWheelCooldown() {
+        const lastSpin = localStorage.getItem('armani_last_spin');
+        const spinBtn = document.getElementById('spinBtn');
+        const timerText = document.getElementById('spinTimer');
+
+        if (lastSpin) {
+            const now = new Date().getTime();
+            const timePassed = now - parseInt(lastSpin);
+            const cooldown = 24 * 60 * 60 * 1000; // 24 сағат
+
+            if (timePassed < cooldown) {
+                spinBtn.disabled = true;
+                timerText.style.display = 'block';
+                startTimer(cooldown - timePassed);
+            } else {
+                spinBtn.disabled = false;
+                timerText.style.display = 'none';
+            }
+        }
+    }
+
+    function startTimer(duration) {
+        let timer = Math.floor(duration / 1000);
+        const timerElement = document.getElementById('spinTimer');
+        
+        const interval = setInterval(() => {
+            let hours = Math.floor(timer / 3600);
+            let minutes = Math.floor((timer % 3600) / 60);
+            let seconds = Math.floor(timer % 60);
+
+            hours = hours < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            timerElement.innerText = `Келесі мүмкіндік: ${hours}:${minutes}:${seconds}`;
+
+            if (--timer < 0) {
+                clearInterval(interval);
+                document.getElementById('spinBtn').disabled = false;
+                timerElement.style.display = 'none';
+            }
+        }, 1000);
+    }
+
     function spinWheel() {
         const btn = document.getElementById('spinBtn');
         btn.disabled = true;
+        
         const winIndex = Math.floor(Math.random() * prizes.length);
         const arcSize = 360 / prizes.length;
         const targetDegree = 360 - (winIndex * arcSize) - (arcSize / 2);
@@ -772,12 +828,13 @@
 
         setTimeout(() => {
             const resultText = prizes[winIndex];
+            const promoCode = `PROMO-${resultText.replace(/[^A-Z0-9]/g, '')}`;
+            
             document.getElementById('winText').innerText = resultText;
-            document.getElementById('userPromoCode').innerText = `PROMO-${resultText.replace(/[^A-Z0-9]/g, '')}`;
+            document.getElementById('userPromoCode').innerText = promoCode;
+            
+            localStorage.setItem('armani_promo', promoCode);
+            localStorage.setItem('armani_last_spin', new Date().getTime().toString());
+
             openModal('modalWin');
-            document.getElementById('spinTimer').style.display = 'block';
-        }, 4000);
-    }
-</script>
-</body>
-                                                                                                                       </html>
+            checkWheelCool                
