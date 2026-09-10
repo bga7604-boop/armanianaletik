@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App UI</title>
+  <title>Advanced App UI</title>
   
   <!-- Canvas Confetti Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -33,14 +33,13 @@
       padding: 20px;
     }
 
-    /* Glassmorphism Card Wrapper */
     .container {
       width: 100%;
       max-width: 450px;
-      padding: 24px;
       animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    /* Glassmorphism Card Style */
     .glass-card {
       background: var(--glass-bg);
       backdrop-filter: blur(12px);
@@ -89,8 +88,8 @@
 
     /* Skeleton Loading Effect */
     .skeleton {
-      height: 20px;
-      margin-bottom: 10px;
+      height: 12px;
+      margin-bottom: 8px;
       background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 75%);
       background-size: 200% 100%;
       animation: loading 1.5s infinite;
@@ -106,42 +105,101 @@
 <body>
 
   <div class="container">
-    <!-- UI Карточкасы -->
+    
+    <!-- 1. Статистика және Прогресс Карточкасы -->
     <div class="glass-card">
-      <h2 style="margin-bottom: 12px;">Басқару панелі</h2>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <span style="color: #94a3b8; font-size: 13px;">Жалпы прогресс</span>
+          <h3 style="font-size: 24px; color: #38bdf8; margin-top: 4px;">1,250 XP</h3>
+        </div>
+        <span style="background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: bold;">+15% ↑</span>
+      </div>
+      
+      <div style="margin-top: 16px;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px; color: #cbd5e1; margin-bottom: 6px;">
+          <span>Келесі деңгейге:</span>
+          <span>75%</span>
+        </div>
+        <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden;">
+          <div style="width: 75%; height: 100%; background: linear-gradient(90deg, #6366f1, #ec4899); border-radius: 10px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Негізгі Басқару Панелі -->
+    <div class="glass-card">
+      <h2 style="margin-bottom: 8px; font-size: 20px;">Басқару панелі</h2>
       <p style="color: #cbd5e1; font-size: 14px; margin-bottom: 16px;">
-        Жаңартылған Neon & Glassmorphism интерфейсі.
+        Интерактивті Neon & Glassmorphism интерфейсі.
       </p>
 
-      <!-- Skeleton Жүктелу визуализациясы -->
-      <div id="loader" style="display: none;">
+      <!-- Skeleton Жүктелу Индикаторы -->
+      <div id="loader" style="display: none; margin-bottom: 12px;">
         <div class="skeleton" style="width: 100%;"></div>
-        <div class="skeleton" style="width: 70%;"></div>
+        <div class="skeleton" style="width: 60%;"></div>
       </div>
 
-      <!-- Іс-әрекет батырмасы -->
+      <!-- Негізгі Батырма -->
       <button class="btn-action" onclick="handleWin()">Жеңісті іске қосу 🎉</button>
     </div>
+
+    <!-- 3. Быстрая настройка / Контроллерлер -->
+    <div class="glass-card" style="display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 14px; font-weight: 500;">Дыбыстық эффектілер</span>
+      <button onclick="toggleNotification()" class="btn-action" style="padding: 8px 16px; font-size: 13px; width: auto; margin: 0;">Баптауларды сақтау</button>
+    </div>
+
   </div>
 
   <script>
-    // Confetti Анимациясын іске қосу
+    // 1. Confetti & Loader Функциясы
     function handleWin() {
-      // Loader визуализациясы (микро-интеракция)
       const loader = document.getElementById('loader');
       loader.style.display = 'block';
 
       setTimeout(() => {
         loader.style.display = 'none';
         
-        // Салтанатты конфетти шашу
         confetti({
           particleCount: 120,
           spread: 80,
           origin: { y: 0.6 },
           colors: ['#6366f1', '#8b5cf6', '#ec4899', '#10b981']
         });
-      }, 400);
+
+        showToast("🎉 Жеңіс! Бонусыңыз есептелді.");
+      }, 500);
+    }
+
+    // 2. Toast-хабарлама шығару функциясы
+    function toggleNotification() {
+      showToast("✨ Баптаулар сәтті сақталды!");
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.innerText = message;
+      toast.style.cssText = `
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(99, 102, 241, 0.5);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        backdrop-filter: blur(8px);
+        z-index: 1000;
+        animation: fadeIn 0.3s ease;
+        font-size: 14px;
+      `;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
     }
   </script>
 
