@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced App UI</title>
-  
-  <!-- Canvas Confetti Library -->
+  <title>Complete App UI</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
@@ -29,17 +27,17 @@
       color: #fff;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       padding: 20px;
+      padding-bottom: 90px;
     }
 
     .container {
       width: 100%;
       max-width: 450px;
-      animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: fadeIn 0.4s ease;
     }
 
-    /* Glassmorphism Card Style */
     .glass-card {
       background: var(--glass-bg);
       backdrop-filter: blur(12px);
@@ -48,8 +46,8 @@
       border-radius: 20px;
       padding: 20px;
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      transition: all 0.3s ease;
       margin-bottom: 16px;
+      transition: all 0.3s ease;
     }
 
     .glass-card:hover {
@@ -57,16 +55,15 @@
       box-shadow: var(--neon-glow);
     }
 
-    /* Ripple & Hover Button */
     .btn-action {
       width: 100%;
       background: linear-gradient(90deg, #6366f1, #8b5cf6);
       border: none;
       color: white;
-      padding: 14px 24px;
+      padding: 12px 20px;
       border-radius: 12px;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
       transition: transform 0.1s ease, box-shadow 0.2s ease;
       margin-top: 10px;
@@ -80,128 +77,288 @@
       transform: scale(0.96);
     }
 
-    /* Page Fade Animation */
+    /* Tab navigation style */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Bottom Navigation Bar */
+    .nav-bar {
+      position: fixed;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 430px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      z-index: 100;
+    }
+
+    .nav-item {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-item.active {
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    /* Simple Roulette Wheel */
+    .wheel-container {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: 15px auto;
+      border-radius: 50%;
+      border: 4px solid #8b5cf6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: conic-gradient(#6366f1 0deg 90deg, #ec4899 90deg 180deg, #10b981 180deg 270deg, #f59e0b 270deg 360deg);
+      transition: transform 3s cubic-bezier(0.15, 0.8, 0.15, 1);
+    }
+
+    .wheel-center {
+      width: 60px;
+      height: 60px;
+      background: #0f172a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+    }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Skeleton Loading Effect */
-    .skeleton {
-      height: 12px;
-      margin-bottom: 8px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 75%);
-      background-size: 200% 100%;
-      animation: loading 1.5s infinite;
-      border-radius: 8px;
-    }
-
-    @keyframes loading {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    
-    <!-- 1. Статистика және Прогресс Карточкасы -->
-    <div class="glass-card">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-          <span style="color: #94a3b8; font-size: 13px;">Жалпы прогресс</span>
-          <h3 style="font-size: 24px; color: #38bdf8; margin-top: 4px;">1,250 XP</h3>
+
+    <!-- 1. Тіл ауыстыру панелі -->
+    <div style="display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 12px;">
+      <button onclick="setLanguage('kk')" class="btn-action" style="width: auto; padding: 4px 10px; font-size: 12px; margin: 0;">KK</button>
+      <button onclick="setLanguage('ru')" class="btn-action" style="width: auto; padding: 4px 10px; font-size: 12px; margin: 0; background: #475569;">RU</button>
+    </div>
+
+    <!-- TAB 1: БАСТЫ БЕТ -->
+    <div id="tab-home" class="tab-content active">
+      <!-- Прогресс Карточкасы -->
+      <div class="glass-card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <span style="color: #94a3b8; font-size: 13px;" data-i18n="progress">Жалпы прогресс</span>
+            <h3 style="font-size: 24px; color: #38bdf8; margin-top: 4px;" id="user-xp">1,250 XP</h3>
+          </div>
+          <span style="background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: bold;">+15% ↑</span>
         </div>
-        <span style="background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: bold;">+15% ↑</span>
+        
+        <div style="margin-top: 16px;">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; color: #cbd5e1; margin-bottom: 6px;">
+            <span data-i18n="next_level">Келесі деңгейге:</span>
+            <span>75%</span>
+          </div>
+          <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden;">
+            <div style="width: 75%; height: 100%; background: linear-gradient(90deg, #6366f1, #ec4899); border-radius: 10px;"></div>
+          </div>
+        </div>
       </div>
-      
-      <div style="margin-top: 16px;">
-        <div style="display: flex; justify-content: space-between; font-size: 12px; color: #cbd5e1; margin-bottom: 6px;">
-          <span>Келесі деңгейге:</span>
-          <span>75%</span>
-        </div>
-        <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden;">
-          <div style="width: 75%; height: 100%; background: linear-gradient(90deg, #6366f1, #ec4899); border-radius: 10px;"></div>
-        </div>
+
+      <!-- Негізгі Басқару Панелі -->
+      <div class="glass-card">
+        <h2 style="margin-bottom: 8px; font-size: 20px;" data-i18n="dashboard">Басқару панелі</h2>
+        <p style="color: #cbd5e1; font-size: 14px; margin-bottom: 12px;" data-i18n="desc">Интерактивті Neon & Glassmorphism интерфейсі.</p>
+        <button class="btn-action" onclick="triggerWin()" data-i18n="btn_win">Жеңісті іске қосу 🎉</button>
       </div>
     </div>
 
-    <!-- 2. Негізгі Басқару Панелі -->
-    <div class="glass-card">
-      <h2 style="margin-bottom: 8px; font-size: 20px;">Басқару панелі</h2>
-      <p style="color: #cbd5e1; font-size: 14px; margin-bottom: 16px;">
-        Интерактивті Neon & Glassmorphism интерфейсі.
-      </p>
+    <!-- TAB 2: РУЛЕТКА (ОЙЫН БӨЛІМІ) -->
+    <div id="tab-game" class="tab-content">
+      <div class="glass-card" style="text-align: center;">
+        <h2 style="font-size: 20px; margin-bottom: 6px;" data-i18n="spin_title">Күндізгі Бонус</h2>
+        <p style="color: #cbd5e1; font-size: 13px;" data-i18n="spin_sub">Рулетканы айналдырып, XP ұтып алыңыз!</p>
+        
+        <div class="wheel-container" id="wheel">
+          <div class="wheel-center">🎁</div>
+        </div>
 
-      <!-- Skeleton Жүктелу Индикаторы -->
-      <div id="loader" style="display: none; margin-bottom: 12px;">
-        <div class="skeleton" style="width: 100%;"></div>
-        <div class="skeleton" style="width: 60%;"></div>
+        <button class="btn-action" onclick="spinWheel()" id="spin-btn" data-i18n="spin_btn">Айналдыру</button>
       </div>
-
-      <!-- Негізгі Батырма -->
-      <button class="btn-action" onclick="handleWin()">Жеңісті іске қосу 🎉</button>
     </div>
 
-    <!-- 3. Быстрая настройка / Контроллерлер -->
-    <div class="glass-card" style="display: flex; justify-content: space-between; align-items: center;">
-      <span style="font-size: 14px; font-weight: 500;">Дыбыстық эффектілер</span>
-      <button onclick="toggleNotification()" class="btn-action" style="padding: 8px 16px; font-size: 13px; width: auto; margin: 0;">Баптауларды сақтау</button>
+    <!-- TAB 3: ПРОФИЛЬ -->
+    <div id="tab-profile" class="tab-content">
+      <div class="glass-card" style="text-align: center;">
+        <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #ec4899); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 28px;">👤</div>
+        <h3 style="font-size: 18px;">Пайдаланушы</h3>
+        <p style="color: #94a3b8; font-size: 13px; margin-top: 4px;">user@example.com</p>
+
+        <div style="margin-top: 20px; text-align: left;">
+          <div style="padding: 10px; background: rgba(255,255,255,0.03); border-radius: 10px; margin-bottom: 8px; font-size: 14px;">
+            🔒 Авторизация: <span style="color: #34d399;">Белсенді</span>
+          </div>
+          <div style="padding: 10px; background: rgba(255,255,255,0.03); border-radius: 10px; font-size: 14px;">
+            🏆 Мәртебесі: <span style="color: #f59e0b;">PRO Қолданушы</span>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
 
+  <!-- 2. Bottom Navigation Bar -->
+  <div class="nav-bar">
+    <button class="nav-item active" onclick="switchTab('home', this)">
+      <span>🏠</span>
+      <span data-i18n="nav_home">Басты</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('game', this)">
+      <span>🎰</span>
+      <span data-i18n="nav_game">Рулетка</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('profile', this)">
+      <span>👤</span>
+      <span data-i18n="nav_profile">Профиль</span>
+    </button>
+  </div>
+
   <script>
-    // 1. Confetti & Loader Функциясы
-    function handleWin() {
-      const loader = document.getElementById('loader');
-      loader.style.display = 'block';
+    // i18n Аударма сөздігі
+    const dictionary = {
+      kk: {
+        progress: "Жалпы прогресс",
+        next_level: "Келесі деңгейге:",
+        dashboard: "Басқару панелі",
+        desc: "Интерактивті Neon & Glassmorphism интерфейсі.",
+        btn_win: "Жеңісті іске қосу 🎉",
+        spin_title: "Күндізгі Бонус",
+        spin_sub: "Рулетканы айналдырып, XP ұтып алыңыз!",
+        spin_btn: "Айналдыру",
+        nav_home: "Басты",
+        nav_game: "Рулетка",
+        nav_profile: "Профиль"
+      },
+      ru: {
+        progress: "Общий прогресс",
+        next_level: "До следующего уровня:",
+        dashboard: "Панель управления",
+        desc: "Интерактивный Neon & Glassmorphism интерфейс.",
+        btn_win: "Запустить победу 🎉",
+        spin_title: "Ежедневный бонус",
+        spin_sub: "Вращайте рулетку и выигрывайте XP!",
+        spin_btn: "Вращать",
+        nav_home: "Главная",
+        nav_game: "Рулетка",
+        nav_profile: "Профиль"
+      }
+    };
+
+    let currentLang = 'kk';
+    let currentXp = 1250;
+
+    // Тілді ауыстыру функциясы
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dictionary[lang][key]) {
+          el.innerText = dictionary[lang][key];
+        }
+      });
+      showToast(lang === 'kk' ? "Тіл қазақшаға ауыстырылды" : "Язык изменен на русский");
+    }
+
+    // Навигация қойымшаларын ауыстыру
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById('tab-' + tabId).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // Конфетти шашу
+    function triggerWin() {
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ['#6366f1', '#8b5cf6', '#ec4899', '#10b981']
+      });
+      showToast("🎉 Жеңіс! Бонусыңыз есептелді.");
+    }
+
+    // Рулетка айналдыру
+    let isSpinning = false;
+    function spinWheel() {
+      if (isSpinning) return;
+      isSpinning = true;
+
+      const wheel = document.getElementById('wheel');
+      const randomDeg = Math.floor(1800 + Math.random() * 360);
+      wheel.style.transform = `rotate(${randomDeg}deg)`;
 
       setTimeout(() => {
-        loader.style.display = 'none';
+        isSpinning = false;
+        currentXp += 250;
+        document.getElementById('user-xp').innerText = `${currentXp} XP`;
         
-        confetti({
-          particleCount: 120,
-          spread: 80,
-          origin: { y: 0.6 },
-          colors: ['#6366f1', '#8b5cf6', '#ec4899', '#10b981']
-        });
-
-        showToast("🎉 Жеңіс! Бонусыңыз есептелді.");
-      }, 500);
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        showToast("🎁 +250 XP ұтып алдыңыз!");
+      }, 3000);
     }
 
-    // 2. Toast-хабарлама шығару функциясы
-    function toggleNotification() {
-      showToast("✨ Баптаулар сәтті сақталды!");
-    }
-
+    // Toast хабарламасы
     function showToast(message) {
       const toast = document.createElement('div');
       toast.innerText = message;
       toast.style.cssText = `
         position: fixed;
-        bottom: 24px;
-        right: 24px;
-        background: rgba(15, 23, 42, 0.9);
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(15, 23, 42, 0.95);
         border: 1px solid rgba(99, 102, 241, 0.5);
         color: white;
-        padding: 12px 20px;
+        padding: 10px 20px;
         border-radius: 12px;
         box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
         backdrop-filter: blur(8px);
         z-index: 1000;
         animation: fadeIn 0.3s ease;
-        font-size: 14px;
+        font-size: 13px;
+        white-space: nowrap;
       `;
       document.body.appendChild(toast);
-      
-      setTimeout(() => {
-        toast.remove();
-      }, 3000);
+      setTimeout(() => toast.remove(), 2500);
     }
   </script>
-
 </body>
 </html>
