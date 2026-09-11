@@ -4,12 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Armani Analetik</title>
+
+<!-- AV Favicon & Apple Touch Icon (Браузер тарихы мен бетбелгіде AV логотипін көрсету) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232563eb'/><text x='50%' y='55%' dominant-baseline='central' text-anchor='middle' fill='%23ffffff' font-family='Inter, sans-serif' font-weight='900' font-size='48'>AV</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232563eb'/><text x='50%' y='55%' dominant-baseline='central' text-anchor='middle' fill='%23ffffff' font-family='Inter, sans-serif' font-weight='900' font-size='48'>AV</text></svg>">
+
 <!-- PWA Optimization -->
 <link rel="manifest" href="manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0b111e">
+
 <!-- FontAwesome & Fonts -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -550,7 +556,6 @@ function switchPage(pageId, el) {
   document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
   document.getElementById(pageId).classList.add('active');
   
-  // Барлық навигациялық батырмалардың белсенділігін жаңарту
   document.querySelectorAll('.nav-item, .bottom-nav-item').forEach(n => n.classList.remove('active'));
   
   if (el) {
