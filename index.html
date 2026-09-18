@@ -123,6 +123,11 @@ header { background: var(--header-bg); width: 100%; padding: 12px 16px; display:
 .history-item { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; }
 .badge-win { background: rgba(16, 185, 129, 0.15); color: var(--green); font-weight: 800; padding: 4px 8px; border-radius: 6px; font-size: 10px; }
 
+/* ANALYTICS EXPLANATION CARD */
+.analytics-info-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 18px; margin-top: 15px; }
+.analytics-info-card h4 { font-size: 14px; font-weight: 800; margin: 0 0 8px 0; color: var(--accent); }
+.analytics-info-card p { font-size: 12px; color: var(--subtext); line-height: 1.5; margin: 0 0 10px 0; }
+
 /* TELEGRAM PROMO CARD */
 .tg-promo-card { background: linear-gradient(135deg, rgba(0, 136, 204, 0.15), rgba(37, 99, 235, 0.15)); border: 1px solid rgba(0, 136, 204, 0.3); border-radius: 20px; padding: 25px 20px; text-align: center; }
 .tg-promo-icon { width: 60px; height: 60px; background: var(--telegram); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; box-shadow: 0 8px 20px rgba(0, 136, 204, 0.4); }
@@ -220,13 +225,13 @@ footer { text-align: center; padding: 15px; font-size: 11px; color: var(--subtex
       <div class="drawer-title">Armani Analetik</div>
     </div>
     <ul class="nav-list">
-      <li class="nav-item active" onclick="switchPage('wheelSection', this)">
+      <li class="nav-item active" onclick="switchPage('statSection', this)">
+        <i class="fa-solid fa-chart-line"></i>
+        <span data-i18n="nav_stat">Статистика мен Аналитика</span>
+      </li>
+      <li class="nav-item" onclick="switchPage('wheelSection', this)">
         <i class="fa-solid fa-dharmachakra"></i>
         <span data-i18n="nav_wheel">Бонустар рулеткасы</span>
-      </li>
-      <li class="nav-item" onclick="switchPage('statSection', this)">
-        <i class="fa-solid fa-chart-line"></i>
-        <span data-i18n="nav_stat">Өтімділік статистикасы</span>
       </li>
       <li class="nav-item" onclick="switchPage('predictSection', this)">
         <i class="fa-solid fa-paper-plane"></i>
@@ -258,7 +263,7 @@ footer { text-align: center; padding: 15px; font-size: 11px; color: var(--subtex
 <header>
   <div class="header-left">
     <button class="menu-burger" onclick="openDrawer()"><i class="fa-solid fa-bars"></i></button>
-    <div class="brand-logo" onclick="switchPage('wheelSection')">AV</div>
+    <div class="brand-logo" onclick="switchPage('statSection')">AV</div>
     <div class="brand-name">Armani Analetik</div>
   </div>
   <div class="header-right">
@@ -287,24 +292,8 @@ footer { text-align: center; padding: 15px; font-size: 11px; color: var(--subtex
     <button class="hero-btn" data-i18n="hero_btn" onclick="window.open('https://t.me/analetik_1', '_blank')">Толығырақ</button>
   </div>
 
-  <!-- WHEEL SECTION -->
-  <div id="wheelSection" class="page-section active">
-    <div class="wheel-section">
-      <h1 class="wheel-title" data-i18n="wheel_title">Бонустар Рулеткасы</h1>
-      <p class="wheel-subtitle" data-i18n="wheel_sub">Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз</p>
-      <div class="wheel-box">
-        <div class="wheel-pointer"></div>
-        <div class="wheel-canvas-container">
-          <canvas id="wheelCanvas" width="500" height="500"></canvas>
-          <div class="wheel-center-logo">AV</div>
-        </div>
-      </div>
-      <button class="btn-spin" id="spinBtn" data-i18n="spin_btn" onclick="spinWheel()">Айналдыру</button>
-    </div>
-  </div>
-
-  <!-- STATS SECTION -->
-  <div id="statSection" class="page-section">
+  <!-- STATS & ANALYTICS MAIN SECTION (БАСТЫ БЕТКЕ ҚОЙЫЛДЫ) -->
+  <div id="statSection" class="page-section active">
     <div class="stat-card-big">
       <h2 style="font-size: 16px; margin: 0;" data-i18n="stat_title">Күндік Болжамдар Өтімділігі</h2>
       <div class="stat-circle-box">
@@ -318,11 +307,34 @@ footer { text-align: center; padding: 15px; font-size: 11px; color: var(--subtex
         <div class="stat-box"><div class="stat-num" style="color:var(--gold)">1.85</div><div class="stat-circle-lbl" data-i18n="stat_avg">Орт. Кэф</div></div>
       </div>
     </div>
-    <h3 style="font-size: 14px; font-weight: 800; margin-bottom: 8px;" data-i18n="stat_history">Соңғы нәтижелер тарихы</h3>
+
+    <!-- АНАЛИТИКА ТҮСІНДІРМЕСІ -->
+    <div class="analytics-info-card">
+      <h4 data-i18n="analytics_info_title">Аналитика алгоритмі қалай жұмыс істейді?</h4>
+      <p data-i18n="analytics_info_desc">Біздің сараптама жүйесі командалардың соңғы ойындарын, ойыншылардың жарақаттарын, орташа xG көрсеткіштерін және мотивация факторларын математикалық модельдер арқылы есептейді. Осының нәтижесінде ең жоғары өтімділікті көрсететін ставкалар таңдап алынады.</p>
+    </div>
+
+    <h3 style="font-size: 14px; font-weight: 800; margin-top: 15px; margin-bottom: 8px;" data-i18n="stat_history">Соңғы нәтижелер тарихы</h3>
     <div class="history-list">
       <div class="history-item"><span>Жеңіс - Қайсар (ТБ 2.5)</span><span class="badge-win">УТТЫ (1.82)</span></div>
       <div class="history-item"><span>Алтай - Ордабасы (П2)</span><span class="badge-win">УТТЫ (1.75)</span></div>
       <div class="history-item"><span>Реал Мадрид - Барселона (Ф1 0)</span><span class="badge-win">УТТЫ (1.90)</span></div>
+    </div>
+  </div>
+
+  <!-- WHEEL SECTION (БӨЛЕК БЕТ) -->
+  <div id="wheelSection" class="page-section">
+    <div class="wheel-section">
+      <h1 class="wheel-title" data-i18n="wheel_title">Бонустар Рулеткасы</h1>
+      <p class="wheel-subtitle" data-i18n="wheel_sub">Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз</p>
+      <div class="wheel-box">
+        <div class="wheel-pointer"></div>
+        <div class="wheel-canvas-container">
+          <canvas id="wheelCanvas" width="500" height="500"></canvas>
+          <div class="wheel-center-logo">AV</div>
+        </div>
+      </div>
+      <button class="btn-spin" id="spinBtn" data-i18n="spin_btn" onclick="spinWheel()">Айналдыру</button>
     </div>
   </div>
 
@@ -379,13 +391,13 @@ footer { text-align: center; padding: 15px; font-size: 11px; color: var(--subtex
 
 <!-- BOTTOM NAVIGATION BAR -->
 <div class="bottom-nav">
-  <button class="bottom-nav-item active" onclick="switchPage('wheelSection', this)">
-    <i class="fa-solid fa-dharmachakra"></i>
-    <span data-i18n="nav_wheel">Рулетка</span>
-  </button>
-  <button class="bottom-nav-item" onclick="switchPage('statSection', this)">
+  <button class="bottom-nav-item active" onclick="switchPage('statSection', this)">
     <i class="fa-solid fa-chart-line"></i>
     <span data-i18n="nav_stat">Статистика</span>
+  </button>
+  <button class="bottom-nav-item" onclick="switchPage('wheelSection', this)">
+    <i class="fa-solid fa-dharmachakra"></i>
+    <span data-i18n="nav_wheel">Рулетка</span>
   </button>
   <button class="bottom-nav-item" onclick="switchPage('predictSection', this)">
     <i class="fa-solid fa-paper-plane"></i>
@@ -410,7 +422,7 @@ footer { text-align: center; padding: 15px; font-size: 11px; color: var(--subtex
   </div>
 </div>
 
-<!-- MODAL PROFILE / AUTH (ЖАҢАРТЫЛҒАН БӨЛІМ) -->
+<!-- MODAL PROFILE / AUTH -->
 <div class="modal-overlay" id="modalProfile">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal('modalProfile')"><i class="fa-solid fa-xmark"></i></button>
@@ -526,7 +538,7 @@ footer { text-align: center; padding: 15px; font-size: 11px; color: var(--subtex
 const i18nData = {
   kk: {
     nav_wheel: "Бонустар рулеткасы",
-    nav_stat: "Өтімділік статистикасы",
+    nav_stat: "Статистика мен Аналитика",
     nav_predict: "Тегін болжамдар",
     nav_courses: "Оқу курстары",
     nav_profile: "Жеке профиль",
@@ -543,6 +555,8 @@ const i18nData = {
     stat_loss: "Ұтылды",
     stat_avg: "Орт. Кэф",
     stat_history: "Соңғы нәтижелер тарихы",
+    analytics_info_title: "Аналитика алгоритмі қалай жұмыс істейді?",
+    analytics_info_desc: "Біздің сараптама жүйесі командалардың соңғы ойындарын, ойыншылардың жарақаттарын, орташа xG көрсеткіштерін және мотивация факторларын математикалық модельдер арқылы есептейді. Осының нәтижесінде ең жоғары өтімділікті көрсететін ставкалар таңдап алынады.",
     predict_title: "Тегін болжамдар Telegram арнамызда!",
     predict_desc: "Күнделікті ең сенімді әрі тегін спорттық болжамдарды жіберіп алмау үшін ресми Telegram каналымызға жазылыңыз.",
     predict_btn: "Арнаға өту (@analetik_1)",
@@ -556,7 +570,7 @@ const i18nData = {
   },
   ru: {
     nav_wheel: "Рулетка бонусов",
-    nav_stat: "Статистика проходимости",
+    nav_stat: "Статистика и Аналитика",
     nav_predict: "Бесплатные прогнозы",
     nav_courses: "Обучающие курсы",
     nav_profile: "Личный профиль",
@@ -573,6 +587,8 @@ const i18nData = {
     stat_loss: "Проиграл",
     stat_avg: "Ср. Коэф",
     stat_history: "История последних результатов",
+    analytics_info_title: "Как работает алгоритм аналитики?",
+    analytics_info_desc: "Наша аналитическая система рассчитывает последние матчи команд, травмы игроков, средние показатели xG и факторы мотивации с помощью математических моделей. В результате выбираются ставки с наибольшей проходимостью.",
     predict_title: "Бесплатные прогнозы в нашем Telegram!",
     predict_desc: "Подписывайтесь на наш официальный Telegram-канал, чтобы не пропустить ежедневные бесплатные спортивные прогнозы.",
     predict_btn: "Перейти в канал (@analetik_1)",
