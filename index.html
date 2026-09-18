@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Armani Analetik</title>
 
-<!-- AV Favicon & Apple Touch Icon (Браузер тарихы мен бетбелгіде AV логотипін көрсету) -->
+<!-- AV Favicon & Apple Touch Icon -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232563eb'/><text x='50%' y='55%' dominant-baseline='central' text-anchor='middle' fill='%23ffffff' font-family='Inter, sans-serif' font-weight='900' font-size='48'>AV</text></svg>">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232563eb'/><text x='50%' y='55%' dominant-baseline='central' text-anchor='middle' fill='%23ffffff' font-family='Inter, sans-serif' font-weight='900' font-size='48'>AV</text></svg>">
 
@@ -153,28 +153,54 @@ header { background: var(--header-bg); width: 100%; padding: 12px 16px; display:
 /* FLOATING TELEGRAM BUTTON */
 .telegram-btn-float { position: fixed; bottom: 70px; right: 20px; background: var(--telegram); color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 16px rgba(0, 136, 204, 0.4); z-index: 1000; text-decoration: none; font-size: 22px; }
 
-/* MODAL */
-.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 15px; }
-.modal-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 20px; width: 100%; max-width: 400px; padding: 20px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; }
-.modal-close { position: absolute; top: 14px; right: 14px; background: var(--input-bg); border: none; color: var(--subtext); font-size: 12px; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; }
-.profile-header { margin-bottom: 16px; }
-.avatar-container { position: relative; width: 80px; height: 80px; margin: 0 auto 10px auto; }
-.avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); }
-.avatar-upload-btn { position: absolute; bottom: 0; right: 0; background: var(--accent); border: 2px solid var(--card); color: #fff; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 11px; }
-.profile-user-title { font-size: 16px; font-weight: 800; margin: 0; }
-.profile-user-sub { font-size: 11px; color: var(--subtext); margin-top: 2px; }
-.profile-tabs { display: flex; border-bottom: 1px solid var(--card-border); margin-bottom: 15px; }
-.profile-tab { flex: 1; text-align: center; padding: 8px 0; font-size: 12px; font-weight: 700; color: var(--subtext); cursor: pointer; position: relative; }
-.profile-tab.active { color: var(--accent); }
-.profile-tab.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background: var(--accent); }
-.form-group { margin-bottom: 12px; text-align: left; }
-.form-label { font-size: 11px; font-weight: 600; color: var(--subtext); margin-bottom: 4px; display: block; }
-.form-input { width: 100%; background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 12px; color: var(--text); font-size: 12px; outline: none; }
-.btn-save { width: 100%; padding: 11px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; margin-top: 5px; }
-.btn-logout { width: 100%; padding: 10px; background: rgba(239, 68, 68, 0.1); border: 1px solid var(--red); color: var(--red); border-radius: 8px; font-weight: 700; font-size: 11px; cursor: pointer; margin-top: 8px; }
-.social-auth-container { margin-top: 15px; display: flex; flex-direction: column; gap: 8px; }
-.btn-social { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text); }
-.btn-telegram-auth { background: var(--telegram); color: #fff; border: none; }
+/* MODAL STANDARD & NEW PROFILE MODAL STYLES */
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 15px; }
+.modal-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 24px; width: 100%; max-width: 420px; padding: 24px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+.modal-close { position: absolute; top: 16px; right: 16px; background: var(--input-bg); border: none; color: var(--subtext); font-size: 14px; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: 0.2s; }
+.modal-close:hover { color: var(--text); background: rgba(255,255,255,0.1); }
+
+/* NEW PROFILE COMPONENT STYLES */
+.profile-card-header { position: relative; background: linear-gradient(135deg, rgba(37,99,235,0.2), rgba(0,136,204,0.1)); border-radius: 16px; padding: 20px 15px; margin-bottom: 20px; border: 1px solid rgba(37,99,235,0.2); }
+.profile-badge-vip { position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; font-size: 9px; font-weight: 900; padding: 3px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(245,158,11,0.4); }
+.avatar-container { position: relative; width: 90px; height: 90px; margin: 0 auto 12px auto; }
+.avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); box-shadow: 0 0 15px rgba(37,99,235,0.5); }
+.avatar-upload-btn { position: absolute; bottom: 2px; right: 2px; background: var(--accent); border: 2px solid var(--card); color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; transition: transform 0.2s; }
+.avatar-upload-btn:hover { transform: scale(1.1); }
+
+.profile-user-title { font-size: 18px; font-weight: 800; margin: 0; color: var(--text); }
+.profile-user-sub { font-size: 11px; color: var(--subtext); margin-top: 4px; font-weight: 600; }
+
+.profile-stats-row { display: flex; gap: 8px; margin-top: 15px; }
+.profile-stat-box { flex: 1; background: rgba(0,0,0,0.2); border-radius: 10px; padding: 8px; border: 1px solid var(--card-border); }
+.profile-stat-val { font-size: 13px; font-weight: 800; color: var(--gold); }
+.profile-stat-lbl { font-size: 9px; color: var(--subtext); margin-top: 2px; text-transform: uppercase; }
+
+.profile-tabs { display: flex; background: var(--input-bg); border-radius: 12px; padding: 4px; margin-bottom: 20px; border: 1px solid var(--card-border); }
+.profile-tab { flex: 1; text-align: center; padding: 8px 0; font-size: 12px; font-weight: 700; color: var(--subtext); cursor: pointer; border-radius: 8px; transition: all 0.2s; }
+.profile-tab.active { background: var(--accent); color: #fff; box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
+
+.form-group { margin-bottom: 14px; text-align: left; }
+.form-label { font-size: 11px; font-weight: 700; color: var(--subtext); margin-bottom: 6px; display: block; }
+.form-input-wrapper { position: relative; display: flex; align-items: center; }
+.form-input-wrapper i { position: absolute; left: 12px; color: var(--subtext); font-size: 13px; }
+.form-input { width: 100%; background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 11px 12px 11px 36px; color: var(--text); font-size: 12px; outline: none; transition: border-color 0.2s; }
+.form-input:focus { border-color: var(--accent); }
+
+.btn-save { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 13px; cursor: pointer; margin-top: 5px; box-shadow: 0 4px 12px rgba(37,99,235,0.3); transition: opacity 0.2s; }
+.btn-save:hover { opacity: 0.9; }
+.btn-logout { width: 100%; padding: 11px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: var(--red); border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+.btn-logout:hover { background: rgba(239, 68, 68, 0.2); }
+
+.social-auth-container { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; }
+.btn-social { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; border: 1px solid var(--card-border); background: var(--input-bg); color: var(--text); transition: 0.2s; }
+.btn-social:hover { background: rgba(255,255,255,0.05); }
+.btn-telegram-auth { background: var(--telegram); color: #fff; border: none; box-shadow: 0 4px 12px rgba(0,136,204,0.3); }
+.btn-telegram-auth:hover { opacity: 0.9; }
+
+.auth-divider { display: flex; align-items: center; margin: 18px 0; color: var(--subtext); font-size: 11px; font-weight: 600; }
+.auth-divider::before, .auth-divider::after { content: ""; flex: 1; border-bottom: 1px solid var(--card-border); }
+.auth-divider span { padding: 0 10px; }
+
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 footer { text-align: center; padding: 15px; font-size: 11px; color: var(--subtext); margin-top: 20px; }
@@ -384,53 +410,110 @@ footer { text-align: center; padding: 15px; font-size: 11px; color: var(--subtex
   </div>
 </div>
 
-<!-- MODAL PROFILE / AUTH -->
+<!-- MODAL PROFILE / AUTH (ЖАҢАРТЫЛҒАН БӨЛІМ) -->
 <div class="modal-overlay" id="modalProfile">
   <div class="modal-card">
-    <button class="modal-close" onclick="closeModal('modalProfile')">✕</button>
+    <button class="modal-close" onclick="closeModal('modalProfile')"><i class="fa-solid fa-xmark"></i></button>
+
+    <!-- 1. КІРУ / АВТОРИЗАЦИЯ ФОРМАСЫ -->
     <div id="authViewSection">
-      <h3 style="font-size: 18px; font-weight: 800; margin-top: 0; margin-bottom: 6px;" data-i18n="login_title">Жүйеге кіру</h3>
-      <p style="font-size: 12px; color: var(--subtext); margin-bottom: 15px;" data-i18n="login_desc">Бонустарды сақтау және жеке кабинетке кіру үшін авторизациядан өтіңіз.</p>
+      <div style="margin-bottom: 20px;">
+        <div style="width: 50px; height: 50px; background: rgba(37,99,235,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto; color: var(--accent); font-size: 22px;">
+          <i class="fa-solid fa-user-lock"></i>
+        </div>
+        <h3 style="font-size: 20px; font-weight: 800; margin: 0 0 6px 0;" data-i18n="login_title">Жүйеге кіру</h3>
+        <p style="font-size: 12px; color: var(--subtext); margin: 0;" data-i18n="login_desc">Бонустарды сақтау және жеке кабинетке кіру үшін авторизациядан өтіңіз.</p>
+      </div>
+
       <div class="social-auth-container">
         <button class="btn-social" onclick="authSocial('Google')">
-          <i class="fa-brands fa-google" style="color: #ea4335;"></i> Google арқылы кіру
+          <i class="fa-brands fa-google" style="color: #ea4335; font-size: 16px;"></i> Google арқылы кіру
         </button>
         <button class="btn-social btn-telegram-auth" onclick="authSocial('Telegram')">
-          <i class="fa-paper-plane"></i> Telegram арқылы кіру
+          <i class="fa-paper-plane" style="font-size: 15px;"></i> Telegram арқылы кіру
         </button>
       </div>
+
+      <div class="auth-divider">
+        <span>немесе логин арқылы</span>
+      </div>
+
+      <form onsubmit="handleManualLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Пайдаланушы аты</label>
+          <div class="form-input-wrapper">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="loginUsername" class="form-input" placeholder="Логинді енгізіңіз" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Құпия сөз</label>
+          <div class="form-input-wrapper">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+          </div>
+        </div>
+        <button type="submit" class="btn-save">Кіру</button>
+      </form>
     </div>
     
+    <!-- 2. ЖЕКЕ ПРОФИЛЬ КАБИНЕТІ -->
     <div id="profileViewSection" style="display: none;">
-      <div class="profile-header">
+      <div class="profile-card-header">
+        <span class="profile-badge-vip">PRO VIP</span>
         <div class="avatar-container">
           <img class="avatar-img" id="profileAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="Avatar">
-          <label for="avatarInput" class="avatar-upload-btn"><i class="fa-solid fa-camera"></i></label>
+          <label for="avatarInput" class="avatar-upload-btn" title="Суретті өзгерту"><i class="fa-solid fa-camera"></i></label>
           <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="changeAvatar(event)">
         </div>
         <h3 class="profile-user-title" id="displayUserName">Armani User</h3>
-        <div class="profile-user-sub" id="displayUserEmail">ID: #849204 • PRO VIP</div>
+        <div class="profile-user-sub" id="displayUserEmail">ID: #849204</div>
+
+        <div class="profile-stats-row">
+          <div class="profile-stat-box">
+            <div class="profile-stat-val">Күнделікті</div>
+            <div class="profile-stat-lbl">Мәртебе</div>
+          </div>
+          <div class="profile-stat-box">
+            <div class="profile-stat-val" id="profileBonusCount">1 Бонус</div>
+            <div class="profile-stat-lbl">Белсенді</div>
+          </div>
+        </div>
       </div>
+
       <div class="profile-tabs">
-        <div class="profile-tab active" onclick="switchProfileTab('tabProfile', this)">Деректер</div>
-        <div class="profile-tab" onclick="switchProfileTab('tabRewards', this)">Бонустар</div>
+        <div class="profile-tab active" onclick="switchProfileTab('tabProfile', this)">Жеке Деректер</div>
+        <div class="profile-tab" onclick="switchProfileTab('tabRewards', this)">Бонустар Тарихы</div>
       </div>
+
       <div id="tabProfile" class="tab-content active">
         <div class="form-group">
           <label class="form-label">Аты-жөніңіз</label>
-          <input type="text" class="form-input" id="inputName">
+          <div class="form-input-wrapper">
+            <i class="fa-solid fa-id-card"></i>
+            <input type="text" class="form-input" id="inputName" placeholder="Есіміңізді жазыңыз">
+          </div>
         </div>
         <div class="form-group">
           <label class="form-label">Электронды пошта</label>
-          <input type="email" class="form-input" id="inputEmail" placeholder="mail@gmail.com">
+          <div class="form-input-wrapper">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" class="form-input" id="inputEmail" placeholder="mail@gmail.com">
+          </div>
         </div>
-        <button class="btn-save" onclick="saveProfile()">Өзгерістерді сақтау</button>
-        <button class="btn-logout" onclick="logout()">Жүйеден шығу</button>
+        <button class="btn-save" onclick="saveProfile()"><i class="fa-solid fa-floppy-disk" style="margin-right: 6px;"></i> Өзгерістерді сақтау</button>
+        <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket" style="margin-right: 6px;"></i> Жүйеден шығу</button>
       </div>
+
       <div id="tabRewards" class="tab-content">
-        <div style="background:var(--input-bg); padding:12px; border-radius:8px; text-align:left;">
-          <div style="font-size:11px; color:var(--subtext);">Ұтып алған промокод:</div>
-          <div style="font-size:14px; font-weight:800; color:var(--gold);" id="userPromoCode">АЙНАЛДЫРЫЛМАҒАН</div>
+        <div style="background:var(--input-bg); border:1px solid var(--card-border); padding:16px; border-radius:14px; text-align:left; display:flex; align-items:center; gap:12px;">
+          <div style="width:40px; height:40px; background:rgba(245,158,11,0.15); border-radius:10px; display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:18px;">
+            <i class="fa-solid fa-ticket"></i>
+          </div>
+          <div>
+            <div style="font-size:11px; color:var(--subtext); font-weight:600;">Ұтып алған промокод:</div>
+            <div style="font-size:15px; font-weight:800; color:var(--gold); margin-top:2px;" id="userPromoCode">АЙНАЛДЫРЫЛМАҒАН</div>
+          </div>
         </div>
       </div>
     </div>
@@ -594,22 +677,42 @@ function saveProfile() {
   const email = document.getElementById('inputEmail').value;
   localStorage.setItem('armani_name', name);
   localStorage.setItem('armani_email', email);
-  document.getElementById('displayUserName').innerText = name;
+  document.getElementById('displayUserName').innerText = name || 'User';
   document.getElementById('displayUserEmail').innerText = email || 'ID: #849204';
   closeModal('modalProfile');
 }
 
 function loadProfileData() {
+  const savedAvatar = localStorage.getItem('armani_avatar');
+  if (savedAvatar) {
+    document.getElementById('profileAvatar').src = savedAvatar;
+    document.getElementById('headerAvatar').src = savedAvatar;
+  }
   document.getElementById('inputName').value = localStorage.getItem('armani_name') || '';
   document.getElementById('inputEmail').value = localStorage.getItem('armani_email') || '';
   document.getElementById('displayUserName').innerText = localStorage.getItem('armani_name') || 'User';
   document.getElementById('displayUserEmail').innerText = localStorage.getItem('armani_email') || 'ID: #849204';
+  
+  const promo = localStorage.getItem('armani_promo');
+  if (promo) {
+    document.getElementById('userPromoCode').innerText = promo;
+  }
 }
 
 function authSocial(provider) {
   let val = prompt(`${provider} логиніңізді енгізіңіз:`, "Armani_User");
   if(val) {
     localStorage.setItem('armani_name', val);
+    checkAuthStatus();
+    closeModal('modalProfile');
+  }
+}
+
+function handleManualLogin(e) {
+  e.preventDefault();
+  const username = document.getElementById('loginUsername').value;
+  if(username) {
+    localStorage.setItem('armani_name', username);
     checkAuthStatus();
     closeModal('modalProfile');
   }
@@ -675,7 +778,9 @@ function spinWheel() {
     const resultText = prizes[winIndex];
     document.getElementById('winText').innerText = resultText;
     const cleanPromo = resultText.replace(/[^A-Z0-9]/g, '');
-    document.getElementById('userPromoCode').innerText = `PROMO-${cleanPromo}`;
+    const promoCode = `PROMO-${cleanPromo}`;
+    document.getElementById('userPromoCode').innerText = promoCode;
+    localStorage.setItem('armani_promo', promoCode);
     openModal('modalWin');
   }, 4000);
 }
