@@ -1,400 +1,487 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ARMANI ANALETIK</title>
-    <style>
-        :root {
-            --bg: #060907;
-            --card-bg: #0f1511;
-            --card-border: #1a251e;
-            --accent: #25e670;
-            --accent-dark: #1baf54;
-            --text-main: #ffffff;
-            --text-muted: #7c8e82;
-            --circle-bg: #151d18;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ARMANI ANALETIK</title>
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text-main); 
-            margin: 0; 
-            padding: 0 0 90px 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-        }
+<!-- Fonts & Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-        /* HEADER */
-        header { 
-            width: 100%; 
-            max-width: 480px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 20px 10px;
-        }
-        .brand-logo { font-size: 18px; font-weight: 900; letter-spacing: 1.5px; line-height: 1.1; }
-        .brand-logo span { color: var(--accent); display: block; font-size: 11px; tracking: 3px; font-weight: 600; }
-        .profile-icon { 
-            width: 36px; height: 36px; 
-            border-radius: 50%; 
-            border: 1px solid var(--card-border); 
-            background: var(--card-bg); 
-            display: flex; align-items: center; justify-content: center; 
-            color: var(--text-muted);
-        }
+<style>
+:root {
+  --bg: #060907;
+  --card-bg: #0f1511;
+  --card-border: #1a251e;
+  --accent: #25e670;
+  --accent-dark: #1baf54;
+  --text-main: #ffffff;
+  --text-muted: #7c8e82;
+  --input-bg: #151f18;
+  --gold: #f59e0b;
+  --red: #ef4444;
+  --telegram: #0088cc;
+}
 
-        .container { max-width: 480px; width: 100%; padding: 0 16px; }
+body.light-mode {
+  --bg: #f2f5f3;
+  --card-bg: #ffffff;
+  --card-border: #dbe4dd;
+  --text-main: #0a120c;
+  --text-muted: #5e6e62;
+  --input-bg: #e6ece8;
+}
 
-        /* HERO CARD */
-        .hero-card {
-            background: linear-gradient(135deg, #0e2015 0%, #080f0a 100%);
-            border: 1px solid #1a3824;
-            border-radius: 20px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-        .tag {
-            display: inline-block;
-            background: rgba(37, 230, 112, 0.15);
-            color: var(--accent);
-            font-size: 10px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        .hero-title { font-size: 20px; font-weight: 800; margin: 0 0 6px 0; line-height: 1.2; }
-        .hero-sub { color: var(--text-muted); font-size: 12px; margin-bottom: 15px; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; transition: background-color 0.2s, color 0.2s; }
+body { 
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+  background-color: var(--bg); 
+  color: var(--text-main); 
+  margin: 0; 
+  padding: 0 0 85px 0; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  min-height: 100vh;
+  user-select: none;
+}
 
-        /* CATEGORIES */
-        .categories { display: flex; justify-content: space-between; margin-bottom: 25px; }
-        .cat-item {
-            display: flex; flex-direction: column; align-items: center; gap: 6px;
-            color: var(--text-muted); font-size: 11px; font-weight: 600;
-            cursor: pointer;
-        }
-        .cat-icon {
-            width: 52px; height: 52px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; color: #fff;
-        }
-        .cat-item.active .cat-icon { background: var(--accent); color: #000; border-color: var(--accent); }
-        .cat-item.active { color: #fff; }
+/* PRELOADER */
+#preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.4s ease; }
+#preloader.hidden { opacity: 0; pointer-events: none; }
+.splash-logo-box { background: var(--accent); color: #000; font-size: 32px; font-weight: 900; width: 90px; height: 90px; border-radius: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(37, 230, 112, 0.4); }
 
-        /* CARD GENERAL */
-        .card { 
-            background: var(--card-bg); 
-            padding: 18px; 
-            border-radius: 18px; 
-            margin-bottom: 16px; 
-            border: 1px solid var(--card-border); 
-        }
+/* HEADER */
+header { 
+  width: 100%; 
+  max-width: 480px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px 10px;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 100;
+  border-bottom: 1px solid var(--card-border);
+}
+.header-left { display: flex; align-items: center; gap: 12px; }
+.menu-burger { background: none; border: none; cursor: pointer; font-size: 20px; color: var(--text-main); padding: 4px; }
+.brand-logo { font-size: 16px; font-weight: 900; letter-spacing: 1.5px; line-height: 1.1; cursor: pointer; }
+.brand-logo span { color: var(--accent); display: block; font-size: 10px; font-weight: 700; }
 
-        /* ⏱️ TIMER */
-        .timer-box {
-            background: rgba(37, 230, 112, 0.05);
-            border: 1px solid var(--accent);
-            border-radius: 14px;
-            padding: 12px;
-            text-align: center;
-            margin-bottom: 16px;
-        }
-        .timer-title { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-        .timer-clock { font-size: 26px; font-weight: 900; color: var(--accent); margin-top: 2px; font-family: monospace; }
+.header-right { display: flex; align-items: center; gap: 8px; }
+.icon-btn { background: var(--card-bg); border: 1px solid var(--card-border); width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text-main); cursor: pointer; }
+.header-auth-btn { background: var(--accent); color: #000; border: none; padding: 8px 14px; border-radius: 20px; font-weight: 800; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+.user-avatar-wrapper { width: 38px; height: 38px; cursor: pointer; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent); display: none; }
+.user-avatar-wrapper.active { display: block; }
+.user-avatar-img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* BUTTONS */
-        .btn-green { 
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            background: var(--accent); 
-            color: #000000; 
-            padding: 14px 20px; 
-            border-radius: 30px; 
-            font-weight: 800; 
-            text-decoration: none; 
-            font-size: 14px; 
-            border: none; 
-            width: 100%; 
-            cursor: pointer; 
-            transition: 0.2s;
-        }
-        .btn-green:active { transform: scale(0.98); }
+/* DRAWER MENU */
+.drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 2000; display: none; }
+.drawer-overlay.active { display: block; }
+.drawer-menu { position: fixed; top: 0; left: -300px; width: 300px; height: 100%; background: var(--card-bg); border-right: 1px solid var(--card-border); z-index: 2001; transition: left 0.3s ease; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+.drawer-menu.active { left: 0; }
+.drawer-header { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--card-border); }
+.nav-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.nav-item { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 10px; color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+.nav-item i { font-size: 16px; width: 20px; text-align: center; color: var(--accent); }
+.nav-item:hover, .nav-item.active { background: var(--input-bg); color: var(--accent); }
+.drawer-footer { padding-top: 15px; border-top: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; }
+.lang-switch { display: flex; background: var(--input-bg); padding: 4px; border-radius: 10px; gap: 2px; }
+.lang-btn { border: none; background: none; padding: 6px 10px; font-weight: 800; font-size: 12px; border-radius: 6px; cursor: pointer; color: var(--text-muted); }
+.lang-btn.active { background: var(--accent); color: #000; }
+.social-links { display: flex; gap: 6px; }
+.social-btn { width: 34px; height: 34px; background: var(--input-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-main); text-decoration: none; font-size: 14px; }
 
-        /* 🎡 ROULETTE (7 SECTORS) */
-        .wheel-wrapper {
-            position: relative;
-            width: 290px;
-            height: 290px;
-            margin: 15px auto;
-            border-radius: 50%;
-            border: 5px solid var(--accent);
-            box-shadow: 0 0 30px rgba(37, 230, 112, 0.2);
-            overflow: hidden;
-            background: #000;
-        }
-        .wheel-pointer {
-            position: absolute;
-            top: 0px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 28px;
-            color: var(--accent);
-            z-index: 10;
-        }
-        .wheel {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            position: relative;
-            transition: transform 4s cubic-bezier(0.15, 0.9, 0.15, 1);
-        }
-        .wheel-sec {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            transform-origin: 100% 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(0, 0, 0, 0.4);
-        }
-        .wheel-sec span {
-            position: absolute;
-            left: 8px;
-            bottom: 28px;
-            font-size: 10px;
-            font-weight: 800;
-            transform: rotate(25deg);
-            white-space: nowrap;
-        }
+/* CONTAINER & SECTIONS */
+.container { max-width: 480px; width: 100%; padding: 0 16px; margin-top: 10px; }
+.page-section { display: none; }
+.page-section.active { display: block; }
 
-        /* MATCH ITEM (LAYOUT) */
-        .match-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            margin-bottom: 10px;
-        }
-        .team { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; }
-        .team-flag { width: 20px; height: 20px; border-radius: 50%; background: #222; }
-        .match-pct { color: var(--accent); font-size: 16px; font-weight: 900; }
+/* HERO BANNER */
+.hero-card {
+  background: linear-gradient(135deg, #0e2015 0%, #080f0a 100%);
+  border: 1px solid #1a3824;
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.tag { display: inline-block; background: rgba(37, 230, 112, 0.15); color: var(--accent); font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; margin-bottom: 10px; }
+.hero-title { font-size: 20px; font-weight: 800; margin: 0 0 6px 0; line-height: 1.2; }
+.hero-sub { color: var(--text-muted); font-size: 12px; margin-bottom: 15px; }
 
-        /* NAVBAR */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            height: 65px;
-            background: #090e0b;
-            border-top: 1px solid var(--card-border);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            max-width: 480px;
-            margin: 0 auto;
-            z-index: 100;
-        }
-        .nav-item { color: var(--text-muted); text-decoration: none; font-size: 10px; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 4px; background: none; border: none; }
-        .nav-item.active { color: var(--accent); }
-        .nav-icon { font-size: 18px; }
-    </style>
+/* CATEGORIES */
+.categories { display: flex; justify-content: space-between; margin-bottom: 20px; }
+.cat-item { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-muted); font-size: 11px; font-weight: 600; cursor: pointer; }
+.cat-icon { width: 52px; height: 52px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; }
+.cat-item.active .cat-icon { background: var(--accent); color: #000; border-color: var(--accent); }
+.cat-item.active { color: var(--text-main); }
+
+/* CARDS GENERAL */
+.card { background: var(--card-bg); padding: 18px; border-radius: 18px; margin-bottom: 16px; border: 1px solid var(--card-border); }
+
+/* TIMER */
+.timer-box { background: rgba(37, 230, 112, 0.05); border: 1px solid var(--accent); border-radius: 14px; padding: 12px; text-align: center; margin-bottom: 16px; }
+.timer-title { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+.timer-clock { font-size: 26px; font-weight: 900; color: var(--accent); margin-top: 2px; font-family: monospace; }
+
+/* BUTTONS */
+.btn-green { 
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--accent); color: #000000; padding: 14px 20px; 
+  border-radius: 30px; font-weight: 800; text-decoration: none; font-size: 14px; 
+  border: none; width: 100%; cursor: pointer; transition: 0.2s;
+}
+.btn-green:active { transform: scale(0.98); }
+
+/* 🎡 ROULETTE (7 SECTORS) */
+.wheel-wrapper { position: relative; width: 280px; height: 280px; margin: 15px auto; border-radius: 50%; border: 5px solid var(--accent); box-shadow: 0 0 30px rgba(37, 230, 112, 0.2); overflow: hidden; background: #000; }
+.wheel-pointer { position: absolute; top: 0px; left: 50%; transform: translateX(-50%); font-size: 26px; color: var(--accent); z-index: 10; }
+.wheel { width: 100%; height: 100%; border-radius: 50%; position: relative; transition: transform 4s cubic-bezier(0.15, 0.9, 0.15, 1); }
+.wheel-sec { position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0, 0, 0, 0.4); }
+.wheel-sec span { position: absolute; left: 6px; bottom: 26px; font-size: 9.5px; font-weight: 800; transform: rotate(25deg); white-space: nowrap; }
+
+/* MATCH CARD */
+.match-card { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; margin-bottom: 10px; }
+.team { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; }
+.team-icon { width: 22px; height: 22px; border-radius: 50%; background: #1a271d; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+.match-pct { color: var(--accent); font-size: 16px; font-weight: 900; }
+
+/* COURSES & STATS */
+.course-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
+.badge { background: rgba(37, 230, 112, 0.15); color: var(--accent); font-size: 10px; font-weight: 800; padding: 4px 8px; border-radius: 6px; width: fit-content; margin-bottom: 8px; }
+
+/* BOTTOM NAVIGATION */
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 65px; background: #080d09; border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; align-items: center; max-width: 480px; margin: 0 auto; z-index: 100; }
+.bottom-nav-item { color: var(--text-muted); text-decoration: none; font-size: 10px; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 4px; background: none; border: none; cursor: pointer; }
+.bottom-nav-item.active { color: var(--accent); }
+
+/* MODALS & PROFILE */
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 15px; }
+.modal-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; width: 100%; max-width: 420px; padding: 20px; position: relative; text-align: center; }
+.modal-close { position: absolute; top: 14px; right: 14px; background: var(--input-bg); border: none; color: var(--text-muted); font-size: 14px; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; }
+
+.form-group { margin-bottom: 12px; text-align: left; }
+.form-label { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; display: block; }
+.form-input { width: 100%; background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px 12px; color: var(--text-main); font-size: 12px; outline: none; }
+</style>
 </head>
 <body>
 
-<header>
-    <div class="brand-logo">
-        ARMANI
-        <span>ANALETIK</span>
+<!-- PRELOADER -->
+<div id="preloader"><div class="splash-logo-box">AA</div></div>
+
+<!-- DRAWER MENU -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer-menu" id="drawerMenu">
+  <div>
+    <div class="drawer-header">
+      <div class="brand-logo">ARMANI <span>ANALETIK</span></div>
     </div>
-    <div class="profile-icon">👤</div>
+    <ul class="nav-list">
+      <li class="nav-item active" onclick="switchPage('statSection', this)"><i class="fa-solid fa-chart-line"></i> <span data-i18n="nav_stat">Статистика</span></li>
+      <li class="nav-item" onclick="switchPage('wheelSection', this)"><i class="fa-solid fa-dharmachakra"></i> <span data-i18n="nav_wheel">Бонустар рулеткасы</span></li>
+      <li class="nav-item" onclick="switchPage('predictSection', this)"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="nav_predict">Тегін болжамдар</span></li>
+      <li class="nav-item" onclick="switchPage('coursesSection', this)"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="nav_courses">Оқу курстары</span></li>
+      <li class="nav-item" onclick="openProfileModal(); closeDrawer();"><i class="fa-solid fa-user"></i> <span data-i18n="nav_profile">Жеке профиль</span></li>
+    </ul>
+  </div>
+  <div class="drawer-footer">
+    <div class="lang-switch">
+      <button class="lang-btn active" id="langKK" onclick="setLanguage('kk')">KK</button>
+      <button class="lang-btn" id="langRU" onclick="setLanguage('ru')">RU</button>
+    </div>
+    <div class="social-links">
+      <a href="https://t.me/analetik_1" target="_blank" class="social-btn"><i class="fa-brands fa-telegram"></i></a>
+      <a href="https://t.me/armani_04" target="_blank" class="social-btn"><i class="fa-solid fa-headset"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-left">
+    <button class="menu-burger" onclick="openDrawer()"><i class="fa-solid fa-bars"></i></button>
+    <div class="brand-logo" onclick="switchPage('statSection')">ARMANI <span>ANALETIK</span></div>
+  </div>
+  <div class="header-right">
+    <button class="icon-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+    <button class="header-auth-btn" id="headerAuthBtn" onclick="openProfileModal()">
+      <i class="fa-solid fa-right-to-bracket"></i> <span data-i18n="auth_login">Кіру</span>
+    </button>
+    <div class="user-avatar-wrapper" id="headerAvatarWrapper" onclick="openProfileModal()">
+      <img class="user-avatar-img" id="headerAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="User">
+    </div>
+  </div>
 </header>
 
 <div class="container">
 
-    <!-- HERO BANNER -->
+  <!-- PAGE 1: STATS & HOME -->
+  <div id="statSection" class="page-section active">
     <div class="hero-card">
-        <span class="tag">• БҮГІНГІ КҮН</span>
-        <h2 class="hero-title">Негізгі матчтар<br>және болжамдар</h2>
-        <p class="hero-sub">Талдау. Статистика. Ықтималдық.</p>
-        <button class="btn-green" style="width: auto; padding: 10px 20px; font-size: 12px;">Толығырақ ➔</button>
+      <span class="tag">• БҮГІНГІ КҮН</span>
+      <h2 class="hero-title">Негізгі матчтар<br>және болжамдар</h2>
+      <p class="hero-sub">Талдау. Статистика. Ықтималдық.</p>
+      <button class="btn-green" style="width: auto; padding: 8px 18px; font-size: 11px;" onclick="window.open('https://t.me/analetik_1', '_blank')">VIP Каналға Өту ➔</button>
     </div>
 
-    <!-- CATEGORIES -->
     <div class="categories">
-        <div class="cat-item active">
-            <div class="cat-icon">🎛️</div>
-            <span>Барлығы</span>
-        </div>
-        <div class="cat-item">
-            <div class="cat-icon">⚽</div>
-            <span>Футбол</span>
-        </div>
-        <div class="cat-item">
-            <div class="cat-icon">🏒</div>
-            <span>Хоккей</span>
-        </div>
-        <div class="cat-item">
-            <div class="cat-icon">🏀</div>
-            <span>Баскетбол</span>
-        </div>
-        <div class="cat-item">
-            <div class="cat-icon">🎾</div>
-            <span>Теннис</span>
-        </div>
+      <div class="cat-item active"><div class="cat-icon">🎛️</div><span>Барлығы</span></div>
+      <div class="cat-item"><div class="cat-icon">⚽</div><span>Футбол</span></div>
+      <div class="cat-item"><div class="cat-icon">🏒</div><span>Хоккей</span></div>
+      <div class="cat-item"><div class="cat-icon">🏀</div><span>Баскетбол</span></div>
+      <div class="cat-item"><div class="cat-icon">🎾</div><span>Теннис</span></div>
     </div>
 
-    <!-- ⏱️ 24 СAҒАТТЫҚ ТАЙМЕР -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0 10px;">
+      <span style="font-size: 14px; font-weight: 800;" data-i18n="popular_matches">Танымал матчтар</span>
+      <span style="font-size: 11px; color: var(--accent); font-weight: 700;">Барлығы ➔</span>
+    </div>
+
+    <div class="match-card">
+      <div>
+        <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 4px;">KPL • Бүгін, 18:00</div>
+        <div class="team"><div class="team-icon">⚽</div> Астана vs Ордабасы</div>
+      </div>
+      <div class="match-pct">62%<div style="font-size: 9px; color: var(--text-muted); font-weight: 400; text-align: right;">Болжам</div></div>
+    </div>
+
+    <div class="match-card">
+      <div>
+        <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 4px;">UEFA Champions League • 22:00</div>
+        <div class="team"><div class="team-icon">⚽</div> Реал Мадрид vs Боруссия Д.</div>
+      </div>
+      <div class="match-pct">58%<div style="font-size: 9px; color: var(--text-muted); font-weight: 400; text-align: right;">Болжам</div></div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: WHEEL -->
+  <div id="wheelSection" class="page-section">
     <div class="timer-box">
-        <div class="timer-title">⏱️ Келесі айналдыруға дейін қалған уақыт:</div>
-        <div class="timer-clock" id="countdown-timer">23:59:59</div>
+      <div class="timer-title" data-i18n="timer_title">⏱️ Келесі айналдыруға дейін:</div>
+      <div class="timer-clock" id="countdown-timer">23:59:59</div>
     </div>
 
-    <!-- 🎡 РУЛЕТКА (7 ЖҮЛДЕ) -->
     <div class="card" style="text-align: center;">
-        <h3 style="font-size: 16px; margin: 0 0 10px 0; color: var(--accent);">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h3>
+      <h3 style="font-size: 16px; margin: 0 0 10px 0; color: var(--accent);" data-i18n="wheel_title">🎯 СӘТТІЛІК РУЛЕТКАСЫ</h3>
 
-        <div class="wheel-wrapper">
-            <div class="wheel-pointer">▼</div>
-            <div class="wheel" id="wheel">
-                <div class="wheel-sec" style="transform: rotate(0deg) skewY(-38.57deg); background: #ffffff; color: #000;"><span>VIP Экспресс -10% 🔥</span></div>
-                <div class="wheel-sec" style="transform: rotate(51.43deg) skewY(-38.57deg); background: #0f1511; color: #fff;"><span>VIP Канал +1 Күн 👑</span></div>
-                <div class="wheel-sec" style="transform: rotate(102.86deg) skewY(-38.57deg); background: #25e670; color: #000;"><span>VIP 15% Жеңілдік 💎</span></div>
-                <div class="wheel-sec" style="transform: rotate(154.29deg) skewY(-38.57deg); background: #ffffff; color: #000;"><span>Қайта Айналдыру 🔄</span></div>
-                <div class="wheel-sec" style="transform: rotate(205.71deg) skewY(-38.57deg); background: #0f1511; color: #fff;"><span>VIP 25% Жеңілдік 🚀</span></div>
-                <div class="wheel-sec" style="transform: rotate(257.14deg) skewY(-38.57deg); background: #25e670; color: #000;"><span>VIP +3 Күн 🎉</span></div>
-                <div class="wheel-sec" style="transform: rotate(308.57deg) skewY(-38.57deg); background: #ffffff; color: #000;"><span>VIP Айлық +15 Күн 🏆</span></div>
-            </div>
+      <div class="wheel-wrapper">
+        <div class="wheel-pointer">▼</div>
+        <div class="wheel" id="wheel">
+          <div class="wheel-sec" style="transform: rotate(0deg) skewY(-38.57deg); background: #ffffff; color: #000;"><span>VIP Экспресс -10% 🔥</span></div>
+          <div class="wheel-sec" style="transform: rotate(51.43deg) skewY(-38.57deg); background: #0f1511; color: #fff;"><span>VIP Канал +1 Күн 👑</span></div>
+          <div class="wheel-sec" style="transform: rotate(102.86deg) skewY(-38.57deg); background: #25e670; color: #000;"><span>VIP 15% Жеңілдік 💎</span></div>
+          <div class="wheel-sec" style="transform: rotate(154.29deg) skewY(-38.57deg); background: #ffffff; color: #000;"><span>Қайта Айналдыру 🔄</span></div>
+          <div class="wheel-sec" style="transform: rotate(205.71deg) skewY(-38.57deg); background: #0f1511; color: #fff;"><span>VIP 25% Жеңілдік 🚀</span></div>
+          <div class="wheel-sec" style="transform: rotate(257.14deg) skewY(-38.57deg); background: #25e670; color: #000;"><span>VIP +3 Күн 🎉</span></div>
+          <div class="wheel-sec" style="transform: rotate(308.57deg) skewY(-38.57deg); background: #ffffff; color: #000;"><span>VIP Айлық +15 Күн 🏆</span></div>
         </div>
+      </div>
 
-        <button id="spin-btn" onclick="spinWheel()" class="btn-green">🎰 АЙНАЛДЫРУ</button>
+      <button id="spin-btn" onclick="spinWheel()" class="btn-green" data-i18n="spin_btn">🎰 АЙНАЛДЫРУ</button>
 
-        <div id="win-result-box" style="display: none; margin-top: 15px; background: rgba(37, 230, 112, 0.08); border: 1px solid var(--accent); padding: 12px; border-radius: 12px;">
-            <div style="font-size: 11px; color: var(--text-muted);">Сіздің жүлдеңіз:</div>
-            <div id="win-prize-text" style="font-size: 17px; font-weight: 900; color: var(--accent); margin: 4px 0;">—</div>
-            <a href="https://t.me/analetik_1" class="btn-green" style="background: #ffffff; color: #000; margin-top: 8px;">ЖҮЛДЕНІ АЛУ (TELEGRAM)</a>
-        </div>
+      <div id="win-result-box" style="display: none; margin-top: 15px; background: rgba(37, 230, 112, 0.08); border: 1px solid var(--accent); padding: 12px; border-radius: 12px;">
+        <div style="font-size: 11px; color: var(--text-muted);">Сіздің жүлдеңіз:</div>
+        <div id="win-prize-text" style="font-size: 17px; font-weight: 900; color: var(--accent); margin: 4px 0;">—</div>
+        <a href="https://t.me/analetik_1" class="btn-green" style="background: #ffffff; color: #000; margin-top: 8px;">ЖҮЛДЕНІ АЛУ (TELEGRAM)</a>
+      </div>
     </div>
+  </div>
 
-    <!-- ТАНЫМАЛ МАТЧТАР БӨЛІМІ -->
-    <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0 10px;">
-        <span style="font-size: 14px; font-weight: 800;">Танымал матчтар</span>
-        <span style="font-size: 11px; color: var(--accent); font-weight: 700;">Барлық матчтар ➔</span>
+  <!-- PAGE 3: PREDICTIONS -->
+  <div id="predictSection" class="page-section">
+    <div class="card" style="text-align: center; padding: 25px 15px;">
+      <div style="width: 50px; height: 50px; background: rgba(0,136,204,0.2); color: var(--telegram); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 22px;">
+        <i class="fa-paper-plane"></i>
+      </div>
+      <h3 style="font-size: 16px; margin: 0 0 8px 0;" data-i18n="predict_title">Тегін болжамдар Telegram арнамызда!</h3>
+      <p style="font-size: 11px; color: var(--text-muted); line-height: 1.4; margin-bottom: 16px;" data-i18n="predict_desc">Күнделікті ең сенімді әрі тегін спорттық болжамдарды ресми каналымыздан көре аласыз.</p>
+      <a href="https://t.me/analetik_1" target="_blank" class="btn-green" style="background: var(--telegram); color: #fff;" data-i18n="predict_btn">Арнаға өту (@analetik_1)</a>
     </div>
+  </div>
 
-    <div class="match-card">
-        <div>
-            <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 4px;">KPL • Бүгін, 18:00</div>
-            <div class="team"><div class="team-flag"></div> Астана vs Ордабасы</div>
-        </div>
-        <div class="match-pct">62%<div style="font-size: 9px; color: var(--text-muted); font-weight: 400; text-align: right;">Болжам</div></div>
+  <!-- PAGE 4: COURSES -->
+  <div id="coursesSection" class="page-section">
+    <div class="course-card">
+      <div class="badge">START • 4 Модуль</div>
+      <h4 style="margin: 0 0 6px 0; font-size: 15px;">Спорттық Аналитика Негіздері</h4>
+      <p style="font-size: 11px; color: var(--text-muted); margin: 0 0 10px 0;">Жаңадан бастаушыларға арналған курс. Банк менеджмент және коэффициенттерді сараптау.</p>
+      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--card-border); padding-top: 10px;">
+        <span style="font-size: 15px; font-weight: 800; color: var(--accent);">15,000 ₸</span>
+        <button class="btn-green" style="width: auto; padding: 6px 14px; font-size: 11px;" onclick="window.open('https://t.me/armani_04', '_blank')">Сатып алу</button>
+      </div>
     </div>
-
-    <div class="match-card">
-        <div>
-            <div style="font-size: 10px; color: var(--text-muted); margin-bottom: 4px;">UEFA Champions League • 22:00</div>
-            <div class="team"><div class="team-flag"></div> Реал Мадрид vs Боруссия Д.</div>
-        </div>
-        <div class="match-pct">58%<div style="font-size: 9px; color: var(--text-muted); font-weight: 400; text-align: right;">Болжам</div></div>
-    </div>
+  </div>
 
 </div>
 
-<!-- BOTTOM NAVIGATION BAR -->
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-    <button class="nav-item active">
-        <span class="nav-icon">⚡</span>
-        <span>Басты</span>
-    </button>
-    <button class="nav-item">
-        <span class="nav-icon">📈</span>
-        <span>Талдау</span>
-    </button>
-    <button class="nav-item">
-        <span class="nav-icon">📋</span>
-        <span>Купон</span>
-    </button>
-    <button class="nav-item">
-        <span class="nav-icon">👤</span>
-        <span>Профиль</span>
-    </button>
+  <button class="bottom-nav-item active" onclick="switchPage('statSection', this)"><i class="fa-solid fa-chart-line" style="font-size: 16px;"></i><span data-i18n="nav_stat">Басты</span></button>
+  <button class="bottom-nav-item" onclick="switchPage('wheelSection', this)"><i class="fa-solid fa-dharmachakra" style="font-size: 16px;"></i><span data-i18n="nav_wheel">Рулетка</span></button>
+  <button class="bottom-nav-item" onclick="switchPage('predictSection', this)"><i class="fa-solid fa-paper-plane" style="font-size: 16px;"></i><span data-i18n="nav_predict">Болжамдар</span></button>
+  <button class="bottom-nav-item" onclick="switchPage('coursesSection', this)"><i class="fa-solid fa-graduation-cap" style="font-size: 16px;"></i><span data-i18n="nav_courses">Курстар</span></button>
 </nav>
 
+<!-- MODAL PROFILE / AUTH -->
+<div class="modal-overlay" id="modalProfile">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal('modalProfile')"><i class="fa-solid fa-xmark"></i></button>
+
+    <div id="authViewSection">
+      <h3 style="font-size: 18px; margin: 0 0 10px 0;" data-i18n="login_title">Жүйеге кіру</h3>
+      <form onsubmit="handleManualLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Пайдаланушы аты</label>
+          <input type="text" id="loginUsername" class="form-input" placeholder="Логинді енгізіңіз" required>
+        </div>
+        <button type="submit" class="btn-green">Кіру</button>
+      </form>
+    </div>
+
+    <div id="profileViewSection" style="display: none;">
+      <h3 style="font-size: 18px; margin: 0;" id="displayUserName">Armani User</h3>
+      <p style="font-size: 11px; color: var(--text-muted); margin: 4px 0 15px;" id="displayUserEmail">ID: #849204</p>
+      <button class="btn-green" style="background: rgba(239, 68, 68, 0.2); color: var(--red);" onclick="logout()">Шығу</button>
+    </div>
+  </div>
+</div>
+
 <script>
-    // ⏳ 24 САҒАТТЫҚ ТАЙМЕР
-    function startTimer() {
-        let totalSeconds = 24 * 3600 - 1;
-        const timerElement = document.getElementById('countdown-timer');
+const i18nData = {
+  kk: {
+    nav_stat: "Басты", nav_wheel: "Рулетка", nav_predict: "Болжамдар", nav_courses: "Курстар", nav_profile: "Профиль",
+    popular_matches: "Танымал матчтар", timer_title: "⏱️ Келесі айналдыруға дейін:", wheel_title: "🎯 СӘТТІЛІК РУЛЕТКАСЫ",
+    spin_btn: "🎰 АЙНАЛДЫРУ", predict_title: "Тегін болжамдар Telegram арнамызда!", predict_desc: "Күнделікті ең сенімді әрі тегін спорттық болжамдарды ресми каналымыздан көре аласыз.",
+    predict_btn: "Арнаға өту (@analetik_1)", auth_login: "Кіру", login_title: "Жүйеге кіру"
+  },
+  ru: {
+    nav_stat: "Главная", nav_wheel: "Рулетка", nav_predict: "Прогнозы", nav_courses: "Курсы", nav_profile: "Профиль",
+    popular_matches: "Популярные матчи", timer_title: "⏱️ До следующего кручения:", wheel_title: "🎯 РУЛЕТКА УДАЧИ",
+    spin_btn: "🎰 КРУТИТЬ", predict_title: "Бесплатные прогнозы в Telegram!", predict_desc: "Ежедневные надежные и бесплатные спортивные прогнозы на нашем канале.",
+    predict_btn: "Перейти в канал (@analetik_1)", auth_login: "Войти", login_title: "Вход в систему"
+  }
+};
 
-        setInterval(() => {
-            let hours = Math.floor(totalSeconds / 3600);
-            let minutes = Math.floor((totalSeconds % 3600) / 60);
-            let seconds = totalSeconds % 60;
-
-            hours = hours < 10 ? '0' + hours : hours;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            timerElement.innerText = `${hours}:${minutes}:${seconds}`;
-
-            if (totalSeconds > 0) {
-                totalSeconds--;
-            } else {
-                totalSeconds = 24 * 3600;
-            }
-        }, 1000);
+function setLanguage(lang) {
+  localStorage.setItem('armani_lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+  if(lang === 'kk') document.getElementById('langKK').classList.add('active');
+  else document.getElementById('langRU').classList.add('active');
+  
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18nData[lang] && i18nData[lang][key]) {
+      el.innerText = i18nData[lang][key];
     }
-    startTimer();
+  });
+}
 
-    // 🎡 РУЛЕТКА
-    let isSpinning = false;
-    let currentRotation = 0;
+window.addEventListener('load', () => {
+  checkAuthStatus();
+  setLanguage(localStorage.getItem('armani_lang') || 'kk');
+  setTimeout(() => {
+    const loader = document.getElementById('preloader');
+    if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.classList.add('hidden'), 400); }
+  }, 600);
+});
 
-    function spinWheel() {
-        if (isSpinning) return;
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light-mode');
+  document.getElementById('themeIcon').className = isLight ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+}
 
-        isSpinning = true;
-        const btn = document.getElementById('spin-btn');
-        btn.disabled = true;
-        btn.style.opacity = '0.5';
+function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+function openDrawer() { document.getElementById('drawerOverlay').classList.add('active'); document.getElementById('drawerMenu').classList.add('active'); }
+function closeDrawer() { document.getElementById('drawerOverlay').classList.remove('active'); document.getElementById('drawerMenu').classList.remove('active'); }
 
-        document.getElementById('win-result-box').style.display = 'none';
+function switchPage(pageId, el) {
+  document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  document.querySelectorAll('.nav-item, .bottom-nav-item').forEach(n => n.classList.remove('active'));
+  if (el) el.classList.add('active');
+  closeDrawer();
+}
 
-        const prizes = [
-            { text: "VIP Экспресс -10% 🔥", deg: 25.7 },
-            { text: "VIP Канал +1 Күн 👑", deg: 77.1 },
-            { text: "VIP 15% Жеңілдік 💎", deg: 128.5 },
-            { text: "Қайта Айналдыру 🔄", deg: 180.0 },
-            { text: "VIP 25% Жеңілдік 🚀", deg: 231.4 },
-            { text: "VIP +3 Күн 🎉", deg: 282.8 },
-            { text: "VIP Айлық +15 Күн 🏆", deg: 334.2 }
-        ];
+function checkAuthStatus() {
+  const savedName = localStorage.getItem('armani_name');
+  if (savedName) {
+    document.getElementById('headerAuthBtn').style.display = 'none';
+    document.getElementById('headerAvatarWrapper').classList.add('active');
+    document.getElementById('authViewSection').style.display = 'none';
+    document.getElementById('profileViewSection').style.display = 'block';
+    document.getElementById('displayUserName').innerText = savedName;
+  } else {
+    document.getElementById('headerAuthBtn').style.display = 'flex';
+    document.getElementById('headerAvatarWrapper').classList.remove('active');
+    document.getElementById('authViewSection').style.display = 'block';
+    document.getElementById('profileViewSection').style.display = 'none';
+  }
+}
 
-        const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
-        currentRotation += (360 * 5) + (360 - (currentRotation % 360)) + randomPrize.deg;
+function openProfileModal() { checkAuthStatus(); openModal('modalProfile'); }
+function handleManualLogin(e) {
+  e.preventDefault();
+  const username = document.getElementById('loginUsername').value;
+  if(username) {
+    localStorage.setItem('armani_name', username);
+    checkAuthStatus();
+    closeModal('modalProfile');
+  }
+}
+function logout() { localStorage.clear(); location.reload(); }
 
-        document.getElementById('wheel').style.transform = `rotate(${currentRotation}deg)`;
+/* TIMER */
+function startTimer() {
+  let totalSeconds = 24 * 3600 - 1;
+  const timerElement = document.getElementById('countdown-timer');
+  setInterval(() => {
+    let h = Math.floor(totalSeconds / 3600);
+    let m = Math.floor((totalSeconds % 3600) / 60);
+    let s = totalSeconds % 60;
+    timerElement.innerText = `${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
+    if (totalSeconds > 0) totalSeconds--; else totalSeconds = 24 * 3600;
+  }, 1000);
+}
+startTimer();
 
-        setTimeout(() => {
-            isSpinning = false;
-            btn.disabled = false;
-            btn.style.opacity = '1';
-            document.getElementById('win-prize-text').innerText = randomPrize.text;
-            document.getElementById('win-result-box').style.display = 'block';
-        }, 4000);
-    }
+/* ROULETTE ENGINE */
+let isSpinning = false;
+let currentRotation = 0;
+
+function spinWheel() {
+  if (isSpinning) return;
+  isSpinning = true;
+  const btn = document.getElementById('spin-btn');
+  btn.disabled = true; btn.style.opacity = '0.5';
+  document.getElementById('win-result-box').style.display = 'none';
+
+  const prizes = [
+    { text: "VIP Экспресс -10% 🔥", deg: 25.7 },
+    { text: "VIP Канал +1 Күн 👑", deg: 77.1 },
+    { text: "VIP 15% Жеңілдік 💎", deg: 128.5 },
+    { text: "Қайта Айналдыру 🔄", deg: 180.0 },
+    { text: "VIP 25% Жеңілдік 🚀", deg: 231.4 },
+    { text: "VIP +3 Күн 🎉", deg: 282.8 },
+    { text: "VIP Айлық +15 Күн 🏆", deg: 334.2 }
+  ];
+
+  const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
+  currentRotation += (360 * 5) + (360 - (currentRotation % 360)) + randomPrize.deg;
+  document.getElementById('wheel').style.transform = `rotate(${currentRotation}deg)`;
+
+  setTimeout(() => {
+    isSpinning = false; btn.disabled = false; btn.style.opacity = '1';
+    document.getElementById('win-prize-text').innerText = randomPrize.text;
+    document.getElementById('win-result-box').style.display = 'block';
+  }, 4000);
+}
 </script>
 </body>
 </html>
