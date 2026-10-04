@@ -1,848 +1,1032 @@
 ```html
 <!DOCTYPE html>
-<html lang="kk">
+<html lang="kk" class="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Armani Analetik - Кәсіби Спорттық Сараптама</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Armani Analetik - Аналитикалық платформа</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              400: '#FBBF24',
+              500: '#F59E0B',
+              600: '#D97706',
+            },
+            neon: {
+              blue: '#00E5FF',
+              green: '#10B981',
+            },
+            dark: {
+              bg: '#0F172A',
+              card: '#1E293B',
+              border: '#334155'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0f19;
+      color: #f8fafc;
+      touch-action: manipulation;
+    }
+    
+    /* Custom Glow Effects */
+    .glow-gold {
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+    }
+    .glow-neon {
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+    }
+    .text-glow {
+      text-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+    }
+    
+    /* Roulette Wheel Canvas */
+    #rouletteCanvas {
+      filter: drop-shadow(0px 0px 10px rgba(245, 158, 11, 0.4));
+    }
 
-<!-- AV Favicon & Apple Touch Icon -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232563eb'/><text x='50%' y='55%' dominant-baseline='central' text-anchor='middle' fill='%23ffffff' font-family='Inter, sans-serif' font-weight='900' font-size='48'>AV</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232563eb'/><text x='50%' y='55%' dominant-baseline='central' text-anchor='middle' fill='%23ffffff' font-family='Inter, sans-serif' font-weight='900' font-size='48'>AV</text></svg>">
-
-<!-- FontAwesome & Google Fonts -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-
-<style>
-:root {
-  --bg: #0b111e;
-  --header-bg: #0f172a;
-  --card: #131c31;
-  --card-border: rgba(255, 255, 255, 0.08);
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --gold: #f59e0b;
-  --green: #10b981;
-  --red: #ef4444;
-  --text: #ffffff;
-  --subtext: #94a3b8;
-  --input-bg: #18243e;
-  --telegram: #0088cc;
-}
-
-body.light-mode {
-  --bg: #f8fafc;
-  --header-bg: #ffffff;
-  --card: #ffffff;
-  --card-border: rgba(0, 0, 0, 0.08);
-  --text: #0f172a;
-  --subtext: #64748b;
-  --input-bg: #f1f5f9;
-}
-
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; transition: background-color 0.2s, color 0.2s; }
-body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; user-select: none; padding-bottom: 75px; }
-
-/* Custom Animations */
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 15px rgba(37, 99, 235, 0.4); }
-  50% { box-shadow: 0 0 25px rgba(37, 99, 235, 0.8); }
-}
-
-/* Preloader */
-#preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.4s ease; }
-#preloader.hidden { opacity: 0; pointer-events: none; }
-.splash-logo-box { background: var(--accent); color: #ffffff; font-size: 50px; font-weight: 900; width: 110px; height: 110px; border-radius: 28px; display: flex; align-items: center; justify-content: center; animation: pulseGlow 2s infinite; }
-
-/* Custom Wheel Container */
-.wheel-pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 20px solid var(--gold); z-index: 25; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
-
-/* Toast Notification */
-#toast { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%) translateY(100px); background: #1e293b; color: #fff; border: 1px solid var(--accent); padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 700; z-index: 4000; opacity: 0; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 8px; }
-#toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-</style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #f59e0b;
+    }
+  </style>
 </head>
-<body>
+<body class="bg-[#0b0f19] text-gray-100 min-h-screen flex flex-col justify-between pb-20 md:pb-0">
 
-<div id="preloader">
-  <div class="splash-logo-box">AV</div>
-  <div class="mt-4 text-xs font-semibold tracking-wider uppercase text-blue-400">Armani Analetik</div>
-</div>
-
-<div id="toast"><i class="fa-solid fa-circle-check text-emerald-400"></i> <span id="toastMsg">Сәтті орындалды!</span></div>
-
-<!-- Drawer Menu Overlay -->
-<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[2000] hidden transition-opacity" id="drawerOverlay" onclick="closeDrawer()"></div>
-<div class="fixed top-0 -left-[300px] w-[290px] h-full bg-[var(--card)] border-r border-[var(--card-border)] z-[2001] transition-all duration-300 p-5 flex flex-col justify-between" id="drawerMenu">
-  <div>
-    <div class="flex items-center justify-between pb-4 mb-5 border-b border-[var(--card-border)]">
-      <div class="flex items-center gap-3">
-        <div class="bg-blue-600 text-white font-black text-sm px-2.5 py-1.5 rounded-lg">AV</div>
-        <div class="font-extrabold text-base">Armani Analetik</div>
-      </div>
-      <button onclick="closeDrawer()" class="text-slate-400 text-lg"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <ul class="flex flex-col gap-1.5">
-      <li class="nav-item flex items-center gap-3.5 p-3 rounded-xl text-slate-400 text-xs font-bold cursor-pointer hover:bg-[var(--input-bg)] hover:text-blue-500 transition active" onclick="switchPage('statSection', this)">
-        <i class="fa-solid fa-chart-line text-blue-500 w-5 text-center text-sm"></i>
-        <span data-i18n="nav_stat">Статистика мен Аналитика</span>
-      </li>
-      <li class="nav-item flex items-center gap-3.5 p-3 rounded-xl text-slate-400 text-xs font-bold cursor-pointer hover:bg-[var(--input-bg)] hover:text-blue-500 transition" onclick="switchPage('predictSection', this)">
-        <i class="fa-solid fa-futbol text-blue-500 w-5 text-center text-sm"></i>
-        <span data-i18n="nav_predict">Матчтар & Live Болжам</span>
-      </li>
-      <li class="nav-item flex items-center gap-3.5 p-3 rounded-xl text-slate-400 text-xs font-bold cursor-pointer hover:bg-[var(--input-bg)] hover:text-blue-500 transition" onclick="switchPage('calcSection', this)">
-        <i class="fa-solid fa-calculator text-blue-500 w-5 text-center text-sm"></i>
-        <span data-i18n="nav_calc">Банк Калькуляторы</span>
-      </li>
-      <li class="nav-item flex items-center gap-3.5 p-3 rounded-xl text-slate-400 text-xs font-bold cursor-pointer hover:bg-[var(--input-bg)] hover:text-blue-500 transition" onclick="switchPage('wheelSection', this)">
-        <i class="fa-solid fa-dharmachakra text-blue-500 w-5 text-center text-sm"></i>
-        <span data-i18n="nav_wheel">Бонустар рулеткасы</span>
-      </li>
-      <li class="nav-item flex items-center gap-3.5 p-3 rounded-xl text-slate-400 text-xs font-bold cursor-pointer hover:bg-[var(--input-bg)] hover:text-blue-500 transition" onclick="switchPage('coursesSection', this)">
-        <i class="fa-solid fa-graduation-cap text-blue-500 w-5 text-center text-sm"></i>
-        <span data-i18n="nav_courses">Оқу курстары</span>
-      </li>
-      <li class="nav-item flex items-center gap-3.5 p-3 rounded-xl text-slate-400 text-xs font-bold cursor-pointer hover:bg-[var(--input-bg)] hover:text-blue-500 transition" onclick="openProfileModal(); closeDrawer();">
-        <i class="fa-solid fa-user text-blue-500 w-5 text-center text-sm"></i>
-        <span data-i18n="nav_profile">Жеке профиль</span>
-      </li>
-    </ul>
-  </div>
-
-  <div class="pt-4 border-t border-[var(--card-border)] flex items-center justify-between">
-    <div class="flex bg-[var(--input-bg)] p-1 rounded-xl items-center gap-1">
-      <button class="px-2.5 py-1 text-[11px] font-extrabold rounded-lg transition" id="langKK" onclick="setLanguage('kk')">KK</button>
-      <button class="px-2.5 py-1 text-[11px] font-extrabold rounded-lg transition" id="langRU" onclick="setLanguage('ru')">RU</button>
-    </div>
-    <div class="flex gap-1.5">
-      <a href="https://t.me/analetik_1" target="_blank" class="w-8 h-8 bg-[var(--input-bg)] rounded-lg flex items-center justify-center text-slate-300 hover:text-blue-400 text-xs"><i class="fa-brands fa-telegram"></i></a>
-      <a href="https://t.me/armani_04" target="_blank" class="w-8 h-8 bg-[var(--input-bg)] rounded-lg flex items-center justify-center text-slate-300 hover:text-blue-400 text-xs"><i class="fa-solid fa-headset"></i></a>
-      <a href="https://www.tiktok.com/@armanianaletik" target="_blank" class="w-8 h-8 bg-[var(--input-bg)] rounded-lg flex items-center justify-center text-slate-300 hover:text-blue-400 text-xs"><i class="fa-brands fa-tiktok"></i></a>
-    </div>
-  </div>
-</div>
-
-<header class="bg-[var(--header-bg)] w-full px-4 py-3 flex items-center justify-between sticky top-0 z-50 border-b border-[var(--card-border)] shadow-md">
-  <div class="flex items-center gap-3">
-    <button onclick="openDrawer()" class="text-slate-300 text-lg hover:text-blue-500 transition"><i class="fa-solid fa-bars"></i></button>
-    <div class="bg-blue-600 text-white font-black text-xs px-2.5 py-1.5 rounded-lg cursor-pointer shadow-sm" onclick="switchPage('statSection')">AV</div>
-    <div class="font-black text-sm tracking-tight">Armani Analetik</div>
-  </div>
-  <div class="flex items-center gap-2">
-    <button class="w-9 h-9 bg-[var(--input-bg)] border border-[var(--card-border)] rounded-xl flex items-center justify-center text-slate-300 text-xs hover:text-amber-400 transition" id="themeToggleBtn" onclick="toggleTheme()">
-      <i class="fa-solid fa-moon" id="themeIcon"></i>
-    </button>
-    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-xl font-extrabold text-xs flex items-center gap-1.5 transition shadow-sm" id="headerAuthBtn" onclick="openProfileModal()">
-      <i class="fa-solid fa-right-to-bracket text-xs"></i>
-      <span data-i18n="auth_login">Кіру</span>
-    </button>
-    <div class="w-9 h-9 cursor-pointer rounded-full overflow-hidden border-2 border-blue-600 hidden shadow-md" id="headerAvatarWrapper" onclick="openProfileModal()">
-      <img class="w-full h-full object-cover" id="headerAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="User">
-    </div>
-  </div>
-</header>
-
-<div class="max-w-md w-[92%] mx-auto my-4 flex-1">
-
-  <!-- PWA Install Banner -->
-  <div class="bg-[var(--card)] border border-dashed border-blue-500/50 rounded-2xl p-3.5 flex items-center justify-between mb-4 hidden" id="pwaBanner">
-    <div>
-      <div class="text-xs font-bold text-white" data-i18n="pwa_text">Қолданбаны телефонға орнату</div>
-      <div class="text-[10px] text-slate-400">Жылдам кіру және ыңғайлы болжамдар</div>
-    </div>
-    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-xl text-xs font-extrabold transition" id="btnInstallPWA" data-i18n="pwa_btn">Орнату</button>
-  </div>
-
-  <!-- Hero VIP Banner -->
-  <div class="bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 rounded-2xl p-4 text-white mb-5 shadow-lg relative overflow-hidden border border-blue-400/30">
-    <div class="absolute -right-6 -bottom-6 opacity-20 text-8xl text-white pointer-events-none"><i class="fa-solid fa-crown"></i></div>
-    <div class="flex items-center gap-2 mb-1">
-      <span class="bg-amber-400 text-slate-900 font-black text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider">VIP VIP-PASS</span>
-      <span class="text-xs text-blue-100 font-semibold">• 85%+ Өтімділік</span>
-    </div>
-    <h3 class="text-base font-extrabold mb-1" data-i18n="hero_title">VIP Каналға Қосыл!</h3>
-    <p class="text-xs text-blue-100/90 mb-3 leading-relaxed" data-i18n="hero_desc">Күндік өтімділігі 80%+ болатын статистикалық болжамдар мен экспресс талдаулар!</p>
-    <button class="bg-white hover:bg-slate-100 text-blue-700 px-4 py-2 rounded-xl font-extrabold text-xs transition shadow-md flex items-center gap-2" onclick="window.open('https://t.me/analetik_1', '_blank')">
-      <span data-i18n="hero_btn">Каналға өту</span>
-      <i class="fa-solid fa-arrow-right text-[10px]"></i>
-    </button>
-  </div>
-
-  <!-- SECTION 1: STATS & ANALYTICS -->
-  <div id="statSection" class="page-section">
-    <div class="bg-[var(--card)] border border-[var(--card-border)] rounded-2xl p-4 text-center mb-4 shadow-sm">
-      <h2 class="text-xs font-black uppercase text-slate-400 tracking-wider mb-2" data-i18n="stat_title">Күндік Болжамдар Өтімділігі</h2>
-      <div class="w-24 h-24 mx-auto my-2 rounded-full border-4 border-emerald-500 flex flex-col items-center justify-center shadow-inner bg-emerald-500/5">
-        <div class="text-2xl font-black text-emerald-500">83%</div>
-        <div class="text-[9px] font-extrabold text-slate-400 uppercase" data-i18n="stat_rate">Өтімділік</div>
-      </div>
-      <p class="text-[11px] text-slate-400 mb-3" data-i18n="stat_sub">Соңғы 30 күндегі сараптама нәтижесі бойынша</p>
-      <div class="grid grid-cols-3 gap-2">
-        <div class="bg-[var(--input-bg)] p-2 rounded-xl text-center">
-          <div class="text-sm font-black text-emerald-400">184</div>
-          <div class="text-[9px] font-bold text-slate-400 uppercase" data-i18n="stat_win">Ұтты</div>
+  <header class="sticky top-0 z-40 bg-[#0f172a]/95 backdrop-blur border-b border-gray-800 px-4 py-3 shadow-md">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <!-- Logo & Brand -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('matches')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center font-black text-slate-900 text-xl shadow-lg border border-yellow-200/50">
+          AA
         </div>
-        <div class="bg-[var(--input-bg)] p-2 rounded-xl text-center">
-          <div class="text-sm font-black text-rose-400">38</div>
-          <div class="text-[9px] font-bold text-slate-400 uppercase" data-i18n="stat_loss">Ұтылды</div>
-        </div>
-        <div class="bg-[var(--input-bg)] p-2 rounded-xl text-center">
-          <div class="text-sm font-black text-amber-400">1.88</div>
-          <div class="text-[9px] font-bold text-slate-400 uppercase" data-i18n="stat_avg">Орт. Кэф</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Analytics Info -->
-    <div class="bg-[var(--card)] border border-[var(--card-border)] rounded-2xl p-4 mb-4">
-      <div class="flex items-center gap-2 mb-2">
-        <i class="fa-solid fa-microchip text-blue-500 text-sm"></i>
-        <h4 class="text-xs font-extrabold text-blue-500 uppercase tracking-wide" data-i18n="analytics_info_title">Аналитика алгоритмі қалай жұмыс істейді?</h4>
-      </div>
-      <p class="text-xs text-slate-400 leading-relaxed" data-i18n="analytics_info_desc">Біздің сараптама жүйесі командалардың соңғы ойындарын, ойыншылардың жарақаттарын, орташа xG көрсеткіштерін және мотивация факторларын математикалық модельдер арқылы есептейді.</p>
-    </div>
-
-    <!-- History Header with Search -->
-    <div class="flex items-center justify-between mb-2">
-      <h3 class="text-xs font-black uppercase text-slate-400 tracking-wider" data-i18n="stat_history">Соңғы нәтижелер тарихы</h3>
-      <span class="text-[10px] text-blue-400 font-bold">Жаңартылды</span>
-    </div>
-
-    <div class="flex flex-col gap-2 mb-4">
-      <div class="bg-[var(--card)] border border-[var(--card-border)] rounded-xl p-3 flex items-center justify-between text-xs">
         <div>
-          <div class="font-extrabold text-white">Қайрат - Астана (ТБ 2.5)</div>
-          <div class="text-[10px] text-slate-400">Премьер-Лига • Кеше</div>
+          <h1 class="text-lg font-bold tracking-wide text-white leading-tight flex items-center">
+            ARMANI <span class="text-amber-400 ml-1">ANALETIK</span>
+            <span class="ml-2 text-[10px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded border border-amber-500/30 uppercase font-semibold">Pro</span>
+          </h1>
+          <p class="text-xs text-gray-400" id="headerSubtitle">Спорттық аналитика & Болжамдар</p>
         </div>
-        <span class="bg-emerald-500/15 text-emerald-400 font-extrabold text-[10px] px-2.5 py-1 rounded-lg">ҰТТЫ (1.85)</span>
       </div>
-      <div class="bg-[var(--card)] border border-[var(--card-border)] rounded-xl p-3 flex items-center justify-between text-xs">
-        <div>
-          <div class="font-extrabold text-white">Реал Мадрид - Барселона (Ф1 0)</div>
-          <div class="text-[10px] text-slate-400">Ла Лига • 2 күн бұрын</div>
-        </div>
-        <span class="bg-emerald-500/15 text-emerald-400 font-extrabold text-[10px] px-2.5 py-1 rounded-lg">ҰТТЫ (1.92)</span>
-      </div>
-      <div class="bg-[var(--card)] border border-[var(--card-border)] rounded-xl p-3 flex items-center justify-between text-xs">
-        <div>
-          <div class="font-extrabold text-white">Манчестер Сити - Арсенал (П1)</div>
-          <div class="text-[10px] text-slate-400">Премьер Лига • 3 күн бұрын</div>
-        </div>
-        <span class="bg-emerald-500/15 text-emerald-400 font-extrabold text-[10px] px-2.5 py-1 rounded-lg">ҰТТЫ (1.78)</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- SECTION 2: MATCHES & LIVE PREDICTS -->
-  <div id="predictSection" class="page-section">
-    <div class="flex items-center justify-between mb-3">
-      <h2 class="text-sm font-black text-white uppercase tracking-wider">Бүгінгі Ойындар & Талдау</h2>
-      <span class="bg-red-500/20 text-red-400 text-[10px] font-extrabold px-2 py-0.5 rounded-full flex items-center gap-1">
-        <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-ping"></span> LIVE ANALYTICS
-      </span>
-    </div>
-
-    <!-- Sports Category Filters -->
-    <div class="flex gap-1.5 mb-4 overflow-x-auto pb-1" id="sportsFilterContainer">
-      <button class="bg-blue-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition" onclick="filterSport('all', this)">Барлығы</button>
-      <button class="bg-[var(--input-bg)] text-slate-400 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition" onclick="filterSport('football', this)"><i class="fa-solid fa-futbol mr-1"></i> Футбол</button>
-      <button class="bg-[var(--input-bg)] text-slate-400 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition" onclick="filterSport('basketball', this)"><i class="fa-solid fa-basketball mr-1"></i> Баскетбол</button>
-      <button class="bg-[var(--input-bg)] text-slate-400 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition" onclick="filterSport('tennis', this)"><i class="fa-solid fa-baseball-bat-ball mr-1"></i> Теннис</button>
-    </div>
-
-    <!-- Dynamic Match Cards List -->
-    <div class="flex flex-col gap-3.5" id="matchesList">
-      <!-- Match Card 1 -->
-      <div class="match-card sport-football bg-[var(--card)] border border-[var(--card-border)] rounded-2xl p-4 shadow-sm">
-        <div class="flex items-center justify-between border-b border-[var(--card-border)] pb-2 mb-3">
-          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wide"><i class="fa-solid fa-trophy text-amber-400 mr-1"></i> UEFA Champions League</span>
-          <span class="text-[10px] font-black text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md">22:00</span>
-        </div>
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center font-black text-xs">PSG</div>
-            <span class="text-xs font-bold">ПСЖ</span>
-          </div>
-          <span class="text-xs font-black text-slate-500">VS</span>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold">Бавария</span>
-            <div class="w-7 h-7 bg-red-600/20 text-red-400 rounded-full flex items-center justify-center font-black text-xs">BAY</div>
-          </div>
-        </div>
-
-        <div class="bg-[var(--input-bg)] rounded-xl p-2.5 mb-3">
-          <div class="flex justify-between text-[11px] mb-1">
-            <span class="text-slate-400">Ұсынылатын Болжам:</span>
-            <span class="font-extrabold text-emerald-400">Екеуі де соғады (ИӘ)</span>
-          </div>
-          <div class="flex justify-between text-[11px] mb-2">
-            <span class="text-slate-400">Коэффициент:</span>
-            <span class="font-extrabold text-amber-400">1.82</span>
-          </div>
-          <!-- Probability Progress Bar -->
-          <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden flex">
-            <div class="bg-emerald-500 h-full rounded-full" style="width: 82%;"></div>
-          </div>
-          <div class="flex justify-between text-[9px] text-slate-400 mt-1">
-            <span>Өтімділік симуляциясы</span>
-            <span class="font-bold text-emerald-400">82%</span>
-          </div>
-        </div>
-
-        <button onclick="toggleAnalysis('analysis1')" class="w-full py-1.5 text-center text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center justify-center gap-1">
-          <span>Сараптамалық талдауды оқу</span>
-          <i class="fa-solid fa-chevron-down text-[10px]"></i>
+      <!-- Header Action Controls -->
+      <div class="flex items-center space-x-3">
+        <!-- Language Switcher -->
+        <button onclick="toggleLanguage()" class="flex items-center space-x-1.5 bg-gray-800/80 hover:bg-gray-700 text-xs text-gray-200 px-2.5 py-1.5 rounded-lg border border-gray-700 transition">
+          <i class="fa-solid fa-globe text-amber-400"></i>
+          <span id="langText" class="font-bold">KZ</span>
         </button>
-        <div id="analysis1" class="hidden mt-2 pt-2 border-t border-[var(--card-border)] text-[11px] text-slate-400 leading-relaxed">
-          Командалардың соңғы 5 кездесуінде xG көрсеткіші 2.4-тен жоғары болды. Екі жақтың да негізгі шабуылшылары сапта. Шабуыл шебі жоғары өнімділік көрсетеді.
-        </div>
-      </div>
-
-      <!-- Match Card 2 -->
-      <div class="match-card sport-football bg-[var(--card)] border border-[var(--card-border)] rounded-2xl p-4 shadow-sm">
-        <div class="flex items-center justify-between border-b border-[var(--card-border)] pb-2 mb-3">
-          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wide"><i class="fa-solid fa-trophy text-amber-400 mr-1"></i> КПЛ Қазақстан</span>
-          <span class="text-[10px] font-black text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md">18:00</span>
-        </div>
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 bg-yellow-500/20 text-yellow-400 rounded-full flex items-center justify-center font-black text-xs">KRT</div>
-            <span class="text-xs font-bold">Қайрат</span>
-          </div>
-          <span class="text-xs font-black text-slate-500">VS</span>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold">Ордабасы</span>
-            <div class="w-7 h-7 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center font-black text-xs">ORD</div>
-          </div>
-        </div>
-
-        <div class="bg-[var(--input-bg)] rounded-xl p-2.5 mb-3">
-          <div class="flex justify-between text-[11px] mb-1">
-            <span class="text-slate-400">Ұсынылатын Болжам:</span>
-            <span class="font-extrabold text-emerald-400">Қайрат Фора (0)</span>
-          </div>
-          <div class="flex justify-between text-[11px] mb-2">
-            <span class="text-slate-400">Коэффициент:</span>
-            <span class="font-extrabold text-amber-400">1.75</span>
-          </div>
-          <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden flex">
-            <div class="bg-emerald-500 h-full rounded-full" style="width: 78%;"></div>
-          </div>
-          <div class="flex justify-between text-[9px] text-slate-400 mt-1">
-            <span>Өтімділік симуляциясы</span>
-            <span class="font-bold text-emerald-400">78%</span>
-          </div>
-        </div>
-
-        <button onclick="toggleAnalysis('analysis2')" class="w-full py-1.5 text-center text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center justify-center gap-1">
-          <span>Сараптамалық талдауды оқу</span>
-          <i class="fa-solid fa-chevron-down text-[10px]"></i>
-        </button>
-        <div id="analysis2" class="hidden mt-2 pt-2 border-t border-[var(--card-border)] text-[11px] text-slate-400 leading-relaxed">
-          Қайрат өз алаңындағы соңғы 6 ойында жеңіліс көрмеген. Ордабасының қорғаныста негізгі 2 ойыншысы дисквалификацияға байланысты қатыса алмайды.
-        </div>
-      </div>
-
-      <!-- Match Card 3 (Basketball) -->
-      <div class="match-card sport-basketball bg-[var(--card)] border border-[var(--card-border)] rounded-2xl p-4 shadow-sm">
-        <div class="flex items-center justify-between border-b border-[var(--card-border)] pb-2 mb-3">
-          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wide"><i class="fa-solid fa-basketball text-orange-500 mr-1"></i> NBA</span>
-          <span class="text-[10px] font-black text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md">06:00</span>
-        </div>
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 bg-purple-600/20 text-purple-400 rounded-full flex items-center justify-center font-black text-xs">LAL</div>
-            <span class="text-xs font-bold">Лейкерс</span>
-          </div>
-          <span class="text-xs font-black text-slate-500">VS</span>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold">Голден Стэйт</span>
-            <div class="w-7 h-7 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center font-black text-xs">GSW</div>
-          </div>
-        </div>
-
-        <div class="bg-[var(--input-bg)] rounded-xl p-2.5 mb-3">
-          <div class="flex justify-between text-[11px] mb-1">
-            <span class="text-slate-400">Ұсынылатын Болжам:</span>
-            <span class="font-extrabold text-emerald-400">ТБ 224.5 упай</span>
-          </div>
-          <div class="flex justify-between text-[11px] mb-2">
-            <span class="text-slate-400">Коэффициент:</span>
-            <span class="font-extrabold text-amber-400">1.89</span>
-          </div>
-          <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden flex">
-            <div class="bg-emerald-500 h-full rounded-full" style="width: 85%;"></div>
-          </div>
-          <div class="flex justify-between text-[9px] text-slate-400 mt-1">
-            <span>Өтімділік симуляциясы</span>
-            <span class="font-bold text-emerald-400">85%</span>
-          </div>
-        </div>
-
-        <button onclick="toggleAnalysis('analysis3')" class="w-full py-1.5 text-center text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center justify-center gap-1">
-          <span>Сараптамалық талдауды оқу</span>
-          <i class="fa-solid fa-chevron-down text-[10px]"></i>
-        </button>
-        <div id="analysis3" class="hidden mt-2 pt-2 border-t border-[var(--card-border)] text-[11px] text-slate-400 leading-relaxed">
-          Екі команда да қарқынды шабуылға негізделген ойын өрнегін көрсетеді. Соңғы 3 өзара кездесуде тотал 230-дан асып түсті.
-        </div>
+        
+        <!-- Telegram Contact Link -->
+        <a href="https://t.me/" target="_blank" class="hidden sm:flex items-center space-x-1 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 text-xs px-3 py-1.5 rounded-lg font-medium transition">
+          <i class="fa-brands fa-telegram"></i>
+          <span id="tgBtnText">Телеграм</span>
+        </a>
       </div>
     </div>
-  </div>
+  </header>
 
-  <!-- SECTION 3: BANK CALCULATOR -->
-  <div id="calcSection" class="page-section">
-    <div class="bg-[var(--card)] border border-[var(--card-border)] rounded-2xl p-5 mb-4 shadow-sm">
-      <div class="flex items-center gap-2.5 mb-3">
-        <div class="w-9 h-9 bg-blue-600/20 text-blue-400 rounded-xl flex items-center justify-center font-black text-base">
-          <i class="fa-solid fa-calculator"></i>
+  <main class="max-w-6xl mx-auto w-full px-4 py-6 flex-1">
+
+    <!-- TOP NAVIGATION BAR (Desktop View) -->
+    <nav class="hidden md:flex items-center justify-center space-x-2 mb-6 bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800">
+      <button onclick="switchTab('matches')" id="nav-matches" class="tab-btn px-5 py-2.5 rounded-xl font-medium text-sm flex items-center space-x-2 transition bg-amber-500 text-slate-950 font-semibold shadow-md">
+        <i class="fa-solid fa-chart-line"></i>
+        <span class="lang-matches">Болжамдар</span>
+      </button>
+      <button onclick="switchTab('calculator')" id="nav-calculator" class="tab-btn px-5 py-2.5 rounded-xl font-medium text-sm flex items-center space-x-2 transition text-gray-400 hover:text-white hover:bg-slate-800">
+        <i class="fa-solid fa-calculator"></i>
+        <span class="lang-calculator">Банк Калькуляторы</span>
+      </button>
+      <button onclick="switchTab('roulette')" id="nav-roulette" class="tab-btn px-5 py-2.5 rounded-xl font-medium text-sm flex items-center space-x-2 transition text-gray-400 hover:text-white hover:bg-slate-800">
+        <i class="fa-solid fa-dharmachakra"></i>
+        <span class="lang-roulette">Рулетка 24 сағат</span>
+      </button>
+      <button onclick="switchTab('course')" id="nav-course" class="tab-btn px-5 py-2.5 rounded-xl font-medium text-sm flex items-center space-x-2 transition text-gray-400 hover:text-white hover:bg-slate-800">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span class="lang-course">Оқу залы</span>
+      </button>
+      <button onclick="switchTab('profile')" id="nav-profile" class="tab-btn px-5 py-2.5 rounded-xl font-medium text-sm flex items-center space-x-2 transition text-gray-400 hover:text-white hover:bg-slate-800">
+        <i class="fa-solid fa-user-shield"></i>
+        <span class="lang-profile">Профиль / VIP</span>
+      </button>
+    </nav>
+
+    <!-- SECTION 1: MATCHES & PREDICTIONS -->
+    <section id="view-matches" class="space-y-6">
+      <!-- Sport Type Filters -->
+      <div class="flex items-center justify-between gap-2 overflow-x-auto pb-2 scrollbar-none">
+        <div class="flex space-x-2">
+          <button onclick="filterSport('all')" id="filter-all" class="sport-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500 text-slate-950 border border-amber-400 shadow">
+            <i class="fa-solid fa-layer-group mr-1"></i> <span class="lang-all">Барлығы</span>
+          </button>
+          <button onclick="filterSport('football')" id="filter-football" class="sport-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/90 text-gray-300 hover:bg-slate-700 border border-slate-700">
+            <i class="fa-solid fa-futbol mr-1"></i> <span class="lang-football">Футбол</span>
+          </button>
+          <button onclick="filterSport('basketball')" id="filter-basketball" class="sport-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/90 text-gray-300 hover:bg-slate-700 border border-slate-700">
+            <i class="fa-solid fa-basketball mr-1"></i> <span class="lang-basketball">Баскетбол</span>
+          </button>
+          <button onclick="filterSport('tennis')" id="filter-tennis" class="sport-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/90 text-gray-300 hover:bg-slate-700 border border-slate-700">
+            <i class="fa-solid fa-baseball-bat-ball mr-1"></i> <span class="lang-tennis">Теннис</span>
+          </button>
         </div>
+        <div class="text-xs text-amber-400 font-medium whitespace-nowrap bg-amber-500/10 px-3 py-1.5 rounded-lg border border-amber-500/20">
+          <i class="fa-solid fa-bolt mr-1 animate-pulse"></i> LIVE Analytics
+        </div>
+      </div>
+
+      <!-- Match Cards Container -->
+      <div id="matchesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Matches rendered dynamic via JS -->
+      </div>
+    </section>
+
+    <section id="view-calculator" class="hidden max-w-2xl mx-auto space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
+        
+        <div class="flex items-center space-x-3 mb-6">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl font-bold border border-amber-500/30">
+            <i class="fa-solid fa-calculator"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white lang-calc-title">Банк-менеджмент Калькуляторы</h2>
+            <p class="text-xs text-gray-400 lang-calc-desc">Тәуекелді азайту және дұрыс ставка сомасын есептеу</p>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1.5 lang-label-bank">Жалпы Банк Сомасы (₸ / $)</label>
+            <div class="relative">
+              <input type="number" id="calcBank" value="100000" oninput="calculateBankroll()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white text-lg font-bold focus:outline-none focus:border-amber-500 transition">
+              <span class="absolute right-4 top-3.5 text-gray-400 text-sm font-semibold">₸</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-300 mb-1.5 lang-label-risk">Тәуекел дәрежесі (%)</label>
+              <select id="calcRisk" onchange="calculateBankroll()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white font-medium focus:outline-none focus:border-amber-500 transition">
+                <option value="2">2% - Төмен (Консервативті)</option>
+                <option value="5" selected>5% - Орташа (Стандартты)</option>
+                <option value="8">8% - Жоғары (Агрессивті)</option>
+                <option value="10">10% - Максимум</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-300 mb-1.5 lang-label-odds">Коэффициент</label>
+              <input type="number" id="calcOdds" step="0.01" value="1.85" oninput="calculateBankroll()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white font-bold focus:outline-none focus:border-amber-500 transition">
+            </div>
+          </div>
+
+          <!-- Calculated Output Cards -->
+          <div class="pt-4 border-t border-slate-800 grid grid-cols-2 gap-3">
+            <div class="bg-slate-800/60 border border-slate-700/60 p-4 rounded-xl text-center">
+              <span class="text-xs text-gray-400 block mb-1 lang-res-amount">Ұсынылатын Ставка</span>
+              <span id="resAmount" class="text-2xl font-black text-amber-400">5,000 ₸</span>
+            </div>
+            <div class="bg-slate-800/60 border border-slate-700/60 p-4 rounded-xl text-center">
+              <span class="text-xs text-gray-400 block mb-1 lang-res-profit">Ықтимал Таза Пайда</span>
+              <span id="resProfit" class="text-2xl font-black text-emerald-400">+4,250 ₸</span>
+            </div>
+          </div>
+
+          <div id="calcTip" class="bg-amber-500/10 border border-amber-500/20 p-3.5 rounded-xl text-xs text-amber-300/90 leading-relaxed">
+            <i class="fa-solid fa-shield-halved mr-1"></i> Кеңес: Ешқашан бір ставкаға банкіңіздің 10%-ынан артық тигізбеңіз.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-roulette" class="hidden max-w-xl mx-auto space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl text-center relative overflow-hidden">
+        
+        <h2 class="text-2xl font-extrabold text-white mb-1 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-gift text-amber-400"></i>
+          <span class="lang-roulette-title">Күнделікті Ұтыс Рулеткасы</span>
+        </h2>
+        <p class="text-xs text-gray-400 mb-6 lang-roulette-desc">Күн сайын айналдырып, VIP кодтар мен бонус промокодтарды ұтып алыңыз!</p>
+
+        <!-- Wheel Canvas & Pointer container -->
+        <div class="relative w-72 h-72 mx-auto my-4 flex items-center justify-center">
+          <!-- Pointer -->
+          <div class="absolute -top-3 z-20 text-amber-400 text-3xl filter drop-shadow">
+            <i class="fa-solid fa-caret-down"></i>
+          </div>
+          
+          <canvas id="rouletteCanvas" width="300" height="300" class="w-full h-full rounded-full transition-all"></canvas>
+        </div>
+
+        <!-- Spin Action Button -->
+        <div class="mt-6">
+          <button id="spinBtn" onclick="spinRoulette()" class="w-full py-3.5 px-6 rounded-xl font-black text-slate-950 text-base bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 shadow-lg hover:brightness-110 active:scale-95 transition glow-gold">
+            <i class="fa-solid fa-play mr-2"></i> <span class="lang-spin-btn">АЙНАЛДЫРУ</span>
+          </button>
+        </div>
+
+        <!-- Timer / Status Notice -->
+        <div id="rouletteTimerBox" class="hidden mt-4 bg-slate-800/80 border border-slate-700 p-3 rounded-xl">
+          <p class="text-xs text-gray-400 mb-1 lang-timer-label">Келесі мүмкіндікке дейін:</p>
+          <div id="timerCountdown" class="text-lg font-mono font-bold text-amber-400">23:59:59</div>
+        </div>
+
+        <!-- Won Prize Display -->
+        <div id="prizeResultBox" class="hidden mt-4 bg-emerald-500/10 border border-emerald-500/30 p-4 rounded-xl text-center">
+          <div class="text-xs text-emerald-400 font-bold uppercase tracking-wider mb-1">Сіздің Ұтысыңыз!</div>
+          <div id="prizeName" class="text-lg font-extrabold text-white mb-2">3 Күндік VIP Рұқсат</div>
+          <div class="flex items-center justify-center gap-2">
+            <code id="prizeCode" class="bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 font-mono text-amber-400 text-sm font-bold">VIP-ARMANI-2026</code>
+            <button onclick="copyPromoCode()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs px-3 py-1.5 rounded-lg font-bold transition">
+              <i class="fa-regular fa-copy"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="view-course" class="hidden space-y-6">
+      <div class="bg-gradient-to-r from-amber-500/10 via-slate-900 to-slate-900 border border-amber-500/20 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
-          <h2 class="text-sm font-extrabold text-white">Банк-менеджмент Калькуляторы</h2>
-          <p class="text-[10px] text-slate-400">Қаржылық тәуекелді дұрыс басқару құралы</p>
+          <span class="text-xs font-bold bg-amber-500/20 text-amber-400 px-3 py-1 rounded-full border border-amber-500/30 uppercase tracking-wider">
+            Академия & Тәлімгерлік
+          </span>
+          <h2 class="text-2xl font-black text-white mt-2 mb-1 lang-course-header">Спорттық Аналитика Курсы</h2>
+          <p class="text-xs text-gray-300 max-w-xl leading-relaxed lang-course-sub">
+            Кәсіби беттор болу жолы. xG модельдеу, психология және банкты сақтау стратегиялары.
+          </p>
         </div>
+        <a href="https://t.me/" target="_blank" class="w-full md:w-auto px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-sm flex items-center justify-center space-x-2 transition shadow-lg shrink-0">
+          <i class="fa-brands fa-telegram text-base"></i>
+          <span class="lang-course-buy">Курсқа Жазылу (Telegram)</span>
+        </a>
       </div>
 
-      <div class="space-y-3 mt-4">
-        <div>
-          <label class="text-[11px] font-bold text-slate-300 mb-1 block">Жалпы банкіңіз (₸)</label>
-          <input type="number" id="calcBank" value="50000" class="w-full bg-[var(--input-bg)] border border-[var(--card-border)] rounded-xl px-3 py-2 text-xs font-bold text-white outline-none focus:border-blue-500">
-        </div>
-        <div>
-          <label class="text-[11px] font-bold text-slate-300 mb-1 block">Ставка коэффициенті</label>
-          <input type="number" step="0.01" id="calcOdds" value="1.85" class="w-full bg-[var(--input-bg)] border border-[var(--card-border)] rounded-xl px-3 py-2 text-xs font-bold text-white outline-none focus:border-blue-500">
-        </div>
-        <div>
-          <label class="text-[11px] font-bold text-slate-300 mb-1 block">Стратегия түрі</label>
-          <select id="calcStrategy" class="w-full bg-[var(--input-bg)] border border-[var(--card-border)] rounded-xl px-3 py-2 text-xs font-bold text-white outline-none focus:border-blue-500">
-            <option value="5">Флэт 5% (Қауіпсіз / Консервативті)</option>
-            <option value="3">Флэт 3% (Өте сақ)</option>
-            <option value="8">Флэт 8% (Агрессивті)</option>
-          </select>
+      <!-- Course Modules Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Module 1 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-lg mb-4">
+            01
+          </div>
+          <h3 class="text-base font-bold text-white mb-2 lang-m1-title">Банк менеджменті & Тәуекелдер</h3>
+          <p class="text-xs text-gray-400 leading-relaxed mb-4 lang-m1-desc">
+            Флэт, Мартингейл және Келли критерийлерін қолдану. Азартты жеңу және эмоционалды бақылау.
+          </p>
+          <span class="text-[11px] bg-slate-800 text-emerald-400 px-2.5 py-1 rounded-md border border-slate-700 font-semibold">
+            <i class="fa-solid fa-circle-check mr-1"></i> Тегін Кіріспе Модуль
+          </span>
         </div>
 
-        <button onclick="calculateStake()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs py-2.5 rounded-xl transition shadow-md mt-2">
-          Есептеу
-        </button>
-      </div>
+        <!-- Module 2 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg mb-4">
+            02
+          </div>
+          <h3 class="text-base font-bold text-white mb-2 lang-m2-title">xG және Статистикалық Талдау</h3>
+          <p class="text-xs text-gray-400 leading-relaxed mb-4 lang-m2-desc">
+            Күтілетін голдар (xG), ойыншылардың физикалық бабы және ауа райы коэффициенттерінің әсері.
+          </p>
+          <span class="text-[11px] bg-slate-800 text-amber-400 px-2.5 py-1 rounded-md border border-slate-700 font-semibold">
+            <i class="fa-solid fa-lock mr-1"></i> VIP Қолжетімділік
+          </span>
+        </div>
 
-      <!-- Result Box -->
-      <div class="mt-4 pt-4 border-t border-[var(--card-border)] bg-[var(--input-bg)] rounded-xl p-3 text-center">
-        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">Ұсынылатын ставка мөлшері</span>
-        <div class="text-xl font-black text-emerald-400" id="resStake">2,500 ₸</div>
-        <div class="text-[10px] text-slate-400 mt-1" id="resProfit">Ықтимал таза ұтыс: <b class="text-white">2,125 ₸</b></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SECTION 4: WHEEL SECTION -->
-  <div id="wheelSection" class="page-section">
-    <div class="bg-[var(--card)] border border-[var(--card-border)] rounded-2xl p-5 text-center shadow-sm">
-      <h1 class="text-lg font-black mb-1" data-i18n="wheel_title">Бонустар Рулеткасы</h1>
-      <p class="text-xs text-slate-400 mb-5" data-i18n="wheel_sub">Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз</p>
-      
-      <div class="relative w-[230px] h-[230px] mx-auto mb-5">
-        <div class="wheel-pointer"></div>
-        <div class="w-full h-full rounded-full border-4 border-blue-600 overflow-hidden relative shadow-2xl">
-          <canvas id="wheelCanvas" width="500" height="500" class="w-full h-full transition-transform duration-[4000ms] cubic-bezier(0.15, 0.9, 0.2, 1)"></canvas>
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 bg-[var(--card)] border-4 border-blue-600 rounded-full z-10 flex items-center justify-center font-black text-white text-xs shadow-md">AV</div>
+        <!-- Module 3 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-lg mb-4">
+            03
+          </div>
+          <h3 class="text-base font-bold text-white mb-2 lang-m3-title">Live Анализ & Дәл Коэффициенттер</h3>
+          <p class="text-xs text-gray-400 leading-relaxed mb-4 lang-m3-desc">
+            Матч барысында ставка қою құпиялары. Букмекер қателіктерін жылдам табу жолдары.
+          </p>
+          <span class="text-[11px] bg-slate-800 text-amber-400 px-2.5 py-1 rounded-md border border-slate-700 font-semibold">
+            <i class="fa-solid fa-lock mr-1"></i> VIP Қолжетімділік
+          </span>
         </div>
       </div>
+    </section>
 
-      <!-- Timer Indicator if locked -->
-      <div id="wheelTimerBox" class="hidden mb-3 text-xs text-amber-400 font-extrabold bg-amber-500/10 py-2 rounded-xl border border-amber-500/20">
-        <i class="fa-solid fa-clock mr-1"></i> Келесі айналдыру: <span id="wheelCountdown">24:00:00</span>
+    <section id="view-profile" class="hidden max-w-2xl mx-auto space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+        
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 pb-6 border-b border-slate-800">
+          <!-- User Avatar Selector -->
+          <div class="relative group cursor-pointer" onclick="cycleAvatar()">
+            <div id="userAvatar" class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center text-slate-950 text-3xl font-black border-2 border-amber-400 shadow-lg">
+              <i class="fa-solid fa-user-ninja"></i>
+            </div>
+            <div class="absolute bottom-0 right-0 bg-slate-800 border border-slate-700 p-1.5 rounded-lg text-xs text-amber-400">
+              <i class="fa-solid fa-arrows-rotate"></i>
+            </div>
+          </div>
+
+          <div class="text-center sm:text-left flex-1">
+            <div class="flex items-center justify-center sm:justify-start space-x-2">
+              <h2 id="userName" class="text-xl font-bold text-white">Пайдаланушы #8841</h2>
+              <button onclick="editName()" class="text-gray-400 hover:text-white text-xs">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+            </div>
+            
+            <p class="text-xs text-gray-400 mt-0.5">ID: 8841-3920-ARM</p>
+
+            <div class="mt-3 flex flex-wrap items-center justify-center sm:justify-start gap-2">
+              <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-extrabold flex items-center">
+                <i class="fa-solid fa-crown mr-1"></i> VIP GOLD STATUS
+              </span>
+              <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs px-3 py-1 rounded-full font-semibold">
+                Мерзімі: 28 күн қалды
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saved Bonuses & History -->
+        <div class="pt-6">
+          <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-clock-rotate-left text-amber-400"></i>
+            <span class="lang-history-title">Ұтып алынған бонустар мен кодтар</span>
+          </h3>
+
+          <div id="promoHistoryList" class="space-y-2">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
       </div>
+    </section>
 
-      <button class="w-full max-w-xs bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-extrabold text-xs py-3 rounded-xl transition shadow-md" id="spinBtn" data-i18n="spin_btn" onclick="spinWheel()">
-        Айналдыру
+  </main>
+
+  <footer class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0f172a]/95 backdrop-blur border-t border-slate-800 py-2 px-3">
+    <div class="flex justify-around items-center">
+      <button onclick="switchTab('matches')" id="m-nav-matches" class="mobile-nav-btn flex flex-col items-center space-y-1 text-amber-400">
+        <i class="fa-solid fa-chart-line text-lg"></i>
+        <span class="text-[10px] font-medium lang-matches">Болжам</span>
+      </button>
+
+      <button onclick="switchTab('calculator')" id="m-nav-calculator" class="mobile-nav-btn flex flex-col items-center space-y-1 text-gray-400">
+        <i class="fa-solid fa-calculator text-lg"></i>
+        <span class="text-[10px] font-medium lang-calculator">Банк</span>
+      </button>
+
+      <button onclick="switchTab('roulette')" id="m-nav-roulette" class="mobile-nav-btn flex flex-col items-center space-y-1 text-gray-400">
+        <i class="fa-solid fa-dharmachakra text-lg"></i>
+        <span class="text-[10px] font-medium lang-roulette">Рулетка</span>
+      </button>
+
+      <button onclick="switchTab('course')" id="m-nav-course" class="mobile-nav-btn flex flex-col items-center space-y-1 text-gray-400">
+        <i class="fa-solid fa-graduation-cap text-lg"></i>
+        <span class="text-[10px] font-medium lang-course">Оқу</span>
+      </button>
+
+      <button onclick="switchTab('profile')" id="m-nav-profile" class="mobile-nav-btn flex flex-col items-center space-y-1 text-gray-400">
+        <i class="fa-solid fa-user-shield text-lg"></i>
+        <span class="text-[10px] font-medium lang-profile">Профиль</span>
       </button>
     </div>
+  </footer>
+
+  <div id="toast" class="fixed top-5 right-5 z-50 transform translate-x-full transition-transform duration-300 bg-slate-900 border border-amber-500/40 text-amber-300 text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-2">
+    <i class="fa-solid fa-circle-check text-amber-400"></i>
+    <span id="toastMsg">Хабарлама</span>
   </div>
 
-  <!-- SECTION 5: COURSES SECTION -->
-  <div id="coursesSection" class="page-section">
-    <h2 class="text-sm font-black text-white uppercase tracking-wider mb-3" data-i18n="courses_title">Толық Оқу Курстары</h2>
-    
-    <div class="flex flex-col gap-3.5">
-      <!-- Course 1 -->
-      <div class="bg-[var(--card)] border border-[var(--card-border)] rounded-2xl p-4 flex flex-col gap-2 shadow-sm">
-        <span class="bg-blue-500/15 text-blue-400 text-[10px] font-black px-2.5 py-1 rounded-md w-fit">START • 4 Модуль</span>
-        <h3 class="text-sm font-extrabold">Спорттық Аналитика Негіздері</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">Жаңадан бастаушыларға арналған базалық курс. Статистиканы талдау негіздері.</p>
-        <ul class="text-xs text-slate-300 space-y-1 my-1">
-          <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400 text-[10px]"></i> 1-Модуль: Банк-менеджмент және флэт стратегиясы</li>
-          <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400 text-[10px]"></i> 2-Модуль: Коэффициенттерді есептеу және маржа</li>
-          <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400 text-[10px]"></i> 3-Модуль: Командалық статистиканы талдау</li>
-        </ul>
-        <div class="flex items-center justify-between border-t border-[var(--card-border)] pt-3 mt-1">
-          <div class="text-sm font-black text-amber-400">15,000 ₸</div>
-          <button onclick="enrollCourse('Спорттық Аналитика Негіздері')" class="bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs px-3.5 py-2 rounded-xl transition shadow-sm" data-i18n="course_buy">
-            Курсты сатып алу
-          </button>
-        </div>
-      </div>
+  <script>
+    // --- Application State Management ---
+    let currentLang = 'kk'; // 'kk' or 'ru'
+    let activeTab = 'matches';
+    let currentSportFilter = 'all';
 
-      <!-- Course 2 -->
-      <div class="bg-[var(--card)] border border-[var(--card-border)] rounded-2xl p-4 flex flex-col gap-2 shadow-sm">
-        <span class="bg-amber-500/15 text-amber-400 text-[10px] font-black px-2.5 py-1 rounded-md w-fit">PRO VIP • 6 Модуль</span>
-        <h3 class="text-sm font-extrabold">VIP Анализ және Live Стратегиялар</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">Тікелей эфирде (Live) кәсіби жұмыс істеу құпиялары мен xG модельдеу.</p>
-        <ul class="text-xs text-slate-300 space-y-1 my-1">
-          <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400 text-[10px]"></i> 1-Модуль: Live-статистиканы жылдам оқу</li>
-          <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400 text-[10px]"></i> 2-Модуль: Футбол және Баскетбол талдауы</li>
-          <li class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-400 text-[10px]"></i> 3-Модуль: Соңғы минуттардағы тотал стратегиялары</li>
-        </ul>
-        <div class="flex items-center justify-between border-t border-[var(--card-border)] pt-3 mt-1">
-          <div class="text-sm font-black text-amber-400">35,000 ₸</div>
-          <button onclick="enrollCourse('VIP Анализ және Live Стратегиялар')" class="bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs px-3.5 py-2 rounded-xl transition shadow-sm" data-i18n="course_buy">
-            Курсты сатып алу
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+    // Mock Dynamic Sports Predictions Data
+    const matchesData = [
+      {
+        id: 1,
+        sport: 'football',
+        league: 'UEFA Champions League',
+        home: 'Real Madrid',
+        away: 'Manchester City',
+        time: 'Бүгін, 23:59',
+        homeOdds: '2.45',
+        drawOdds: '3.50',
+        awayOdds: '2.80',
+        recommendation: { kk: 'Жалпы тотал (2.5) Үсті', ru: 'Тотал больше (2.5)' },
+        confidence: '89%',
+        xG: '2.10 vs 1.95',
+        analysis: {
+          kk: 'Реалдың шабуыл шебі жоғары бабында. Ситидің қорғанысында жарақаттар бар. Жоғары нәтижелі матч күтілуде.',
+          ru: 'Атакующая линия Реала в отличной форме. Сити имеет проблемы в защите. Ожидается результативный матч.'
+        }
+      },
+      {
+        id: 2,
+        sport: 'football',
+        league: 'English Premier League',
+        home: 'Arsenal',
+        away: 'Liverpool',
+        time: 'Ертең, 21:30',
+        homeOdds: '2.10',
+        drawOdds: '3.40',
+        awayOdds: '3.20',
+        recommendation: { kk: 'Арсенал Жеңісі (П1)', ru: 'Победа Арсенала (П1)' },
+        confidence: '82%',
+        xG: '1.85 vs 1.20',
+        analysis: {
+          kk: 'Арсенал өз алаңында соңғы 6 матчта жеңіске жетті. Ливерпульдың қонақтағы көрсеткіші төмен.',
+          ru: 'Арсенал выиграл последние 6 домашних матчей. Ливерпуль нестабилен на выезде.'
+        }
+      },
+      {
+        id: 3,
+        sport: 'basketball',
+        league: 'NBA',
+        home: 'LA Lakers',
+        away: 'Golden State Warriors',
+        time: 'Бүгін, 07:30',
+        homeOdds: '1.80',
+        drawOdds: '-',
+        awayOdds: '2.05',
+        recommendation: { kk: 'Фора 1 (-3.5)', ru: 'Фора 1 (-3.5)' },
+        confidence: '85%',
+        xG: '112.5 vs 108.0',
+        analysis: {
+          kk: 'Лейкерс өз алаңында сенімді өнер көрсетіп келеді. Стеф Карриде жеңіл жарақат белгілері бар.',
+          ru: 'Лейкерс уверенно играют дома. У Стефа Карри есть небольшое повреждение.'
+        }
+      },
+      {
+        id: 4,
+        sport: 'tennis',
+        league: 'ATP Grand Slam',
+        home: 'Novak Djokovic',
+        away: 'Carlos Alcaraz',
+        time: 'Ертең, 18:00',
+        homeOdds: '1.90',
+        drawOdds: '-',
+        awayOdds: '1.90',
+        recommendation: { kk: 'Сеттер тоталы (3.5) Үсті', ru: 'Тотал сетов (3.5) Больше' },
+        confidence: '91%',
+        xG: '51% vs 49%',
+        analysis: {
+          kk: 'Тартысты финалдық бәсеке. Екі теннисші де шыңында, минимум 4 сет күтіледі.',
+          ru: 'Упорный финальный поединок. Оба теннисиста на пике, ожидается минимум 4 сета.'
+        }
+      }
+    ];
 
-</div>
+    // Roulette Prizes Configuration
+    const roulettePrizes = [
+      { name: { kk: 'VIP 3 Күн', ru: 'VIP 3 Дня' }, code: 'VIP-3DAYS' },
+      { name: { kk: 'Курсқа 20% Жеңілдік', ru: 'Скидка 20% на Курс' }, code: 'SALE-20' },
+      { name: { kk: 'Тегін Экспресс', ru: 'Бесплатный Экспресс' }, code: 'FREE-EXPRESS' },
+      { name: { kk: 'VIP 7 Күн', ru: 'VIP 7 Дней' }, code: 'VIP-7DAYS' },
+      { name: { kk: '+100% Бонус', ru: '+100% Бонус' }, code: 'BONUS-100' },
+      { name: { kk: 'Жабық Чатқа Шақыру', ru: 'Доступ в Закрытый Чат' }, code: 'SECRET-CHAT' }
+    ];
 
-<!-- BOTTOM NAVIGATION BAR -->
-<div class="fixed bottom-0 left-0 w-full bg-[var(--card)] border-t border-[var(--card-border)] flex justify-around py-2 z-40 shadow-lg">
-  <button class="bottom-nav-item active flex flex-col items-center gap-1 text-[10px] font-bold text-slate-400 hover:text-blue-500 transition flex-1" onclick="switchPage('statSection', this)">
-    <i class="fa-solid fa-chart-line text-lg"></i>
-    <span data-i18n="nav_stat">Статистика</span>
-  </button>
-  <button class="bottom-nav-item flex flex-col items-center gap-1 text-[10px] font-bold text-slate-400 hover:text-blue-500 transition flex-1" onclick="switchPage('predictSection', this)">
-    <i class="fa-solid fa-futbol text-lg"></i>
-    <span data-i18n="nav_predict">Матчтар</span>
-  </button>
-  <button class="bottom-nav-item flex flex-col items-center gap-1 text-[10px] font-bold text-slate-400 hover:text-blue-500 transition flex-1" onclick="switchPage('wheelSection', this)">
-    <i class="fa-solid fa-dharmachakra text-lg"></i>
-    <span data-i18n="nav_wheel">Рулетка</span>
-  </button>
-  <button class="bottom-nav-item flex flex-col items-center gap-1 text-[10px] font-bold text-slate-400 hover:text-blue-500 transition flex-1" onclick="switchPage('coursesSection', this)">
-    <i class="fa-solid fa-graduation-cap text-lg"></i>
-    <span data-i18n="nav_courses">Курстар</span>
-  </button>
-</div>
+    // --- STREAMING_CHUNK: Translations Dictionary ---
+    const i18n = {
+      kk: {
+        headerSubtitle: "Спорттық аналитика & Болжамдар",
+        tgBtnText: "Телеграм",
+        matches: "Болжамдар",
+        calculator: "Банк Калькуляторы",
+        roulette: "Рулетка 24 сағат",
+        course: "Оқу залы",
+        profile: "Профиль / VIP",
+        all: "Барлығы",
+        football: "Футбол",
+        basketball: "Баскетбол",
+        tennis: "Теннис",
+        calcTitle: "Банк-менеджмент Калькуляторы",
+        calcDesc: "Тәуекелді азайту және дұрыс ставка сомасын есептеу",
+        labelBank: "Жалпы Банк Сомасы (₸ / $)",
+        labelRisk: "Тәуекел дәрежесі (%)",
+        labelOdds: "Коэффициент",
+        resAmount: "Ұсынылатын Ставка",
+        resProfit: "Ықтимал Таза Пайда",
+        rouletteTitle: "Күнделікті Ұтыс Рулеткасы",
+        rouletteDesc: "Күн сайын айналдырып, VIP кодтар мен бонус промокодтарды ұтып алыңыз!",
+        spinBtn: "АЙНАЛДЫРУ",
+        timerLabel: "Келесі мүмкіндікке дейін:",
+        courseHeader: "Спорттық Аналитика Курсы",
+        courseSub: "Кәсіби беттор болу жолы. xG модельдеу, психология және банкты сақтау стратегиялары.",
+        courseBuy: "Курсқа Жазылу (Telegram)",
+        m1Title: "Банк менеджменті & Тәуекелдер",
+        m1Desc: "Флэт, Мартингейл және Келли критерийлерін қолдану. Азартты жеңу және эмоционалды бақылау.",
+        m2Title: "xG және Статистикалық Талдау",
+        m2Desc: "Күтілетін голдар (xG), ойыншылардың физикалық бабы және ауа райы коэффициенттерінің әсері.",
+        m3Title: "Live Анализ & Дәл Коэффициенттер",
+        m3Desc: "Матч барысында ставка қою құпиялары. Букмекер қателіктерін жылдам табу жолдары.",
+        historyTitle: "Ұтып алынған бонустар мен кодтар"
+      },
+      ru: {
+        headerSubtitle: "Спортивная аналитика & Прогнозы",
+        tgBtnText: "Телеграм",
+        matches: "Прогнозы",
+        calculator: "Калькулятор Банка",
+        roulette: "Рулетка 24 часа",
+        course: "Обучение",
+        profile: "Профиль / VIP",
+        all: "Все",
+        football: "Футбол",
+        basketball: "Баскетбол",
+        tennis: "Теннис",
+        calcTitle: "Калькулятор Банк-менеджмента",
+        calcDesc: "Снижение рисков и расчет оптимального размера ставки",
+        labelBank: "Общий Банк (₸ / $)",
+        labelRisk: "Уровень риска (%)",
+        labelOdds: "Коэффициент",
+        resAmount: "Рекомендуемая Ставка",
+        resProfit: "Чистая Прибыль",
+        rouletteTitle: "Ежедневная Рулетка Призов",
+        rouletteDesc: "Крутите каждый день и выигрывайте VIP доступ и промокоды!",
+        spinBtn: "КРУТИТЬ",
+        timerLabel: "До следующей попытки:",
+        courseHeader: "Курс Спортивной Аналитики",
+        courseSub: "Путь к профессиональному беттингу. xG моделирование, психология и стратегии банка.",
+        courseBuy: "Записаться на Курс (Telegram)",
+        m1Title: "Банк-менеджмент и Риски",
+        m1Desc: "Флэт, Мартингейл и критерий Келли. Преодоление азарта и эмоциональный контроль.",
+        m2Title: "xG и Статистический Анализ",
+        m2Desc: "Ожидаемые голы (xG), форма игроков и влияние внешних факторов.",
+        m3Title: "Live Анализ & Коэффициенты",
+        m3Desc: "Секреты ставок по ходу матча. Быстрый поиск ошибок букмекера.",
+        historyTitle: "Выигранные бонусы и промокоды"
+      }
+    };
 
-<!-- Floating Telegram Admin Button -->
-<a href="https://t.me/armani_04" target="_blank" class="fixed bottom-20 right-4 bg-[#0088cc] text-white w-12 h-12 rounded-full flex items-center justify-center shadow-2xl z-40 hover:scale-105 transition">
-  <i class="fa-paper-plane text-xl"></i>
-</a>
+    // --- STREAMING_CHUNK: Core App Initializer ---
+    window.onload = function() {
+      // Ensure canvas & UI rendering occurs cleanly
+      renderMatches();
+      calculateBankroll();
+      drawRouletteWheel();
+      checkRouletteTimer();
+      renderPromoHistory();
 
-<!-- MODAL WIN -->
-<div class="fixed inset-0 bg-black/80 backdrop-blur-md z-[3000] hidden items-center justify-center p-4" id="modalWin">
-  <div class="bg-[var(--card)] border border-[var(--card-border)] rounded-3xl w-full max-w-sm p-6 text-center relative shadow-2xl">
-    <div class="w-16 h-16 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto mb-3 text-3xl">🎉</div>
-    <h2 class="text-xl font-black text-amber-400 mb-1">Құттықтаймыз!</h2>
-    <p class="text-xs text-slate-300 mb-3">Сіздің ұтысыңыз: <b id="winText" class="text-sm text-blue-400 block mt-1"></b></p>
-    <div class="bg-[var(--input-bg)] p-3 rounded-2xl border border-[var(--card-border)] mb-4 flex items-center justify-between">
-      <span class="text-xs font-mono font-bold text-amber-400" id="winPromoCode">PROMO-123</span>
-      <button onclick="copyPromo()" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-extrabold px-3 py-1.5 rounded-xl transition">Көшіру</button>
-    </div>
-    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs py-3 rounded-xl transition shadow-md" onclick="closeModal('modalWin')">Бонусты Сақтау</button>
-  </div>
-</div>
+      // Setup window resize handler for canvas
+      window.addEventListener('resize', drawRouletteWheel);
+    };
 
-<!-- MODAL PROFILE / AUTH -->
-<div class="fixed inset-0 bg-black/80 backdrop-blur-md z-[3000] hidden items-center justify-center p-4" id="modalProfile">
-  <div class="bg-[var(--card)] border border-[var(--card-border)] rounded-3xl w-full max-w-sm p-6 relative max-h-[90vh] overflow-y-auto text-center shadow-2xl">
-    <button class="absolute top-4 right-4 bg-[var(--input-bg)] text-slate-400 hover:text-white w-8 h-8 rounded-full flex items-center justify-center text-xs transition" onclick="closeModal('modalProfile')"><i class="fa-solid fa-xmark"></i></button>
+    // --- Navigation & View Switching ---
+    function switchTab(tabId) {
+      activeTab = tabId;
 
-    <!-- 1. LOGIN SECTION -->
-    <div id="authViewSection">
-      <div class="mb-5">
-        <div class="w-12 h-12 bg-blue-600/10 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-2 text-xl"><i class="fa-solid fa-user-lock"></i></div>
-        <h3 class="text-lg font-black" data-i18n="login_title">Жүйеге кіру</h3>
-        <p class="text-xs text-slate-400" data-i18n="login_desc">Бонустарды сақтау және жеке кабинетке кіру үшін авторизациядан өтіңіз.</p>
-      </div>
+      // Hide all views
+      const views = ['matches', 'calculator', 'roulette', 'course', 'profile'];
+      views.forEach(v => {
+        document.getElementById(`view-${v}`).classList.add('hidden');
+      });
 
-      <div class="flex flex-col gap-2 mb-4">
-        <button class="w-full bg-[var(--input-bg)] border border-[var(--card-border)] text-white py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition" onclick="authSocial('Google')">
-          <i class="fa-brands fa-google text-red-500"></i> Google арқылы кіру
-        </button>
-        <button class="w-full bg-[#0088cc] text-white py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:bg-[#0077bb] transition shadow-md" onclick="authSocial('Telegram')">
-          <i class="fa-paper-plane"></i> Telegram арқылы кіру
-        </button>
-      </div>
+      // Show selected view
+      document.getElementById(`view-${tabId}`).classList.remove('hidden');
 
-      <div class="flex items-center text-slate-500 text-[10px] font-bold my-3">
-        <div class="flex-1 border-b border-[var(--card-border)]"></div>
-        <span class="px-2">немесе логин арқылы</span>
-        <div class="flex-1 border-b border-[var(--card-border)]"></div>
-      </div>
+      // Update Desktop Nav styles
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.className = 'tab-btn px-5 py-2.5 rounded-xl font-medium text-sm flex items-center space-x-2 transition text-gray-400 hover:text-white hover:bg-slate-800';
+      });
+      const activeDesktopNav = document.getElementById(`nav-${tabId}`);
+      if(activeDesktopNav) {
+        activeDesktopNav.className = 'tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm flex items-center space-x-2 transition bg-amber-500 text-slate-950 shadow-md';
+      }
 
-      <form onsubmit="handleManualLogin(event)" class="space-y-3 text-left">
-        <div>
-          <label class="text-[10px] font-bold text-slate-400 mb-1 block">Пайдаланушы аты</label>
-          <input type="text" id="loginUsername" class="w-full bg-[var(--input-bg)] border border-[var(--card-border)] rounded-xl px-3 py-2 text-xs font-bold text-white outline-none focus:border-blue-500" placeholder="Логин енгізіңіз" required>
-        </div>
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs py-2.5 rounded-xl transition shadow-md">Кіру</button>
-      </form>
-    </div>
+      // Update Mobile Nav styles
+      document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+        btn.classList.remove('text-amber-400');
+        btn.classList.add('text-gray-400');
+      });
+      const activeMobileNav = document.getElementById(`m-nav-${tabId}`);
+      if(activeMobileNav) {
+        activeMobileNav.classList.remove('text-gray-400');
+        activeMobileNav.classList.add('text-amber-400');
+      }
 
-    <!-- 2. USER PROFILE CABINET SECTION -->
-    <div id="profileViewSection" class="hidden">
-      <div class="bg-gradient-to-r from-blue-900/30 to-indigo-900/30 border border-blue-500/20 rounded-2xl p-4 mb-4 relative">
-        <span class="absolute top-3 right-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm">VIP PRO</span>
-        <div class="relative w-20 h-20 mx-auto mb-2">
-          <img class="w-full h-full rounded-full object-cover border-2 border-blue-500 shadow-md" id="profileAvatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Armani" alt="Avatar">
-          <label for="avatarInput" class="absolute bottom-0 right-0 bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-[10px] cursor-pointer shadow-sm"><i class="fa-solid fa-camera"></i></label>
-          <input type="file" id="avatarInput" accept="image/*" class="hidden" onchange="changeAvatar(event)">
-        </div>
-        <h3 class="text-base font-black text-white" id="displayUserName">Armani User</h3>
-        <div class="text-[10px] text-slate-400" id="displayUserEmail">ID: #849204</div>
-
-        <div class="grid grid-cols-2 gap-2 mt-3">
-          <div class="bg-black/20 p-2 rounded-xl border border-[var(--card-border)] text-center">
-            <div class="text-xs font-black text-emerald-400">VIP Белсенді</div>
-            <div class="text-[9px] text-slate-400 uppercase">Мәртебе</div>
-          </div>
-          <div class="bg-black/20 p-2 rounded-xl border border-[var(--card-border)] text-center">
-            <div class="text-xs font-black text-amber-400" id="profileBonusCount">1 Бонус</div>
-            <div class="text-[9px] text-slate-400 uppercase">Белсенді</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="space-y-3 text-left">
-        <div>
-          <label class="text-[10px] font-bold text-slate-400 mb-1 block">Аты-жөніңіз</label>
-          <input type="text" id="inputName" class="w-full bg-[var(--input-bg)] border border-[var(--card-border)] rounded-xl px-3 py-2 text-xs font-bold text-white outline-none focus:border-blue-500">
-        </div>
-        <div>
-          <label class="text-[10px] font-bold text-slate-400 mb-1 block">Сақталған промокод</label>
-          <div class="bg-[var(--input-bg)] p-2.5 rounded-xl border border-[var(--card-border)] text-xs font-mono font-bold text-amber-400 flex justify-between items-center">
-            <span id="userPromoCode">PROMO-NONE</span>
-            <button onclick="copyPromoProfile()" class="text-[10px] text-blue-400 hover:underline">Көшіру</button>
-          </div>
-        </div>
-
-        <button onclick="saveProfile()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs py-2.5 rounded-xl transition shadow-md mt-1">Өзгерістерді сақтау</button>
-        <button onclick="logout()" class="w-full bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 font-bold text-xs py-2 rounded-xl transition">Жүйеден шығу</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<footer class="text-center py-4 text-[10px] text-slate-500 border-t border-[var(--card-border)]">
-  © 2026 Armani Analetik. Барлық құқықтар қорғалған.
-</footer>
-
-<script>
-/* i18n Localization Storage */
-const i18nData = {
-  kk: {
-    nav_wheel: "Бонустар рулеткасы",
-    nav_stat: "Статистика мен Аналитика",
-    nav_predict: "Матчтар & Live Болжам",
-    nav_courses: "Оқу курстары",
-    nav_profile: "Жеке профиль",
-    nav_calc: "Банк Калькуляторы",
-    hero_title: "VIP Каналға Қосыл!",
-    hero_desc: "Күндік өтімділігі 80%+ болатын статистикалық болжамдар мен VIP талдаулар!",
-    hero_btn: "Арнаға өту",
-    wheel_title: "Бонустар Рулеткасы",
-    wheel_sub: "Күнделікті жеңілдіктер мен бонустарды ұтып алыңыз",
-    spin_btn: "Айналдыру",
-    stat_title: "Күндік Болжамдар Өтімділігі",
-    stat_rate: "Өтімділік",
-    stat_sub: "Соңғы 30 күндегі сараптама нәтижесі бойынша",
-    stat_win: "Ұтты",
-    stat_loss: "Ұтылды",
-    stat_avg: "Орт. Кэф",
-    stat_history: "Соңғы нәтижелер тарихы",
-    analytics_info_title: "Аналитика алгоритмі қалай жұмыс істейді?",
-    analytics_info_desc: "Біздің сараптама жүйесі командалардың соңғы ойындарын, ойыншылардың жарақаттарын, орташа xG көрсеткіштерін математикалық модельдер арқылы есептейді.",
-    courses_title: "Толық Оқу Курстары",
-    course_buy: "Курсты сатып алу",
-    auth_login: "Кіру",
-    login_title: "Жүйеге кіру",
-    login_desc: "Бонустарды сақтау және жеке кабинетке кіру үшін авторизациядан өтіңіз.",
-    pwa_text: "Қолданбаны телефонға орнату",
-    pwa_btn: "Орнату"
-  },
-  ru: {
-    nav_wheel: "Рулетка бонусов",
-    nav_stat: "Статистика и Аналитика",
-    nav_predict: "Матчи и Live Прогнозы",
-    nav_courses: "Обучающие курсы",
-    nav_profile: "Личный профиль",
-    nav_calc: "Калькулятор Банка",
-    hero_title: "Вступай в VIP Канал!",
-    hero_desc: "Статистические прогнозы с проходимостью 80%+ и VIP аналитика!",
-    hero_btn: "Перейти в канал",
-    wheel_title: "Рулетка Бонусов",
-    wheel_sub: "Выигрывайте ежедневные скидки и бонусы",
-    spin_btn: "Крутить",
-    stat_title: "Проходимость Дневных Прогнозов",
-    stat_rate: "Проходимость",
-    stat_sub: "По результатам анализа за последние 30 дней",
-    stat_win: "Выиграл",
-    stat_loss: "Проиграл",
-    stat_avg: "Ср. Коэф",
-    stat_history: "История последних результатов",
-    analytics_info_title: "Как работает алгоритм аналитики?",
-    analytics_info_desc: "Наша аналитическая система рассчитывает последние матчи команд, травмы игроков, средние показатели xG с помощью математических моделей.",
-    courses_title: "Полные Обучающие Курсы",
-    course_buy: "Купить курс",
-    auth_login: "Войти",
-    login_title: "Вход в систему",
-    login_desc: "Авторизуйтесь для сохранения бонусов и доступа в личный кабинет.",
-    pwa_text: "Установить приложение на телефон",
-    pwa_btn: "Установить"
-  }
-};
-
-/* Global Initialization */
-window.addEventListener('load', () => {
-  loadTheme();
-  checkAuthStatus();
-  checkWheelTimer();
-  const savedLang = localStorage.getItem('armani_lang') || 'kk';
-  setLanguage(savedLang);
-  
-  // Hide preloader
-  setTimeout(() => {
-    const loader = document.getElementById('preloader');
-    if (loader) {
-      loader.style.opacity = '0';
-      setTimeout(() => loader.classList.add('hidden'), 400);
+      if (tabId === 'roulette') {
+        setTimeout(drawRouletteWheel, 100);
+      }
     }
-  }, 800);
-});
 
-/* Toast Notification Utility */
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  document.getElementById('toastMsg').innerText = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
-}
+    // --- Language Switcher ---
+    function toggleLanguage() {
+      currentLang = currentLang === 'kk' ? 'ru' : 'kk';
+      document.getElementById('langText').innerText = currentLang.toUpperCase();
+      
+      // Update text in UI elements
+      const langData = i18n[currentLang];
+      document.getElementById('headerSubtitle').innerText = langData.headerSubtitle;
+      document.getElementById('tgBtnText').innerText = langData.tgBtnText;
 
-/* Language Switcher */
-function setLanguage(lang) {
-  localStorage.setItem('armani_lang', lang);
-  document.getElementById('langKK').className = lang === 'kk' ? 'px-2.5 py-1 text-[11px] font-extrabold rounded-lg transition bg-blue-600 text-white' : 'px-2.5 py-1 text-[11px] font-extrabold rounded-lg transition text-slate-400';
-  document.getElementById('langRU').className = lang === 'ru' ? 'px-2.5 py-1 text-[11px] font-extrabold rounded-lg transition bg-blue-600 text-white' : 'px-2.5 py-1 text-[11px] font-extrabold rounded-lg transition text-slate-400';
-  
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (i18nData[lang] && i18nData[lang][key]) {
-      el.innerText = i18nData[lang][key];
+      document.querySelectorAll('.lang-matches').forEach(el => el.innerText = langData.matches);
+      document.querySelectorAll('.lang-calculator').forEach(el => el.innerText = langData.calculator);
+      document.querySelectorAll('.lang-roulette').forEach(el => el.innerText = langData.roulette);
+      document.querySelectorAll('.lang-course').forEach(el => el.innerText = langData.course);
+      document.querySelectorAll('.lang-profile').forEach(el => el.innerText = langData.profile);
+
+      document.querySelectorAll('.lang-all').forEach(el => el.innerText = langData.all);
+      document.querySelectorAll('.lang-football').forEach(el => el.innerText = langData.football);
+      document.querySelectorAll('.lang-basketball').forEach(el => el.innerText = langData.basketball);
+      document.querySelectorAll('.lang-tennis').forEach(el => el.innerText = langData.tennis);
+
+      document.querySelectorAll('.lang-calc-title').forEach(el => el.innerText = langData.calcTitle);
+      document.querySelectorAll('.lang-calc-desc').forEach(el => el.innerText = langData.calcDesc);
+      document.querySelectorAll('.lang-label-bank').forEach(el => el.innerText = langData.labelBank);
+      document.querySelectorAll('.lang-label-risk').forEach(el => el.innerText = langData.labelRisk);
+      document.querySelectorAll('.lang-label-odds').forEach(el => el.innerText = langData.labelOdds);
+      document.querySelectorAll('.lang-res-amount').forEach(el => el.innerText = langData.resAmount);
+      document.querySelectorAll('.lang-res-profit').forEach(el => el.innerText = langData.resProfit);
+
+      document.querySelectorAll('.lang-roulette-title').forEach(el => el.innerText = langData.rouletteTitle);
+      document.querySelectorAll('.lang-roulette-desc').forEach(el => el.innerText = langData.rouletteDesc);
+      document.querySelectorAll('.lang-spin-btn').forEach(el => el.innerText = langData.spinBtn);
+      document.querySelectorAll('.lang-timer-label').forEach(el => el.innerText = langData.timerLabel);
+
+      document.querySelectorAll('.lang-course-header').forEach(el => el.innerText = langData.courseHeader);
+      document.querySelectorAll('.lang-course-sub').forEach(el => el.innerText = langData.courseSub);
+      document.querySelectorAll('.lang-course-buy').forEach(el => el.innerText = langData.courseBuy);
+      document.querySelectorAll('.lang-m1-title').forEach(el => el.innerText = langData.m1Title);
+      document.querySelectorAll('.lang-m1-desc').forEach(el => el.innerText = langData.m1Desc);
+      document.querySelectorAll('.lang-m2-title').forEach(el => el.innerText = langData.m2Title);
+      document.querySelectorAll('.lang-m2-desc').forEach(el => el.innerText = langData.m2Desc);
+      document.querySelectorAll('.lang-m3-title').forEach(el => el.innerText = langData.m3Title);
+      document.querySelectorAll('.lang-m3-desc').forEach(el => el.innerText = langData.m3Desc);
+
+      document.querySelectorAll('.lang-history-title').forEach(el => el.innerText = langData.historyTitle);
+
+      // Re-render language dependent elements
+      renderMatches();
+      drawRouletteWheel();
+      renderPromoHistory();
     }
-  });
-}
 
-/* Theme Toggle */
-function toggleTheme() {
-  const isLight = document.body.classList.toggle('light-mode');
-  localStorage.setItem('armani_theme', isLight ? 'light' : 'dark');
-  document.getElementById('themeIcon').className = isLight ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-}
+    // --- Sports Filtering & Matches Render ---
+    function filterSport(sport) {
+      currentSportFilter = sport;
+      document.querySelectorAll('.sport-filter-btn').forEach(btn => {
+        btn.className = 'sport-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800/90 text-gray-300 hover:bg-slate-700 border border-slate-700';
+      });
 
-function loadTheme() {
-  if (localStorage.getItem('armani_theme') === 'light') {
-    document.body.classList.add('light-mode');
-    document.getElementById('themeIcon').className = 'fa-solid fa-sun';
-  }
-}
+      const activeBtn = document.getElementById(`filter-${sport}`);
+      if(activeBtn) {
+        activeBtn.className = 'sport-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-amber-500 text-slate-950 border border-amber-400 shadow';
+      }
 
-/* Navigation System */
-function openDrawer() {
-  document.getElementById('drawerOverlay').classList.remove('hidden');
-  document.getElementById('drawerMenu').style.left = '0px';
-}
-
-function closeDrawer() {
-  document.getElementById('drawerOverlay').classList.add('hidden');
-  document.getElementById('drawerMenu').style.left = '-300px';
-}
-
-function switchPage(pageId, el) {
-  document.querySelectorAll('.page-section').forEach(p => p.style.display = 'none');
-  const target = document.getElementById(pageId);
-  if (target) target.style.display = 'block';
-  
-  document.querySelectorAll('.nav-item, .bottom-nav-item').forEach(n => {
-    n.classList.remove('active');
-    n.classList.remove('text-blue-500');
-  });
-  
-  if (el) {
-    el.classList.add('active');
-    el.classList.add('text-blue-500');
-  }
-  closeDrawer();
-}
-
-/* Modals Management */
-function openModal(id) {
-  const m = document.getElementById(id);
-  m.classList.remove('hidden');
-  m.classList.add('flex');
-}
-
-function closeModal(id) {
-  const m = document.getElementById(id);
-  m.classList.add('hidden');
-  m.classList.remove('flex');
-}
-
-/* Sports Category Filter */
-function filterSport(type, btn) {
-  const container = document.getElementById('sportsFilterContainer');
-  Array.from(container.children).forEach(b => {
-    b.className = 'bg-[var(--input-bg)] text-slate-400 hover:text-white px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition';
-  });
-  btn.className = 'bg-blue-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition';
-
-  const cards = document.querySelectorAll('.match-card');
-  cards.forEach(card => {
-    if (type === 'all' || card.classList.contains(`sport-${type}`)) {
-      card.style.display = 'block';
-    } else {
-      card.style.display = 'none';
+      renderMatches();
     }
-  });
-}
 
-function toggleAnalysis(id) {
-  const el = document.getElementById(id);
-  el.classList.toggle('hidden');
-}
+    function renderMatches() {
+      const container = document.getElementById('matchesContainer');
+      container.innerHTML = '';
 
-/* Stake Calculation Logic */
-function calculateStake() {
-  const bank = parseFloat(document.getElementById('calcBank').value) || 0;
-  const odds = parseFloat(document.getElementById('calcOdds').value) || 1.0;
-  const percent = parseFloat(document.getElementById('calcStrategy').value) || 5;
+      const filtered = currentSportFilter === 'all' 
+        ? matchesData 
+        : matchesData.filter(m => m.sport === currentSportFilter);
 
-  const stake = Math.round(bank * (percent / 100));
-  const profit = Math.round(stake * (odds - 1));
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="col-span-2 text-center py-8 text-gray-400 text-sm">Бұл категорияда қазірше матчтар жоқ.</div>`;
+        return;
+      }
 
-  document.getElementById('resStake').innerText = `${stake.toLocaleString()} ₸`;
-  document.getElementById('resProfit').innerHTML = `Ықтимал таза ұтыс: <b class="text-white">${profit.toLocaleString()} ₸</b>`;
-  showToast('Есептеу аяқталды!');
-}
+      filtered.forEach(m => {
+        const card = document.createElement('div');
+        card.className = "bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-lg relative overflow-hidden transition";
+        
+        card.innerHTML = `
+          <div class="flex justify-between items-center mb-3">
+            <span class="text-xs font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">
+              ${m.league}
+            </span>
+            <span class="text-xs text-gray-400 font-medium">
+              <i class="fa-regular fa-clock mr-1"></i>${m.time}
+            </span>
+          </div>
 
-/* Course Enrollment Engine */
-function enrollCourse(courseName) {
-  const msg = encodeURIComponent(`Сәлеметсіз бе! Мен "${courseName}" курсын сатып алғым келеді.`);
-  window.open(`https://t.me/armani_04?text=${msg}`, '_blank');
-}
+          <div class="flex items-center justify-between my-4 text-center">
+            <div class="w-2/5">
+              <div class="font-bold text-white text-base">${m.home}</div>
+              <div class="text-xs text-gray-400">Алаң иелері</div>
+            </div>
+            <div class="text-amber-400 font-black text-sm px-2">VS</div>
+            <div class="w-2/5">
+              <div class="font-bold text-white text-base">${m.away}</div>
+              <div class="text-xs text-gray-400">Қонақтар</div>
+            </div>
+          </div>
 
-/* Auth & User Profile Logic */
-function checkAuthStatus() {
-  const savedName = localStorage.getItem('armani_name');
-  if (savedName) {
-    document.getElementById('headerAuthBtn').style.display = 'none';
-    document.getElementById('headerAvatarWrapper').style.display = 'block';
-    document.getElementById('authViewSection').style.display = 'none';
-    document.getElementById('profileViewSection').style.display = 'block';
-    loadProfileData();
-  } else {
-    doc
+          <!-- Odds Row -->
+          <div class="grid grid-cols-3 gap-2 my-3 text-center bg-slate-800/50 p-2 rounded-xl border border-slate-800">
+            <div>
+              <span class="text-[10px] text-gray-400 block">П1</span>
+              <span class="text-xs font-bold text-amber-300">${m.homeOdds}</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-gray-400 block">Х</span>
+              <span class="text-xs font-bold text-amber-300">${m.drawOdds}</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-gray-400 block">П2</span>
+              <span class="text-xs font-bold text-amber-300">${m.awayOdds}</span>
+            </div>
+          </div>
+
+          <!-- Analysis & Recommendation Box -->
+          <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 mt-4">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-xs text-gray-300 font-semibold">Ұсынылатын Болжам:</span>
+              <span class="text-xs font-black text-emerald-400"><i class="fa-solid fa-chart-pie mr-1"></i>Сеніімділік: ${m.confidence}</span>
+            </div>
+            <div class="text-sm font-extrabold text-amber-400 mb-2">${m.recommendation[currentLang]}</div>
+            <p class="text-xs text-gray-300 leading-relaxed border-t border-slate-800 pt-2">
+              ${m.analysis[currentLang]}
+            </p>
+            <div class="mt-2 text-[10px] text-gray-400 flex justify-between">
+              <span>xG Индикатор: <strong class="text-white">${m.xG}</strong></span>
+              <span class="text-sky-400 font-bold">Armani AI Algorithmic</span>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // --- Bankroll Management Calculator Logic ---
+    function calculateBankroll() {
+      const bank = parseFloat(document.getElementById('calcBank').value) || 0;
+      const riskPct = parseFloat(document.getElementById('calcRisk').value) || 0;
+      const odds = parseFloat(document.getElementById('calcOdds').value) || 1.0;
+
+      const betAmount = Math.round((bank * riskPct) / 100);
+      const profit = Math.round(betAmount * (odds - 1));
+
+      document.getElementById('resAmount').innerText = betAmount.toLocaleString() + ' ₸';
+      document.getElementById('resProfit').innerText = '+' + profit.toLocaleString() + ' ₸';
+    }
+
+    // --- STREAMING_CHUNK: 24-Hour Roulette Wheel Canvas Implementation ---
+    let startAngle = 0;
+    let arc = Math.PI / (roulettePrizes.length / 2);
+    let spinTimeout = null;
+    let spinAngleStart = 10;
+    let spinTime = 0;
+    let spinTimeTotal = 0;
+
+    function drawRouletteWheel() {
+      const canvas = document.getElementById('rouletteCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const outsideRadius = 140;
+      const textRadius = 100;
+      const insideRadius = 40;
+
+      ctx.clearRect(0, 0, 300, 300);
+
+      const colors = ['#f59e0b', '#1e293b', '#d97706', '#0f172a', '#fbbf24', '#334155'];
+
+      for (let i = 0; i < roulettePrizes.length; i++) {
+        const angle = startAngle + i * arc;
+        ctx.fillStyle = colors[i % colors.length];
+
+        ctx.beginPath();
+        ctx.arc(150, 150, outsideRadius, angle, angle + arc, false);
+        ctx.arc(150, 150, insideRadius, angle + arc, angle, true);
+        ctx.stroke();
+        ctx.fill();
+
+        ctx.save();
+        ctx.shadowOffsetX = -1;
+        ctx.shadowOffsetY = -1;
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = "#ffffff";
+        ctx.font = 'bold 11px Inter, sans-serif';
+        ctx.translate(150 + Math.cos(angle + arc / 2) * textRadius, 
+                      150 + Math.sin(angle + arc / 2) * textRadius);
+        ctx.rotate(angle + arc / 2 + Math.PI / 2);
+        const text = roulettePrizes[i].name[currentLang];
+        ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+        ctx.restore();
+      }
+    }
+
+    function spinRoulette() {
+      const lastSpin = localStorage.getItem('armani_last_spin');
+      const now = new Date().getTime();
+
+      if (lastSpin && (now - parseInt(lastSpin)) < 24 * 60 * 60 * 1000) {
+        showToast('Рулетканы 24 сағатта 1 рет қана айналдыруға болады!');
+        return;
+      }
+
+      document.getElementById('spinBtn').disabled = true;
+      document.getElementById('spinBtn').classList.add('opacity-50');
+
+      spinAngleStart = Math.random() * 10 + 10;
+      spinTime = 0;
+      spinTimeTotal = Math.random() * 3000 + 4000;
+      rotateWheel();
+    }
+
+    function rotateWheel() {
+      spinTime += 30;
+      if (spinTime >= spinTimeTotal) {
+        stopRotateWheel();
+        return;
+      }
+      const spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+      startAngle += (spinAngle * Math.PI / 180);
+      drawRouletteWheel();
+      spinTimeout = setTimeout(rotateWheel, 30);
+    }
+
+    function stopRotateWheel() {
+      clearTimeout(spinTimeout);
+      const degrees = startAngle * 180 / Math.PI + 90;
+      const arcd = arc * 180 / Math.PI;
+      const index = Math.floor((360 - degrees % 360) / arcd);
+      
+      const prize = roulettePrizes[index];
+      
+      // Save spin timestamp
+      const now = new Date().getTime();
+      localStorage.setItem('armani_last_spin', now.toString());
+
+      // Save promo history
+      savePromoToHistory(prize);
+
+      // Display Prize UI
+      document.getElementById('prizeName').innerText = prize.name[currentLang];
+      document.getElementById('prizeCode').innerText = prize.code;
+      document.getElementById('prizeResultBox').classList.remove('hidden');
+
+      showToast(`Құттықтаймыз! Ұтыс: ${prize.name[currentLang]}`);
+      
+      checkRouletteTimer();
+    }
+
+    function easeOut(t, b, c, d) {
+      const ts = (t /= d) * t;
+      const tc = ts * t;
+      return b + c * (tc + -3 * ts + 3 * t);
+    }
+
+    // --- 24h Countdown Timer logic ---
+    function checkRouletteTimer() {
+      const lastSpin = localStorage.getItem('armani_last_spin');
+      const spinBtn = document.getElementById('spinBtn');
+      const timerBox = document.getElementById('rouletteTimerBox');
+
+      if (!lastSpin) return;
+
+      const now = new Date().getTime();
+      const diff = parseInt(lastSpin) + (24 * 60 * 60 * 1000) - now;
+
+      if (diff > 0) {
+        spinBtn.disabled = true;
+        spinBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        timerBox.classList.remove('hidden');
+
+        updateTimerDisplay(diff);
+        
+        const timerInterval = setInterval(() => {
+          const currentDiff = parseInt(lastSpin) + (24 * 60 * 60 * 1000) - new Date().getTime();
+          if (currentDiff <= 0) {
+            clearInterval(timerInterval);
+            spinBtn.disabled = false;
+            spinBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            timerBox.classList.add('hidden');
+          } else {
+            updateTimerDisplay(currentDiff);
+          }
+        }, 1000);
+      }
+    }
+
+    function updateTimerDisplay(ms) {
+      const totalSec = Math.floor(ms / 1000);
+      const hours = Math.floor(totalSec / 3600);
+      const minutes = Math.floor((totalSec % 3600) / 60);
+      const seconds = totalSec % 60;
+
+      const fmt = (n) => n < 10 ? '0' + n : n;
+      document.getElementById('timerCountdown').innerText = `${fmt(hours)}:${fmt(minutes)}:${fmt(seconds)}`;
+    }
+
+    // --- STREAMING_CHUNK: Promo History & Copy to Clipboard ---
+    function savePromoToHistory(prize) {
+      let history = JSON.parse(localStorage.getItem('armani_promo_history') || '[]');
+      history.unshift({
+        name: prize.name[currentLang],
+        code: prize.code,
+        date: new Date().toLocaleDateString()
+      });
+      localStorage.setItem('armani_promo_history', JSON.stringify(history));
+      renderPromoHistory();
+    }
+
+    function renderPromoHistory() {
+      const list = document.getElementById('promoHistoryList');
+      if (!list) return;
+      
+      let history = JSON.parse(localStorage.getItem('armani_promo_history') || '[]');
+
+      if (history.length === 0) {
+        list.innerHTML = `<div class="text-xs text-gray-500 py-3 text-center">Әлі ешқандай бонус ұтып алынбаған.</div>`;
+        return;
+      }
+
+      list.innerHTML = '';
+      history.forEach(item => {
+        const row = document.createElement('div');
+        row.className = "flex items-center justify-between bg-slate-800/80 border border-slate-700/60 p-3 rounded-xl text-xs";
+        row.innerHTML = `
+          <div>
+            <span class="text-white font-bold block">${item.name}</span>
+            <span class="text-[10px] text-gray-400">${item.date}</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <code class="bg-slate-950 text-amber-400 px-2 py-1 rounded font-mono font-bold">${item.code}</code>
+            <button onclick="copyText('${item.code}')" class="text-gray-400 hover:text-white px-1">
+              <i class="fa-regular fa-copy"></i>
+            </button>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+    }
+
+    function copyPromoCode() {
+      const code = document.getElementById('prizeCode').innerText;
+      copyText(code);
+    }
+
+    function copyText(text) {
+      const tempInput = document.createElement('input');
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      showToast('Промокод көшірілді!');
+    }
+
+    // --- Profile Helpers ---
+    const avatars = ['fa-user-ninja', 'fa-crown', 'fa-user-tie', 'fa-user-astronaut', 'fa-shield-halved'];
+    let avatarIndex = 0;
+
+    function cycleAvatar() {
+      avatarIndex = (avatarIndex + 1) % avatars.length;
+      document.getElementById('userAvatar').innerHTML = `<i class="fa-solid ${avatars[avatarIndex]}"></i>`;
+      showToast('Аватар жаңартылды');
+    }
+
+    function editName() {
+      const newName = prompt(currentLang === 'kk' ? 'Жаңа есімді енгізіңіз:' : 'Введите новое имя:', 'Armani Client');
+      if (newName && newName.trim() !== '') {
+        document.getElementById('userName').innerText = newName;
+        showToast('Атыңыз өзгертілді');
+      }
+    }
+
+    // Toast Message System
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = message;
+      toast.classList.remove('translate-x-full');
+
+      setTimeout(() => {
+        toast.classList.add('translate-x-full');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
+```
