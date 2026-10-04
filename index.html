@@ -75,10 +75,10 @@
 
   <header class="sticky top-0 z-40 bg-[#0F172A]/90 backdrop-blur-md border-b border-slate-800 px-4 py-3 shadow-lg">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
-      <!-- Logo & Brand -->
+      <!-- Logo & Brand (AV Logo) -->
       <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('matches')">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-cyan-400 flex items-center justify-center font-black text-slate-950 text-xl shadow-lg border border-cyan-200/40">
-          AA
+          AV
         </div>
         <div>
           <h1 class="text-lg font-bold tracking-wide text-white leading-tight flex items-center">
@@ -111,8 +111,8 @@
     <!-- TOP NAVIGATION BAR (Desktop View) -->
     <nav class="hidden md:flex items-center justify-center space-x-2 mb-6 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800">
       <button onclick="switchTab('matches')" id="nav-matches" class="tab-btn px-5 py-2.5 rounded-xl font-medium text-sm flex items-center space-x-2 transition bg-sky-500 text-slate-950 font-bold shadow-md">
-        <i class="fa-solid fa-chart-line"></i>
-        <span class="lang-matches">Болжамдар</span>
+        <i class="fa-brands fa-telegram text-base"></i>
+        <span class="lang-matches">Телеграм Канал</span>
       </button>
       <button onclick="switchTab('calculator')" id="nav-calculator" class="tab-btn px-5 py-2.5 rounded-xl font-medium text-sm flex items-center space-x-2 transition text-slate-400 hover:text-white hover:bg-slate-800">
         <i class="fa-solid fa-calculator"></i>
@@ -132,32 +132,43 @@
       </button>
     </nav>
 
-    <!-- SECTION 1: MATCHES & PREDICTIONS -->
-    <section id="view-matches" class="space-y-6">
-      <!-- Sport Type Filters -->
-      <div class="flex items-center justify-between gap-2 overflow-x-auto pb-2 scrollbar-none">
-        <div class="flex space-x-2">
-          <button onclick="filterSport('all')" id="filter-all" class="sport-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-sky-500 text-slate-950 border border-sky-400 shadow">
-            <i class="fa-solid fa-layer-group mr-1"></i> <span class="lang-all">Барлығы</span>
-          </button>
-          <button onclick="filterSport('football')" id="filter-football" class="sport-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800">
-            <i class="fa-solid fa-futbol mr-1"></i> <span class="lang-football">Футбол</span>
-          </button>
-          <button onclick="filterSport('basketball')" id="filter-basketball" class="sport-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800">
-            <i class="fa-solid fa-basketball mr-1"></i> <span class="lang-basketball">Баскетбол</span>
-          </button>
-          <button onclick="filterSport('tennis')" id="filter-tennis" class="sport-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800">
-            <i class="fa-solid fa-baseball-bat-ball mr-1"></i> <span class="lang-tennis">Теннис</span>
-          </button>
-        </div>
-        <div class="text-xs text-sky-400 font-medium whitespace-nowrap bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20">
-          <i class="fa-solid fa-bolt mr-1 animate-pulse"></i> LIVE Analytics
-        </div>
-      </div>
+    <!-- SECTION 1: TELEGRAM LINK INSTEAD OF MATCHES -->
+    <section id="view-matches" class="max-w-2xl mx-auto space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 text-center shadow-2xl relative overflow-hidden my-6">
+        <div class="absolute -right-16 -top-16 w-48 h-48 bg-sky-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute -left-16 -bottom-16 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl"></div>
 
-      <!-- Match Cards Container -->
-      <div id="matchesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Matches rendered dynamic via JS -->
+        <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-tr from-sky-500 to-cyan-400 text-slate-950 flex items-center justify-center text-4xl shadow-lg border border-sky-300 glow-blue">
+          <i class="fa-brands fa-telegram"></i>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-black text-white mb-3 tracking-tight lang-tg-title">
+          Барлық Экспресс пен Болжамдар Телеграмда!
+        </h2>
+        
+        <p class="text-sm text-slate-300 leading-relaxed mb-8 max-w-md mx-auto lang-tg-desc">
+          Күнделікті тегін матчтар, xG аналитика, LIVE ставкалар мен VIP экспресстерді жіберіп алмау үшін біздің ресми Telegram каналымызға өтіңіз.
+        </p>
+
+        <a href="https://t.me/" target="_blank" class="inline-flex items-center justify-center space-x-3 w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-sky-400 via-cyan-400 to-sky-500 text-slate-950 font-black text-base transition shadow-xl hover:brightness-110 active:scale-95 glow-blue">
+          <i class="fa-brands fa-telegram text-2xl"></i>
+          <span class="lang-tg-btn">TELEGRAM КАНАЛҒА ӨТУ</span>
+        </a>
+
+        <div class="mt-8 pt-6 border-t border-slate-800/80 flex items-center justify-around text-xs text-slate-400">
+          <div class="flex items-center space-x-1.5">
+            <i class="fa-solid fa-bolt text-sky-400"></i>
+            <span>Жылдам LIVE</span>
+          </div>
+          <div class="flex items-center space-x-1.5">
+            <i class="fa-solid fa-shield-halved text-sky-400"></i>
+            <span>100% Сенімділік</span>
+          </div>
+          <div class="flex items-center space-x-1.5">
+            <i class="fa-solid fa-users text-sky-400"></i>
+            <span>Белсенді Қоғамдастық</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -232,7 +243,6 @@
 
         <!-- Wheel Canvas & Pointer container -->
         <div class="relative w-72 h-72 mx-auto my-4 flex items-center justify-center">
-          <!-- Pointer -->
           <div class="absolute -top-3 z-20 text-sky-400 text-3xl filter drop-shadow">
             <i class="fa-solid fa-caret-down"></i>
           </div>
@@ -338,7 +348,6 @@
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
         
         <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 pb-6 border-b border-slate-800">
-          <!-- User Avatar Selector -->
           <div class="relative group cursor-pointer" onclick="cycleAvatar()">
             <div id="userAvatar" class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-sky-600 to-cyan-400 flex items-center justify-center text-slate-950 text-3xl font-black border-2 border-sky-300 shadow-lg">
               <i class="fa-solid fa-user-ninja"></i>
@@ -369,7 +378,6 @@
           </div>
         </div>
 
-        <!-- Saved Bonuses & History -->
         <div class="pt-6">
           <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
             <i class="fa-solid fa-clock-rotate-left text-sky-400"></i>
@@ -389,8 +397,8 @@
   <footer class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0F172A]/95 backdrop-blur border-t border-slate-800 py-2 px-3">
     <div class="flex justify-around items-center">
       <button onclick="switchTab('matches')" id="m-nav-matches" class="mobile-nav-btn flex flex-col items-center space-y-1 text-sky-400">
-        <i class="fa-solid fa-chart-line text-lg"></i>
-        <span class="text-[10px] font-medium lang-matches">Болжам</span>
+        <i class="fa-brands fa-telegram text-lg"></i>
+        <span class="text-[10px] font-medium lang-matches">Телеграм</span>
       </button>
 
       <button onclick="switchTab('calculator')" id="m-nav-calculator" class="mobile-nav-btn flex flex-col items-center space-y-1 text-slate-400">
@@ -424,83 +432,6 @@
     // --- Application State Management ---
     let currentLang = 'kk';
     let activeTab = 'matches';
-    let currentSportFilter = 'all';
-
-    // Sports Data
-    const matchesData = [
-      {
-        id: 1,
-        sport: 'football',
-        league: 'UEFA Champions League',
-        home: 'Real Madrid',
-        away: 'Manchester City',
-        time: 'Бүгін, 23:59',
-        homeOdds: '2.45',
-        drawOdds: '3.50',
-        awayOdds: '2.80',
-        recommendation: { kk: 'Жалпы тотал (2.5) Үсті', ru: 'Тотал больше (2.5)' },
-        confidence: '89%',
-        xG: '2.10 vs 1.95',
-        analysis: {
-          kk: 'Реалдың шабуыл шебі жоғары бабында. Ситидің қорғанысында жарақаттар бар. Жоғары нәтижелі матч күтілуде.',
-          ru: 'Атакующая линия Реала в отличной форме. Сити имеет проблемы в защите. Ожидается результативный матч.'
-        }
-      },
-      {
-        id: 2,
-        sport: 'football',
-        league: 'English Premier League',
-        home: 'Arsenal',
-        away: 'Liverpool',
-        time: 'Ертең, 21:30',
-        homeOdds: '2.10',
-        drawOdds: '3.40',
-        awayOdds: '3.20',
-        recommendation: { kk: 'Арсенал Жеңісі (П1)', ru: 'Победа Арсенала (П1)' },
-        confidence: '82%',
-        xG: '1.85 vs 1.20',
-        analysis: {
-          kk: 'Арсенал өз алаңында соңғы 6 матчта жеңіске жетті. Ливерпульдың қонақтағы көрсеткіші төмен.',
-          ru: 'Арсенал выиграл последние 6 домашних матчей. Ливерпуль нестабилен на выезде.'
-        }
-      },
-      {
-        id: 3,
-        sport: 'basketball',
-        league: 'NBA',
-        home: 'LA Lakers',
-        away: 'Golden State Warriors',
-        time: 'Бүгін, 07:30',
-        homeOdds: '1.80',
-        drawOdds: '-',
-        awayOdds: '2.05',
-        recommendation: { kk: 'Фора 1 (-3.5)', ru: 'Фора 1 (-3.5)' },
-        confidence: '85%',
-        xG: '112.5 vs 108.0',
-        analysis: {
-          kk: 'Лейкерс өз алаңында сенімді өнер көрсетіп келеді. Стеф Карриде жеңіл жарақат белгілері бар.',
-          ru: 'Лейкерс уверенно играют дома. У Стефа Карри есть небольшое повреждение.'
-        }
-      },
-      {
-        id: 4,
-        sport: 'tennis',
-        league: 'ATP Grand Slam',
-        home: 'Novak Djokovic',
-        away: 'Carlos Alcaraz',
-        time: 'Ертең, 18:00',
-        homeOdds: '1.90',
-        drawOdds: '-',
-        awayOdds: '1.90',
-        recommendation: { kk: 'Сеттер тоталы (3.5) Үсті', ru: 'Тотал сетов (3.5) Больше' },
-        confidence: '91%',
-        xG: '51% vs 49%',
-        analysis: {
-          kk: 'Тартысты финалдық бәсеке. Екі теннисші де шыңында, минимум 4 сет күтіледі.',
-          ru: 'Упорный финальный поединок. Оба теннисиста на пике, ожидается минимум 4 сета.'
-        }
-      }
-    ];
 
     // Roulette Prizes Configuration
     const roulettePrizes = [
@@ -517,15 +448,14 @@
       kk: {
         headerSubtitle: "Спорттық аналитика & Болжамдар",
         tgBtnText: "Телеграм",
-        matches: "Болжамдар",
+        matches: "Телеграм Канал",
         calculator: "Банк Калькуляторы",
         roulette: "Рулетка 24 сағат",
         course: "Оқу залы",
         profile: "Профиль / VIP",
-        all: "Барлығы",
-        football: "Футбол",
-        basketball: "Баскетбол",
-        tennis: "Теннис",
+        tgTitle: "Барлық Экспресс пен Болжамдар Телеграмда!",
+        tgDesc: "Күнделікті тегін матчтар, xG аналитика, LIVE ставкалар мен VIP экспресстерді жіберіп алмау үшін біздің ресми Telegram каналымызға өтіңіз.",
+        tgBtn: "TELEGRAM КАНАЛҒА ӨТУ",
         calcTitle: "Банк-менеджмент Калькуляторы",
         calcDesc: "Тәуекелді азайту және дұрыс ставка сомасын есептеу",
         labelBank: "Жалпы Банк Сомасы (₸ / $)",
@@ -551,15 +481,14 @@
       ru: {
         headerSubtitle: "Спортивная аналитика & Прогнозы",
         tgBtnText: "Телеграм",
-        matches: "Прогнозы",
+        matches: "Телеграм Канал",
         calculator: "Калькулятор Банка",
         roulette: "Рулетка 24 часа",
         course: "Обучение",
         profile: "Профиль / VIP",
-        all: "Все",
-        football: "Футбол",
-        basketball: "Баскетбол",
-        tennis: "Теннис",
+        tgTitle: "Все Экспрессы и Прогнозы в Телеграме!",
+        tgDesc: "Переходите в наш официальный Telegram канал, чтобы не пропустить ежедневные бесплатные матчи, xG аналитику и VIP экспрессы.",
+        tgBtn: "ПЕРЕЙТИ В TELEGRAM",
         calcTitle: "Калькулятор Банк-менеджмента",
         calcDesc: "Снижение рисков и расчет оптимального размера ставки",
         labelBank: "Общий Банк (₸ / $)",
@@ -585,7 +514,6 @@
     };
 
     window.onload = function() {
-      renderMatches();
       calculateBankroll();
       drawRouletteWheel();
       checkRouletteTimer();
@@ -643,10 +571,9 @@
       document.querySelectorAll('.lang-course').forEach(el => el.innerText = langData.course);
       document.querySelectorAll('.lang-profile').forEach(el => el.innerText = langData.profile);
 
-      document.querySelectorAll('.lang-all').forEach(el => el.innerText = langData.all);
-      document.querySelectorAll('.lang-football').forEach(el => el.innerText = langData.football);
-      document.querySelectorAll('.lang-basketball').forEach(el => el.innerText = langData.basketball);
-      document.querySelectorAll('.lang-tennis').forEach(el => el.innerText = langData.tennis);
+      document.querySelectorAll('.lang-tg-title').forEach(el => el.innerText = langData.tgTitle);
+      document.querySelectorAll('.lang-tg-desc').forEach(el => el.innerText = langData.tgDesc);
+      document.querySelectorAll('.lang-tg-btn').forEach(el => el.innerText = langData.tgBtn);
 
       document.querySelectorAll('.lang-calc-title').forEach(el => el.innerText = langData.calcTitle);
       document.querySelectorAll('.lang-calc-desc').forEach(el => el.innerText = langData.calcDesc);
@@ -673,100 +600,8 @@
 
       document.querySelectorAll('.lang-history-title').forEach(el => el.innerText = langData.historyTitle);
 
-      renderMatches();
       drawRouletteWheel();
       renderPromoHistory();
-    }
-
-    // Sports Filtering
-    function filterSport(sport) {
-      currentSportFilter = sport;
-      document.querySelectorAll('.sport-filter-btn').forEach(btn => {
-        btn.className = 'sport-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800';
-      });
-
-      const activeBtn = document.getElementById(`filter-${sport}`);
-      if(activeBtn) {
-        activeBtn.className = 'sport-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-sky-500 text-slate-950 border border-sky-400 shadow';
-      }
-
-      renderMatches();
-    }
-
-    function renderMatches() {
-      const container = document.getElementById('matchesContainer');
-      container.innerHTML = '';
-
-      const filtered = currentSportFilter === 'all' 
-        ? matchesData 
-        : matchesData.filter(m => m.sport === currentSportFilter);
-
-      if (filtered.length === 0) {
-        container.innerHTML = `<div class="col-span-2 text-center py-8 text-slate-400 text-sm">Бұл категорияда қазірше матчтар жоқ.</div>`;
-        return;
-      }
-
-      filtered.forEach(m => {
-        const card = document.createElement('div');
-        card.className = "bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 shadow-lg relative overflow-hidden transition";
-        
-        card.innerHTML = `
-          <div class="flex justify-between items-center mb-3">
-            <span class="text-xs font-bold text-sky-400 bg-sky-500/10 px-2.5 py-1 rounded-md border border-sky-500/20">
-              ${m.league}
-            </span>
-            <span class="text-xs text-slate-400 font-medium">
-              <i class="fa-regular fa-clock mr-1"></i>${m.time}
-            </span>
-          </div>
-
-          <div class="flex items-center justify-between my-4 text-center">
-            <div class="w-2/5">
-              <div class="font-bold text-white text-base">${m.home}</div>
-              <div class="text-xs text-slate-400">Алаң иелері</div>
-            </div>
-            <div class="text-sky-400 font-black text-sm px-2">VS</div>
-            <div class="w-2/5">
-              <div class="font-bold text-white text-base">${m.away}</div>
-              <div class="text-xs text-slate-400">Қонақтар</div>
-            </div>
-          </div>
-
-          <!-- Odds Row -->
-          <div class="grid grid-cols-3 gap-2 my-3 text-center bg-slate-950 p-2 rounded-xl border border-slate-800/80">
-            <div>
-              <span class="text-[10px] text-slate-400 block">П1</span>
-              <span class="text-xs font-bold text-sky-300">${m.homeOdds}</span>
-            </div>
-            <div>
-              <span class="text-[10px] text-slate-400 block">Х</span>
-              <span class="text-xs font-bold text-sky-300">${m.drawOdds}</span>
-            </div>
-            <div>
-              <span class="text-[10px] text-slate-400 block">П2</span>
-              <span class="text-xs font-bold text-sky-300">${m.awayOdds}</span>
-            </div>
-          </div>
-
-          <!-- Analysis & Recommendation Box -->
-          <div class="bg-sky-500/10 border border-sky-500/20 rounded-xl p-3 mt-4">
-            <div class="flex justify-between items-center mb-1">
-              <span class="text-xs text-slate-300 font-semibold">Ұсынылатын Болжам:</span>
-              <span class="text-xs font-black text-sky-400"><i class="fa-solid fa-chart-pie mr-1"></i>Сеніімділік: ${m.confidence}</span>
-            </div>
-            <div class="text-sm font-extrabold text-white mb-2">${m.recommendation[currentLang]}</div>
-            <p class="text-xs text-slate-300 leading-relaxed border-t border-slate-800 pt-2">
-              ${m.analysis[currentLang]}
-            </p>
-            <div class="mt-2 text-[10px] text-slate-400 flex justify-between">
-              <span>xG Индикатор: <strong class="text-white">${m.xG}</strong></span>
-              <span class="text-sky-400 font-bold">Armani AI Algorithmic</span>
-            </div>
-          </div>
-        `;
-
-        container.appendChild(card);
-      });
     }
 
     // Bankroll Calculator
@@ -800,7 +635,6 @@
 
       ctx.clearRect(0, 0, 300, 300);
 
-      // Blue, Slate & White Color Palette for Roulette
       const colors = ['#0EA5E9', '#0F172A', '#0284C7', '#1E293B', '#38BDF8', '#090D16'];
 
       for (let i = 0; i < roulettePrizes.length; i++) {
@@ -1014,4 +848,4 @@
     }
   </script>
 </body>
-              </html>
+</html>
