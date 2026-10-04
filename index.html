@@ -377,6 +377,37 @@ footer { text-align: center; padding: 15px; font-size: 11px; color: var(--subtex
   </div>
 </div>
 
+<!-- ========================================== -->
+<!-- ЖАҢА ҚОСЫЛҒАН ФУНКЦИОНАЛДАР ПАНЕЛІ & МОДАЛЬ -->
+<!-- ========================================== -->
+
+<!-- FLOATING EXTRA PANEL (LOGGING, CSV EXPORT, TELEGRAM ALERT) -->
+<div id="site-extra-panel" style="position: fixed; bottom: 75px; left: 20px; z-index: 1000; display: flex; gap: 8px; background: var(--card); padding: 8px 12px; border-radius: 20px; border: 1px solid var(--card-border); box-shadow: 0 4px 15px rgba(0,0,0,0.3); backdrop-filter: blur(5px);">
+  <button onclick="exportPageData()" style="background: var(--green); color: white; border: none; padding: 6px 10px; border-radius: 12px; cursor: pointer; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+    <i class="fa-solid fa-file-csv"></i> CSV
+  </button>
+  <button onclick="openTelegramModal()" style="background: var(--telegram); color: white; border: none; padding: 6px 10px; border-radius: 12px; cursor: pointer; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+    <i class="fa-paper-plane"></i> Жазу
+  </button>
+</div>
+
+<!-- TELEGRAM MESSAGE MODAL -->
+<div id="tg-modal" class="modal-overlay">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeTelegramModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div style="width: 50px; height: 50px; background: rgba(0,136,204,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto; color: var(--telegram); font-size: 22px;">
+      <i class="fa-paper-plane"></i>
+    </div>
+    <h3 style="font-size: 18px; font-weight: 800; margin: 0 0 6px 0;">Админге хабарлама жіберу</h3>
+    <p style="font-size: 11px; color: var(--subtext); margin-bottom: 12px;">Сұрағыңыз немесе ұсынысыңыз болса тікелей жазыңыз.</p>
+    <textarea id="tg-message" placeholder="Сұрағыңызды жазыңыз..." style="width: 100%; height: 90px; margin-bottom: 12px; background: var(--input-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px; color: var(--text); font-size: 12px; outline: none; font-family: inherit; resize: none;"></textarea>
+    <div style="display: flex; gap: 10px;">
+      <button onclick="sendToTelegram()" class="btn-save" style="margin-top: 0;">Жіберу</button>
+      <button onclick="closeTelegramModal()" class="btn-logout" style="margin-top: 0;">Жабу</button>
+    </div>
+  </div>
+</div>
+
 <!-- BOTTOM NAVIGATION BAR -->
 <div class="bottom-nav">
   <button class="bottom-nav-item active" id="navBottomStat" onclick="switchPage('statSection', this)">
@@ -606,6 +637,12 @@ window.addEventListener('load', () => {
   const savedLang = localStorage.getItem('armani_lang') || 'kk';
   setLanguage(savedLang);
   
+  // LOGGING & CACHING LOGIC
+  let visitCount = localStorage.getItem("armani_page_visits") || 0;
+  visitCount++;
+  localStorage.setItem("armani_page_visits", visitCount);
+  console.log(`[Activity Log]: Бет жүктелді. Пайдаланушының сайтқа кіру саны: ${visitCount}`);
+
   // Рулетка сәтті салынуы үшін Canvas бастапқы баптауы
   drawWheel();
 
@@ -647,14 +684,12 @@ function switchPage(pageId, el) {
   if (el) {
     el.classList.add('active');
   } else {
-    // Егер батырма көрсетілмесе (мысалы логотип арқылы өткенде) белсенді класты орнату
     if(pageId === 'statSection') {
       document.getElementById('navBottomStat').classList.add('active');
       document.getElementById('navDrawerStat').classList.add('active');
     }
   }
 
-  // Егер Рулетка бетіне өтсе, canvas-ты қайта сызу (көрінбей калу қатесін болдырмау үшін)
   if(pageId === 'wheelSection') {
     drawWheel();
   }
@@ -750,6 +785,73 @@ function changeAvatar(event) {
 function logout() {
   localStorage.clear();
   location.reload();
+}
+
+/* CSV EXPORT FUNCTION */
+function exportPageData() {
+  let pageTitle = document.title;
+  let visits = localStorage.getItem("armani_page_visits") || 1;
+  let userName = localStorage.getItem("armani_name") || "Қонақ";
+  let promo = localStorage.getItem("armani_promo") || "Жоқ";
+
+  let csvContent = "data:text/csv;charset=utf-8,\uFEFF" 
+    + "Параметр,Мән\n"
+    + `Сайт атауы,${pageTitle}\n`
+    + `Кіру саны,${visits}\n`
+    + `Пайдаланушы,${userName}\n`
+    + `Промокод,${promo}\n`
+    + `Экспорт уақыты,${new Date().toLocaleString()}\n`;
+
+  let encodedUri = encodeURI(csvContent);
+  let link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "armani_analytics_data.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+/* TELEGRAM ALERT FUNCTIONS */
+function openTelegramModal() {
+  openModal('tg-modal');
+}
+
+function closeTelegramModal() {
+  closeModal('tg-modal');
+}
+
+function sendToTelegram() {
+  const msg = document.getElementById('tg-message').value;
+  if (!msg) return alert("Хабарлама мәтінін жазыңыз!");
+
+  const BOT_TOKEN = "YOUR_BOT_TOKEN"; 
+  const CHAT_ID = "YOUR_CHAT_ID";
+
+  if (BOT_TOKEN === "YOUR_BOT_TOKEN") {
+    alert("Хабарлама сақталды! Телеграм бот баптаулары қосылғанда авто-жіберіледі.");
+    document.getElementById('tg-message').value = '';
+    closeTelegramModal();
+    return;
+  }
+
+  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: CHAT_ID,
+      text: `📩 Armani Analetik сайттан жаңа хабарлама:\n\n${msg}\n\nУақыты: ${new Date().toLocaleString()}`
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert("Хабарлама сәтті жіберілді!");
+    document.getElementById('tg-message').value = '';
+    closeTelegramModal();
+  })
+  .catch(err => {
+    alert("Жіберу кезінде қате шықты!");
+    console.error(err);
+  });
 }
 
 /* WHEEL ENGINE */
